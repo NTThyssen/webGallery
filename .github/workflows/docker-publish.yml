@@ -28,5 +28,5 @@ jobs:
       with:
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/nttyssen/webGallery:latest 
+        tags: ghcr.io/webGallery/webgallery:latest 
     
