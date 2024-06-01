@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master  
-
+permissions:
+  contents: read
+  packages: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,5 +32,5 @@ jobs:
       with:
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/webgallery/webgallery:latest 
+        tags: ghcr.io/ntthyssen/webgallery:latest 
     
