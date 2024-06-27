@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'project_gallery/**'
-      - '.gtihub/workflows/docker-publish.yml'
+      - '.github/workflows/docker-publish.yml'
 
     branches:
       - master  
