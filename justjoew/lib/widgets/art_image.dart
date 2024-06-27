@@ -26,11 +26,11 @@ class _ArtImageState extends State<ArtImage> {
         });
       },
       child: SizedBox(
-        height: 220,
+        height: 90,
         child: Column(children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            height: isHover ? 220 : 200,
+            height: isHover ? 90 : 80,
             child: PhysicalModel(
               elevation: isHover ? 16 : 0,
               color: Colors.transparent,
@@ -41,28 +41,9 @@ class _ArtImageState extends State<ArtImage> {
                     // Your main content
                     Image.asset(
                       widget.path,
-                      width: 150,
-                      height: 200,
+                      width: 60,
+                      height: 80,
                       fit: BoxFit.cover,
-                    ),
-                    // Watermark overlay
-                    const SizedBox(
-                      width: 150,
-                      height: 200,
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Opacity(
-                          opacity: 0.7,
-                          child: RotatedBox(
-                            quarterTurns: 0,
-                            child: Text(
-                              "WATER MARKED",
-                              style:
-                                  TextStyle(fontSize: 50, color: Colors.pink),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ]),
                 ),

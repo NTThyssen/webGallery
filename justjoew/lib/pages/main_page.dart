@@ -14,15 +14,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SideBar(),
-        Container(
-          width: 100,
-        ),
-        SingleChildScrollView(child: MainContent())
-      ],
-    );
+    return SingleChildScrollView(child: MainContent());
   }
 }
