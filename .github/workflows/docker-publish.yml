@@ -32,6 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         working-directory: ./project_gallery
+        file: ./Dockerfile
         push: true
         tags: ghcr.io/ntthyssen/justjoew:latest 
     
