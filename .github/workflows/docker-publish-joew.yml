@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'justjoew/**'
+      - '.gtihub/workflows/docker-publish-joew.yml'
     branches:
       - master  
 permissions:
@@ -31,8 +32,8 @@ jobs:
     - name: Build and push Docker  image
       uses: docker/build-push-action@v3
       with:
-        working-directory: ./justjoew
-        file: ./Dockerfile
+        context: ./justjoew
+        file: ./justjoew/Dockerfile
         push: true
-        tags: ghcr.io/ntthyssen/webgallery:latest 
+        tags: ghcr.io/ntthyssen/justjoew:latest 
     

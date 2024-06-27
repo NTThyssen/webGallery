@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'project_gallery/**'
+      - '.gtihub/workflows/docker-publish.yml'
+
     branches:
       - master  
 permissions:
@@ -31,8 +33,8 @@ jobs:
     - name: Build and push Docker  image
       uses: docker/build-push-action@v3
       with:
-        working-directory: ./project_gallery
+        context: ./project_gallery
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/ntthyssen/justjoew:latest 
+        tags: ghcr.io/ntthyssen/webgallery:latest 
     
