@@ -31,7 +31,7 @@ jobs:
     - name: Build and push Docker  image
       uses: docker/build-push-action@v3
       with:
-        file: ./project_gallery/Dockerfile
+        working-directory: ./project_gallery
         push: true
         tags: ghcr.io/ntthyssen/justjoew:latest 
     
