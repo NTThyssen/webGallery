@@ -2,12 +2,14 @@ name: Build and Push Docker image
 
 on:
   push:
+    paths:
+      - 'project_gallery/**'
     branches:
       - master  
 permissions:
   contents: read
   packages: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +24,6 @@ jobs:
     - name: Login to GitHub Registry
       uses: docker/login-action@v3
       with:
-        logout: false
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}  
@@ -32,5 +33,5 @@ jobs:
       with:
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/ntthyssen/webgallery:latest 
+        tags: ghcr.io/ntthyssen/justjoew:latest 
     
