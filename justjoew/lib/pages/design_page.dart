@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/mixins/scaffoldMixin.dart';
 import 'package:justjoew/widgets/art_image.dart';
 
 class DesignPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class DesignPage extends StatefulWidget {
 }
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
-  late final GifController controller1, controller2, controller3;
+  late final GifController controller1, controller2;
   int _fps = 20;
 
   @override
@@ -69,5 +70,13 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ),
           ]),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller2.dispose();
+    controller1.dispose();
+    super.dispose();
   }
 }
