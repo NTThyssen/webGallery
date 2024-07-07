@@ -14,6 +14,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: MainContent());
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Image.asset(
+        "images/landingpageImage.png",
+        fit: BoxFit.fill,
+      ),
+    ); 
   }
 }

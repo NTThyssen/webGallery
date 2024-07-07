@@ -12,15 +12,19 @@ class MainContent extends StatefulWidget {
 class _MainContentState extends State<MainContent> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.70,
-            padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-            child: DesignPage(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.70,
+                padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
+                child: DesignPage(),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -11,7 +11,7 @@ class DesignPage extends StatefulWidget {
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   late final GifController controller1, controller2, controller3;
-  int _fps = 30;
+  int _fps = 20;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               image: AssetImage("images/RatDanceJam10.gif"),
               controller:
                   controller1, // if duration and fps is null, original gif fps will be used.
-              //fps: 30,
+              fps: 20,
               //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
@@ -57,14 +57,14 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               height: 80,
               image: AssetImage("images/RatShyNotNaked.gif"),
               controller:
-                  controller1, // if duration and fps is null, original gif fps will be used.
-              //fps: 30,
+                  controller2, // if duration and fps is null, original gif fps will be used.
+              fps: 20,
               //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
-                controller1.reset();
-                controller1.forward();
+                controller2.reset();
+                controller2.forward();
               },
             ),
           ]),
