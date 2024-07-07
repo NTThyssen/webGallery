@@ -41,7 +41,7 @@ class _ArtImageState extends State<ArtImage> {
                     // Your main content
                     Image.asset(
                       widget.path,
-                      width: 60,
+                      width: 80,
                       height: 80,
                       fit: BoxFit.cover,
                     ),
