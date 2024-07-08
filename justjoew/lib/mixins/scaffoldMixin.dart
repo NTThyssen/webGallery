@@ -4,7 +4,7 @@ import 'package:justjoew/utils/navigator/navigator.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const ResponsiveAppBar({super.key, required this.title});
+  ResponsiveAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,9 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           return AppBar(
             backgroundColor: Color(0xff212121),
             title: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go(ROOT_PATH);
+              },
               child: Text(
                 title,
                 style: TextStyle(
@@ -28,7 +30,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             actions: [
               TextButton(
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   "ABOUT ME",
                   style: TextStyle(
                     fontSize: 22,
@@ -80,6 +82,8 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             toolbarHeight: 80,
             centerTitle: true,
+            elevation: 1,
+            shadowColor: Colors.white,
           );
         } else {
           // Simplified AppBar for smaller screens
@@ -192,91 +196,6 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
 
   PreferredSizeWidget appBar() {
     return ResponsiveAppBar(title: "JustJoeW");
-    return AppBar(
-      actions: [
-        TextButton(
-          onPressed: () {},
-          child: const Text(
-            "ABOUT ME",
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.lightBlue,
-            ),
-          ),
-        ),
-        TextButton(
-          onPressed: () {},
-          child: const Text(
-            "CONTACTS",
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.lightBlue,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 50,
-        )
-      ],
-      automaticallyImplyLeading: false,
-      leadingWidth: 300,
-      leading: Row(
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              "COMISSIONS",
-              style: TextStyle(
-                fontSize: 22,
-                color: Colors.lightBlue,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              context.go(PORTFOLIO_PATH);
-            },
-            child: const Text(
-              "PORTFOLIO",
-              style: TextStyle(
-                fontSize: 22,
-                color: Colors.lightBlue,
-              ),
-            ),
-          ),
-        ],
-      ),
-      toolbarHeight: 80,
-      centerTitle: true,
-      backgroundColor: Color(0xff212121), // Colors.blue[900],
-      title: TextButton(
-        onPressed: () {},
-        child: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'JustJoe',
-                style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: 'w',
-                style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Cursive', // Use a cursive font
-                ),
-              ),
-            ],
-          ),
-        ), //Text(widget.title,
-        //style: const TextStyle(color: Colors.white, fontSize: 40)),
-      ),
-    );
   }
 
   Widget body();

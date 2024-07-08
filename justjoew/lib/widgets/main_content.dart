@@ -11,7 +11,6 @@ class MainContent extends StatefulWidget {
 }
 
 class _MainContentState extends State<MainContent> with BasicMixin {
-
   @override
   Widget body() {
     return Center(
