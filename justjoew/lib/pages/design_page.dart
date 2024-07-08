@@ -94,8 +94,8 @@ class EmoteSection extends StatelessWidget {
               alignment:
                   WrapAlignment.center, // centers the children in the Wrap
 
-              runSpacing: 150,
-              spacing: 150,
+              runSpacing: 40,
+              spacing: 80,
               children: [
                 ArtImage(path: 'images/cry15.png'),
                 ArtImage(path: 'images/ez8.png'),
