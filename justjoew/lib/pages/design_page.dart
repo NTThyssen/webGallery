@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
-import 'package:justjoew/mixins/scaffoldMixin.dart';
 import 'package:justjoew/widgets/art_image.dart';
 
 class DesignPage extends StatefulWidget {
