@@ -27,14 +27,51 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     return Column(
       children: [
         EmoteSection(
-          controller1: controller1,
-          controller2: controller2,
           header: "ScatRatt",
+          portfolioWidgets: [
+            ArtImage(path: 'images/cry15.png'),
+            ArtImage(path: 'images/ez8.png'),
+            ArtImage(path: 'images/heart2.png'),
+            ArtImage(path: 'images/helloRat.png'),
+            ArtImage(path: 'images/lulrat.png'),
+            ArtImage(path: 'images/pat7.png'),
+            Gif(
+              width: 80,
+              height: 80,
+              image: AssetImage("images/RatDanceJam10.gif"),
+              controller:
+                  controller1, // if duration and fps is null, original gif fps will be used.
+              fps: 20,
+              //duration: const Duration(seconds: 3),
+              autostart: Autostart.loop,
+              placeholder: (context) => const Text('Loading...'),
+              onFetchCompleted: () {
+                controller1.reset();
+                controller1.forward();
+              },
+            ),
+            Gif(
+              width: 80,
+              height: 80,
+              image: AssetImage("images/RatShyNotNaked.gif"),
+              controller:
+                  controller2, // if duration and fps is null, original gif fps will be used.
+              fps: 20,
+              //duration: const Duration(seconds: 3),
+              autostart: Autostart.loop,
+              placeholder: (context) => const Text('Loading...'),
+              onFetchCompleted: () {
+                controller2.reset();
+                controller2.forward();
+              },
+            ),
+          ],
         ),
         EmoteSection(
-          controller1: controller3,
-          controller2: controller4,
           header: "NotScatRatt",
+          portfolioWidgets: [
+            ArtImage(path: 'images/WaveBlue.png'),
+          ],
         ),
       ],
     );
@@ -53,13 +90,10 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
 class EmoteSection extends StatelessWidget {
   const EmoteSection(
-      {super.key,
-      required this.controller1,
-      required this.controller2,
-      required this.header});
+      {super.key, required this.portfolioWidgets, required this.header});
 
-  final GifController controller1;
-  final GifController controller2;
+  final List<Widget> portfolioWidgets;
+
   final String header;
   @override
   Widget build(BuildContext context) {
@@ -81,8 +115,8 @@ class EmoteSection extends StatelessWidget {
         Divider(
           thickness: 0.7,
           color: Colors.lightBlue,
-          endIndent: 400,
-          indent: 400,
+          endIndent: MediaQuery.of(context).size.width * 0.22,
+          indent: MediaQuery.of(context).size.width * 0.22,
         ),
         SizedBox(
           height: 30,
@@ -96,44 +130,7 @@ class EmoteSection extends StatelessWidget {
 
               runSpacing: 40,
               spacing: 80,
-              children: [
-                ArtImage(path: 'images/cry15.png'),
-                ArtImage(path: 'images/ez8.png'),
-                ArtImage(path: 'images/heart2.png'),
-                ArtImage(path: 'images/helloRat.png'),
-                ArtImage(path: 'images/lulrat.png'),
-                ArtImage(path: 'images/pat7.png'),
-                Gif(
-                  width: 80,
-                  height: 80,
-                  image: AssetImage("images/RatDanceJam10.gif"),
-                  controller:
-                      controller1, // if duration and fps is null, original gif fps will be used.
-                  fps: 20,
-                  //duration: const Duration(seconds: 3),
-                  autostart: Autostart.loop,
-                  placeholder: (context) => const Text('Loading...'),
-                  onFetchCompleted: () {
-                    controller1.reset();
-                    controller1.forward();
-                  },
-                ),
-                Gif(
-                  width: 80,
-                  height: 80,
-                  image: AssetImage("images/RatShyNotNaked.gif"),
-                  controller:
-                      controller2, // if duration and fps is null, original gif fps will be used.
-                  fps: 20,
-                  //duration: const Duration(seconds: 3),
-                  autostart: Autostart.loop,
-                  placeholder: (context) => const Text('Loading...'),
-                  onFetchCompleted: () {
-                    controller2.reset();
-                    controller2.forward();
-                  },
-                ),
-              ]),
+              children: portfolioWidgets),
         ),
         SizedBox(
           height: 100,
