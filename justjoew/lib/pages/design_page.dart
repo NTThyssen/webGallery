@@ -130,7 +130,13 @@ class EmoteSection extends StatelessWidget {
                 fontSize: 36.0,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'SourceCodePro',
-                decoration: TextDecoration.underline,
+                shadows: [
+                  Shadow(
+                    color: Colors.black, // Specify shadow color and opacity
+                    offset: Offset(2, 2), // Specify shadow offset
+                    blurRadius: 4, // Specify shadow blur radius
+                  ),
+                ],
               ),
             ),
           ),
