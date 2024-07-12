@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
 import 'package:justjoew/widgets/art_image.dart';
+import 'package:justjoew/widgets/custom_header.dart';
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -26,6 +27,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        CustomHeaderLarge(text: 'EMOTES'),
         EmoteSection(
           header: "ScatRatt",
           portfolioWidgets: [
@@ -41,7 +43,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               image: AssetImage("images/RatDanceJam10.gif"),
               controller:
                   controller1, // if duration and fps is null, original gif fps will be used.
-              fps: 20,
+              fps: 16,
               //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
@@ -56,7 +58,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               image: AssetImage("images/RatShyNotNaked.gif"),
               controller:
                   controller2, // if duration and fps is null, original gif fps will be used.
-              fps: 20,
+              fps: 16,
               //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
@@ -103,18 +105,19 @@ class EmoteSection extends StatelessWidget {
           onPressed: () {},
           child: Text(
             header,
-            style: TextStyle(
+            style: const TextStyle(
               // decoration: TextDecoration.underline,
-              decorationColor: Colors.lightBlue,
-              color: Colors.lightBlue,
+              decorationColor: Colors.lightBlue200,
+              color: Colors.lightBlue200,
               fontSize: 36.0,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'SourceCodePro',
             ),
           ),
         ),
         Divider(
           thickness: 0.7,
-          color: Colors.lightBlue,
+          color: Colors.lightBlue100,
           endIndent: MediaQuery.of(context).size.width * 0.22,
           indent: MediaQuery.of(context).size.width * 0.22,
         ),
