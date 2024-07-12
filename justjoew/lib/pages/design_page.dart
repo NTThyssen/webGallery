@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
+import 'package:url_launcher/url_launcher.dart'; 
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -29,7 +31,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       children: [
         CustomHeaderLarge(text: 'EMOTES'),
         EmoteSection(
-          header: "ScatRatt",
+          header: "ScatRatt", url: 'https://www.twitch.tv/scatratt/about',
           portfolioWidgets: [
             ArtImage(path: 'images/cry15.png'),
             ArtImage(path: 'images/ez8.png'),
@@ -70,7 +72,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ],
         ),
         EmoteSection(
-          header: "NotScatRatt",
+          header: "NotScatRatt", url: 'https://www.twitch.tv/olmaph/about',
           portfolioWidgets: [
             ArtImage(path: 'images/WaveBlue.png'),
           ],
@@ -91,35 +93,53 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 }
 
 class EmoteSection extends StatelessWidget {
-  const EmoteSection(
-      {super.key, required this.portfolioWidgets, required this.header});
+  const EmoteSection({
+    super.key,
+    required this.portfolioWidgets,
+    required this.header,
+    required this.url, // Add the URL parameter
+  });
 
   final List<Widget> portfolioWidgets;
-
   final String header;
+  final String url; // Add the URL field
+
+  Future<void> _launchUrl(BuildContext context, String url) async {
+  final Uri uri = Uri.parse(url);
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString(), forceWebView: true, enableJavaScript: true);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not launch $url')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            header,
-            style: const TextStyle(
-              // decoration: TextDecoration.underline,
-              decorationColor: Colors.lightBlue200,
-              color: Colors.lightBlue200,
-              fontSize: 36.0,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'SourceCodePro',
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => _launchUrl(context, url),
+            child: Text(
+              header,
+              style: const TextStyle(
+                color: Colors.lightBlue200,
+                fontSize: 36.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'SourceCodePro',
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
         Divider(
           thickness: 0.7,
           color: Colors.lightBlue100,
-          endIndent: MediaQuery.of(context).size.width * 0.22,
-          indent: MediaQuery.of(context).size.width * 0.22,
+          endIndent: MediaQuery.of(context).size.width * 0.20,
+          indent: MediaQuery.of(context).size.width * 0.20,
         ),
         SizedBox(
           height: 30,
