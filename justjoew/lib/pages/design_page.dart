@@ -4,6 +4,8 @@ import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 import 'package:url_launcher/url_launcher.dart'; 
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:justjoew/constants/costum_colors.dart';
+
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -126,7 +128,7 @@ class EmoteSection extends StatelessWidget {
             child: Text(
               header,
               style: const TextStyle(
-                color: Colors.lightBlue200,
+                color: blueThemePrimary,
                 fontSize: 36.0,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'SourceCodePro',
@@ -143,7 +145,7 @@ class EmoteSection extends StatelessWidget {
         ),
         Divider(
           thickness: 0.7,
-          color: Colors.lightBlue100,
+          color: blueThemePrimary100,
           endIndent: MediaQuery.of(context).size.width * 0.20,
           indent: MediaQuery.of(context).size.width * 0.20,
         ),
