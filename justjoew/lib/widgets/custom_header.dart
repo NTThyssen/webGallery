@@ -16,7 +16,7 @@ class CustomHeaderLarge extends StatelessWidget {
             text,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 64.0,
+              fontSize: 60.0,
               fontWeight: FontWeight.w500,
               fontFamily: 'SourceCodePro',
             ),
