@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:justjoew/mixins/scaffoldMixin.dart';
 import 'package:justjoew/pages/main_page.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
+import 'package:justjoew/constants/costum_colors.dart';
 
 void main() {
   runApp(const MyInitApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue[900]!),
+        colorScheme: ColorScheme.fromSeed(seedColor: blueThemePrimary),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Just Joew'),
