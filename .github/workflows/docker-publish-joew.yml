@@ -36,4 +36,7 @@ jobs:
         file: ./justjoew/Dockerfile
         push: true
         tags: ghcr.io/ntthyssen/justjoew:latest 
+    - name: Run curl command
+      run: |
+        curl -X POST "http://z-signal.net:9301/deploy?servicename=justjoew""
     

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:justjoew/mixins/scaffoldMixin.dart';
 import 'package:justjoew/pages/main_page.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/constants/costum_colors.dart';
@@ -16,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Just Joew',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: blueThemePrimary),
         useMaterial3: true,
