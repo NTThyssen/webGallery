@@ -30,7 +30,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomHeaderLarge(text: 'ME MOTES'),
+        CustomHeaderLarge(text: 'EMOTES'),
         EmoteSection(
           header: "ScatRatt",
           url: 'https://www.twitch.tv/scatratt/about',
