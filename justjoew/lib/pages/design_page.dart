@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
-import 'package:url_launcher/url_launcher.dart'; 
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:justjoew/constants/costum_colors.dart';
-
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -31,9 +30,10 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomHeaderLarge(text: 'EMOTES'),
+        CustomHeaderLarge(text: 'ME MOTES'),
         EmoteSection(
-          header: "ScatRatt", url: 'https://www.twitch.tv/scatratt/about',
+          header: "ScatRatt",
+          url: 'https://www.twitch.tv/scatratt/about',
           portfolioWidgets: [
             ArtImage(path: 'images/cry15.png'),
             ArtImage(path: 'images/ez8.png'),
@@ -74,7 +74,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ],
         ),
         EmoteSection(
-          header: "NotScatRatt", url: 'https://www.twitch.tv/olmaph/about',
+          header: "NotScatRatt",
+          url: 'https://www.twitch.tv/olmaph/about',
           portfolioWidgets: [
             ArtImage(path: 'images/WaveBlue.png'),
           ],
@@ -107,7 +108,7 @@ class EmoteSection extends StatelessWidget {
   final String url; // Add the URL field
 
   Future<void> _launchUrl(BuildContext context, String url) async {
-  final Uri uri = Uri.parse(url);
+    final Uri uri = Uri.parse(url);
     if (await canLaunch(uri.toString())) {
       await launch(uri.toString(), forceWebView: true, enableJavaScript: true);
     } else {

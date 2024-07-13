@@ -132,7 +132,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
           children: [
             ListTile(
                 title: Text(
-                  'me',
+                  'COMMISSIONS',
                   style: TextStyle(color: Colors.lightBlue),
                 ),
                 onTap: () =>
