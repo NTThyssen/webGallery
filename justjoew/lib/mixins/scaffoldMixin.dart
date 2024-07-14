@@ -29,7 +29,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.go(ABOUT_PATH),
                 child: Text(
                   "ABOUT ME",
                   style: TextStyle(
@@ -39,7 +39,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.go(CONTACT_PATH),
                 child: const Text(
                   "CONTACTS",
                   style: TextStyle(
@@ -57,7 +57,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             leading: Row(
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => context.go(COMMISSION_PATH),
                   child: const Text(
                     "COMISSIONS",
                     style: TextStyle(
@@ -135,9 +135,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
                   'COMMISSIONS',
                   style: TextStyle(color: Colors.lightBlue),
                 ),
-                onTap: () =>
-                    null //Navigator.pushNamed(context, '/commissions'),
-                ),
+                onTap: () => context.go(COMMISSION_PATH)),
             ListTile(
                 title: Text('PORTFOLIO',
                     style: TextStyle(color: Colors.lightBlue)),
@@ -145,13 +143,11 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
             ListTile(
                 title:
                     Text('ABOUT ME', style: TextStyle(color: Colors.lightBlue)),
-                onTap: () => null // Navigator.pushNamed(context, '/about'),
-                ),
+                onTap: () => context.go(ABOUT_PATH)),
             ListTile(
                 title:
                     Text('CONTACTS', style: TextStyle(color: Colors.lightBlue)),
-                onTap: () => null // Navigator.pushNamed(context, '/contact'),
-                ),
+                onTap: () => context.go(CONTACT_PATH)),
           ],
         ),
       ),
