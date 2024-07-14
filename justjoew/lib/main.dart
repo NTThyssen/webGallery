@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:justjoew/pages/main_page.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/constants/costum_colors.dart';
+import 'package:justjoew/utils/theme/theme_manager.dart';
 
 void main() {
   runApp(const MyInitApp());
@@ -10,15 +11,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Just Joew',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: blueThemePrimary),
-        useMaterial3: true,
-      ),
+      theme: myTheme,
       home: const MyHomePage(title: 'Just Joew'),
     );
   }
