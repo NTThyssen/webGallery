@@ -1,0 +1,42 @@
+name: Build and Push Docker image
+
+on:
+  push:
+    paths:
+      - 'justjoew_admin/**'
+      - '.github/workflows/docker-publish-joew-admin.yml'
+    branches:
+      - master  
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to GitHub Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}  
+
+    - name: Build and push Docker  image
+      uses: docker/build-push-action@v3
+      with:
+        context: ./justjoew_admin
+        file: ./justjoew_admin/Dockerfile
+        push: true
+        tags: ghcr.io/ntthyssen/justjoew_admin:latest 
+    - name: Run curl command
+      run: |
+        curl -X POST "http://z-signal.net:9301/deploy?servicename=justjoew_admin"
+    
