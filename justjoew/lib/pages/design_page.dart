@@ -78,7 +78,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           url: 'https://www.twitch.tv/olmaph/about',
           portfolioWidgets: [
             ArtImage(path: 'images/WaveBlue.png'),
-            ArtImage(path: 'images/snickers2.png'),
+            ArtImage(path: 'images/snick.png'),
             Gif(
               width: 80,
               height: 80,
