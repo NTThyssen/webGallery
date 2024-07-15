@@ -19,8 +19,8 @@ class _MainPageState extends State<MainPage> with BasicMixin {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height - 160,
       child: Image.asset(
-        "images/landingpageImage.png",
-        fit: BoxFit.fill,
+        "images/land.png",
+        fit: BoxFit.fitHeight,
       ),
     );
   }

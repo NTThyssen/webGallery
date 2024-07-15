@@ -59,7 +59,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             Gif(
               width: 80,
               height: 80,
-              image: AssetImage("images/RatShyNotNaked.gif"),
+              image: const AssetImage("images/RatShyNotNaked.gif"),
               controller:
                   controller2, // if duration and fps is null, original gif fps will be used.
               fps: 16,
@@ -74,10 +74,26 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ],
         ),
         EmoteSection(
-          header: "NotScatRatt",
+          header: "Olmaph",
           url: 'https://www.twitch.tv/olmaph/about',
           portfolioWidgets: [
             ArtImage(path: 'images/WaveBlue.png'),
+            ArtImage(path: 'images/snickers2.png'),
+            Gif(
+              width: 80,
+              height: 80,
+              image: const AssetImage("images/bar.gif"),
+              controller:
+                  controller1, // if duration and fps is null, original gif fps will be used.
+              fps: 10,
+              //duration: const Duration(seconds: 3),
+              autostart: Autostart.loop,
+              placeholder: (context) => const Text('Loading...'),
+              onFetchCompleted: () {
+                controller1.reset();
+                controller1.forward();
+              },
+            ),
           ],
         ),
       ],
