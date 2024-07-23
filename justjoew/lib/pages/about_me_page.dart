@@ -51,7 +51,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                         ),
                       ),
                       SizedBox(height: 20), // Space between text and image
-                      Image.asset('images/about.png', width: 200), // Replace with your image asset path
+                      Image.asset('images/joeoe.png', width: 200), // Replace with your image asset path
                       SizedBox(height: 50), // Space before the second paragraph
                       Text(
                         "My journey into digital art began in an unexpected way. Originally, I was a traditional artist working with paper. That changed when a friend asked if I could help create sprites for a game they were working on. Around the same time, another friend who is a streamer was about to purchase emotes, and I thought, \"Maybe I can do that.\" The result was a hit, and those emotes became wildly popular within his community. This sparked my passion for digital art.\n\n"
