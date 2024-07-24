@@ -48,7 +48,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Widget body() {
     final screenWidth = MediaQuery.of(context).size.width;
     final isWeb = kIsWeb; // Check if the app is running on the web
-    final buttonColor = Colors.lightBlue.shade300; // Define the button color
+    final buttonColor = blueThemePrimary300; // Define the button color
     final snackBarTextStyle = TextStyle(
       fontWeight: FontWeight.w400,
       fontFamily: 'SourceCodePro',
@@ -131,7 +131,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         fontWeight: FontWeight.w400,
                         fontFamily: 'SourceCodePro',
                         fontSize: 16,
-                        color: Colors.lightBlue300,
+                        color: blueThemePrimary300,
                       ),
                     ),
                     Row(
@@ -145,16 +145,16 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                               fillColor: Colors.white,
                               border: const OutlineInputBorder(),
                               enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide: BorderSide(color:  Colors.white),
                               ),
                               focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.lightBlue900),
+                                borderSide: BorderSide(color: blueThemePrimary900),
                               ),
                               errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.lightBlue.shade700),
+                                borderSide: BorderSide(color: blueThemePrimary700),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.lightBlue.shade900),
+                                borderSide: BorderSide(color: blueThemePrimary900),
                               ),
                               errorStyle: TextStyle(
                                 color: blueThemePrimary, // Set error text color
@@ -181,7 +181,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         fontWeight: FontWeight.w400,
                         fontFamily: 'SourceCodePro',
                         fontSize: 16,
-                        color: Colors.lightBlue300,
+                        color:blueThemePrimary300,
                       ),
                     ),
                     TextFormField(
@@ -195,13 +195,13 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                         focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade700),
+                          borderSide: BorderSide(color: blueThemePrimary700),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorStyle: TextStyle(
                           color: blueThemePrimary, // Set error text color
@@ -228,7 +228,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         fontWeight: FontWeight.w400,
                         fontFamily: 'SourceCodePro',
                         fontSize: 16,
-                        color: Colors.lightBlue300,
+                        color: blueThemePrimary300,
                       ),
                     ),
                     TextFormField(
@@ -242,13 +242,13 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                         focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade700),
+                          borderSide: BorderSide(color: blueThemePrimary700),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorStyle: TextStyle(
                           color: blueThemePrimary, // Set error text color
@@ -272,7 +272,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         fontWeight: FontWeight.w400,
                         fontFamily: 'SourceCodePro',
                         fontSize: 16,
-                        color: Colors.lightBlue300,
+                        color: blueThemePrimary300,
                       ),
                     ),
                     TextFormField(
@@ -286,13 +286,13 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.white),
                         ),
                         focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade700),
+                          borderSide: BorderSide(color: blueThemePrimary700),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.lightBlue.shade900),
+                          borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorStyle: TextStyle(
                           color: blueThemePrimary, // Set error text color
@@ -337,7 +337,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightBlue.shade200, // Light blue button color
+                          backgroundColor: blueThemePrimary200, // Light blue button color
                           minimumSize: Size(screenWidth * 0.2, 60), // Responsive width
                           padding: EdgeInsets.zero, // Remove extra padding
                           shape: RoundedRectangleBorder(
