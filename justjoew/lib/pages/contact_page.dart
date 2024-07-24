@@ -340,8 +340,8 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: blueThemePrimary200, // Light blue button color
-                          minimumSize: Size(screenWidth * 0.2, 60), // Responsive width
+                          backgroundColor: blueThemePrimary300, // Light blue button color
+                          minimumSize: Size(screenWidth * 0.25, 60), // Responsive width
                           padding: EdgeInsets.zero, // Remove extra padding
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12), // Adjust the radius for rounded corners
