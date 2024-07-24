@@ -48,6 +48,14 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Widget body() {
     final screenWidth = MediaQuery.of(context).size.width;
     final isWeb = kIsWeb; // Check if the app is running on the web
+    final isMobile = !isWeb && screenWidth < 600; // Consider mobile if not web and screen width < 600
+
+    final horizontalPadding = isWeb
+        ? screenWidth * 0.20 // Larger padding for web
+        : isMobile
+            ? 0.0 // Less padding for mobile
+            : 0.0; // Default padding for other devices
+
     final buttonColor = blueThemePrimary300; // Define the button color
     final snackBarTextStyle = TextStyle(
       fontWeight: FontWeight.w400,
@@ -58,9 +66,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
 
     return Center(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: isWeb ? screenWidth * 0.20 : screenWidth * 0.00, // Larger padding for web
-        ),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Apply responsive padding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -181,7 +187,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         fontWeight: FontWeight.w400,
                         fontFamily: 'SourceCodePro',
                         fontSize: 16,
-                        color:blueThemePrimary300,
+                        color: blueThemePrimary300,
                       ),
                     ),
                     TextFormField(
@@ -357,3 +363,4 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     );
   }
 }
+
