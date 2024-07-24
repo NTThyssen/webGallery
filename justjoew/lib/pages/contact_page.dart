@@ -59,7 +59,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     return Center(
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          horizontal: isWeb ? screenWidth * 0.20 : screenWidth * 0.02, // Larger padding for web
+          horizontal: isWeb ? screenWidth * 0.20 : screenWidth * 0.00, // Larger padding for web
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
