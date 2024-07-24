@@ -157,7 +157,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                                 borderSide: BorderSide(color: Colors.lightBlue.shade900),
                               ),
                               errorStyle: TextStyle(
-                                color: Colors.lightBlue200, // Set error text color
+                                color: blueThemePrimary, // Set error text color
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 fontFamily: 'SourceCodePro',
@@ -204,7 +204,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.lightBlue.shade900),
                         ),
                         errorStyle: TextStyle(
-                          color: Colors.lightBlue200, // Set error text color
+                          color: blueThemePrimary, // Set error text color
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           fontFamily: 'SourceCodePro',
@@ -251,7 +251,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.lightBlue.shade900),
                         ),
                         errorStyle: TextStyle(
-                          color: Colors.lightBlue200, // Set error text color
+                          color: blueThemePrimary, // Set error text color
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           fontFamily: 'SourceCodePro',
@@ -295,7 +295,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                           borderSide: BorderSide(color: Colors.lightBlue.shade900),
                         ),
                         errorStyle: TextStyle(
-                          color: Colors.lightBlue200, // Set error text color
+                          color: blueThemePrimary, // Set error text color
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           fontFamily: 'SourceCodePro',
