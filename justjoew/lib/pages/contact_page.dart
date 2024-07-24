@@ -47,14 +47,11 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   @override
   Widget body() {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isWeb = kIsWeb; // Check if the app is running on the web
-    final isMobile = !isWeb && screenWidth < 600; // Consider mobile if not web and screen width < 600
 
-    final horizontalPadding = isWeb
-        ? screenWidth * 0.20 // Larger padding for web
-        : isMobile
-            ? 0.0 // Less padding for mobile
-            : 0.0; // Default padding for other devices
+    // Define padding values for narrow and wide screens
+    final horizontalPadding = screenWidth < 600
+        ? screenWidth * 0.08 // Less padding for narrow screens (including mobile web)
+        : screenWidth * 0.20; // Larger padding for wider screens
 
     final buttonColor = blueThemePrimary300; // Define the button color
     final snackBarTextStyle = TextStyle(
@@ -151,7 +148,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                               fillColor: Colors.white,
                               border: const OutlineInputBorder(),
                               enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color:  Colors.white),
+                                borderSide: BorderSide(color: Colors.white),
                               ),
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: blueThemePrimary900),
@@ -362,5 +359,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
       ),
     );
   }
+
 }
 
