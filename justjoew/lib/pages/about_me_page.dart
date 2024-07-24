@@ -42,7 +42,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                     children: [
                       const Text(
                         "Hi there!\n\n"
-                              "I'm Joe, a digital artist from Denmark. My journey into digital art began when a friend asked for help with game sprites, and another needed emotes for their stream. The emotes became a hit, sparking my passion for digital art. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression to bring people's ideas to life.\n\n"
+                              "I'm Joe, a digital artist from Denmark. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression to bring people's ideas to life.\n\n"
                               "There's nothing more rewarding for me than seeing my creations enjoyed and used by others. If you have an idea in mind or just want to learn more about what I can do, feel free to reach out.\n\n"
                               "Let’s create something amazing together!",
                         textAlign: TextAlign.center,
@@ -60,7 +60,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                       ),
                       const SizedBox(height: 50), // Space before the second paragraph
                       const Text(
-                        "Originally, I was a traditional artist working with paper. My journey into digital art began when a friend asked if I could help create sprites for a game they were working on. Around the same time, another friend who is a streamer was about to purchase emotes, and I thought, \"Maybe I can do that.\" The result was a hit, and those emotes became wildly popular within his community. This sparked my passion for digital art.\n\n"
+                       "Originally, I was a traditional artist working with paper. My journey into digital art began when a friend asked if I could help create sprites for a game they were working on. Around the same time, another friend who is a streamer was about to purchase emotes, and I thought, \"Maybe I can do that.\" The result was a hit, and those emotes became wildly popular within his community. This sparked my passion for digital art.\n\n"
                         "I have a background as a software engineer, which is my full-time job. I've spent a lot of time specializing in frontend design, UX, and UI, even doing my thesis on UX. This experience greatly influences my approach to digital art, allowing me to blend technical precision with creative expression.\n\n"
                         "I specialize in creating emotes for Twitch and Discord, but I also enjoy experimenting with different styles for variety. When starting a new project, I like to understand what the client has in mind and their expectations. We work together to develop a concept and look at any references they might have. I then create rough sketches for approval, and we make adjustments to choose the final direction. I spend a significant amount of time on the base shapes before moving on to coloring, shading, and highlights. The best part is revealing the final result.\n\n"
                         "What I love most about my work is seeing ideas come to life, transforming rough sketches into polished pieces. One of my most memorable projects was my first one. I didn't know if I could do it, but I poured my heart into it. The results were fantastic, and their reaction fueled me to keep improving.\n\n"
@@ -68,7 +68,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                         "What sets my work apart is my unique personal style and the amount of effort I put into every piece. I don't rush my creations, taking the time needed to make each one special.\n\n"
                         "My goals are simple: to continue doing what I love. This isn't about making money but about pursuing a passion. Commissions reflect the value of my art and cover the costs of my tools, but profit is not the focus.\n\n"
                         "Thanks for stopping by, and I hope you enjoy my work as much as I enjoy creating it!",
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontFamily: 'SourceCodePro',
@@ -89,7 +89,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                             flex: 2,
                             child: Text(
                               "Hi there!\n\n"
-                              "I'm Joe, a digital artist from Denmark. My journey into digital art began when a friend asked for help with game sprites, and another needed emotes for their stream. The emotes became a hit, sparking my passion for digital art. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression to bring people's ideas to life.\n\n"
+                              "I'm Joe, a digital artist from Denmark. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression to bring people's ideas to life.\n\n"
                               "There's nothing more rewarding for me than seeing my creations enjoyed and used by others. If you have an idea in mind or just want to learn more about what I can do, feel free to reach out.\n\n"
                               "Let’s create something amazing together!",
                               textAlign: TextAlign.left,
