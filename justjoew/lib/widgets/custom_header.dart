@@ -22,7 +22,7 @@ class CustomHeaderLarge extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 64.0), // Add spacing below the header
+        SizedBox(height: 20.0), // Add spacing below the header
       ],
     );
   }
