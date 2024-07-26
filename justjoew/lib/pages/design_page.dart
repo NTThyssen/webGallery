@@ -79,19 +79,35 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           portfolioWidgets: [
             ArtImage(path: 'images/WaveBlue.png'),
             ArtImage(path: 'images/snick.png'),
+            ArtImage(path: 'images/tonicheers.png'),
             Gif(
               width: 80,
               height: 80,
               image: const AssetImage("images/bar.gif"),
               controller:
-                  controller1, // if duration and fps is null, original gif fps will be used.
+                  controller3, // if duration and fps is null, original gif fps will be used.  
               fps: 10,
               //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
-                controller1.reset();
-                controller1.forward();
+                controller3.reset();
+                controller3.forward();
+              },
+            ),
+            Gif(
+              width: 80,
+              height: 80,
+              image: const AssetImage("images/OlamphPump.gif"),
+              controller:
+                  controller4, // if duration and fps is null, original gif fps will be used. 
+              fps: 20,
+              //duration: const Duration(seconds: 3),
+              autostart: Autostart.loop,
+              placeholder: (context) => const Text('Loading...'),
+              onFetchCompleted: () {
+                controller4.reset();
+                controller4.forward();
               },
             ),
           ],
