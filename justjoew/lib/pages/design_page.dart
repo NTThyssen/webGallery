@@ -14,7 +14,7 @@ class DesignPage extends StatefulWidget {
 }
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
-  late final GifController controller1, controller2, controller3, controller4;
+  late final GifController controller1, controller2, controller3, controller4, controller5;
   int _fps = 20;
 
   @override
@@ -23,6 +23,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     controller2 = GifController(vsync: this);
     controller3 = GifController(vsync: this);
     controller4 = GifController(vsync: this);
+    controller5 = GifController(vsync: this);
     super.initState();
   }
 
@@ -80,6 +81,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/WaveBlue.png'),
             ArtImage(path: 'images/snick.png'),
             ArtImage(path: 'images/tonicheers.png'),
+            ArtImage(path: 'images/toes300.png'),
+            ArtImage(path: 'images/wiggly300.png'),
             Gif(
               width: 80,
               height: 80,
@@ -99,6 +102,21 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               width: 80,
               height: 80,
               image: const AssetImage("images/OlamphPump.gif"),
+              controller:
+                  controller4, // if duration and fps is null, original gif fps will be used. 
+              fps: 20,
+              //duration: const Duration(seconds: 3),
+              autostart: Autostart.loop,
+              placeholder: (context) => const Text('Loading...'),
+              onFetchCompleted: () {
+                controller4.reset();
+                controller4.forward();
+              },
+            ),
+            Gif(
+              width: 80,
+              height: 80,
+              image: const AssetImage("images/wiggly350.gif"),
               controller:
                   controller4, // if duration and fps is null, original gif fps will be used. 
               fps: 20,
