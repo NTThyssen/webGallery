@@ -5,8 +5,6 @@ on:
     paths:
       - 'justjoew/**'
       - '.github/workflows/docker-publish-joew.yml'
-    branches:
-      - master  
 permissions:
   contents: read
   packages: write
