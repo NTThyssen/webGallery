@@ -3,8 +3,8 @@ name: Build and Push Docker image
 on:
   push:
     paths:
-      - 'justjoew_admin/**'
-      - '.github/workflows/docker-publish-joew-admin.yml'
+      - 'justjoew_backend/**'
+      - '.github/workflows/docker-publish-joew-backend.yml'
     branches:
       - master  
 permissions:
@@ -32,11 +32,11 @@ jobs:
     - name: Build and push Docker  image
       uses: docker/build-push-action@v3
       with:
-        context: ./justjoew_admin
-        file: ./justjoew_admin/Dockerfile
+        context: ./justjoew_backend
+        file: ./justjoew_backend/Dockerfile
         push: true
-        tags: ghcr.io/ntthyssen/justjoew_admin:latest 
+        tags: ghcr.io/ntthyssen/justjoew_backend:latest 
    # - name: Run curl command
-   #   run: |
+    #  run: |
     #    curl -X POST "http://z-signal.net:9301/deploy?servicename=justjoew_admin"
     
