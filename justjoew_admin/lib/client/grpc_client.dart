@@ -5,7 +5,7 @@ class GrpcClient {
   GrpcWebClientChannel? channel;
   GreeterClient? stub;
   GrpcClient() {
-    channel = GrpcWebClientChannel.xhr(Uri.parse('http://api.justjoew.com'));
+    channel = GrpcWebClientChannel.xhr(Uri.parse('https://api.justjoew.com'));
     stub = GreeterClient(channel!);
   }
 
