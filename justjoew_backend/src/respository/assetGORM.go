@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Asset struct {
 	gorm.Model 
-	Id          uint   `gorm:"primaryKey;autoIncrement"`
 	SectionName string
 	BlobPath    string
 	OrderIndex  int32
-	SectionId   int32
+	SectionID   uint // Note the change to uint, which is common for IDs
+	Section     Section `gorm:"foreignKey:SectionID"` 
 }
