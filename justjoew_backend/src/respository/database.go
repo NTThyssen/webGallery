@@ -1,7 +1,7 @@
 package repository
 
 import (
-	blobrepository "justjoew/backend/src/blob_repository"
+	 blobrepository "justjoew/backend/src/blob_repository"
 	"log"
 
 	"gorm.io/driver/sqlite"
@@ -10,25 +10,23 @@ import (
 
 var db *gorm.DB
 
-
-func InitDb(){
+func InitDb() {
 
 	blobrepository.InitClient();
-  	db, err := gorm.Open(sqlite.Open("data.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("/app/data/data.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-  	db.AutoMigrate(&Section{}, &Asset{})
+	db.AutoMigrate(&Section{}, &Asset{})
 }
-  
 
 func CreateSection(sectionName string) (string, error) {
 	res := db.Create(&Section{
 		Name: sectionName,
 	})
 
-	if res.Error != nil{
+	if res.Error != nil {
 		log.Panicln(res.Error)
 		return "", res.Error
 	}
@@ -36,7 +34,7 @@ func CreateSection(sectionName string) (string, error) {
 }
 
 /*func CreateAsset (domainAsset asset.Asset) (Asset, error){
-	
+
 	res, err := blobrepository.uploadAsset(domainAsset.BlobPath)
 		return Asset{}, err
 
@@ -45,9 +43,9 @@ func CreateSection(sectionName string) (string, error) {
 		OrderIndex: domainAsset.OrderIndex,
 		SectionId: domainAsset.SectionId,
 		BlobPath: ,
-		
+
 	}
-	
+
 	db.Create(asset)
 
 } */
