@@ -14,7 +14,7 @@ var db *gorm.DB
 func InitDb(){
 
 	blobrepository.InitClient();
-  	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+  	db, err := gorm.Open(sqlite.Open("data.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,7 +24,7 @@ func InitDb(){
   
 
 func CreateSection(sectionName string) (string, error) {
-	res := db.Create(Section{
+	res := db.Create(&Section{
 		Name: sectionName,
 	})
 
