@@ -22,9 +22,8 @@ func InitDb() {
 }
 
 func CreateSection(sectionName string) (string, error) {
-	res := db.Create(&Section{
-		Name: sectionName,
-	})
+	section := Section{Name: sectionName}
+	res := db.Create(&section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)

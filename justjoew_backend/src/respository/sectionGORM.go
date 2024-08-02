@@ -6,5 +6,5 @@ type Section struct {
 	gorm.Model
 	Id          uint   `gorm:"primaryKey;autoIncrement"`
 	Name        string
-	SectionList []Asset
+	AssetList []Asset
 }
