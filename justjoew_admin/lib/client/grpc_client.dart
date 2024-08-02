@@ -1,19 +1,19 @@
 import 'package:grpc/grpc_web.dart';
-import 'package:justjoew_admin/generated/justjoew.pbgrpc.dart';
+import 'package:justjoew_admin/protos/justjoew.pbgrpc.dart';
 
 class GrpcClient {
   GrpcWebClientChannel? channel;
-  GreeterClient? stub;
+  AssetControllerClient? stub;
   GrpcClient() {
     channel = GrpcWebClientChannel.xhr(Uri.parse('https://api.justjoew.com'));
-    stub = GreeterClient(channel!);
+    stub = AssetControllerClient(channel!);
   }
 
   Future<String> sayHello(String name) async {
-    final request = HelloRequest()..name = name;
+    final request = CreateSectionRequest()..name = name;
     try {
-      final response = await stub!.sayHello(request);
-      return response.message;
+      final response = await stub!.createSection(request);
+      return response.name;
     } catch (e) {
       print('Caught error: $e');
       return 'Error';

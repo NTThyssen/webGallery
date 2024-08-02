@@ -18,88 +18,194 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// GreeterClient is the client API for Greeter service.
+// AssetControllerClient is the client API for AssetController service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GreeterClient interface {
-	// Sends a greeting
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+type AssetControllerClient interface {
+	GetAllSections(ctx context.Context, in *GetAllSectionsRequest, opts ...grpc.CallOption) (*GetAllSectionsResonse, error)
+	CreateSection(ctx context.Context, in *CreateSectionRequest, opts ...grpc.CallOption) (*CreateSectionResponse, error)
+	CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*CreateAssetResponse, error)
+	UpdateAssetorder(ctx context.Context, in *UpdateAssetOrderRequest, opts ...grpc.CallOption) (*UpdateAssetOrderResponse, error)
 }
 
-type greeterClient struct {
+type assetControllerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
-	return &greeterClient{cc}
+func NewAssetControllerClient(cc grpc.ClientConnInterface) AssetControllerClient {
+	return &assetControllerClient{cc}
 }
 
-func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/justjoew.asstes.Greeter/SayHello", in, out, opts...)
+func (c *assetControllerClient) GetAllSections(ctx context.Context, in *GetAllSectionsRequest, opts ...grpc.CallOption) (*GetAllSectionsResonse, error) {
+	out := new(GetAllSectionsResonse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/GetAllSections", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// GreeterServer is the server API for Greeter service.
-// All implementations must embed UnimplementedGreeterServer
+func (c *assetControllerClient) CreateSection(ctx context.Context, in *CreateSectionRequest, opts ...grpc.CallOption) (*CreateSectionResponse, error) {
+	out := new(CreateSectionResponse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/CreateSection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetControllerClient) CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*CreateAssetResponse, error) {
+	out := new(CreateAssetResponse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/CreateAsset", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetControllerClient) UpdateAssetorder(ctx context.Context, in *UpdateAssetOrderRequest, opts ...grpc.CallOption) (*UpdateAssetOrderResponse, error) {
+	out := new(UpdateAssetOrderResponse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/UpdateAssetorder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AssetControllerServer is the server API for AssetController service.
+// All implementations must embed UnimplementedAssetControllerServer
 // for forward compatibility
-type GreeterServer interface {
-	// Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	mustEmbedUnimplementedGreeterServer()
+type AssetControllerServer interface {
+	GetAllSections(context.Context, *GetAllSectionsRequest) (*GetAllSectionsResonse, error)
+	CreateSection(context.Context, *CreateSectionRequest) (*CreateSectionResponse, error)
+	CreateAsset(context.Context, *CreateAssetRequest) (*CreateAssetResponse, error)
+	UpdateAssetorder(context.Context, *UpdateAssetOrderRequest) (*UpdateAssetOrderResponse, error)
+	mustEmbedUnimplementedAssetControllerServer()
 }
 
-// UnimplementedGreeterServer must be embedded to have forward compatible implementations.
-type UnimplementedGreeterServer struct {
+// UnimplementedAssetControllerServer must be embedded to have forward compatible implementations.
+type UnimplementedAssetControllerServer struct {
 }
 
-func (UnimplementedGreeterServer) SayHello(context.Context, *HelloRequest) (*HelloReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (UnimplementedAssetControllerServer) GetAllSections(context.Context, *GetAllSectionsRequest) (*GetAllSectionsResonse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllSections not implemented")
 }
-func (UnimplementedGreeterServer) mustEmbedUnimplementedGreeterServer() {}
+func (UnimplementedAssetControllerServer) CreateSection(context.Context, *CreateSectionRequest) (*CreateSectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSection not implemented")
+}
+func (UnimplementedAssetControllerServer) CreateAsset(context.Context, *CreateAssetRequest) (*CreateAssetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAsset not implemented")
+}
+func (UnimplementedAssetControllerServer) UpdateAssetorder(context.Context, *UpdateAssetOrderRequest) (*UpdateAssetOrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAssetorder not implemented")
+}
+func (UnimplementedAssetControllerServer) mustEmbedUnimplementedAssetControllerServer() {}
 
-// UnsafeGreeterServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to GreeterServer will
+// UnsafeAssetControllerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AssetControllerServer will
 // result in compilation errors.
-type UnsafeGreeterServer interface {
-	mustEmbedUnimplementedGreeterServer()
+type UnsafeAssetControllerServer interface {
+	mustEmbedUnimplementedAssetControllerServer()
 }
 
-func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
-	s.RegisterService(&Greeter_ServiceDesc, srv)
+func RegisterAssetControllerServer(s grpc.ServiceRegistrar, srv AssetControllerServer) {
+	s.RegisterService(&AssetController_ServiceDesc, srv)
 }
 
-func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
+func _AssetController_GetAllSections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllSectionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).SayHello(ctx, in)
+		return srv.(AssetControllerServer).GetAllSections(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/justjoew.asstes.Greeter/SayHello",
+		FullMethod: "/justjoew.asstes.AssetController/GetAllSections",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
+		return srv.(AssetControllerServer).GetAllSections(ctx, req.(*GetAllSectionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Greeter_ServiceDesc is the grpc.ServiceDesc for Greeter service.
+func _AssetController_CreateSection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).CreateSection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/CreateSection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).CreateSection(ctx, req.(*CreateSectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetController_CreateAsset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAssetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).CreateAsset(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/CreateAsset",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).CreateAsset(ctx, req.(*CreateAssetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetController_UpdateAssetorder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAssetOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).UpdateAssetorder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/UpdateAssetorder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).UpdateAssetorder(ctx, req.(*UpdateAssetOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// AssetController_ServiceDesc is the grpc.ServiceDesc for AssetController service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Greeter_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "justjoew.asstes.Greeter",
-	HandlerType: (*GreeterServer)(nil),
+var AssetController_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "justjoew.asstes.AssetController",
+	HandlerType: (*AssetControllerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_Handler,
+			MethodName: "GetAllSections",
+			Handler:    _AssetController_GetAllSections_Handler,
+		},
+		{
+			MethodName: "CreateSection",
+			Handler:    _AssetController_CreateSection_Handler,
+		},
+		{
+			MethodName: "CreateAsset",
+			Handler:    _AssetController_CreateAsset_Handler,
+		},
+		{
+			MethodName: "UpdateAssetorder",
+			Handler:    _AssetController_UpdateAssetorder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

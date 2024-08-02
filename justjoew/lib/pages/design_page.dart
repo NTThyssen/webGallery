@@ -45,7 +45,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             Gif(
               width: 80,
               height: 80,
-              image: AssetImage("images/RatDanceJam10.gif"),
+              image: const AssetImage("images/RatDanceJam10.gif"),
               controller:
                   controller1, // if duration and fps is null, original gif fps will be used.
               fps: 16,

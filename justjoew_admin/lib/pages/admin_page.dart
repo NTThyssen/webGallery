@@ -72,7 +72,7 @@ class _AdminPageState extends State<AdminPage> {
                 ),
                 FloatingActionButton.extended(
                   onPressed: () {
-                    GrpcClient().sayHello("futte");
+                    GrpcClient().sayHello("ScattRat");
                   },
                   label: Text('Add New Asset'),
                   icon: Icon(Icons.add),
