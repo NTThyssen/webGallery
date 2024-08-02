@@ -1,7 +1,7 @@
 package repository
 
 import (
-	 blobrepository "justjoew/backend/src/blob_repository"
+	blobrepository "justjoew/backend/src/blob_repository"
 	"log"
 
 	"gorm.io/driver/sqlite"
@@ -12,8 +12,9 @@ var db *gorm.DB
 
 func InitDb() {
 
-	blobrepository.InitClient();
-	db, err := gorm.Open(sqlite.Open("/app/data/data.db"), &gorm.Config{})
+	var err error
+	blobrepository.InitClient()
+	db, err = gorm.Open(sqlite.Open("/app/data/data.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
