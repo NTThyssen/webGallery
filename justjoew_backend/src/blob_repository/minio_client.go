@@ -26,7 +26,7 @@ func InitClient() {
 		panic(err)
 	}
 
-	minioClient, err := minio.New("https://minio.justjoew.com", &minio.Options{
+	minioClient, err := minio.New("minio.justjoew.com", &minio.Options{
 		Creds:  credentials.NewStaticV4(string(accessKey), string(secretKey), ""),
 		Secure: true,
 	})
