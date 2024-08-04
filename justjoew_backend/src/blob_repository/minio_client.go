@@ -38,15 +38,15 @@ func InitClient() {
 	log.Printf("%#v\n", minioClient)
 }
 
-func UploadAsset(assetBytes []byte) (minio.UploadInfo, error) {
+func UploadAsset(assetBytes []byte) (string) {
 
 	objectUuid := uuid.NewString()
 	reader := bytes.NewReader(assetBytes)
-	res, err := minioClient.PutObject(context.Background(), "assets", objectUuid+".png", reader, reader.Size(), minio.PutObjectOptions{ContentType: "image/png"})
+	_, err := minioClient.PutObject(context.Background(), "assets", objectUuid, reader, reader.Size(), minio.PutObjectOptions{ContentType: "image/png"})
 
 	if err != nil {
-		log.Println(err)
-		return res, err
+		log.Panicln(err)
+		return objectUuid
 	}
-	return res, nil
+	return objectUuid
 }

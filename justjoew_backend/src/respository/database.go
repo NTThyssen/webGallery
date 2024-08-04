@@ -1,6 +1,7 @@
 package repository
 
 import (
+	pb "justjoew/backend/protos"
 	blobrepository "justjoew/backend/src/blob_repository"
 	"log"
 
@@ -33,19 +34,24 @@ func CreateSection(sectionName string) (string, error) {
 	return sectionName, nil
 }
 
-/*func CreateAsset (domainAsset asset.Asset) (Asset, error){
+func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset) {
 
-	res, err := blobrepository.uploadAsset(domainAsset.BlobPath)
-		return Asset{}, err
+	res := blobrepository.UploadAsset(domainAsset.Blob)
 
 	asset := Asset{
 		SectionName: domainAsset.SectionName,
-		OrderIndex: domainAsset.OrderIndex,
-		SectionId: domainAsset.SectionId,
-		BlobPath: ,
-
+		OrderIndex:  domainAsset.OrderIndex,
+		SectionID:   domainAsset.SectionId,
+		BlobPath:    res,
 	}
 
-	db.Create(asset)
+	dbRes := db.Create(asset)
 
-} */
+	if dbRes.Error != nil {
+		log.Panicln(dbRes.Error)
+		return Asset{}
+	}
+
+	return Asset{}
+
+}

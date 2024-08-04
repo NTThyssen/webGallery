@@ -21,6 +21,12 @@ type server struct {
 	pb.UnimplementedAssetControllerServer
 }
 
+func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*pb.CreateAssetResponse, error) {
+	log.Printf("Received: %v", in.SectionName)
+	res := repository.CreateAsset()
+	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: res}}, nil
+}
+
 func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest) (*pb.CreateSectionResponse, error) {
 	log.Printf("Received: %v", in.GetName())
 	repository.CreateSection(in.Name)
