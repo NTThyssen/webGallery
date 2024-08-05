@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package justjoew.asstes;
+
+option go_package = "justjoew/backend/protos";
+
+
+
+message GetAllSectionsRequest{}
+
+message GetAllSectionsResonse {
+  repeated Section sections = 1;
+}
+
+message Section {
+  string id = 1;
+  string name = 2;
+  repeated Asset assetList = 3;
+}
+
+message CreateSectionRequest {
+  string name = 1;
+}
+
+message CreateSectionResponse {
+  string name = 1;
+}
+
+message Asset {
+  uint32 id = 1;
+  string sectionName = 2;
+  string blobPath = 3;
+  int32 orderIndex = 4;
+  int32 sectionId = 5;
+}
+// The request message containing the user's name.
+message CreateAssetRequest {
+  uint32 sectionId = 1;
+  bytes blob = 2;
+
+}
+
+// The response message containing the greetings
+message CreateAssetResponse {
+  Asset asset = 1;
+}
+
+
+message UpdateAssetOrderRequest {
+  uint32 id = 1;
+  uint32 orderIndex = 2;
+
+}
+
+message UpdateAssetOrderResponse {
+  uint32 newOrderIndex = 1;
+}
+
+
+
+service AssetController {
+
+  rpc GetAllSections (GetAllSectionsRequest) returns (GetAllSectionsResonse) {}
+  rpc CreateSection (CreateSectionRequest) returns (CreateSectionResponse) {}
+  rpc CreateAsset (CreateAssetRequest) returns (CreateAssetResponse) {}
+  rpc UpdateAssetorder (UpdateAssetOrderRequest) returns (UpdateAssetOrderResponse) {}
+
+}
