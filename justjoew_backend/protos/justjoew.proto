@@ -13,7 +13,7 @@ message GetAllSectionsResonse {
 }
 
 message Section {
-  string id = 1;
+  uint32 id = 1;
   string name = 2;
   repeated Asset assetList = 3;
 }
@@ -30,8 +30,8 @@ message Asset {
   uint32 id = 1;
   string sectionName = 2;
   string blobPath = 3;
-  int32 orderIndex = 4;
-  int32 sectionId = 5;
+  uint32 orderIndex = 4;
+  uint32 sectionId = 5;
 }
 // The request message containing the user's name.
 message CreateAssetRequest {

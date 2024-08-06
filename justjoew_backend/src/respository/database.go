@@ -35,12 +35,14 @@ func CreateSection(sectionName string) (string, error) {
 }
 
 func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset) {
-
+	var dbSection Section
+	var assetInSectionCount int64
 	res := blobrepository.UploadAsset(domainAsset.Blob)
+	dbSection.ID = uint(domainAsset.SectionId)
+	db.Where(dbSection).Count(&assetInSectionCount)
 
 	asset := Asset{
-		SectionName: domainAsset.SectionName,
-		OrderIndex:  domainAsset.OrderIndex,
+		OrderIndex:  uint32(assetInSectionCount),
 		SectionID:   domainAsset.SectionId,
 		BlobPath:    res,
 	}
@@ -52,6 +54,15 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset) {
 		return Asset{}
 	}
 
-	return Asset{}
+	return asset
 
+}
+
+func GetAllSections() ([]Section, error) {
+
+	var sections []Section
+	result := db.Preload("Assets").Find(&Section{})
+
+
+	return sections, result.Error
 }

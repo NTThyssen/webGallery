@@ -22,15 +22,53 @@ type server struct {
 }
 
 func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*pb.CreateAssetResponse, error) {
-	log.Printf("Received: %v", in.SectionName)
-	res := repository.CreateAsset()
-	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: res}}, nil
+	log.Printf("Received: %v", in.SectionId)
+	res := repository.CreateAsset(in)
+	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
 }
 
 func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest) (*pb.CreateSectionResponse, error) {
 	log.Printf("Received: %v", in.GetName())
 	repository.CreateSection(in.Name)
 	return &pb.CreateSectionResponse{Name: "scattRat"}, nil
+}
+
+func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error){
+		log.Printf("Received: get all requets",)
+	res, err := repository.GetAllSections();
+	if err != nil {
+		log.Panicln("failed to get all Sections")
+		return nil, err
+	}
+
+	var sections []*pb.Section
+
+	for _, section := range res {
+		section := &pb.Section{
+			Id: uint32(section.ID),
+			Name: section.Name,
+			AssetList: mapAssetsToResponse(section.AssetList),
+		}
+		sections = append(sections, section)
+	}
+
+	
+	return &pb.GetAllSectionsResonse{Sections: sections }, nil
+}
+
+func mapAssetsToResponse(assets []repository.Asset) []*pb.Asset {
+	var resAssetList []*pb.Asset
+		for _, asset := range assets {
+		resAsset := &pb.Asset{
+			Id: uint32(asset.ID),
+			SectionName: asset.Section.Name,
+			BlobPath: asset.BlobPath,
+			OrderIndex: asset.OrderIndex,
+			SectionId: asset.SectionID,
+		}
+		resAssetList = append(resAssetList, resAsset)
+	}
+	return resAssetList
 }
 
 func main() {
