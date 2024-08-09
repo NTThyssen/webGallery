@@ -155,7 +155,7 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
                       child: Center(
                         child: Container(
                           child:
-                              Text(widget.items[index].sectionName + "$index"),
+                              Image.network(widget.items[index].bloburl),
                         ),
                       )),
               ]),

@@ -10,6 +10,8 @@ import (
 
 	pb "justjoew/backend/protos"
 	repository "justjoew/backend/src/respository"
+	blobRepository "justjoew/backend/src/blob_repository"
+
 )
 
 type Item struct {
@@ -62,7 +64,7 @@ func mapAssetsToResponse(assets []repository.Asset) []*pb.Asset {
 		resAsset := &pb.Asset{
 			Id: uint32(asset.ID),
 			SectionName: asset.Section.Name,
-			BlobPath: asset.BlobPath,
+			BlobPath:  blobRepository.CreatePreSignedUrls(asset.BlobPath),
 			OrderIndex: asset.OrderIndex,
 			SectionId: asset.SectionID,
 		}

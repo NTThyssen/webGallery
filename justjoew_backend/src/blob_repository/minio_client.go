@@ -53,16 +53,12 @@ func UploadAsset(assetBytes []byte) string {
 	return objectUuid
 }
 
-func CreatePreSignedUrls(objectKeyList []string) []string {
-	var preSingedUrls []string
-	for i := 0; i < len(objectKeyList); i++ {
-		res, err := generatePresignedURL(minioClient, "assets", objectKeyList[i], time.Minute*10)
-		if err != nil {
-			log.Panicf("failed to fetch object %s", objectKeyList[i] )
-		}
-		preSingedUrls = append(preSingedUrls, res)
+func CreatePreSignedUrls(objectKey string) string {
+	res, err := generatePresignedURL(minioClient, "assets", objectKey, time.Minute*10)
+	if err != nil {
+		log.Panicf("failed to fetch object %s", objectKey )
 	}
-	return preSingedUrls
+	return res
 }
 
 func generatePresignedURL(client *minio.Client, bucketName, objectName string, expiry time.Duration) (string, error) {
