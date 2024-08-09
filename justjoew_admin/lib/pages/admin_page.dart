@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'dart:html' as html;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justjoew_admin/client/grpc_client.dart';
+import 'package:justjoew_admin/cubit/section_cubit.dart';
 import 'package:justjoew_admin/mapper/object_mapper.dart';
 
 class AdminPage extends StatefulWidget {
@@ -42,22 +44,22 @@ class _AdminPageState extends State<AdminPage> {
       body: Center(
         child: Column(
           children: [
-            FutureBuilder(
-              future: new GrpcClient().getAllSections(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: Text("ERROR LOADING SECTIONS"),
+            BlocBuilder<SectionCubit, SectionState>(builder: (context, state) {
+              if(state is SectionLoading){
+                return Center(
+                    child: CircularProgressIndicator()
                   );
-                }
+              }
+              if(state is SectionReady){
                 return Column(
                   children: [
-                    for (int i = 0; i < snapshot.data!.length; i++)
-                      ReOrderbleSection(items: snapshot.data![i].assetList)
+                    for (int i = 0; i < state.sectionList.length; i++)
+                      ReOrderbleSection(items: state.sectionList[i].assetList, sectionId: state.sectionList[i].id)
                   ],
                 );
-              },
-            )
+              }
+              return Center(child: Text("NOT POSSIBLe"));
+            }),
             /* Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -102,8 +104,8 @@ class _AdminPageState extends State<AdminPage> {
 
 class ReOrderbleSection extends StatefulWidget {
   List<Asset> items;
-
-  ReOrderbleSection({super.key, required this.items});
+  int sectionId;
+  ReOrderbleSection({super.key, required this.items, required this.sectionId});
 
   @override
   State<ReOrderbleSection> createState() => _ReOrderbleSectionState();
@@ -113,7 +115,6 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
   String? _fileName;
   PlatformFile? _pickedFile;
   FilePickerResult? _result;
-
   Future<void> _pickFile() async {
     _result = await FilePicker.platform.pickFiles();
 
@@ -127,6 +128,8 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
 
   @override
   Widget build(BuildContext context) {
+    var section_cubit = context.read<SectionCubit>();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -169,7 +172,7 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
           onPressed: () async {
             await _pickFile();
             var bytes = _pickedFile!.bytes;
-            await GrpcClient().createAsset(bytes!.toList(), 1);
+            section_cubit.createAsset(bytes!.toList(), widget.sectionId);
           },
           label: Text('Add New Asset'),
           icon: Icon(Icons.add),

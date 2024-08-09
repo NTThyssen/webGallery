@@ -1,19 +1,26 @@
 
 
+import 'package:equatable/equatable.dart';
 import 'package:justjoew_admin/protos/justjoew.pb.dart';
 
-class Section {
+// ignore: must_be_immutable
+class Section extends Equatable {
 
     int id;
     String name;
     List<Asset> assetList;
 
     Section(this.id, this.name, this.assetList);
+    
+      @override
+      // TODO: implement props
+      List<Object?> get props => [id, name, assetList];
 
 }
 
 
-class Asset {
+// ignore: must_be_immutable
+class Asset extends Equatable {
   int id;
   String sectionName;
   String bloburl;
@@ -21,6 +28,10 @@ class Asset {
   int sectionId;
 
   Asset(this.bloburl, this.id, this.orderIndex, this.sectionId, this.sectionName);
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, sectionName, bloburl, orderIndex, sectionId];
 }
 
 
