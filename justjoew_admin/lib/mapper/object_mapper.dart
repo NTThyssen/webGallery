@@ -5,6 +5,7 @@ import 'package:justjoew_admin/protos/justjoew.pb.dart';
 
 // ignore: must_be_immutable
 class Section extends Equatable {
+  
 
     int id;
     String name;
