@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'dart:html' as html;
 import 'package:file_picker/file_picker.dart';
@@ -132,10 +133,12 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
         Text("Scatt Rat"),
         Container(
           width: 800,
-          height: 50,
+          height: 120,
           child: ReorderableListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
+              itemExtent: 80,
+              
               buildDefaultDragHandles: false,
               onReorder: (oldIndex, newindex) {
                 setState(() {
@@ -149,16 +152,18 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
               },
               children: [
                 for (int index = 0; index < widget.items.length; index++)
-                  ReorderableDragStartListener(
-                      key: Key('$index'),
-                      index: index,
-                      child: Center(
-                        child: Container(
+                                  ReorderableDragStartListener(
+                  key: Key('$index'+Random(200).nextInt(200000).toString()),
+                  index: index,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
                           child:
-                              Image.network(widget.items[index].bloburl),
-                        ),
-                      )),
-              ]),
+                            Image.network(widget.items[index].bloburl, fit: BoxFit.fill,),
+                      ),
+                    ),
+                  )
+              ])
         ),
         FloatingActionButton.extended(
           onPressed: () async {
