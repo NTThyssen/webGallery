@@ -37,7 +37,7 @@ func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsReques
 		log.Printf("Received: get all requets",)
 	res, err := repository.GetAllSections();
 	if err != nil {
-		log.Panicln("failed to get all Sections")
+		log.Panicln(err.Error())
 		return nil, err
 	}
 
