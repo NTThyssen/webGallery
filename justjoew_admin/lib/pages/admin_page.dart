@@ -32,7 +32,9 @@ class _AdminPageState extends State<AdminPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () async {
+          await new GrpcClient().createSection("ScattRat");
+        },
         label: Text('Add New Section'),
         icon: Icon(Icons.add),
       ),
