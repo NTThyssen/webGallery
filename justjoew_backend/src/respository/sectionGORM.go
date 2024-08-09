@@ -5,5 +5,5 @@ import "gorm.io/gorm"
 type Section struct {
 	gorm.Model
 	Name        string
-	AssetList   []Asset
+	AssetList   []Asset `gorm:"foreignKey:SectionID"`
 }

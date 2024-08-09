@@ -7,5 +7,5 @@ type Asset struct {
 	BlobPath    string
 	OrderIndex  uint32
 	SectionID   uint32 // Note the change to uint, which is common for IDs
-	Section     Section `gorm:"foreignKey:SectionID"` 
+	Section     Section `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
