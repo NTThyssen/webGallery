@@ -39,7 +39,7 @@ final $typed_data.Uint8List getAllSectionsResonseDescriptor = $convert.base64Dec
 const Section$json = {
   '1': 'Section',
   '2': [
-    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'id', '3': 1, '4': 1, '5': 13, '10': 'id'},
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'assetList', '3': 3, '4': 3, '5': 11, '6': '.justjoew.asstes.Asset', '10': 'assetList'},
   ],
@@ -47,7 +47,7 @@ const Section$json = {
 
 /// Descriptor for `Section`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List sectionDescriptor = $convert.base64Decode(
-    'CgdTZWN0aW9uEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEjQKCWFzc2V0TG'
+    'CgdTZWN0aW9uEg4KAmlkGAEgASgNUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEjQKCWFzc2V0TG'
     'lzdBgDIAMoCzIWLmp1c3Rqb2V3LmFzc3Rlcy5Bc3NldFIJYXNzZXRMaXN0');
 
 @$core.Deprecated('Use createSectionRequestDescriptor instead')
@@ -81,16 +81,16 @@ const Asset$json = {
     {'1': 'id', '3': 1, '4': 1, '5': 13, '10': 'id'},
     {'1': 'sectionName', '3': 2, '4': 1, '5': 9, '10': 'sectionName'},
     {'1': 'blobPath', '3': 3, '4': 1, '5': 9, '10': 'blobPath'},
-    {'1': 'orderIndex', '3': 4, '4': 1, '5': 5, '10': 'orderIndex'},
-    {'1': 'sectionId', '3': 5, '4': 1, '5': 5, '10': 'sectionId'},
+    {'1': 'orderIndex', '3': 4, '4': 1, '5': 13, '10': 'orderIndex'},
+    {'1': 'sectionId', '3': 5, '4': 1, '5': 13, '10': 'sectionId'},
   ],
 };
 
 /// Descriptor for `Asset`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List assetDescriptor = $convert.base64Decode(
     'CgVBc3NldBIOCgJpZBgBIAEoDVICaWQSIAoLc2VjdGlvbk5hbWUYAiABKAlSC3NlY3Rpb25OYW'
-    '1lEhoKCGJsb2JQYXRoGAMgASgJUghibG9iUGF0aBIeCgpvcmRlckluZGV4GAQgASgFUgpvcmRl'
-    'ckluZGV4EhwKCXNlY3Rpb25JZBgFIAEoBVIJc2VjdGlvbklk');
+    '1lEhoKCGJsb2JQYXRoGAMgASgJUghibG9iUGF0aBIeCgpvcmRlckluZGV4GAQgASgNUgpvcmRl'
+    'ckluZGV4EhwKCXNlY3Rpb25JZBgFIAEoDVIJc2VjdGlvbklk');
 
 @$core.Deprecated('Use createAssetRequestDescriptor instead')
 const CreateAssetRequest$json = {

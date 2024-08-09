@@ -91,7 +91,7 @@ class GetAllSectionsResonse extends $pb.GeneratedMessage {
 
 class Section extends $pb.GeneratedMessage {
   factory Section({
-    $core.String? id,
+    $core.int? id,
     $core.String? name,
     $core.Iterable<Asset>? assetList,
   }) {
@@ -112,7 +112,7 @@ class Section extends $pb.GeneratedMessage {
   factory Section.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Section', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OU3)
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..pc<Asset>(3, _omitFieldNames ? '' : 'assetList', $pb.PbFieldType.PM, protoName: 'assetList', subBuilder: Asset.create)
     ..hasRequiredFields = false
@@ -140,9 +140,9 @@ class Section extends $pb.GeneratedMessage {
   static Section? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get id => $_getSZ(0);
+  $core.int get id => $_getIZ(0);
   @$pb.TagNumber(1)
-  set id($core.String v) { $_setString(0, v); }
+  set id($core.int v) { $_setUnsignedInt32(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -295,8 +295,8 @@ class Asset extends $pb.GeneratedMessage {
     ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OU3)
     ..aOS(2, _omitFieldNames ? '' : 'sectionName', protoName: 'sectionName')
     ..aOS(3, _omitFieldNames ? '' : 'blobPath', protoName: 'blobPath')
-    ..a<$core.int>(4, _omitFieldNames ? '' : 'orderIndex', $pb.PbFieldType.O3, protoName: 'orderIndex')
-    ..a<$core.int>(5, _omitFieldNames ? '' : 'sectionId', $pb.PbFieldType.O3, protoName: 'sectionId')
+    ..a<$core.int>(4, _omitFieldNames ? '' : 'orderIndex', $pb.PbFieldType.OU3, protoName: 'orderIndex')
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'sectionId', $pb.PbFieldType.OU3, protoName: 'sectionId')
     ..hasRequiredFields = false
   ;
 
@@ -351,7 +351,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.int get orderIndex => $_getIZ(3);
   @$pb.TagNumber(4)
-  set orderIndex($core.int v) { $_setSignedInt32(3, v); }
+  set orderIndex($core.int v) { $_setUnsignedInt32(3, v); }
   @$pb.TagNumber(4)
   $core.bool hasOrderIndex() => $_has(3);
   @$pb.TagNumber(4)
@@ -360,7 +360,7 @@ class Asset extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.int get sectionId => $_getIZ(4);
   @$pb.TagNumber(5)
-  set sectionId($core.int v) { $_setSignedInt32(4, v); }
+  set sectionId($core.int v) { $_setUnsignedInt32(4, v); }
   @$pb.TagNumber(5)
   $core.bool hasSectionId() => $_has(4);
   @$pb.TagNumber(5)
