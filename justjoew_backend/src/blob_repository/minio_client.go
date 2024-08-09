@@ -3,6 +3,8 @@ package blobrepository
 import (
 	"bytes"
 	"context"
+	"net/url"
+	"time"
 
 	"log"
 	"os"
@@ -35,7 +37,7 @@ func InitClient() {
 		log.Fatalln(err)
 	}
 
-	log.Printf("is online: ", minioClient.IsOnline())
+	log.Printf("is online: %v ",  minioClient.IsOnline())
 }
 
 func UploadAsset(assetBytes []byte) string {
@@ -49,4 +51,28 @@ func UploadAsset(assetBytes []byte) string {
 		return objectUuid
 	}
 	return objectUuid
+}
+
+func CreatePreSignedUrls(objectKeyList []string) []string {
+	var preSingedUrls []string
+	for i := 0; i < len(objectKeyList); i++ {
+		res, err := generatePresignedURL(minioClient, "assets", objectKeyList[i], time.Minute*10)
+		if err != nil {
+			log.Panicf("failed to fetch object %s", objectKeyList[i] )
+		}
+		preSingedUrls = append(preSingedUrls, res)
+	}
+	return preSingedUrls
+}
+
+func generatePresignedURL(client *minio.Client, bucketName, objectName string, expiry time.Duration) (string, error) {
+    reqParams := make(url.Values)
+
+    // Generate pre-signed GET URL
+    preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
+    if err != nil {
+        return "", err
+    }
+
+    return preSignedURL.String(), nil
 }
