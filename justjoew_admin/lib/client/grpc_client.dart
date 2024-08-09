@@ -1,4 +1,5 @@
 import 'package:grpc/grpc_web.dart';
+import 'package:justjoew_admin/mapper/object_mapper.dart' as model;
 import 'package:justjoew_admin/protos/justjoew.pbgrpc.dart';
 
 class GrpcClient {
@@ -30,6 +31,16 @@ class GrpcClient {
       return 'Error';
     }
   }
+
+    Future<List<model.Section>> getAllSections() async {
+    try {
+      final response = await stub!.getAllSections(GetAllSectionsRequest());
+      return  model.Mapper.mapResponse(response);
+    } catch (e) {
+      throw('Caught error: $e');
+    }
+  }
+
 
   void shutdown() async {
     await channel!.shutdown();
