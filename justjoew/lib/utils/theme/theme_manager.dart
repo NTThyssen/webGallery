@@ -4,9 +4,18 @@ import 'package:justjoew/constants/costum_colors.dart';
 final ThemeData myTheme = ThemeData(
   primarySwatch: Colors.blue,
   //textButtonTheme: const TextButtonThemeData(
-  // style: ButtonStyle(overlayColor: WidgetStatePropertyAll(Colors.red))),
+  // style: ButtonStyle(overlayColor: WidgetStatePropertyAll(Colors.red))),'
   textTheme: const TextTheme(
-    bodySmall: TextStyle(
+    displaySmall: defaultStyle,
+    labelSmall: defaultStyle,
+    titleSmall: defaultStyle,
+    bodySmall: defaultStyle
+    
+  ),
+);
+
+
+const defaultStyle = TextStyle(
       color: blueThemePrimary,
       fontSize: 36.0,
       fontWeight: FontWeight.w400,
@@ -18,6 +27,4 @@ final ThemeData myTheme = ThemeData(
           blurRadius: 4, // Specify shadow blur radius
         ),
       ],
-    ),
-  ),
-);
+    );
