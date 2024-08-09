@@ -34,7 +34,7 @@ func CreateSection(sectionName string) (string, error) {
 	return sectionName, nil
 }
 
-func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset) {
+func CreateAsset(domainAsset *pb.CreateAssetRequest) Asset {
 	var dbSection Section
 	var assetInSectionCount int64
 	res := blobrepository.UploadAsset(domainAsset.Blob)
@@ -42,12 +42,12 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset) {
 	db.Where(dbSection).Count(&assetInSectionCount)
 
 	asset := Asset{
-		OrderIndex:  uint32(assetInSectionCount),
-		SectionID:   domainAsset.SectionId,
-		BlobPath:    res,
+		OrderIndex: uint32(assetInSectionCount),
+		SectionID:  domainAsset.SectionId,
+		BlobPath:   res,
 	}
 
-	dbRes := db.Create(asset)
+	dbRes := db.Create(&asset)
 
 	if dbRes.Error != nil {
 		log.Panicln(dbRes.Error)
@@ -62,7 +62,6 @@ func GetAllSections() ([]Section, error) {
 
 	var sections []Section
 	result := db.Preload("Assets").Find(&Section{})
-
 
 	return sections, result.Error
 }

@@ -26,7 +26,7 @@ func InitClient() {
 		panic(err)
 	}
 
-	minioClient, err := minio.New("minio.justjoew.com", &minio.Options{
+	minioClient, err = minio.New("minio.justjoew.com", &minio.Options{
 		Creds:  credentials.NewStaticV4(string(accessKey), string(secretKey), ""),
 		Secure: true,
 	})
@@ -35,10 +35,10 @@ func InitClient() {
 		log.Fatalln(err)
 	}
 
-	log.Printf("%#v\n", minioClient)
+	log.Printf("is online: ", minioClient.IsOnline())
 }
 
-func UploadAsset(assetBytes []byte) (string) {
+func UploadAsset(assetBytes []byte) string {
 
 	objectUuid := uuid.NewString()
 	reader := bytes.NewReader(assetBytes)
