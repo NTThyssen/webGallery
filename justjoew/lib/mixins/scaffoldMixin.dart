@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
+import 'package:justjoew/constants/costum_colors.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+
   ResponsiveAppBar({super.key, required this.title});
+
+  // Define consistent styles
+  static const Color _backgroundColor = Color(0xff212121);
+  static const Color _textColor = blueThemePrimary400;
+  static const double _titleFontSize = 36.0;
+  static const double _menuFontSize = 18.0;
+
+  TextStyle get _menuTextStyle => const TextStyle(
+        fontSize: _menuFontSize,
+        fontFamily: 'SourceCodePro',
+        fontWeight: FontWeight.w300,
+        color: _textColor,
+      );
+
+  TextStyle get _titleTextStyle => const TextStyle(
+        color: _textColor,
+        fontSize: _titleFontSize,
+        fontFamily: 'SourceCodePro',
+        fontWeight: FontWeight.bold,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -13,70 +35,31 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (constraints.maxWidth > 600) {
           // Full AppBar for larger screens
           return AppBar(
-            backgroundColor: Color(0xff212121),
+            backgroundColor: _backgroundColor,
             title: TextButton(
               onPressed: () {
                 context.go(ROOT_PATH);
               },
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(title, style: _titleTextStyle),
             ),
             actions: [
-              TextButton(
-                onPressed: () => context.go(ABOUT_PATH),
-                child: Text(
-                  "ABOUT ME",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.lightBlue,
-                  ),
-                ),
+              Flexible(
+                child: _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
               ),
-              TextButton(
-                onPressed: () => context.go(CONTACT_PATH),
-                child: const Text(
-                  "CONTACTS",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.lightBlue,
-                  ),
-                ),
+              Flexible(
+                child: _buildTextButton(context, "CONTACT", CONTACT_PATH),
               ),
-              const SizedBox(
-                width: 50,
-              )
+              const SizedBox(width: 50),
             ],
             automaticallyImplyLeading: false,
             leadingWidth: 300,
             leading: Row(
               children: [
-                TextButton(
-                  onPressed: () => context.go(COMMISSION_PATH),
-                  child: const Text(
-                    "COMISSIONS",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.lightBlue,
-                    ),
-                  ),
+                Flexible(
+                  child: _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.go(PORTFOLIO_PATH);
-                  },
-                  child: const Text(
-                    "PORTFOLIO",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.lightBlue,
-                    ),
-                  ),
+                Flexible(
+                  child: _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
                 ),
               ],
             ),
@@ -90,22 +73,15 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           return AppBar(
             centerTitle: true,
             leading: IconButton(
-              icon: Icon(Icons.menu, color: Colors.lightBlue),
+              icon: const Icon(Icons.menu, color: _textColor),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
             ),
-            backgroundColor: Color(0xff212121),
+            backgroundColor: _backgroundColor,
             title: TextButton(
-              onPressed: () {},
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              onPressed: () => context.go(ROOT_PATH),
+              child: Text(title, style: _titleTextStyle),
             ),
           );
         }
@@ -113,78 +89,83 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  TextButton _buildTextButton(BuildContext context, String text, String route) {
+    return TextButton(
+      onPressed: () => context.go(route),
+      child: Text(text, style: _menuTextStyle),
+    );
+  }
+
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
+  static const Color _backgroundColor = Color(0xff212121);
+  static const Color _drawerTextColor = blueThemePrimary400;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: _backgroundColor,
       extendBody: extendBody(),
       extendBodyBehindAppBar: extendBehindAppBar(),
       appBar: appBar(),
-      drawer: Drawer(
-        backgroundColor: Color(0xff212121),
-        child: ListView(
-          children: [
-            ListTile(
-                title: Text(
-                  'COMMISSIONS',
-                  style: TextStyle(color: Colors.lightBlue),
-                ),
-                onTap: () => context.go(COMMISSION_PATH)),
-            ListTile(
-                title: Text('PORTFOLIO',
-                    style: TextStyle(color: Colors.lightBlue)),
-                onTap: () => context.go(PORTFOLIO_PATH)),
-            ListTile(
-                title:
-                    Text('ABOUT ME', style: TextStyle(color: Colors.lightBlue)),
-                onTap: () => context.go(ABOUT_PATH)),
-            ListTile(
-                title:
-                    Text('CONTACTS', style: TextStyle(color: Colors.lightBlue)),
-                onTap: () => context.go(CONTACT_PATH)),
-          ],
-        ),
-      ),
+      drawer: _buildDrawer(context),
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  body(),
-                ],
+                children: [body()],
               ),
             ),
           ),
-          Container(
-            color: Color(0xff212121),
-            width: MediaQuery.of(context).size.width,
-            height: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("images/twitter.png"),
-                const SizedBox(
-                  width: 12,
-                ),
-                Image.asset("images/insta.png"),
-                const SizedBox(
-                  width: 12,
-                ),
-                Image.asset("images/youtube.png"),
-                const SizedBox(
-                  width: 12,
-                ),
-                Image.asset("images/twitch.png")
-              ],
-            ),
-          ),
+          _buildFooter(),
+        ],
+      ),
+    );
+  }
+
+  Drawer _buildDrawer(BuildContext context) {
+    return Drawer(
+      backgroundColor: _backgroundColor,
+      child: ListView(
+        children: [
+          _buildDrawerItem(context, 'COMMISSIONS', COMMISSION_PATH),
+          _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
+          _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
+          _buildDrawerItem(context, 'CONTACTS', CONTACT_PATH),
+        ],
+      ),
+    );
+  }
+
+  ListTile _buildDrawerItem(BuildContext context, String title, String route) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(color: _drawerTextColor),
+      ),
+      onTap: () => context.go(route),
+    );
+  }
+
+  Container _buildFooter() {
+    return Container(
+      color: _backgroundColor,
+      width: MediaQuery.of(context).size.width,
+      height: 80,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("images/twitter.png"),
+          const SizedBox(width: 12),
+          Image.asset("images/insta.png"),
+          const SizedBox(width: 12),
+          Image.asset("images/youtube.png"),
+          const SizedBox(width: 12),
+          Image.asset("images/twitch.png"),
         ],
       ),
     );
@@ -199,6 +180,4 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   bool extendBody() => false;
 
   bool extendBehindAppBar() => false;
-
-  //Widget bottomNavigationBar() => Container();
 }
