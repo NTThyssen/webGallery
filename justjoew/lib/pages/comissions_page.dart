@@ -20,6 +20,41 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         ? const EdgeInsets.symmetric(horizontal: 16.0)
         : const EdgeInsets.symmetric(horizontal: 64.0);
 
+    // Text content
+    const String introductionText = "I'm Joe, I love turning your ideas into vibrant emotes. "
+        "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
+        "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
+        "Commissions reflect the value of my art and cover the costs of my tools.\n\n"
+        "Let’s create something amazing together!";
+
+    // Package details
+    final List<CommissionPackage> packages = [
+      CommissionPackage(
+        title: 'Basic',
+        price: '\$10',
+        description: '1 custom static emote, high quality, tailored to your specifications.',
+        deliveryTime: '5-day delivery',
+        revisions: '2 Revisions',
+        emotes: '1 emote',
+      ),
+      CommissionPackage(
+        title: 'Standard',
+        price: '\$25',
+        description: '3 custom static emotes, high quality, tailored to your specifications.',
+        deliveryTime: '10-day delivery',
+        revisions: '3 Revisions',
+        emotes: '3 emotes',
+      ),
+      CommissionPackage(
+        title: 'Premium',
+        price: '\$40',
+        description: '6 custom static emotes, high quality, tailored to your specifications.',
+        deliveryTime: '14-day delivery',
+        revisions: '4 Revisions',
+        emotes: '6 emotes',
+      ),
+    ];
+
     return Center(
       child: Padding(
         padding: padding,
@@ -34,11 +69,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth < 600 ? screenWidth * 0.06 : screenWidth * 0.15),
               child: const Text(
-                "I'm Joe, I love turning ideas into vibrant emotes. "
-                "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
-                "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
-                "Commissions reflect the value of my art and cover the costs of my tools, with profit taking a backseat to passion.\n\n"
-                "Let’s create something amazing together! Your satisfaction is my top priority, and I'm excited to help bring your ideas to life.",
+                introductionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
@@ -51,77 +82,23 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             const SizedBox(height: 40),
             screenWidth < 600
                 ? Column(
-                    children: [
-                      CommissionPackage(
-                        title: 'Basic',
-                        price: '\$10',
-                        description:
-                            '1 custom emote for Twitch or Discord, high quality, tailored to your specifications.',
-                        deliveryTime: '5-day delivery',
-                        revisions: '2 Revisions',
-                        emotes: '1 emote or badge',
-                      ),
-                      const SizedBox(height: 16),
-                      CommissionPackage(
-                        title: 'Standard',
-                        price: '\$30',
-                        description:
-                            '3 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                        deliveryTime: '5-day delivery',
-                        revisions: '3 Revisions',
-                        emotes: '3 emotes or badges',
-                      ),
-                      const SizedBox(height: 16),
-                      CommissionPackage(
-                        title: 'Premium',
-                        price: '\$60',
-                        description:
-                            '6 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                        deliveryTime: '5-day delivery',
-                        revisions: '3 Revisions',
-                        emotes: '6 emotes or badges',
-                      ),
-                    ],
+                    children: packages
+                        .map((package) => Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: package,
+                            ))
+                        .toList(),
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: CommissionPackage(
-                          title: 'Basic',
-                          price: '\$10',
-                          description:
-                              '1 custom emote for Twitch or Discord, high quality, tailored to your specifications.',
-                          deliveryTime: '5-day delivery',
-                          revisions: '2 Revisions',
-                          emotes: '1 emote or badge',
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: CommissionPackage(
-                          title: 'Standard',
-                          price: '\$30',
-                          description:
-                              '3 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                          deliveryTime: '5-day delivery',
-                          revisions: '3 Revisions',
-                          emotes: '3 emotes or badges',
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: CommissionPackage(
-                          title: 'Premium',
-                          price: '\$60',
-                          description:
-                              '6 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                          deliveryTime: '5-day delivery',
-                          revisions: '3 Revisions',
-                          emotes: '6 emotes or badges',
-                        ),
-                      ),
-                    ],
+                    children: packages
+                        .map((package) => Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: package,
+                              ),
+                            ))
+                        .toList(),
                   ),
           ],
         ),
