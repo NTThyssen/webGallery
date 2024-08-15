@@ -34,11 +34,11 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth < 600 ? screenWidth * 0.06 : screenWidth * 0.15),
               child: const Text(
-                "I'm Joe, I love turning ideas into vibrant emotes. "
+                "I'm Joe, I love turning your ideas into vibrant emotes. "
                 "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
                 "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
-                "Commissions reflect the value of my art and cover the costs of my tools, with profit taking a backseat to passion.\n\n"
-                "Let’s create something amazing together! Your satisfaction is my top priority, and I'm excited to help bring your ideas to life.",
+                "Commissions reflect the value of my art and cover the costs of my tools.\n\n"
+                "Let’s create something amazing together!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
@@ -56,30 +56,30 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                         title: 'Basic',
                         price: '\$10',
                         description:
-                            '1 custom emote for Twitch or Discord, high quality, tailored to your specifications.',
+                            '1 custom static emote for, high quality, tailored to your specifications.',
                         deliveryTime: '5-day delivery',
                         revisions: '2 Revisions',
-                        emotes: '1 emote or badge',
+                        emotes: '1 emote',
                       ),
                       const SizedBox(height: 16),
                       CommissionPackage(
                         title: 'Standard',
-                        price: '\$30',
+                        price: '\$25',
                         description:
-                            '3 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                        deliveryTime: '5-day delivery',
+                            '3 custom static emote for, high quality, tailored to your specifications.',
+                        deliveryTime: '10-day delivery',
                         revisions: '3 Revisions',
-                        emotes: '3 emotes or badges',
+                        emotes: '3 emotes',
                       ),
                       const SizedBox(height: 16),
                       CommissionPackage(
                         title: 'Premium',
-                        price: '\$60',
+                        price: '\$40',
                         description:
-                            '6 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                        deliveryTime: '5-day delivery',
-                        revisions: '3 Revisions',
-                        emotes: '6 emotes or badges',
+                            '6 custom static emote for, high quality, tailored to your specifications.',
+                        deliveryTime: '14-day delivery',
+                        revisions: '4 Revisions',
+                        emotes: '6 emotes',
                       ),
                     ],
                   )
@@ -91,34 +91,32 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                           title: 'Basic',
                           price: '\$10',
                           description:
-                              '1 custom emote for Twitch or Discord, high quality, tailored to your specifications.',
+                              '1 custom static emote for, high quality, tailored to your specifications.',
                           deliveryTime: '5-day delivery',
                           revisions: '2 Revisions',
-                          emotes: '1 emote or badge',
+                          emotes: '1 emote',
                         ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: CommissionPackage(
                           title: 'Standard',
-                          price: '\$30',
-                          description:
-                              '3 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                          deliveryTime: '5-day delivery',
+                          price: '\$25',
+                          description:'3 custom static emote for, high quality, tailored to your specifications.',
+                          deliveryTime: '10-day delivery',
                           revisions: '3 Revisions',
-                          emotes: '3 emotes or badges',
+                          emotes: '3 emotes',
                         ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: CommissionPackage(
                           title: 'Premium',
-                          price: '\$60',
-                          description:
-                              '6 custom emotes for Twitch or Discord, high quality, tailored to your specifications.',
-                          deliveryTime: '5-day delivery',
-                          revisions: '3 Revisions',
-                          emotes: '6 emotes or badges',
+                          price: '\$40',
+                          description:'6 custom static emote for, high quality, tailored to your specifications.',
+                          deliveryTime: '14-day delivery',
+                          revisions: '4 Revisions',
+                          emotes: '6 emotes',
                         ),
                       ),
                     ],
