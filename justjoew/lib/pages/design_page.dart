@@ -36,13 +36,13 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           header: "ScatRatt",
           url: 'https://www.twitch.tv/scatratt/about',
           portfolioWidgets: [
-            ArtImage(path: 'images/cry15.png'),
-            ArtImage(path: 'images/ez8.png'),
-            ArtImage(path: 'images/heart2.png'),
-            ArtImage(path: 'images/helloRat.png'),
-            ArtImage(path: 'images/lulrat.png'),
-            ArtImage(path: 'images/pat7.png'),
-            ArtImage(path: 'images/lurk14b.png'),
+            ArtImage(path: 'images/ratcry.png'),
+            ArtImage(path: 'images/ratez.png'),
+            ArtImage(path: 'images/ratheart.png'),
+            ArtImage(path: 'images/ratwave.png'),
+            ArtImage(path: 'images/ratlul.png'),
+            ArtImage(path: 'images/ratpat.png'),
+            ArtImage(path: 'images/ratlurk.png'),
             Gif(
               width: 80,
               height: 80,
@@ -79,18 +79,10 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           header: "Olmaph",
           url: 'https://www.twitch.tv/olmaph/about',
           portfolioWidgets: [
-            ArtImage(path: 'images/WaveBlue.png'),
-            ArtImage(path: 'images/snick.png'),
-            ArtImage(path: 'images/tonicheers.png'),
-            ArtImage(path: 'images/toni400.png'),
-            ArtImage(path: 'images/toni300.png'),
-            ArtImage(path: 'images/toni200.png'),
-            ArtImage(path: 'images/toni150.png'),
-            ArtImage(path: 'images/toni128.png'),
-            ArtImage(path: 'images/toni112.png'),
-            ArtImage(path: 'images/toni100.png'),
-            ArtImage(path: 'images/toes300.png'),
-            ArtImage(path: 'images/wiggly300.png'),
+            ArtImage(path: 'images/olliewave.png'),
+            ArtImage(path: 'images/ollieSnickers.png'),
+            ArtImage(path: 'images/ollietoni.png'),
+            ArtImage(path: 'images/olliewiggly.png'),
             Gif(
               width: 80,
               height: 80,
@@ -109,7 +101,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             Gif(
               width: 80,
               height: 80,
-              image: const AssetImage("images/OlamphPump.gif"),
+              image: const AssetImage("images/olliePump.gif"),
               controller:
                   controller4, // if duration and fps is null, original gif fps will be used. 
               fps: 20,
