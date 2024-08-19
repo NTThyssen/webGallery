@@ -40,10 +40,11 @@ class _ArtImageState extends State<ArtImage> {
                   child: Stack(fit: StackFit.passthrough, children: [
                     // Your main content
                     Image.asset(
+                      filterQuality: FilterQuality.medium,
                       widget.path,
                       width: 80,
                       height: 80,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ]),
                 ),

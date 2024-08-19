@@ -20,6 +20,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
       height: MediaQuery.of(context).size.height - 160,
       child: Image.asset(
         "images/land.png",
+        filterQuality: FilterQuality.high,
         fit: BoxFit.fitHeight,
       ),
     );

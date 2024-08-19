@@ -65,6 +65,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                       const SizedBox(height: 20), // Space between text and image
                       Image.asset(
                         'images/about_round.png',
+                        filterQuality: FilterQuality.high,
                         width: kIsWeb ? 135 : 150, // 10% smaller on the web
                       ),
                       const SizedBox(height: 50), // Space before the second paragraph
@@ -103,6 +104,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                           Expanded(
                             child: Image.asset(
                               'images/about_round.png',
+                              filterQuality: FilterQuality.high,
                               height: kIsWeb ? 350 : 150, // 10% smaller on the web
                             ),
                           ),
