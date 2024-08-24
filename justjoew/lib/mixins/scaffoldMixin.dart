@@ -36,37 +36,29 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           // Full AppBar for larger screens
           return AppBar(
             backgroundColor: _backgroundColor,
-            title: TextButton(
-              onPressed: () {
-                context.go(ROOT_PATH);
-              },
-              child: Text(title, style: _titleTextStyle),
-            ),
-            actions: [
-              Flexible(
-                child: _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
-              ),
-              Flexible(
-                child: _buildTextButton(context, "CONTACT", CONTACT_PATH),
-              ),
-              const SizedBox(width: 50),
-            ],
             automaticallyImplyLeading: false,
-            leadingWidth: 300,
-            leading: Row(
-              children: [
-                Flexible(
-                  child: _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
-                ),
-                Flexible(
-                  child: _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
-                ),
-              ],
-            ),
             toolbarHeight: 80,
-            centerTitle: true,
             elevation: 1,
             shadowColor: Colors.white,
+            centerTitle: true,
+            title: Row(
+              children: [
+                Spacer(flex: 2),
+                _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
+                _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
+                Spacer(flex: 1),
+                Center(
+                  child: TextButton(
+                    onPressed: () => context.go(ROOT_PATH),
+                    child: Text(title, style: _titleTextStyle),
+                  ),
+                ),
+                Spacer(flex: 1),
+                _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
+                _buildTextButton(context, "CONTACT", CONTACT_PATH),
+                Spacer(flex: 2),
+              ],
+            ),
           );
         } else {
           // Simplified AppBar for smaller screens
