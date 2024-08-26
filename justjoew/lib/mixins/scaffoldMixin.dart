@@ -12,7 +12,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   static const Color _backgroundColor = Color(0xff212121);
   static const Color _textColor = blueThemePrimary400;
   static const double _titleFontSize = 36.0;
-  static const double _menuFontSize = 18.0;
+  static const double _menuFontSize = 14.0;
 
   TextStyle get _menuTextStyle => const TextStyle(
         fontSize: _menuFontSize,
@@ -32,34 +32,30 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth > 600) {
+        if (constraints.maxWidth > 850) {
           // Full AppBar for larger screens
           return AppBar(
-            backgroundColor: _backgroundColor,
-            automaticallyImplyLeading: false,
-            toolbarHeight: 80,
-            elevation: 1,
-            shadowColor: Colors.white,
-            centerTitle: true,
-            title: Row(
-              children: [
-                Spacer(flex: 2),
-                _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
-                _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
-                Spacer(flex: 1),
-                Center(
-                  child: TextButton(
-                    onPressed: () => context.go(ROOT_PATH),
-                    child: Text(title, style: _titleTextStyle),
-                  ),
-                ),
-                Spacer(flex: 1),
-                _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
-                _buildTextButton(context, "CONTACT", CONTACT_PATH),
-                Spacer(flex: 2),
-              ],
-            ),
-          );
+  backgroundColor: _backgroundColor,
+  automaticallyImplyLeading: false,
+  toolbarHeight: 80,
+  elevation: 1,
+  shadowColor: Colors.white,
+  centerTitle: true,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
+      SizedBox(width: 20), // Add some space between buttons
+      _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
+      SizedBox(width: 100), // Add space around the title to keep it centered
+      Text(title, style: _titleTextStyle),
+      SizedBox(width: 100), // Add space around the title to keep it centered
+      _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
+      SizedBox(width: 20), // Add some space between buttons
+      _buildTextButton(context, "CONTACT", CONTACT_PATH),
+    ],
+  ),
+);
         } else {
           // Simplified AppBar for smaller screens
           return AppBar(
