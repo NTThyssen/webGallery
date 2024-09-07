@@ -47,6 +47,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/ratpat.png'),
             ArtImage(path: 'images/ratlurk.png'),
             ArtImage(path: 'images/rathydrate.png'),
+            ArtImage(path: 'images/fineRat.png'),
             Gif(
               width: 80,
               height: 80,
