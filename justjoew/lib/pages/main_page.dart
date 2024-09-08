@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> with BasicMixin {
   @override
   Widget body() {
-    print("body() method is called");
+    print("body() method is called test");
     return Container(
       color: Colors.black,
       width: MediaQuery.of(context).size.width,
