@@ -4,15 +4,18 @@ import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/constants/costum_colors.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final Widget title;
 
-  ResponsiveAppBar({super.key, required this.title});
+  const ResponsiveAppBar({super.key, required this.title});
 
   // Define consistent styles
   static const Color _backgroundColor = Color(0xff212121);
   static const Color _textColor = blueThemePrimary400;
-  static const double _titleFontSize = 36.0;
-  static const double _menuFontSize = 14.0;
+  static const double _titleFontSize =36.0;
+  static const double _menuFontSize = 16.0;
+  static const double myToolbarheight = 105;
+  static const Color dividerColor = blueThemePrimary200;
+
 
   TextStyle get _menuTextStyle => const TextStyle(
         fontSize: _menuFontSize,
@@ -35,27 +38,27 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (constraints.maxWidth > 850) {
           // Full AppBar for larger screens
           return AppBar(
-  backgroundColor: _backgroundColor,
-  automaticallyImplyLeading: false,
-  toolbarHeight: 80,
-  elevation: 1,
-  shadowColor: Colors.white,
-  centerTitle: true,
-  title: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
-      SizedBox(width: 20), // Add some space between buttons
-      _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
-      SizedBox(width: 100), // Add space around the title to keep it centered
-      Text(title, style: _titleTextStyle),
-      SizedBox(width: 100), // Add space around the title to keep it centered
-      _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
-      SizedBox(width: 20), // Add some space between buttons
-      _buildTextButton(context, "CONTACT", CONTACT_PATH),
-    ],
-  ),
-);
+            backgroundColor: _backgroundColor,
+            automaticallyImplyLeading: false,
+            toolbarHeight: myToolbarheight,
+            elevation: 1,
+            shadowColor: dividerColor,
+            centerTitle: true,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
+                const SizedBox(width: 20), // Add some space between buttons
+                _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
+                const SizedBox(width: 100), // Add space around the title to keep it centered
+                title, // Use the title widget directly
+                const SizedBox(width: 100), // Add space around the title to keep it centered
+                _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
+                const SizedBox(width: 20), // Add some space between buttons
+                _buildTextButton(context, "CONTACT", CONTACT_PATH),
+              ],
+            ),
+          );
         } else {
           // Simplified AppBar for smaller screens
           return AppBar(
@@ -67,9 +70,10 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             backgroundColor: _backgroundColor,
-            title: TextButton(
-              onPressed: () => context.go(ROOT_PATH),
-              child: Text(title, style: _titleTextStyle),
+            toolbarHeight: myToolbarheight, // Set the toolbar height for smaller screens
+            title: InkWell(
+              onTap: () => context.go(ROOT_PATH),
+              child: title, // Use the title widget directly
             ),
           );
         }
@@ -85,7 +89,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(myToolbarheight);
 }
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
@@ -133,7 +137,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ListTile(
       title: Text(
         title,
-        style: TextStyle(color: _drawerTextColor),
+        style: const TextStyle(color: _drawerTextColor),
       ),
       onTap: () => context.go(route),
     );
@@ -159,8 +163,20 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     );
   }
 
-  PreferredSizeWidget appBar() {
-    return ResponsiveAppBar(title: "JustJoeW");
+    PreferredSizeWidget appBar() {
+    return ResponsiveAppBar(
+      title: InkWell(
+        onTap: () => context.go(ROOT_PATH),
+        child: 
+          Hero(
+            tag:'logohero',
+            child: Image.asset(
+              'images/joewlogo.png', // Update the path to your logo image
+              height: 80,            // Adjust the height as needed
+            ),
+          )
+      ),
+    );
   }
 
   Widget body();

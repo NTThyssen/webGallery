@@ -29,7 +29,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
 
     // Package details
     final List<CommissionPackage> packages = [
-      CommissionPackage(
+      const CommissionPackage(
         title: 'Basic',
         price: '\$10',
         description: '1 custom static emote, high quality, tailored to your specifications.',
@@ -37,7 +37,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         revisions: '2 Revisions',
         emotes: '1 emote',
       ),
-      CommissionPackage(
+      const CommissionPackage(
         title: 'Standard',
         price: '\$25',
         description: '3 custom static emotes, high quality, tailored to your specifications.',
@@ -45,7 +45,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         revisions: '3 Revisions',
         emotes: '3 emotes',
       ),
-      CommissionPackage(
+      const CommissionPackage(
         title: 'Premium',
         price: '\$40',
         description: '6 custom static emotes, high quality, tailored to your specifications.',
@@ -116,14 +116,14 @@ class CommissionPackage extends StatelessWidget {
   final String emotes;
 
   const CommissionPackage({
-    Key? key,
+    super.key,
     required this.title,
     required this.price,
     required this.description,
     required this.deliveryTime,
     required this.revisions,
     required this.emotes,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

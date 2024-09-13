@@ -3,7 +3,6 @@ import 'package:gif/gif.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:justjoew/constants/costum_colors.dart';
 
 class DesignPage extends StatefulWidget {
@@ -15,7 +14,7 @@ class DesignPage extends StatefulWidget {
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   late final GifController controller1, controller2, controller3, controller4, controller5;
-  int _fps = 20;
+  final int _fps = 20;
 
   @override
   void initState() {
@@ -47,7 +46,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/ratpat.png'),
             ArtImage(path: 'images/ratlurk.png'),
             ArtImage(path: 'images/rathydrate.png'),
-            ArtImage(path: 'images/fineRat.png'),
+            ArtImage(path: 'images/ratfine.png'),
             Gif(
               width: 80,
               height: 80,
@@ -205,7 +204,7 @@ class EmoteSection extends StatelessWidget {
           endIndent: MediaQuery.of(context).size.width * 0.20,
           indent: MediaQuery.of(context).size.width * 0.20,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         SizedBox(
@@ -219,7 +218,7 @@ class EmoteSection extends StatelessWidget {
               spacing: 80,
               children: portfolioWidgets),
         ),
-        SizedBox(
+        const SizedBox(
           height: 100,
         )
       ],
