@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/constants/costum_colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+//import 'package:getwidget/getwidget.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget title;
@@ -113,7 +117,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
               ),
             ),
           ),
-          _buildFooter(),
+          myFooter(),
         ],
       ),
     );
@@ -140,26 +144,6 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         style: const TextStyle(color: _drawerTextColor),
       ),
       onTap: () => context.go(route),
-    );
-  }
-
-  Container _buildFooter() {
-    return Container(
-      color: _backgroundColor,
-      width: MediaQuery.of(context).size.width,
-      height: 80,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("images/twitter.png"),
-          const SizedBox(width: 12),
-          Image.asset("images/insta.png"),
-          const SizedBox(width: 12),
-          Image.asset("images/youtube.png"),
-          const SizedBox(width: 12),
-          Image.asset("images/twitch.png"),
-        ],
-      ),
     );
   }
 
