@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/pages/main_page.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
-import 'package:justjoew/constants/costum_colors.dart';
 import 'package:justjoew/utils/theme/theme_manager.dart';
 
 void main() {
@@ -35,6 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   //cool color Color(0xff212121),
   @override
   Widget build(BuildContext context) {
-    return MainPage();
+    return const MainPage();
   }
 }

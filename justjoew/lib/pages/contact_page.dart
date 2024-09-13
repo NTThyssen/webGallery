@@ -53,8 +53,8 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         ? screenWidth * 0.08 // Less padding for narrow screens (including mobile web)
         : screenWidth * 0.20; // Larger padding for wider screens
 
-    final buttonColor = blueThemePrimary300; // Define the button color
-    final snackBarTextStyle = TextStyle(
+    const buttonColor = blueThemePrimary300; // Define the button color
+    const snackBarTextStyle = TextStyle(
       fontWeight: FontWeight.w400,
       fontFamily: 'SourceCodePro',
       fontSize: 16,
@@ -142,15 +142,15 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                         Expanded(
                           child: TextFormField(
                             controller: _firstNameController,
-                            decoration: InputDecoration(
-                              labelStyle: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
+                              labelStyle: TextStyle(color: Colors.black),
                               filled: true,
                               fillColor: Colors.white,
-                              border: const OutlineInputBorder(),
-                              enabledBorder: const OutlineInputBorder(
+                              border: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                               ),
-                              focusedBorder: const OutlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: blueThemePrimary900),
                               ),
                               errorBorder: OutlineInputBorder(
@@ -189,15 +189,15 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                     ),
                     TextFormField(
                       controller: _emailController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(color: Colors.black),
                         filled: true,
                         fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        focusedBorder: const OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
@@ -236,15 +236,15 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                     ),
                     TextFormField(
                       controller: _subjectController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(color: Colors.black),
                         filled: true,
                         fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        focusedBorder: const OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
@@ -280,15 +280,15 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                     ),
                     TextFormField(
                       controller: _messageController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(color: Colors.black),
                         filled: true,
                         fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
-                        focusedBorder: const OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: blueThemePrimary900),
                         ),
                         errorBorder: OutlineInputBorder(
@@ -330,6 +330,14 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                             );
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: blueThemePrimary300, // Light blue button color
+                          minimumSize: Size(screenWidth * 0.25, 60), // Responsive width
+                          padding: EdgeInsets.zero, // Remove extra padding
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12), // Adjust the radius for rounded corners
+                          ),
+                        ),
                         child: const Text(
                           'SUBMIT',
                           style: TextStyle(
@@ -337,14 +345,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                             fontFamily: 'SourceCodePro', // Use the Source Pro font
                             fontSize: 18, // Adjust font size as needed
                             color: Colors.black,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: blueThemePrimary300, // Light blue button color
-                          minimumSize: Size(screenWidth * 0.25, 60), // Responsive width
-                          padding: EdgeInsets.zero, // Remove extra padding
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Adjust the radius for rounded corners
                           ),
                         ),
                       ),
