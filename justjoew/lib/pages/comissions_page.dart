@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/constants/costum_colors.dart';
-import 'package:justjoew/mixins/scaffoldMixin.dart';
+import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 
 class CommissionPage extends StatefulWidget {
@@ -16,9 +17,9 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     double screenWidth = MediaQuery.of(context).size.width;
 
     // Define padding values based on the screen width
-    EdgeInsetsGeometry padding = screenWidth < 600
-        ? const EdgeInsets.symmetric(horizontal: 16.0)
-        : const EdgeInsets.symmetric(horizontal: 64.0);
+    EdgeInsetsGeometry textPadding = EdgeInsets.symmetric(horizontal: screenWidth < AppSpacing.smallscreen ? screenWidth * 0.08 : screenWidth * 0.20);
+    EdgeInsetsGeometry boxPadding = EdgeInsets.symmetric(horizontal: screenWidth < AppSpacing.smallscreen ? screenWidth * 0.2 : screenWidth * 0.08);
+
 
     // Text content
     const String introductionText = "I'm Joe, I love turning your ideas into vibrant emotes. "
@@ -56,35 +57,30 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     ];
 
     return Center(
-      child: Padding(
-        padding: padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
+            const SizedBox(height: AppSpacing.large),
             const Center(
-              child: CustomHeaderLarge(text: 'COMMISSIONS'), // Centered header
+              child: CustomHeaderLarge(text: 'COMMISSIONS'),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppSpacing.large),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth < 600 ? screenWidth * 0.06 : screenWidth * 0.15),
-              child: const Text(
+              padding: textPadding,
+              child: Text(
                 introductionText,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                  fontFamily: 'SourceCodePro',
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
               ),
             ),
-            const SizedBox(height: 40),
-            screenWidth < 600
+            const SizedBox(height: AppSpacing.xxl),
+            Padding(
+              padding: boxPadding,
+              child: screenWidth < AppSpacing.smallscreen
                 ? Column(
                     children: packages
                         .map((package) => Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
+                              padding: const EdgeInsets.only(bottom: AppSpacing.medium),
                               child: package,
                             ))
                         .toList(),
@@ -94,15 +90,17 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                     children: packages
                         .map((package) => Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
                                 child: package,
                               ),
                             ))
                         .toList(),
                   ),
+                  
+            ),
+            const SizedBox(height: AppSpacing.xxxl),
           ],
         ),
-      ),
     );
   }
 }
@@ -128,7 +126,7 @@ class CommissionPackage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(AppSpacing.medium),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12.0),
@@ -138,78 +136,48 @@ class CommissionPackage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFamily: 'SourceCodePro',
-              fontSize: 20,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.headlineMedium, // Using smallTitleStyle
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.small),
           Text(
             price,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFamily: 'SourceCodePro',
-              fontSize: 24,
-              color: blueThemePrimary,
-            ),
+            style: Theme.of(context).textTheme.labelLarge, // Using priceStyle
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.small),
           Text(
             description,
-            style: const TextStyle(
-              fontWeight: FontWeight.w300,
-              fontFamily: 'SourceCodePro',
-              fontSize: 16,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.small),
           Row(
             children: [
               const Icon(Icons.access_time, color: blueThemePrimary300),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.small),
               Text(
                 deliveryTime,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w300,
-                  fontFamily: 'SourceCodePro',
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.small),
           Row(
             children: [
               const Icon(Icons.replay, color: blueThemePrimary300),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.small),
               Text(
                 revisions,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w300,
-                  fontFamily: 'SourceCodePro',
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.small),
           Row(
             children: [
               const Icon(Icons.check, color: blueThemePrimary300),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.small),
               Text(
                 emotes,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w300,
-                  fontFamily: 'SourceCodePro',
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:justjoew/mixins/scaffoldMixin.dart';
+import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 
 class AboutMePage extends StatefulWidget {
@@ -11,7 +12,6 @@ class AboutMePage extends StatefulWidget {
 }
 
 class _AboutMePageState extends State<AboutMePage> with BasicMixin {
-  // Define text content as constants to reduce redundancy
   static const String introText = 
       "Hi there!\n\n"
       "I'm Joe, a digital artist from Denmark. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression to bring people's ideas to life.\n\n"
@@ -30,13 +30,15 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
 
   @override
   Widget body() {
-    // Get the width of the screen
     double screenWidth = MediaQuery.of(context).size.width;
+    EdgeInsetsGeometry padding = screenWidth < AppSpacing.smallscreen
+        ? const EdgeInsets.symmetric(horizontal: AppSpacing.medium)
+        : const EdgeInsets.symmetric(horizontal: AppSpacing.xl);
 
-    // Define padding values based on the screen width
-    EdgeInsetsGeometry padding = screenWidth < 600
-        ? const EdgeInsets.symmetric(horizontal: 16.0)
-        : const EdgeInsets.symmetric(horizontal: 64.0);
+        EdgeInsetsGeometry paddingLongtext = screenWidth < AppSpacing.smallscreen
+        ? const EdgeInsets.symmetric(horizontal: 0)
+        : const EdgeInsets.symmetric(horizontal: AppSpacing.xxxl);
+
 
     return Center(
       child: Padding(
@@ -44,42 +46,34 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
+            const SizedBox(height: AppSpacing.large),
             const Center(
-              child: CustomHeaderLarge(text: 'ABOUT ME'), // Centered header
+              child: CustomHeaderLarge(text: 'ABOUT ME'),
             ),
             screenWidth < 600
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         introText,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontFamily: 'SourceCodePro',
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
                       ),
-                      const SizedBox(height: 20), // Space between text and image
+                      const SizedBox(height: AppSpacing.large),
                       Image.asset(
                         'images/about_round.png',
                         filterQuality: FilterQuality.high,
-                        width: kIsWeb ? 135 : 150, // 10% smaller on the web
+                        width: kIsWeb ? 135 : 150,
                       ),
-                      const SizedBox(height: 50), // Space before the second paragraph
-                      const Text(
-                        aboutMeText,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontFamily: 'SourceCodePro',
-                          fontSize: 16,
-                          color: Colors.white,
+                      const SizedBox(height: AppSpacing.xl),
+                      Padding(
+                        padding: paddingLongtext,
+                        child: Text(
+                          aboutMeText,
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
                         ),
-                      ),
-                      const SizedBox(height: 200), // Space after the second paragraph
+                      )
                     ],
                   )
                 : Column(
@@ -87,46 +81,40 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             flex: 2,
                             child: Text(
                               introText,
                               textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontFamily: 'SourceCodePro',
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
                             ),
                           ),
-                          const SizedBox(width: 50), // Space between text and the image
+                          const SizedBox(width: AppSpacing.xl),
                           Expanded(
                             child: Image.asset(
                               'images/about_round.png',
                               filterQuality: FilterQuality.high,
-                              height: kIsWeb ? 350 : 150, // 10% smaller on the web
+                              height: kIsWeb ? 350 : 150,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 50), // Space before the second paragraph
-                      const Text(
-                        aboutMeText,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontFamily: 'SourceCodePro',
-                          fontSize: 16,
-                          color: Colors.white,
+                      const SizedBox(height: AppSpacing.xl),
+                      Padding(
+                        padding: paddingLongtext,
+                        child: Text(
+                          aboutMeText,
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.bodyMedium, // Using paragraph style
                         ),
-                      ),
-                      const SizedBox(height: 200), // Space after the second paragraph
+                      )
                     ],
                   ),
+                  const SizedBox(height: AppSpacing.xxxl),
           ],
         ),
       ),
     );
+
   }
 }

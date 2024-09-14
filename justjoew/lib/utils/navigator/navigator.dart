@@ -4,7 +4,9 @@ import 'package:justjoew/main.dart';
 import 'package:justjoew/pages/about_me_page.dart';
 import 'package:justjoew/pages/comissions_page.dart';
 import 'package:justjoew/pages/contact_page.dart';
+import 'package:justjoew/utils/theme/theme_manager.dart';
 import 'package:justjoew/widgets/main_content.dart';
+
 
 // GoRouter configuration
 final _router = GoRouter(
@@ -69,6 +71,7 @@ class MyInitApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
+      theme: myTheme, // Apply the custom theme here
     );
   }
 }

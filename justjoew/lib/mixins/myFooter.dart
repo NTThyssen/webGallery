@@ -7,9 +7,8 @@ class myFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: _backgroundColor,
       width: MediaQuery.of(context).size.width,
-      height: 80,
+      height: 55,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

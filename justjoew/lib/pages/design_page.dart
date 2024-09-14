@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:justjoew/constants/costum_colors.dart';
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -14,7 +14,6 @@ class DesignPage extends StatefulWidget {
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   late final GifController controller1, controller2, controller3, controller4, controller5;
-  final int _fps = 20;
 
   @override
   void initState() {
@@ -28,12 +27,14 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final double gifSize = 64.0; // Define a constant for GIF size
+
     return Column(
       children: [
-        const SizedBox(height: 40),
-            const Center(
-              child: CustomHeaderLarge(text: 'EMOTES'),
-            ),
+        const SizedBox(height: AppSpacing.large),
+        const Center(
+          child: CustomHeaderLarge(text: 'EMOTES'),
+        ),
         EmoteSection(
           header: "ScatRatt",
           url: 'https://www.twitch.tv/scatratt/about',
@@ -48,13 +49,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/rathydrate.png'),
             ArtImage(path: 'images/ratfine.png'),
             Gif(
-              width: 80,
-              height: 80,
+              width: gifSize,
+              height: gifSize,
               image: const AssetImage("images/RatDanceJam10.gif"),
-              controller:
-                  controller1, // if duration and fps is null, original gif fps will be used.
+              controller: controller1,
               fps: 16,
-              //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
@@ -63,13 +62,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               },
             ),
             Gif(
-              width: 80,
-              height: 80,
+              width: gifSize,
+              height: gifSize,
               image: const AssetImage("images/RatShyNotNaked.gif"),
-              controller:
-                  controller2, // if duration and fps is null, original gif fps will be used.
+              controller: controller2,
               fps: 16,
-              //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
@@ -88,13 +85,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/ollietoni.png'),
             ArtImage(path: 'images/olliewiggly.png'),
             Gif(
-              width: 80,
-              height: 80,
+              width: gifSize,
+              height: gifSize,
               image: const AssetImage("images/bar.gif"),
-              controller:
-                  controller3, // if duration and fps is null, original gif fps will be used.  
+              controller: controller3,
               fps: 10,
-              //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
@@ -103,13 +98,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               },
             ),
             Gif(
-              width: 80,
-              height: 80,
+              width: gifSize,
+              height: gifSize,
               image: const AssetImage("images/olliePump.gif"),
-              controller:
-                  controller4, // if duration and fps is null, original gif fps will be used. 
+              controller: controller4,
               fps: 20,
-              //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
@@ -118,18 +111,16 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               },
             ),
             Gif(
-              width: 80,
-              height: 80,
+              width: gifSize,
+              height: gifSize,
               image: const AssetImage("images/wiggly350.gif"),
-              controller:
-                  controller4, // if duration and fps is null, original gif fps will be used. 
+              controller: controller5,
               fps: 20,
-              //duration: const Duration(seconds: 3),
               autostart: Autostart.loop,
               placeholder: (context) => const Text('Loading...'),
               onFetchCompleted: () {
-                controller4.reset();
-                controller4.forward();
+                controller5.reset();
+                controller5.forward();
               },
             ),
           ],
@@ -140,11 +131,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller1.dispose();
     controller2.dispose();
     controller3.dispose();
     controller4.dispose();
+    controller5.dispose();
     super.dispose();
   }
 }
@@ -154,12 +145,12 @@ class EmoteSection extends StatelessWidget {
     super.key,
     required this.portfolioWidgets,
     required this.header,
-    required this.url, // Add the URL parameter
+    required this.url,
   });
 
   final List<Widget> portfolioWidgets;
   final String header;
-  final String url; // Add the URL field
+  final String url;
 
   Future<void> _launchUrl(BuildContext context, String url) async {
     final Uri uri = Uri.parse(url);
@@ -167,7 +158,9 @@ class EmoteSection extends StatelessWidget {
       await launch(uri.toString(), forceWebView: true, enableJavaScript: true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not launch $url')),
+        SnackBar(
+          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+        ),
       );
     }
   }
@@ -182,45 +175,28 @@ class EmoteSection extends StatelessWidget {
             onTap: () => _launchUrl(context, url),
             child: Text(
               header,
-              style: const TextStyle(
-                color: blueThemePrimary,
-                fontSize: 36.0,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'SourceCodePro',
-                shadows: [
-                  Shadow(
-                    color: Colors.black, // Specify shadow color and opacity
-                    offset: Offset(2, 2), // Specify shadow offset
-                    blurRadius: 4, // Specify shadow blur radius
-                  ),
-                ],
-              ),
+              style: Theme.of(context).textTheme.headlineLarge
             ),
           ),
         ),
         Divider(
-          thickness: 0.7,
-          color: blueThemePrimary100,
+          thickness: Theme.of(context).dividerTheme.thickness,
+          color: Theme.of(context).dividerTheme.color,
           endIndent: MediaQuery.of(context).size.width * 0.20,
           indent: MediaQuery.of(context).size.width * 0.20,
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: AppSpacing.large),
         SizedBox(
           child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              alignment:
-                  WrapAlignment.center, // centers the children in the Wrap
-
-              runSpacing: 40,
-              spacing: 80,
-              children: portfolioWidgets),
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runAlignment: WrapAlignment.center,
+            alignment: WrapAlignment.center,
+            runSpacing: AppSpacing.large,
+            spacing: AppSpacing.large*1,
+            children: portfolioWidgets,
+          ),
         ),
-        const SizedBox(
-          height: 100,
-        )
+        const SizedBox(height: AppSpacing.xxl),
       ],
     );
   }

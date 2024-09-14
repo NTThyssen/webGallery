@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart'; // Required for clipboard functionality
 
@@ -61,19 +62,20 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
           () => setState(() => _isHoveringFiverr = true), 
           () => setState(() => _isHoveringFiverr = false)
         ),
-        _buildSocialIconButton(
-          FontAwesomeIcons.twitch, 
-          'https://twitch.tv/imjustjoew', 
-          _isHoveringTwitch ? Colors.purple : Colors.white, 
-          () => setState(() => _isHoveringTwitch = true), 
-          () => setState(() => _isHoveringTwitch = false),
-        ),
+        
         _buildSocialIconButton(
           FontAwesomeIcons.envelope, // Gmail icon (envelope icon)
           'mailto:justjoewjoew@gmail.com', // Replace with your Gmail address
           _isHoveringGmail ? Colors.red : Colors.white, // Hover effect
           () => setState(() => _isHoveringGmail = true), 
           () => setState(() => _isHoveringGmail = false),
+        ),
+        _buildSocialIconButton(
+          FontAwesomeIcons.twitch, 
+          'https://twitch.tv/imjustjoew', 
+          _isHoveringTwitch ? Colors.purple : Colors.white, 
+          () => setState(() => _isHoveringTwitch = true), 
+          () => setState(() => _isHoveringTwitch = false),
         ),
         /*
         _buildSocialIconButton(
@@ -113,9 +115,9 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
       onEnter: (_) => onHover(),
       onExit: (_) => onExit(),
       child: IconButton(
-        icon: FaIcon(icon, color: color, size: 32), // Social media icon
+        icon: FaIcon(icon, color: color, size: AppSpacing.large), // Social media icon
         onPressed: () => _launchURL(url),
-        padding: const EdgeInsets.all(8.0), // Space around the icon
+        padding: const EdgeInsets.all(AppSpacing.small), // Space around the icon
       ),
     );
   }
@@ -132,15 +134,15 @@ Widget _buildCustomIconButton(
     onExit: (_) => onExit(),
     child: IconButton(
       icon: SizedBox(
-        width: 38, // Set the desired width
-        height: 38, // Set the desired height
+        width: AppSpacing.large, // Set the desired width
+        height: AppSpacing.large, // Set the desired height
         child: Image.asset(
           imagePath,
           fit: BoxFit.contain, // Ensures the image fits within the box
         ),
       ),
       onPressed: () => _launchURL(url),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(AppSpacing.small),
     ),
   );
 }
