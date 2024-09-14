@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 
 class ArtImage extends StatefulWidget {
   final String path;
@@ -26,11 +27,11 @@ class _ArtImageState extends State<ArtImage> {
         });
       },
       child: SizedBox(
-        height: 90,
+        height: 80,
         child: Column(children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            height: isHover ? 90 : 80,
+            height: isHover ? 80 : 70,
             child: PhysicalModel(
               elevation: isHover ? 16 : 0,
               color: Colors.transparent,
@@ -42,8 +43,8 @@ class _ArtImageState extends State<ArtImage> {
                     Image.asset(
                       filterQuality: FilterQuality.medium,
                       widget.path,
-                      width: 80,
-                      height: 80,
+                      width: AppSpacing.xl,
+                      height: AppSpacing.xl,
                       fit: BoxFit.contain,
                     ),
                   ]),
