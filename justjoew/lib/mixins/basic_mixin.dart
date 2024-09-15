@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:justjoew/mixins/MyFooter.dart';
+import 'package:justjoew/mixins/myfooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
-import 'package:justjoew/utils/theme/spacing.dart';
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
@@ -16,18 +15,24 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       extendBodyBehindAppBar: extendBehindAppBar(),
       appBar: appBar(),
       drawer: _buildDrawer(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(0), // Optional padding to ensure content is not flushed to the edges
-                child: body(),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  body(), // The main content of the page
+                  MyFooter(), // The footer, now aligned at the bottom
+                ],
               ),
             ),
-          ),
-          MyFooter(), // Custom footer widget
-        ],
+          );
+        },
       ),
     );
   }
@@ -40,7 +45,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
           _buildDrawerItem(context, 'COMMISSIONS', COMMISSIONS_PATH),
           _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
           _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
-          _buildDrawerItem(context, 'CONTACT', CONTACT_PATH),
+          _buildDrawerItem(context, 'CONTACTS', CONTACT_PATH),
         ],
       ),
     );
@@ -52,10 +57,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         title,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
-      onTap: () {
-        Navigator.of(context).pop(); // Close the drawer
-        context.go(route);
-      },
+      onTap: () => context.go(route),
     );
   }
 

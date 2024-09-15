@@ -48,7 +48,6 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: AppSpacing.large),
             const Center(child: CustomHeaderLarge(text: 'ABOUT ME')),
             const SizedBox(height: AppSpacing.large),
             
@@ -73,8 +72,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
             _buildSectionTitle('What I Love'),
             const SizedBox(height: AppSpacing.medium),
             _buildTextSection(passionText),
-            
-            const SizedBox(height: AppSpacing.xxxl),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),

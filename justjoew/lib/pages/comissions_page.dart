@@ -31,7 +31,6 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: AppSpacing.large),
             const CustomHeaderLarge(text: 'COMMISSIONS', subheader: '(Open)'),
             Padding(
               padding: textPadding,
@@ -62,7 +61,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             ),
             const SizedBox(height: AppSpacing.xl),
             _buildLicenseSection(textPadding),
-            const SizedBox(height: AppSpacing.xxxl),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),

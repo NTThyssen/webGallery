@@ -58,7 +58,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: AppSpacing.large),
             const Center(
               child: CustomHeaderLarge(text: 'CONTACT'),
             ),
@@ -68,7 +67,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
             // Uncomment the following section when you want to include the contact form
             
             //_buildContactForm(),
-            
+
           ],
         ),
       ),
@@ -166,7 +165,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                ) // Explicit button text style
             ),
           ),
-          const SizedBox(height: AppSpacing.xl),
         ],
       ),
     );

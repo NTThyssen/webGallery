@@ -10,26 +10,15 @@ class CustomHeaderLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use MediaQuery to get the screen width
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    // Adjust the font size based on screen width
-    double fontSize;
-    if (screenWidth < 400) {
-      fontSize = 24.0; // Very small screens
-    } else if (screenWidth < 600) {
-      fontSize = 32.0; // Mobile
-    } else {
-      fontSize = 40.0; // Tablet and larger screens
-    }
-
-    return Column(
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.large), // Add padding to the top only
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           mainHeader(text: text, subheader: subheader),
-          const SizedBox(height: AppSpacing.large),        
+          const SizedBox(height: AppSpacing.large),
         ],
-        
-      );
+      ),
+    );
   }
 }
