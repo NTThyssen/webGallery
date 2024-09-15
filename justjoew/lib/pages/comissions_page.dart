@@ -22,43 +22,39 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       horizontal: screenWidth < AppSpacing.smallscreen ? screenWidth * 0.08 : screenWidth * 0.20,
     );
 
-    // Adjust the padding around the commission boxes
-    final EdgeInsetsGeometry boxAreaPadding = EdgeInsets.symmetric(
-      horizontal: screenWidth < AppSpacing.smallscreen ? screenWidth * 0.05 : screenWidth * 0.10,
-    );
-
     return Center(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomHeaderLarge(text: AppStrings.commissionsHeader, subheader: AppStrings.commissionsSubheader),
-            Padding(
-              padding: textPadding,
-              child: _buildIntroSection(),
+            const CustomHeaderLarge(
+              text: AppStrings.commissionsHeader,
+              subheader: AppStrings.commissionsSubheader,
             ),
-            const SizedBox(height: AppSpacing.xl),
             Padding(
               padding: textPadding,
-              child: _buildTextSection(
-                AppStrings.emotesTitle,
-                AppStrings.emotesDescription,
-                AppStrings.emotesDetails,
+              child: Column(
+                children: [
+                  _buildIntroSection(),
+                  const SizedBox(height: AppSpacing.large),
+                  _detailsSection(),
+                  const SizedBox(height: AppSpacing.large),
+                  _buildBulletPoints(AppStrings.emotesDetails),
+                  const SizedBox(height: AppSpacing.large),
+                  _buildOtherRequestsNote(context),
+                ],
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
-            _buildPackagesSection(boxAreaPadding, screenWidth),
+            Padding(
+              padding: textPadding,
+              child: _buildPackagesSection(screenWidth),
+            ),
             const SizedBox(height: AppSpacing.xl),
             Padding(
               padding: textPadding,
-              child: _buildTextSection(
-                AppStrings.otherRequestsTitle,
-                AppStrings.otherRequestsDescription,
-                [],
-              ),
+              child: _buildLicenseSection(),
             ),
-            const SizedBox(height: AppSpacing.xl),
-            _buildLicenseSection(textPadding),
             const SizedBox(height: AppSpacing.xl),
           ],
         ),
@@ -73,8 +69,29 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       style: Theme.of(context).textTheme.bodyMedium,
     );
   }
+  Widget _detailsSection() {
+    return Text(
+      AppStrings.emotesDescription,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.bodyMedium,
+    );
+  }
 
-  Widget _buildPackagesSection(EdgeInsetsGeometry boxAreaPadding, double screenWidth) {
+  Widget _buildBulletPoints(List<String> points) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: points.map((point) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
+            child: Text(
+              point,
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+          )).toList(),
+    );
+  }
+
+  Widget _buildPackagesSection(double screenWidth) {
     final List<CommissionPackage> packages = [
       const CommissionPackage(
         title: AppStrings.basicPackageTitle,
@@ -102,66 +119,54 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       ),
     ];
 
-    return Padding(
-      padding: boxAreaPadding,
-      child: screenWidth < AppSpacing.smallscreen
-          ? Column(
-              children: packages
-                  .map((package) => Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-                        child: package,
-                      ))
-                  .toList(),
-            )
-          : Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: packages
-                  .map((package) => Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
-                          child: package,
-                        ),
-                      ))
-                  .toList(),
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: screenWidth < AppSpacing.smallscreen
+          ? packages
+              .map((package) => Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+                    child: package,
+                  ))
+              .toList()
+          : packages
+              .map((package) => Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+                      child: package,
+                    ),
+                  ))
+              .toList(),
     );
   }
 
-  Widget _buildTextSection(String title, String content, List<String> bulletPoints) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.small),
-        Text(
-          content,
-          style: Theme.of(context).textTheme.bodyMedium,
-          textAlign: TextAlign.center,
-        ),
-        if (bulletPoints.isNotEmpty) ...[
-          const SizedBox(height: AppSpacing.small),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: bulletPoints
-                .map((point) => Text(
-                      point,
-                      style: Theme.of(context).textTheme.displaySmall,
-                      textAlign: TextAlign.center,
-                    ))
-                .toList(),
+  Widget _buildOtherRequestsNote(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large),
+      child: Text(
+        AppStrings.otherRequestsDescription,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontStyle: FontStyle.italic,
+              color: AppColors.primary300,
+            ),
+      ),
+    );
+  }
+
+  Widget _buildLicenseSection() {
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.large),
+      decoration: BoxDecoration(
+        color: AppColors.packageBackground.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
         ],
-      ],
-    );
-  }
-
-  Widget _buildLicenseSection(EdgeInsetsGeometry textPadding) {
-    return Padding(
-      padding: textPadding,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -198,21 +203,27 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
 
   Widget _buildBulletPointsSection({required String title, required List<String> points}) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: AppSpacing.small),
         Text(
           title,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
         ),
         const SizedBox(height: AppSpacing.small),
         ...points.map((point) => Padding(
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
-              child: Text(
-                "- $point",
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
+              child: Row(
+                children: [
+                  const Icon(Icons.circle, size: 6, color: AppColors.primary),
+                  const SizedBox(width: AppSpacing.small),
+                  Expanded(
+                    child: Text(
+                      point,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
               ),
             )),
       ],
@@ -244,7 +255,7 @@ class CommissionPackage extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.large),
       decoration: BoxDecoration(
         color: AppColors.packageBackground.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -283,8 +294,6 @@ class CommissionPackage extends StatelessWidget {
           Divider(
             color: Theme.of(context).dividerTheme.color,
             thickness: Theme.of(context).dividerTheme.thickness,
-            indent: 20,
-            endIndent: 20,
           ),
           const SizedBox(height: AppSpacing.medium),
           _buildIconTextRow(context, Icons.access_time, deliveryTime),
