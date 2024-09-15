@@ -36,7 +36,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
         children: [
-          _buildDrawerItem(context, 'COMMISSIONS', COMMISSION_PATH),
+          _buildDrawerItem(context, 'COMMISSIONS', COMMISSIONS_PATH),
           _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
           _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
           _buildDrawerItem(context, 'CONTACT', CONTACT_PATH),

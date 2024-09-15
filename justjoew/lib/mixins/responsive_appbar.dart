@@ -39,7 +39,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTextButton(context, "COMMISSIONS", COMMISSION_PATH),
+          _buildTextButton(context, "COMMISSIONS", COMMISSIONS_PATH),
           const SizedBox(width: AppSpacing.large),
           _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
           const SizedBox(width: AppSpacing.xxl),
