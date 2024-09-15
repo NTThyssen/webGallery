@@ -316,7 +316,7 @@ class CommissionPackage extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(icon, color: blueThemePrimary300, size: 20),
+        Icon(icon, color: AppColors.comissionIcons, size: 20),
         const SizedBox(width: AppSpacing.small),
         Expanded(
           child: Text(
