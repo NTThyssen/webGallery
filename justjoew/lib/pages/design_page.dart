@@ -13,15 +13,12 @@ class DesignPage extends StatefulWidget {
 }
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
-  late final GifController controller1, controller2, controller3, controller4, controller5;
+  late final List<GifController> controllers;
 
   @override
   void initState() {
-    controller1 = GifController(vsync: this);
-    controller2 = GifController(vsync: this);
-    controller3 = GifController(vsync: this);
-    controller4 = GifController(vsync: this);
-    controller5 = GifController(vsync: this);
+    // Initialize all GIF controllers
+    controllers = List.generate(5, (index) => GifController(vsync: this));
     super.initState();
   }
 
@@ -48,32 +45,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/ratlurk.png'),
             ArtImage(path: 'images/rathydrate.png'),
             ArtImage(path: 'images/ratfine.png'),
-            Gif(
-              width: gifSize,
-              height: gifSize,
-              image: const AssetImage("images/RatDanceJam10.gif"),
-              controller: controller1,
-              fps: 16,
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller1.reset();
-                controller1.forward();
-              },
-            ),
-            Gif(
-              width: gifSize,
-              height: gifSize,
-              image: const AssetImage("images/RatShyNotNaked.gif"),
-              controller: controller2,
-              fps: 16,
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller2.reset();
-                controller2.forward();
-              },
-            ),
+            _buildGif('images/RatDanceJam10.gif', controllers[0], gifSize, 16),
+            _buildGif('images/RatShyNotNaked.gif', controllers[1], gifSize, 16),
           ],
         ),
         EmoteSection(
@@ -84,58 +57,38 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             ArtImage(path: 'images/ollieSnickers.png'),
             ArtImage(path: 'images/ollietoni.png'),
             ArtImage(path: 'images/olliewiggly.png'),
-            Gif(
-              width: gifSize,
-              height: gifSize,
-              image: const AssetImage("images/bar.gif"),
-              controller: controller3,
-              fps: 10,
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller3.reset();
-                controller3.forward();
-              },
-            ),
-            Gif(
-              width: gifSize,
-              height: gifSize,
-              image: const AssetImage("images/olliePump.gif"),
-              controller: controller4,
-              fps: 20,
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller4.reset();
-                controller4.forward();
-              },
-            ),
-            Gif(
-              width: gifSize,
-              height: gifSize,
-              image: const AssetImage("images/wiggly350.gif"),
-              controller: controller5,
-              fps: 20,
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller5.reset();
-                controller5.forward();
-              },
-            ),
+            _buildGif('images/bar.gif', controllers[2], gifSize, 10),
+            _buildGif('images/olliePump.gif', controllers[3], gifSize, 20),
+            _buildGif('images/wiggly350.gif', controllers[4], gifSize, 20),
           ],
         ),
       ],
     );
   }
 
+  // Helper method to create a GIF widget
+  Widget _buildGif(String path, GifController controller, double size, int fps) {
+    return Gif(
+      width: size,
+      height: size,
+      image: AssetImage(path),
+      controller: controller,
+      fps: fps,
+      autostart: Autostart.loop,
+      placeholder: (context) => const Text('Loading...'),
+      onFetchCompleted: () {
+        controller.reset();
+        controller.forward();
+      },
+    );
+  }
+
   @override
   void dispose() {
-    controller1.dispose();
-    controller2.dispose();
-    controller3.dispose();
-    controller4.dispose();
-    controller5.dispose();
+    // Dispose of all GIF controllers
+    for (var controller in controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 }
@@ -175,7 +128,7 @@ class EmoteSection extends StatelessWidget {
             onTap: () => _launchUrl(context, url),
             child: Text(
               header,
-              style: Theme.of(context).textTheme.headlineLarge
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
         ),
@@ -192,7 +145,7 @@ class EmoteSection extends StatelessWidget {
             runAlignment: WrapAlignment.center,
             alignment: WrapAlignment.center,
             runSpacing: AppSpacing.large,
-            spacing: AppSpacing.large*1,
+            spacing: AppSpacing.large,
             children: portfolioWidgets,
           ),
         ),
