@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:justjoew/mixins/MyFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
@@ -20,7 +21,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0), // Optional padding to ensure content is not flushed to the edges
+                padding: const EdgeInsets.all(0), // Optional padding to ensure content is not flushed to the edges
                 child: body(),
               ),
             ),

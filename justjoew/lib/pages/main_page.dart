@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
+//import 'package:justjoew/mixins/scaffoldMixin.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -11,14 +12,15 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> with BasicMixin {
   @override
   Widget body() {
+    print("body() method is called test");
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("images/land.png"),
-          fit: BoxFit.contain, // Maintains aspect ratio while filling width
-          alignment: Alignment.topCenter, // Aligns the image to the top center
+          fit: BoxFit.contain, // Fills the width while maintaining the aspect ratio
+          alignment: Alignment.topCenter, // Centers the image
         ),
       ),
     );

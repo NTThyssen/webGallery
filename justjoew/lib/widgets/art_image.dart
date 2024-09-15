@@ -3,8 +3,13 @@ import 'package:justjoew/utils/theme/spacing.dart';
 
 class ArtImage extends StatefulWidget {
   final String path;
-  bool isWarterMarked = true;
-  ArtImage({super.key, required this.path, this.isWarterMarked = true});
+  final bool isWaterMarked; // Corrected the spelling and made it final.
+
+  const ArtImage({
+    super.key,
+    required this.path,
+    this.isWaterMarked = false,
+  });
 
   @override
   State<ArtImage> createState() => _ArtImageState();
@@ -28,31 +33,49 @@ class _ArtImageState extends State<ArtImage> {
       },
       child: SizedBox(
         height: 80,
-        child: Column(children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            height: isHover ? 80 : 70,
-            child: PhysicalModel(
-              elevation: isHover ? 16 : 0,
-              color: Colors.transparent,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: SizedBox(
-                  child: Stack(fit: StackFit.passthrough, children: [
-                    // Your main content
-                    Image.asset(
-                      filterQuality: FilterQuality.medium,
-                      widget.path,
-                      width: AppSpacing.xl,
-                      height: AppSpacing.xl,
-                      fit: BoxFit.contain,
-                    ),
-                  ]),
+        child: Column(
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: isHover ? 80 : 70,
+              child: PhysicalModel(
+                elevation: isHover ? 16 : 0,
+                color: Colors.transparent,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Stack(
+                    children: [
+                      // Main image content
+                      Image.asset(
+                        widget.path,
+                        width: AppSpacing.xl,
+                        height: AppSpacing.xl,
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.medium,
+                      ),
+                      if (widget.isWaterMarked) // Conditionally show watermark
+                        Positioned(
+                          bottom: 4,
+                          right: 4,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: Text(
+                              'Watermarked',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                backgroundColor: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
-        ]),
+          ],
+        ),
       ),
     );
   }

@@ -5,11 +5,11 @@ final ThemeData myTheme = ThemeData(
   primarySwatch: Colors.lightBlue,
 
   // Background color for the Scaffold
-  scaffoldBackgroundColor: const Color(0xff212121),
+  scaffoldBackgroundColor: backgroundColor,
 
   // AppBar theme
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xff212121),
+    backgroundColor: backgroundColor,
     elevation: 1,
     iconTheme: IconThemeData(color: blueThemePrimary400),
     toolbarHeight: 105,
@@ -37,16 +37,16 @@ final ThemeData myTheme = ThemeData(
 
   // Input decoration theme for text fields
   inputDecorationTheme: InputDecorationTheme(
-    labelStyle: const TextStyle(color: Colors.black),
+    labelStyle: const TextStyle(color: formLabelColor),
     filled: true,
-    fillColor: Colors.white,
+    fillColor: formFillColor,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: Colors.white),
+      borderSide: const BorderSide(color: formFillColor),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: Colors.white),
+      borderSide: const BorderSide(color: formFillColor),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -54,7 +54,7 @@ final ThemeData myTheme = ThemeData(
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: blueThemePrimary700),
+      borderSide: const BorderSide(color: errorColor),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -81,7 +81,7 @@ final ThemeData myTheme = ThemeData(
         fontWeight: FontWeight.w600,
         fontFamily: 'SourceCodePro',
         fontSize: 18,
-        color: Colors.black,
+        color: elevatedButtonTextColor,
       ),
     ),
   ),
@@ -96,7 +96,7 @@ final ThemeData myTheme = ThemeData(
 
   // Divider theme
   dividerTheme: const DividerThemeData(
-    color: blueThemePrimary100,
+    color: dividerColor,
     thickness: 0.7,
   ),
 
@@ -137,7 +137,7 @@ const linkStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontFamily: 'SourceCodePro',
   fontSize: 18,
-  color: blueThemePrimary,
+  color: linkColor,
 );
 
 const formLabelStyle = TextStyle(
@@ -151,14 +151,14 @@ const liststyle = TextStyle(
   fontWeight: FontWeight.w300,
   fontFamily: 'SourceCodePro',
   fontSize: 14,
-  color: blueThemePrimary200,
+  color: listTextColor,
 );
 
 const snackbarTextStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontFamily: 'SourceCodePro',
   fontSize: 16,
-  color: Colors.black,
+  color: snackbarTextColor,
 );
 
 const headerStyle = TextStyle(
