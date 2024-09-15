@@ -4,156 +4,106 @@ import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart'; // Required for clipboard functionality
 
-
 class SocialMediaBar extends StatefulWidget {
+  const SocialMediaBar({super.key});
+
   @override
   _SocialMediaBarState createState() => _SocialMediaBarState();
 }
 
 class _SocialMediaBarState extends State<SocialMediaBar> {
-  // Store hover states for each icon
-  bool _isHoveringTwitter = false;
+  // Hover states for each icon
   bool _isHoveringTwitch = false;
-  bool _isHoveringYouTube = false;
-  bool _isHoveringInstagram = false;
-  bool _isHoveringLink = false;
-  bool _isHoveringFiverr = false;
-  bool _isHoveringEtsy = false;
-  bool _isHoveringDiscord = false;
   bool _isHoveringGmail = false;
+  bool _isHoveringFiverr = false;
 
-  final String discordTag = 'justjoew_83703'; // Replace with your actual Discord tag
-
+  final String discordTag = 'justjoew_83703'; // Your Discord tag
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center, // Center the icons
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Discord icon button with hover effect and clipboard functionality
-        /*MouseRegion(
-          onEnter: (_) => setState(() => _isHoveringDiscord = true),
-          onExit: (_) => setState(() => _isHoveringDiscord = false),
-          child: GestureDetector(
-            onTap: () {
-              Clipboard.setData(ClipboardData(text: discordTag));
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Discord tag copied to clipboard!'),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-            child: Column(
-              children: [
-                // Discord icon
-                FaIcon(
-                  FontAwesomeIcons.discord,
-                  color: _isHoveringDiscord ? Colors.blue : Colors.white, // Color changes on hover
-                  size: 32,
-                ),
-              ],
-            ),
-          ),
-        ),*/
+        // Example custom icon button (Fiverr)
         _buildCustomIconButton(
-          _isHoveringFiverr ? 'images/fiverr_green.png' : 'images/fiverr.png', 
-          'https://fiverr.com/justjoew', 
-          () => setState(() => _isHoveringFiverr = true), 
-          () => setState(() => _isHoveringFiverr = false)
+          _isHoveringFiverr ? 'images/fiverr_green.png' : 'images/fiverr.png',
+          'https://fiverr.com/justjoew',
+          () => setState(() => _isHoveringFiverr = true),
+          () => setState(() => _isHoveringFiverr = false),
         ),
-        
+        // Example social media icon buttons
         _buildSocialIconButton(
-          FontAwesomeIcons.envelope, // Gmail icon (envelope icon)
-          'mailto:justjoewjoew@gmail.com', // Replace with your Gmail address
-          _isHoveringGmail ? Colors.red : Colors.white, // Hover effect
-          () => setState(() => _isHoveringGmail = true), 
+          FontAwesomeIcons.envelope,
+          'mailto:justjoewjoew@gmail.com',
+          _isHoveringGmail ? Colors.red : Colors.white,
+          () => setState(() => _isHoveringGmail = true),
           () => setState(() => _isHoveringGmail = false),
         ),
         _buildSocialIconButton(
-          FontAwesomeIcons.twitch, 
-          'https://twitch.tv/imjustjoew', 
-          _isHoveringTwitch ? Colors.purple : Colors.white, 
-          () => setState(() => _isHoveringTwitch = true), 
+          FontAwesomeIcons.twitch,
+          'https://twitch.tv/imjustjoew',
+          _isHoveringTwitch ? Colors.purple : Colors.white,
+          () => setState(() => _isHoveringTwitch = true),
           () => setState(() => _isHoveringTwitch = false),
         ),
-        /*
-        _buildSocialIconButton(
-          FontAwesomeIcons.youtube, 
-          'https://youtube.com/justjoewjoew', 
-          _isHoveringYouTube ? Colors.red : Colors.white, 
-          () => setState(() => _isHoveringYouTube = true), 
-          () => setState(() => _isHoveringYouTube = false),
-        ),
-        _buildSocialIconButton(
-          FontAwesomeIcons.instagram, 
-          'https://instagram.com/yourprofile', 
-          _isHoveringInstagram ? Colors.pink : Colors.white, 
-          () => setState(() => _isHoveringInstagram = true), 
-          () => setState(() => _isHoveringInstagram = false),
-        ),
-        _buildSocialIconButton(
-          FontAwesomeIcons.etsy, 
-          'https://etsy.com/shop/yourprofile', 
-          _isHoveringEtsy ? Colors.orange : Colors.white, 
-          () => setState(() => _isHoveringEtsy = true), 
-          () => setState(() => _isHoveringEtsy = false),
-        ),*/
       ],
     );
   }
 
-  // Function to create each social media icon button with hover effect
+  // Function to create social media icon buttons with hover effects
   Widget _buildSocialIconButton(
-    IconData icon, 
-    String url, 
-    Color color, 
-    VoidCallback onHover, 
-    VoidCallback onExit
+    IconData icon,
+    String url,
+    Color color,
+    VoidCallback onHover,
+    VoidCallback onExit,
   ) {
     return MouseRegion(
       onEnter: (_) => onHover(),
       onExit: (_) => onExit(),
       child: IconButton(
-        icon: FaIcon(icon, color: color, size: AppSpacing.large), // Social media icon
+        icon: FaIcon(icon, color: color, size: AppSpacing.large),
         onPressed: () => _launchURL(url),
-        padding: const EdgeInsets.all(AppSpacing.small), // Space around the icon
+        padding: const EdgeInsets.all(AppSpacing.small),
       ),
     );
   }
 
-// Function to create a custom icon button with a properly sized image
-Widget _buildCustomIconButton(
-  String imagePath, 
-  String url, 
-  VoidCallback onHover, 
-  VoidCallback onExit
-) {
-  return MouseRegion(
-    onEnter: (_) => onHover(),
-    onExit: (_) => onExit(),
-    child: IconButton(
-      icon: SizedBox(
-        width: AppSpacing.large, // Set the desired width
-        height: AppSpacing.large, // Set the desired height
-        child: Image.asset(
-          imagePath,
-          fit: BoxFit.contain, // Ensures the image fits within the box
+  // Function to create custom icon buttons with an image asset
+  Widget _buildCustomIconButton(
+    String imagePath,
+    String url,
+    VoidCallback onHover,
+    VoidCallback onExit,
+  ) {
+    return MouseRegion(
+      onEnter: (_) => onHover(),
+      onExit: (_) => onExit(),
+      child: IconButton(
+        icon: SizedBox(
+          width: AppSpacing.large,
+          height: AppSpacing.large,
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
         ),
+        onPressed: () => _launchURL(url),
+        padding: const EdgeInsets.all(AppSpacing.small),
       ),
-      onPressed: () => _launchURL(url),
-      padding: const EdgeInsets.all(AppSpacing.small),
-    ),
-  );
-}
+    );
+  }
 
-
-  // Function to launch URL when the icon is pressed
+  // Function to launch URL when an icon is pressed
   void _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw 'Could not launch $url';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+        ),
+      );
     }
   }
 }

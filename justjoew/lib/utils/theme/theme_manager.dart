@@ -4,6 +4,9 @@ import 'package:justjoew/constants/costum_colors.dart';
 final ThemeData myTheme = ThemeData(
   primarySwatch: Colors.lightBlue,
 
+  // Background color for the Scaffold
+  scaffoldBackgroundColor: const Color(0xff212121),
+
   // AppBar theme
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xff212121),
@@ -29,7 +32,7 @@ final ThemeData myTheme = ThemeData(
     headlineLarge: headerStyle,
     titleLarge: headerStylelarge,
     displayMedium: subheader,
-    displaySmall: liststyle
+    displaySmall: liststyle,
   ),
 
   // Input decoration theme for text fields
@@ -39,23 +42,23 @@ final ThemeData myTheme = ThemeData(
     fillColor: Colors.white,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: const BorderSide(color: Colors.white),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: const BorderSide(color: Colors.white),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: blueThemePrimary900),
+      borderSide: const BorderSide(color: blueThemePrimary900),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: blueThemePrimary700),
+      borderSide: const BorderSide(color: blueThemePrimary700),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: blueThemePrimary900),
+      borderSide: const BorderSide(color: blueThemePrimary900),
     ),
     errorStyle: const TextStyle(
       color: blueThemePrimary,
@@ -143,6 +146,7 @@ const formLabelStyle = TextStyle(
   fontSize: 14,
   color: blueThemePrimary300,
 );
+
 const liststyle = TextStyle(
   fontWeight: FontWeight.w300,
   fontFamily: 'SourceCodePro',
@@ -176,7 +180,7 @@ const subheader = TextStyle(
   fontSize: 28.0,
   fontWeight: FontWeight.w100,
   fontFamily: 'SourceCodePro',
-  fontStyle: FontStyle.italic
+  fontStyle: FontStyle.italic,
 );
 
 const menuTextStyle = TextStyle(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:justjoew/mixins/myFooter.dart';
+import 'package:justjoew/mixins/MyFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).appBarTheme.backgroundColor ?? const Color(0xff212121);
+    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -19,12 +19,13 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                children: [body()],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0), // Optional padding to ensure content is not flushed to the edges
+                child: body(),
               ),
             ),
           ),
-          myFooter(), // Custom footer widget
+          MyFooter(), // Custom footer widget
         ],
       ),
     );
@@ -38,7 +39,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
           _buildDrawerItem(context, 'COMMISSIONS', COMMISSION_PATH),
           _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
           _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
-          _buildDrawerItem(context, 'CONTACTS', CONTACT_PATH),
+          _buildDrawerItem(context, 'CONTACT', CONTACT_PATH),
         ],
       ),
     );
@@ -48,9 +49,12 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ListTile(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyMedium, // Use the theme's text style for drawer items
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
-      onTap: () => context.go(route),
+      onTap: () {
+        Navigator.of(context).pop(); // Close the drawer
+        context.go(route);
+      },
     );
   }
 
@@ -61,8 +65,8 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         child: Hero(
           tag: 'logohero',
           child: Image.asset(
-            'images/joewlogo.png', // Update the path to your logo image
-            height: 48, // Adjust the height as needed
+            'images/joewlogo.png',
+            height: 48,
           ),
         ),
       ),
