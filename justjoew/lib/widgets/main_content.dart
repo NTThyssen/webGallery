@@ -18,7 +18,6 @@ class _MainContentState extends State<MainContent> with BasicMixin {
         child: Column(
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.60,
               child: const DesignPage(),
             ),
           ],
