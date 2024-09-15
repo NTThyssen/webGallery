@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
-//import 'package:justjoew/mixins/scaffoldMixin.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,14 +12,20 @@ class _MainPageState extends State<MainPage> with BasicMixin {
   @override
   Widget body() {
     print("body() method is called test");
+
+    // Get the screen width
+    double screenWidth = MediaQuery.of(context).size.width;
+    // Calculate the height based on the aspect ratio of the image (700 / 1800)
+    double containerHeight = screenWidth * (700 / 1800);
+
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      width: screenWidth,
+      height: containerHeight,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("images/land.png"),
-          fit: BoxFit.contain, // Fills the width while maintaining the aspect ratio
-          alignment: Alignment.topCenter, // Centers the image
+          fit: BoxFit.cover, // Fits the image within the container
+          alignment: Alignment.center,
         ),
       ),
     );

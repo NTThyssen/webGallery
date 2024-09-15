@@ -48,7 +48,6 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: AppSpacing.large),
             const Center(child: CustomHeaderLarge(text: 'ABOUT ME')),
             const SizedBox(height: AppSpacing.large),
             
@@ -73,8 +72,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
             _buildSectionTitle('What I Love'),
             const SizedBox(height: AppSpacing.medium),
             _buildTextSection(passionText),
-            
-            const SizedBox(height: AppSpacing.xxxl),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),
@@ -88,7 +86,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         children: [
           _buildTextSection(introText),
           const SizedBox(height: AppSpacing.large),
-          _buildCenteredImage('images/about_round.png', screenWidth),
+          _buildCenteredImage('images/joepfpsmoll.png', screenWidth),
         ],
       );
     } else {
@@ -102,7 +100,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           ),
           const SizedBox(width: AppSpacing.xl),
           Expanded(
-            child: _buildCenteredImage('images/about_round.png', screenWidth),
+            child: _buildCenteredImage('images/joepfpsmoll.png', screenWidth),
           ),
         ],
       );

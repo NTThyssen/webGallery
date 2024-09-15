@@ -7,7 +7,7 @@ import 'package:justjoew/utils/navigator/navigator.dart';
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).appBarTheme.backgroundColor ?? const Color(0xff212121);
+    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -15,17 +15,24 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       extendBodyBehindAppBar: extendBehindAppBar(),
       appBar: appBar(),
       drawer: _buildDrawer(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
               child: Column(
-                children: [body()],
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  body(), // The main content of the page
+                  MyFooter(), // The footer, now aligned at the bottom
+                ],
               ),
             ),
-          ),
-          myFooter(), // Custom footer widget
-        ],
+          );
+        },
       ),
     );
   }
@@ -35,7 +42,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
         children: [
-          _buildDrawerItem(context, 'COMMISSIONS', COMMISSION_PATH),
+          _buildDrawerItem(context, 'COMMISSIONS', COMMISSIONS_PATH),
           _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
           _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
           _buildDrawerItem(context, 'CONTACTS', CONTACT_PATH),
@@ -48,7 +55,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ListTile(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyMedium, // Use the theme's text style for drawer items
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
       onTap: () => context.go(route),
     );
@@ -61,8 +68,8 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         child: Hero(
           tag: 'logohero',
           child: Image.asset(
-            'images/joewlogo.png', // Update the path to your logo image
-            height: 48, // Adjust the height as needed
+            'images/joewlogo.png',
+            height: 48,
           ),
         ),
       ),
