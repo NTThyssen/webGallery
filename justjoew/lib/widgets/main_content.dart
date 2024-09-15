@@ -15,6 +15,7 @@ class _MainContentState extends State<MainContent> with BasicMixin {
   Widget body() {
     return Center(
       child: SingleChildScrollView( // Allows scrolling if content overflows
+        padding: const EdgeInsets.all(0), // Optional padding for better layout
         child: Column(
           children: [
             SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/constants/ImageStrings.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
@@ -29,37 +31,37 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const Center(
-            child: CustomHeaderLarge(text: 'EMOTES'),
+          Center(
+            child: CustomHeaderLarge(text: AppStrings.emotesHeader),
           ),
           EmoteSection(
-            header: "ScatRatt",
-            url: 'https://www.twitch.tv/scatratt/about',
+            header: AppStrings.scatrattHeader,
+            url: AppStrings.scatrattUrl,
             portfolioWidgets: [
-              ArtImage(path: 'images/ratcry.png'),
-              ArtImage(path: 'images/ratez.png'),
-              ArtImage(path: 'images/ratheart.png'),
-              ArtImage(path: 'images/ratwave.png'),
-              ArtImage(path: 'images/ratlul.png'),
-              ArtImage(path: 'images/ratpat.png'),
-              ArtImage(path: 'images/ratlurk.png'),
-              ArtImage(path: 'images/rathydrate.png'),
-              ArtImage(path: 'images/ratfine.png'),
-              _buildGif('images/RatDanceJam10.gif', controllers[0], gifSize, 16),
-              _buildGif('images/RatShyNotNaked.gif', controllers[1], gifSize, 16),
+              ArtImage(path: Imagestrings.ratCry),
+              ArtImage(path: Imagestrings.ratEz),
+              ArtImage(path: Imagestrings.ratHeart),
+              ArtImage(path: Imagestrings.ratWave),
+              ArtImage(path: Imagestrings.ratLul),
+              ArtImage(path: Imagestrings.ratPat),
+              ArtImage(path: Imagestrings.ratLurk),
+              ArtImage(path: Imagestrings.ratHydrate),
+              ArtImage(path: Imagestrings.ratFine),
+              _buildGif(Imagestrings.ratDanceJam, controllers[0], gifSize, 16),
+              _buildGif(Imagestrings.ratShyNotNaked, controllers[1], gifSize, 16),
             ],
           ),
           EmoteSection(
-            header: "Olmaph",
-            url: 'https://www.twitch.tv/olmaph/about',
+            header: AppStrings.olmaphHeader,
+            url: AppStrings.olmaphUrl,
             portfolioWidgets: [
-              ArtImage(path: 'images/olliewave.png'),
-              ArtImage(path: 'images/ollieSnickers.png'),
-              ArtImage(path: 'images/ollietoni.png'),
-              ArtImage(path: 'images/olliewiggly.png'),
-              _buildGif('images/bar.gif', controllers[2], gifSize, 10),
-              _buildGif('images/olliePump.gif', controllers[3], gifSize, 20),
-              _buildGif('images/wiggly350.gif', controllers[4], gifSize, 20),
+              ArtImage(path: Imagestrings.ollieWave),
+              ArtImage(path: Imagestrings.ollieSnickers),
+              ArtImage(path: Imagestrings.ollieToni),
+              ArtImage(path: Imagestrings.ollieWiggly),
+              _buildGif(Imagestrings.barGif, controllers[2], gifSize, 10),
+              _buildGif(Imagestrings.olliePump, controllers[3], gifSize, 20),
+              _buildGif(Imagestrings.wiggly350, controllers[4], gifSize, 20),
             ],
           ),
           const SizedBox(height: AppSpacing.large),
@@ -109,8 +111,8 @@ class EmoteSection extends StatelessWidget {
 
   Future<void> _launchUrl(BuildContext context, String url) async {
     final Uri uri = Uri.parse(url);
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString(), forceWebView: true, enableJavaScript: true);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

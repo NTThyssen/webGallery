@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
+import 'package:justjoew/utils/theme/spacing.dart'; // Use AppSpacing
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
@@ -42,10 +45,10 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
         children: [
-          _buildDrawerItem(context, 'COMMISSIONS', COMMISSIONS_PATH),
-          _buildDrawerItem(context, 'PORTFOLIO', PORTFOLIO_PATH),
-          _buildDrawerItem(context, 'ABOUT ME', ABOUT_PATH),
-          _buildDrawerItem(context, 'CONTACTS', CONTACT_PATH),
+          _buildDrawerItem(context, AppStrings.commissions, AppRoutes.commissions),
+          _buildDrawerItem(context, AppStrings.portfolio, AppRoutes.portfolio),
+          _buildDrawerItem(context, AppStrings.aboutMe, AppRoutes.about),
+          _buildDrawerItem(context, AppStrings.contact, AppRoutes.contact),
         ],
       ),
     );
@@ -64,12 +67,12 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   PreferredSizeWidget appBar() {
     return ResponsiveAppBar(
       title: InkWell(
-        onTap: () => context.go(ROOT_PATH),
+        onTap: () => context.go(AppRoutes.root),
         child: Hero(
           tag: 'logohero',
           child: Image.asset(
-            'images/joewlogo.png',
-            height: 48,
+            Imagestrings.logoPath, // Use a constant for the logo path
+            height: AppSpacing.xl, // Use AppSpacing for consistent sizing
           ),
         ),
       ),

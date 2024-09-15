@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart'; // For kIsWeb
-import 'package:justjoew/constants/costum_colors.dart';
+import 'package:justjoew/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
@@ -33,13 +32,17 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Future<void> _launchEmail() async {
     final emailUri = Uri(
       scheme: 'mailto',
-      path: 'justjoewjoew@gmail.com',
+      path: AppStrings.emailUrl,
       query: 'subject=Hello', // Optional default subject
     );
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
     } else {
-      throw 'Could not launch $emailUri';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch $emailUri', style: Theme.of(context).textTheme.labelSmall),
+        ),
+      );
     }
   }
 
@@ -59,15 +62,14 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Center(
-              child: CustomHeaderLarge(text: 'CONTACT'),
+              child: CustomHeaderLarge(text: AppStrings.contact),
             ),
             const SizedBox(height: AppSpacing.large),
             _buildContactInfoSection(),
             const SizedBox(height: AppSpacing.xl),
-            // Uncomment the following section when you want to include the contact form
             
+            // Contact Form Section
             //_buildContactForm(),
-
           ],
         ),
       ),
@@ -79,8 +81,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     return Column(
       children: [
         Text(
-          "Hello!\n\n"
-          "If you want to request a commission or have any questions, feel free to reach out through this form or at my email address:\n",
+          AppStrings.contactIntroText,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
@@ -89,14 +90,14 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
           child: GestureDetector(
             onTap: _launchEmail,
             child: Text(
-              "justjoewjoew@gmail.com",
+              AppStrings.email,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
         ),
         Text(
-          "\nLet’s create something amazing together!",
+          AppStrings.contactOutroText,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
@@ -104,71 +105,74 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     );
   }
 
-  // Contact form section (currently commented out)
-  Widget _buildContactForm() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildFormLabel('Name'),
-          _buildTextFormField(
-            controller: _firstNameController,
-            hint: 'Please enter your name',
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel('Email Address'),
-          _buildTextFormField(
-            controller: _emailController,
-            hint: 'Please enter your email address',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email address';
-              }
-              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                return 'Please enter a valid email address';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel('Subject'),
-          _buildTextFormField(
-            controller: _subjectController,
-            hint: 'Please enter the subject',
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel('Message'),
-          _buildTextFormField(
-            controller: _messageController,
-            hint: 'Please enter your message',
-            maxLines: 5,
-          ),
-          const SizedBox(height: AppSpacing.large),
-          Center(
+  // Contact form section
+  // Contact form section
+Widget _buildContactForm() {
+  return Form(
+    key: _formKey,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFormLabel(AppStrings.nameLabel),
+        _buildTextFormField(
+          controller: _firstNameController,
+          hint: AppStrings.nameHint,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.emailLabel),
+        _buildTextFormField(
+          controller: _emailController,
+          hint: AppStrings.emailHint,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return AppStrings.emailValidationError;
+            }
+            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+              return AppStrings.emailInvalidError;
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.subjectLabel),
+        _buildTextFormField(
+          controller: _subjectController,
+          hint: AppStrings.subjectHint,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.messageLabel),
+        _buildTextFormField(
+          controller: _messageController,
+          hint: AppStrings.messageHint,
+          maxLines: 5,
+        ),
+        const SizedBox(height: AppSpacing.large),
+        Center(
+          child: SizedBox(
+            width: 200, // Set the width for the button
+            height: 50, // Set the height for the button
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Submitting form',
+                        AppStrings.formSubmittingMessage,
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                   );
                 }
               },
-              child: Text(
-                'SUBMIT',
-                 style: Theme.of(context).elevatedButtonTheme.style?.textStyle?.resolve({}),
-               ) // Explicit button text style
+              child: Text(AppStrings.submit), // Remove explicit styling here
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   // Helper method to build form labels
   Widget _buildFormLabel(String label) {

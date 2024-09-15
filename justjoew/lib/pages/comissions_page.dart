@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/costum_colors.dart';
+import 'package:justjoew/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 
@@ -31,7 +32,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomHeaderLarge(text: 'COMMISSIONS', subheader: '(Open)'),
+            const CustomHeaderLarge(text: AppStrings.commissionsHeader, subheader: AppStrings.commissionsSubheader),
             Padding(
               padding: textPadding,
               child: _buildIntroSection(),
@@ -40,12 +41,9 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             Padding(
               padding: textPadding,
               child: _buildTextSection(
-                'Emotes',
-                "Custom emotes designed to match your channel's and community's personality and style.\nDelivery times are set generously to account for life’s demands, but they are usually shorter.",
-                [
-                  "PNG in 4 sizes (28x28, 56x56, 112x112, 128x128)",
-                  "600 dpi",
-                ],
+                AppStrings.emotesTitle,
+                AppStrings.emotesDescription,
+                AppStrings.emotesDetails,
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
@@ -54,8 +52,8 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             Padding(
               padding: textPadding,
               child: _buildTextSection(
-                'Other Requests',
-                "Looking for something else? I specialize in emotes, but feel free to reach out and let's have a chat about it.",
+                AppStrings.otherRequestsTitle,
+                AppStrings.otherRequestsDescription,
                 [],
               ),
             ),
@@ -69,13 +67,8 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   }
 
   Widget _buildIntroSection() {
-    const String introductionText = "I love turning your ideas into vibrant emotes. "
-        "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
-        "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
-        "Let’s create something amazing together!";
-
     return Text(
-      introductionText,
+      AppStrings.introductionText,
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.bodyMedium,
     );
@@ -84,28 +77,28 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   Widget _buildPackagesSection(EdgeInsetsGeometry boxAreaPadding, double screenWidth) {
     final List<CommissionPackage> packages = [
       const CommissionPackage(
-        title: 'Basic',
-        price: '\$10',
-        description: '1 custom static emote, tailored to your specifications.',
-        deliveryTime: '5-day delivery',
-        revisions: '2 Revisions',
-        emotes: '1 emote',
+        title: AppStrings.basicPackageTitle,
+        price: AppStrings.basicPackagePrice,
+        description: AppStrings.basicPackageDescription,
+        deliveryTime: AppStrings.basicPackageDelivery,
+        revisions: AppStrings.basicPackageRevisions,
+        emotes: AppStrings.basicPackageEmotes,
       ),
       const CommissionPackage(
-        title: 'Standard',
-        price: '\$25',
-        description: '3 custom static emotes, tailored to your specifications.',
-        deliveryTime: '10-day delivery',
-        revisions: '3 Revisions',
-        emotes: '3 emotes',
+        title: AppStrings.standardPackageTitle,
+        price: AppStrings.standardPackagePrice,
+        description: AppStrings.standardPackageDescription,
+        deliveryTime: AppStrings.standardPackageDelivery,
+        revisions: AppStrings.standardPackageRevisions,
+        emotes: AppStrings.standardPackageEmotes,
       ),
       const CommissionPackage(
-        title: 'Premium',
-        price: '\$40',
-        description: '6 custom static emotes, tailored to your specifications.',
-        deliveryTime: '14-day delivery',
-        revisions: '4 Revisions',
-        emotes: '6 emotes',
+        title: AppStrings.premiumPackageTitle,
+        price: AppStrings.premiumPackagePrice,
+        description: AppStrings.premiumPackageDescription,
+        deliveryTime: AppStrings.premiumPackageDelivery,
+        revisions: AppStrings.premiumPackageRevisions,
+        emotes: AppStrings.premiumPackageEmotes,
       ),
     ];
 
@@ -173,35 +166,28 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'License / Terms of Use',
+            AppStrings.licenseTitle,
             style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.small),
           Text(
-            "By commissioning me, you're purchasing a license to use my emotes/art on your streaming platforms and community chatrooms (e.g., Discord). As the artist, I retain full copyright to the artwork.",
+            AppStrings.licenseDescription,
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.small),
           _buildBulletPointsSection(
-            title: "What You Can’t Do:",
-            points: [
-              "Transform, recolor, or edit the emotes without my consent.",
-              "Sell the emotes or use them on merchandise without purchasing commercial rights.",
-              "Use the emotes for NFTs or AI art purposes.",
-            ],
+            title: AppStrings.whatYouCantDoTitle,
+            points: AppStrings.whatYouCantDoPoints,
           ),
           _buildBulletPointsSection(
-            title: "What You Can Do:",
-            points: [
-              "Hire an animator to animate the emotes, provided they don’t claim rights to the original artwork.",
-              "Commission other artists in the future, but they should not directly replicate my style.",
-            ],
+            title: AppStrings.whatYouCanDoTitle,
+            points: AppStrings.whatYouCanDoPoints,
           ),
           const SizedBox(height: AppSpacing.small),
           Text(
-            "Commercial Rights: If you want to use the emotes for merchandise or need full copyright, we can discuss a commercial rights agreement.",
+            AppStrings.commercialRightsText,
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -257,7 +243,7 @@ class CommissionPackage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.large),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: AppColors.packageBackground.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
           BoxShadow(
@@ -312,16 +298,14 @@ class CommissionPackage extends StatelessWidget {
   }
 
   Widget _buildIconTextRow(BuildContext context, IconData icon, String text) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
     return Row(
       children: [
-        Icon(icon, color: AppColors.comissionIcons, size: 20),
+        Icon(icon, color: AppColors.commissionIcons, size: 20),
         const SizedBox(width: AppSpacing.small),
         Expanded(
           child: Text(
             text,
-            style: textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ],

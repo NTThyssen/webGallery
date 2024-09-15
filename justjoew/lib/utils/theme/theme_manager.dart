@@ -1,191 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/costum_colors.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 
 final ThemeData myTheme = ThemeData(
   primarySwatch: Colors.lightBlue,
 
   // Background color for the Scaffold
-  scaffoldBackgroundColor: backgroundColor,
+  scaffoldBackgroundColor: AppColors.background,
 
   // AppBar theme
-  appBarTheme: const AppBarTheme(
-    backgroundColor: backgroundColor,
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.background,
     elevation: 1,
-    iconTheme: IconThemeData(color: blueThemePrimary400),
+    iconTheme: IconThemeData(color: AppColors.primary400),
     toolbarHeight: 105,
-    titleTextStyle: TextStyle(
-      color: blueThemePrimary400,
-      fontSize: 36.0,
-      fontFamily: 'SourceCodePro',
-      fontWeight: FontWeight.bold,
-    ),
+    titleTextStyle: AppTextStyles.headerLarge,
   ),
 
   // Text themes
-  textTheme: const TextTheme(
-    bodyMedium: paragraphStyle,
-    headlineMedium: smallTitleStyle,
-    labelLarge: priceStyle,
-    labelMedium: linkStyle,
-    bodySmall: formLabelStyle,
-    labelSmall: snackbarTextStyle,
-    headlineLarge: headerStyle,
-    titleLarge: headerStylelarge,
-    displayMedium: subheader,
-    displaySmall: liststyle,
+  textTheme: TextTheme(
+    bodyMedium: AppTextStyles.paragraph,
+    headlineMedium: AppTextStyles.smallTitle,
+    labelLarge: AppTextStyles.price,
+    labelMedium: AppTextStyles.link,
+    bodySmall: AppTextStyles.formLabel,
+    labelSmall: AppTextStyles.snackbarText,
+    headlineLarge: AppTextStyles.header,
+    titleLarge: AppTextStyles.headerLarge,
+    displayMedium: AppTextStyles.subheader,
+    displaySmall: AppTextStyles.list,
   ),
 
   // Input decoration theme for text fields
   inputDecorationTheme: InputDecorationTheme(
-    labelStyle: const TextStyle(color: formLabelColor),
+    labelStyle: AppTextStyles.formLabel,
     filled: true,
-    fillColor: formFillColor,
+    fillColor: AppColors.formFill,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: formFillColor),
+      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderSide: BorderSide(color: AppColors.formFill),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: formFillColor),
+      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderSide: BorderSide(color: AppColors.formFill),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: blueThemePrimary900),
+      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderSide: BorderSide(color: AppColors.primary900),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: errorColor),
+      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderSide: BorderSide(color: AppColors.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: const BorderSide(color: blueThemePrimary900),
+      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderSide: BorderSide(color: AppColors.primary900),
     ),
-    errorStyle: const TextStyle(
-      color: blueThemePrimary,
-      fontWeight: FontWeight.w400,
-      fontSize: 12,
-      fontFamily: 'SourceCodePro',
-    ),
+    errorStyle: AppTextStyles.link,
   ),
 
   // ElevatedButton theme
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: blueThemePrimary300,
-      minimumSize: const Size.fromHeight(60),
+      backgroundColor: AppColors.primary300,
+      minimumSize: Size.fromHeight(AppSpacing.large), // Use AppSpacing
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(AppSpacing.medium), // Use AppSpacing
       ),
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.w600,
-        fontFamily: 'SourceCodePro',
-        fontSize: 18,
-        color: elevatedButtonTextColor,
-      ),
+      textStyle: AppTextStyles.menuText,
     ),
   ),
 
   // TextButton theme
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      textStyle: menuTextStyle,
-      foregroundColor: blueThemePrimary300,
+      textStyle: AppTextStyles.menuText,
+      foregroundColor: AppColors.primary300,
     ),
   ),
 
   // Divider theme
-  dividerTheme: const DividerThemeData(
-    color: dividerColor,
+  dividerTheme: DividerThemeData(
+    color: AppColors.divider,
     thickness: 0.7,
   ),
 
   // SnackBar theme
   snackBarTheme: SnackBarThemeData(
-    backgroundColor: blueThemePrimary300,
-    contentTextStyle: snackbarTextStyle,
+    backgroundColor: AppColors.primary300,
+    contentTextStyle: AppTextStyles.snackbarText,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(AppSpacing.medium), // Use AppSpacing
     ),
     behavior: SnackBarBehavior.floating,
   ),
-);
-
-// Custom text styles
-const paragraphStyle = TextStyle(
-  fontWeight: FontWeight.w300,
-  fontFamily: 'SourceCodePro',
-  fontSize: 14,
-  color: Colors.white,
-);
-
-const smallTitleStyle = TextStyle(
-  fontWeight: FontWeight.w600,
-  fontFamily: 'SourceCodePro',
-  fontSize: 20,
-  color: Colors.white,
-);
-
-const priceStyle = TextStyle(
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-  fontSize: 18,
-  color: blueThemePrimary400,
-);
-
-const linkStyle = TextStyle(
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-  fontSize: 18,
-  color: linkColor,
-);
-
-const formLabelStyle = TextStyle(
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-  fontSize: 14,
-  color: blueThemePrimary300,
-);
-
-const liststyle = TextStyle(
-  fontWeight: FontWeight.w300,
-  fontFamily: 'SourceCodePro',
-  fontSize: 14,
-  color: listTextColor,
-);
-
-const snackbarTextStyle = TextStyle(
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-  fontSize: 16,
-  color: snackbarTextColor,
-);
-
-const headerStyle = TextStyle(
-  color: blueThemePrimary,
-  fontSize: 28.0,
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-);
-
-const headerStylelarge = TextStyle(
-  color: Colors.white,
-  fontSize: 32.0,
-  fontWeight: FontWeight.w400,
-  fontFamily: 'SourceCodePro',
-);
-
-const subheader = TextStyle(
-  color: Color.fromARGB(255, 196, 196, 196),
-  fontSize: 28.0,
-  fontWeight: FontWeight.w100,
-  fontFamily: 'SourceCodePro',
-  fontStyle: FontStyle.italic,
-);
-
-const menuTextStyle = TextStyle(
-  fontSize: 16.0,
-  fontFamily: 'SourceCodePro',
-  fontWeight: FontWeight.w400,
-  color: blueThemePrimary400,
 );

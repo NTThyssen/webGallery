@@ -3,7 +3,7 @@ import 'package:justjoew/utils/theme/spacing.dart';
 
 class ArtImage extends StatefulWidget {
   final String path;
-  final bool isWaterMarked; // Corrected the spelling and made it final.
+  final bool isWaterMarked; // Keeps track of whether the image is watermarked.
 
   const ArtImage({
     super.key,
@@ -18,28 +18,25 @@ class ArtImage extends StatefulWidget {
 class _ArtImageState extends State<ArtImage> {
   bool isHover = false;
 
+  // Define default image size and hover elevation
+  static const double _defaultImageSize = 70;
+  static const double _hoverImageSize = 80;
+  static const double _hoverElevation = 16;
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isHover = true;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          isHover = false;
-        });
-      },
+      onEnter: (_) => setState(() => isHover = true),
+      onExit: (_) => setState(() => isHover = false),
       child: SizedBox(
-        height: 80,
+        height: _hoverImageSize, // Use the hover size for the container height
         child: Column(
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHover ? 80 : 70,
+              height: isHover ? _hoverImageSize : _defaultImageSize, // Hover effect
               child: PhysicalModel(
-                elevation: isHover ? 16 : 0,
+                elevation: isHover ? _hoverElevation : 0,
                 color: Colors.transparent,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.0),

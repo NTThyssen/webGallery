@@ -1,44 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:justjoew/utils/navigator/navigator.dart';
-import 'package:justjoew/utils/theme/spacing.dart';
+import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/utils/theme/spacing.dart'; // Use AppSpacing for spacing
+import 'package:justjoew/utils/navigator/navigator.dart'; // Import the navigator for AppRoutes
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget title;
-  final double toolbarHeight; // Add toolbarHeight as a parameter
+  final double toolbarHeight;
 
   const ResponsiveAppBar({super.key, required this.title, this.toolbarHeight = 105});
 
   @override
   Widget build(BuildContext context) {
-    final appBarTheme = Theme.of(context).appBarTheme; // Access the appBarTheme
-    final dividerColor = Theme.of(context).dividerTheme.color; // Access divider color from the theme
+    final appBarTheme = Theme.of(context).appBarTheme;
+    final dividerColor = Theme.of(context).dividerTheme.color;
+    final iconColor = appBarTheme.iconTheme?.color; // Store icon color
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth > 850) {
+        if (constraints.maxWidth > 950) {
           // Full AppBar for larger screens
           return AppBar(
-            backgroundColor: appBarTheme.backgroundColor, // Use background color from the theme
+            backgroundColor: appBarTheme.backgroundColor,
             automaticallyImplyLeading: false,
-            toolbarHeight: toolbarHeight, // Use the toolbar height passed in the constructor
+            toolbarHeight: toolbarHeight,
             elevation: appBarTheme.elevation,
             shadowColor: dividerColor,
             centerTitle: true,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildTextButton(context, "COMMISSIONS", COMMISSIONS_PATH),
+                _buildTextButton(context, AppStrings.commissions, AppRoutes.commissions), // Use AppRoutes
                 const SizedBox(width: AppSpacing.large),
-                _buildTextButton(context, "PORTFOLIO", PORTFOLIO_PATH),
+                _buildTextButton(context, AppStrings.portfolio, AppRoutes.portfolio),
                 const SizedBox(width: AppSpacing.xxl),
-                title, // Use the title widget directly
+                title,
                 const SizedBox(width: AppSpacing.xxl),
-                _buildTextButton(context, "ABOUT ME", ABOUT_PATH),
+                _buildTextButton(context, AppStrings.aboutMe, AppRoutes.about),
                 const SizedBox(width: AppSpacing.large),
-                _buildTextButton(context, "CONTACT", CONTACT_PATH),
-                const SizedBox(width: AppSpacing.large*1.25),
-
+                _buildTextButton(context, AppStrings.contact, AppRoutes.contact),
+                const SizedBox(width: AppSpacing.large * 1.25),
               ],
             ),
           );
@@ -47,15 +48,15 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           return AppBar(
             centerTitle: true,
             leading: IconButton(
-              icon: Icon(Icons.menu, color: appBarTheme.iconTheme?.color), // Use icon color from the theme
+              icon: Icon(Icons.menu, color: iconColor), // Use stored icon color
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
             ),
             backgroundColor: appBarTheme.backgroundColor,
-            toolbarHeight: toolbarHeight, // Use the toolbar height passed in the constructor
+            toolbarHeight: toolbarHeight,
             title: InkWell(
-              onTap: () => context.go(ROOT_PATH),
+              onTap: () => _navigateTo(context, AppRoutes.root), // Use AppRoutes for root navigation
               child: title,
             ),
           );
@@ -64,13 +65,23 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  // Method to build text buttons for the app bar
   TextButton _buildTextButton(BuildContext context, String text, String route) {
     return TextButton(
-      onPressed: () => context.go(route),
+      onPressed: () => _navigateTo(context, route),
       child: Text(text),
     );
   }
 
+  // Method to handle navigation with error checking
+  void _navigateTo(BuildContext context, String route) {
+    try {
+      context.go(route);
+    } catch (e) {
+      print('Error navigating to $route: $e');
+    }
+  }
+
   @override
-  Size get preferredSize => Size.fromHeight(toolbarHeight); // Use the toolbarHeight property
+  Size get preferredSize => Size.fromHeight(toolbarHeight);
 }
