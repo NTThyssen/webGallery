@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
-import 'package:justjoew/widgets/mainheader.dart';
 
-class CustomHeaderLarge extends StatelessWidget {
+class mainHeader extends StatelessWidget {
   final String text;
   final String? subheader;
 
-  const CustomHeaderLarge({super.key, required this.text, this.subheader});
+  const mainHeader({super.key, required this.text, this.subheader});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +25,20 @@ class CustomHeaderLarge extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          mainHeader(text: text, subheader: subheader),
-          const SizedBox(height: AppSpacing.large),        
+          Text(
+            text,
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  fontSize: fontSize, // Use dynamic font size
+                  color: Colors.white, // Override color to always be white
+                  shadows: [], // Remove drop shadows
+                ),
+          ),
+          if (subheader != null)
+            Text(
+              subheader!,
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
         ],
-        
       );
   }
 }
