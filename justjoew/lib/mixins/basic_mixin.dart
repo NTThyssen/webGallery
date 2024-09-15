@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:justjoew/mixins/myfooter.dart';
+import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 
