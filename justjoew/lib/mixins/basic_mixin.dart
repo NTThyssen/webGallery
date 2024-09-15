@@ -45,9 +45,9 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
         children: [
-          _buildDrawerItem(context, AppStrings.commissions, AppRoutes.commissions),
+          _buildDrawerItem(context, AppStrings.commissionsHeader, AppRoutes.commissions),
           _buildDrawerItem(context, AppStrings.portfolio, AppRoutes.portfolio),
-          _buildDrawerItem(context, AppStrings.aboutMe, AppRoutes.about),
+          _buildDrawerItem(context, AppStrings.aboutMeHeader, AppRoutes.about),
           _buildDrawerItem(context, AppStrings.contact, AppRoutes.contact),
         ],
       ),
@@ -71,7 +71,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         child: Hero(
           tag: 'logohero',
           child: Image.asset(
-            Imagestrings.logoPath, // Use a constant for the logo path
+            ImageStrings.logoPath, // Use a constant for the logo path
             height: AppSpacing.xl, // Use AppSpacing for consistent sizing
           ),
         ),

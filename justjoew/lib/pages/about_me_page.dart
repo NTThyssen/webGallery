@@ -66,7 +66,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         children: [
           _buildTextSection(AppStrings.introText),
           const SizedBox(height: AppSpacing.large),
-          _buildCenteredImage(Imagestrings.profileImage, screenWidth),
+          _buildCenteredImage(ImageStrings.profileImage, screenWidth),
         ],
       );
     } else {
@@ -80,7 +80,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           ),
           const SizedBox(width: AppSpacing.xl),
           Expanded(
-            child: _buildCenteredImage(Imagestrings.profileImage, screenWidth),
+            child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
           ),
         ],
       );

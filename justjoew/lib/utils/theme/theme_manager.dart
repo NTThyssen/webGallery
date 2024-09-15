@@ -38,23 +38,23 @@ final ThemeData myTheme = ThemeData(
     filled: true,
     fillColor: AppColors.formFill,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: BorderSide(color: AppColors.formFill),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: BorderSide(color: AppColors.formFill),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: BorderSide(color: AppColors.primary900),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: BorderSide(color: AppColors.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.small), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: BorderSide(color: AppColors.primary900),
     ),
     errorStyle: AppTextStyles.link,
@@ -64,10 +64,10 @@ final ThemeData myTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary300,
-      minimumSize: Size.fromHeight(AppSpacing.large), // Use AppSpacing
+      minimumSize: Size.fromHeight(AppSpacing.large),
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSpacing.medium), // Use AppSpacing
+        borderRadius: BorderRadius.circular(AppSpacing.medium),
       ),
       textStyle: AppTextStyles.menuText,
     ),
@@ -92,7 +92,7 @@ final ThemeData myTheme = ThemeData(
     backgroundColor: AppColors.primary300,
     contentTextStyle: AppTextStyles.snackbarText,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppSpacing.medium), // Use AppSpacing
+      borderRadius: BorderRadius.circular(AppSpacing.medium),
     ),
     behavior: SnackBarBehavior.floating,
   ),

@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
       height: containerHeight,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: const AssetImage(Imagestrings.landscapeImage), // Use centralized image path
+          image: const AssetImage(ImageStrings.landscapeImage), // Use centralized image path
           fit: BoxFit.cover, // Fits the image within the container
           alignment: Alignment.center,
         ),

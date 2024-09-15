@@ -1,20 +1,32 @@
 class AppStrings {
-  // General Strings
+  // General
   static const String appName = 'JustJoeW';
-  static const String welcomeMessage = 'Welcome to JustJoeW!';
   static const String ok = 'OK';
   static const String cancel = 'Cancel';
   static const String submit = 'Submit';
+  static const String loading = 'Loading...';
+  static const String noDataAvailable = 'No data available at this time.';
 
-  // Error Messages
+  // Messages
+  static const String welcomeMessage = 'Welcome to JustJoeW!';
   static const String errorNetwork = 'Network error, please try again.';
   static const String errorFormValidation = 'Please fill in all required fields.';
+  static const String snackbarSuccess = 'Operation completed successfully!';
+  static const String snackbarFailure = 'Something went wrong. Please try again.';
+  static const String formSubmittingMessage = 'Submitting form';
 
   // Form Labels
+  static const String nameLabel = 'Name';
+  static const String nameHint = 'Please enter your name';
   static const String emailLabel = 'Email Address';
-  static const String passwordLabel = 'Password';
-  static const String confirmPasswordLabel = 'Confirm Password';
-
+  static const String emailHint = 'Please enter your email address';
+  static const String emailValidationError = 'Please enter your email address';
+  static const String emailInvalidError = 'Please enter a valid email address';
+  static const String subjectLabel = 'Subject';
+  static const String subjectHint = 'Please enter the subject';
+  static const String messageLabel = 'Message';
+  static const String messageHint = 'Please enter your message';
+  
   // Buttons
   static const String loginButton = 'Login';
   static const String registerButton = 'Register';
@@ -23,34 +35,28 @@ class AppStrings {
   // Section Headers
   static const String contactUsHeader = 'Contact Us';
   static const String servicesHeader = 'Our Services';
-
-  // AppBar Strings
-  static const String commissions = 'COMMISSIONS';
+  static const String commissionsHeader = 'COMMISSIONS';
   static const String portfolio = 'PORTFOLIO';
-  static const String aboutMe = 'ABOUT ME';
+  static const String aboutMeHeader = 'ABOUT ME';
   static const String contact = 'CONTACT';
 
-  // About Me Page Strings
-  static const String aboutMeHeader = 'ABOUT ME';
+  // About Me Page
   static const String backgroundTitle = 'My Background';
   static const String processTitle = 'My Creative Process';
   static const String passionTitle = 'What I Love';
-  
   static const String introText = 
       "Hi there!\n\n"
       "I'm Joe, a digital artist from Denmark. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression.\n\n"
       "Seeing my creations bring joy to others is what motivates me the most. If you have a concept in mind or simply want to explore ideas, I'd love to hear from you.\n\n"
       "Let’s create something amazing together!";
-  
   static const String aboutMeText = 
       "I began my journey as a traditional artist, sketching on paper. My move into digital art was inspired by a friend who needed emotes for his Twitch channel. I decided to give it a try, and to my surprise, the emotes were a hit within his community. This success ignited my passion for digital art, and I've been exploring it ever since.\n\n"
       "I have a background in software engineering and have specialized in frontend design and UX, which greatly influences my approach to art.";
-
   static const String passionText = 
       "What I love most about my work is seeing ideas come to life. I thrive on transforming rough sketches into polished pieces that people can enjoy and use. One of my most memorable projects was my first one—it was both exciting and nerve-wracking, but the joy it brought to the client pushed me to keep improving.\n\n"
       "Feedback and revisions are a crucial part of my process. I believe in sharing the creative journey with my clients, making them feel involved in crafting something unique and personal. My goal is to produce emotes that both of us can take pride in, with the final result reflecting the effort and care put into its creation.";
 
-  // Creative Process Section Strings
+  // Creative Process Section
   static const String processConsult = 
       "I start by understanding your vision and expectations. This helps me align my designs with your ideas.";
   static const String processConcept = 
@@ -60,15 +66,13 @@ class AppStrings {
   static const String processFinalize = 
       "I polish the emote with coloring, shading, and highlights, ensuring it captures the essence of your idea.";
 
-  // Commission Page Strings
-  static const String commissionsHeader = 'COMMISSIONS';
+  // Commissions Page
   static const String commissionsSubheader = '(Open)';
   static const String introductionText = 
       "I love turning your ideas into vibrant emotes. "
       "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
       "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
       "Let’s create something amazing together!";
-  
   static const String emotesTitle = 'Emotes';
   static const String emotesDescription = 
       "Custom emotes designed to match your channel's and community's personality and style.\n"
@@ -103,7 +107,7 @@ class AppStrings {
   static const String premiumPackageRevisions = '4 Revisions';
   static const String premiumPackageEmotes = '6 emotes';
 
-  // License Section Strings
+  // License Section
   static const String licenseTitle = 'License / Terms of Use';
   static const String licenseDescription = 
       "By commissioning me, you're purchasing a license to use my emotes/art on your streaming platforms and community chatrooms (e.g., Discord). As the artist, I retain full copyright to the artwork.";
@@ -121,44 +125,22 @@ class AppStrings {
   static const String commercialRightsText = 
       "Commercial Rights: If you want to use the emotes for merchandise or need full copyright, we can discuss a commercial rights agreement.";
 
-  // Miscellaneous
-  static const String loading = 'Loading...';
-  static const String noDataAvailable = 'No data available at this time.';
-
-  // Snackbar Messages
-  static const String snackbarSuccess = 'Operation completed successfully!';
-  static const String snackbarFailure = 'Something went wrong. Please try again.';
-
-  // Links
-  static const String privacyPolicyLink = 'Privacy Policy';
-  static const String termsOfServiceLink = 'Terms of Service';
-  
-  // Socials
+  // Socials and Links
   static const String fiverrUrl = 'https://fiverr.com/justjoew';
   static const String emailUrl = 'mailto:justjoewjoew@gmail.com';
   static const String email = 'justjoewjoew@gmail.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
+  static const String privacyPolicyLink = 'Privacy Policy';
+  static const String termsOfServiceLink = 'Terms of Service';
 
-  // Contact
-  static const String contactIntroText = "Hello!\n\nIf you want to request a commission or have any questions, feel free to reach out through this form or at my email address:\n";
+  // Contact Page
+  static const String contactIntroText = "Hello!\n\nIf you want to request a commission or have any questions, feel free to reach out at my email address:\n";
   static const String contactOutroText = "\nLet’s create something amazing together!";
-  static const String nameLabel = 'Name';
-  static const String nameHint = 'Please enter your name';
-  static const String emailHint = 'Please enter your email address';
-  static const String emailValidationError = 'Please enter your email address';
-  static const String emailInvalidError = 'Please enter a valid email address';
-  static const String subjectLabel = 'Subject';
-  static const String subjectHint = 'Please enter the subject';
-  static const String messageLabel = 'Message';
-  static const String messageHint = 'Please enter your message';
-  static const String formSubmittingMessage = 'Submitting form';
-
-// Emotes
-static const String emotesHeader = 'EMOTES';
-static const String scatrattHeader = 'ScatRatt';
-static const String scatrattUrl = 'https://www.twitch.tv/scatratt/about';
-static const String olmaphHeader = 'Olmaph';
-static const String olmaphUrl = 'https://www.twitch.tv/olmaph/about';
-
-
+  
+  // Emotes Page
+  static const String emotesHeader = 'EMOTES';
+  static const String scatrattHeader = 'ScatRatt';
+  static const String scatrattUrl = 'https://www.twitch.tv/scatratt/about';
+  static const String olmaphHeader = 'Olmaph';
+  static const String olmaphUrl = 'https://www.twitch.tv/olmaph/about';
 }

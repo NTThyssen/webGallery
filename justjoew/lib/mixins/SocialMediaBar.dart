@@ -26,7 +26,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
       children: [
         _buildIconButton(
           Image.asset(
-            _hoverStates['fiverr']! ? Imagestrings.fiverGreen : Imagestrings.fiverr,
+            _hoverStates['fiverr']! ? ImageStrings.fiverGreen : ImageStrings.fiverr,
             width: 32, // Set the image icon size to 32
             height: 32, // Set the image icon size to 32
             fit: BoxFit.contain,

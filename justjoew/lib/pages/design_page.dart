@@ -27,45 +27,54 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final double gifSize = 64.0; // Define a constant for GIF size
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Define padding values for different screen sizes
+    final horizontalPadding = screenWidth < AppSpacing.smallscreen
+        ? screenWidth * 0.08
+        : screenWidth * 0.20;
 
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Center(
-            child: CustomHeaderLarge(text: AppStrings.emotesHeader),
-          ),
-          EmoteSection(
-            header: AppStrings.scatrattHeader,
-            url: AppStrings.scatrattUrl,
-            portfolioWidgets: [
-              ArtImage(path: Imagestrings.ratCry),
-              ArtImage(path: Imagestrings.ratEz),
-              ArtImage(path: Imagestrings.ratHeart),
-              ArtImage(path: Imagestrings.ratWave),
-              ArtImage(path: Imagestrings.ratLul),
-              ArtImage(path: Imagestrings.ratPat),
-              ArtImage(path: Imagestrings.ratLurk),
-              ArtImage(path: Imagestrings.ratHydrate),
-              ArtImage(path: Imagestrings.ratFine),
-              _buildGif(Imagestrings.ratDanceJam, controllers[0], gifSize, 16),
-              _buildGif(Imagestrings.ratShyNotNaked, controllers[1], gifSize, 16),
-            ],
-          ),
-          EmoteSection(
-            header: AppStrings.olmaphHeader,
-            url: AppStrings.olmaphUrl,
-            portfolioWidgets: [
-              ArtImage(path: Imagestrings.ollieWave),
-              ArtImage(path: Imagestrings.ollieSnickers),
-              ArtImage(path: Imagestrings.ollieToni),
-              ArtImage(path: Imagestrings.ollieWiggly),
-              _buildGif(Imagestrings.barGif, controllers[2], gifSize, 10),
-              _buildGif(Imagestrings.olliePump, controllers[3], gifSize, 20),
-              _buildGif(Imagestrings.wiggly350, controllers[4], gifSize, 20),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.large),
-        ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Use calculated padding
+        child: Column(
+          children: [
+            Center(
+              child: CustomHeaderLarge(text: AppStrings.emotesHeader),
+            ),
+            EmoteSection(
+              header: AppStrings.scatrattHeader,
+              url: AppStrings.scatrattUrl,
+              portfolioWidgets: [
+                ArtImage(path: ImageStrings.ratCry),
+                ArtImage(path: ImageStrings.ratEz),
+                ArtImage(path: ImageStrings.ratHeart),
+                ArtImage(path: ImageStrings.ratWave),
+                ArtImage(path: ImageStrings.ratLul),
+                ArtImage(path: ImageStrings.ratPat),
+                ArtImage(path: ImageStrings.ratLurk),
+                ArtImage(path: ImageStrings.ratHydrate),
+                ArtImage(path: ImageStrings.ratFine),
+                _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
+                _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
+              ],
+            ),
+            EmoteSection(
+              header: AppStrings.olmaphHeader,
+              url: AppStrings.olmaphUrl,
+              portfolioWidgets: [
+                ArtImage(path: ImageStrings.ollieWave),
+                ArtImage(path: ImageStrings.ollieSnickers),
+                ArtImage(path: ImageStrings.ollieToni),
+                ArtImage(path: ImageStrings.ollieWiggly),
+                _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
+                _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
+                _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.large),
+          ],
+        ),
       ),
     );
   }
@@ -124,6 +133,9 @@ class EmoteSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final double dividerIndent = screenWidth * 0.20; // 20% of the screen width
+
     return Column(
       children: [
         MouseRegion(
@@ -139,8 +151,8 @@ class EmoteSection extends StatelessWidget {
         Divider(
           thickness: Theme.of(context).dividerTheme.thickness,
           color: Theme.of(context).dividerTheme.color,
-          endIndent: MediaQuery.of(context).size.width * 0.20,
-          indent: MediaQuery.of(context).size.width * 0.20,
+          indent: dividerIndent,
+          endIndent: dividerIndent,
         ),
         const SizedBox(height: AppSpacing.large),
         ConstrainedBox(
@@ -158,7 +170,7 @@ class EmoteSection extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: AppSpacing.xxl),
+        const SizedBox(height: AppSpacing.xl),
       ],
     );
   }
