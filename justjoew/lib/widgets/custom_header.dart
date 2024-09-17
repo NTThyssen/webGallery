@@ -15,7 +15,7 @@ class CustomHeaderLarge extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          mainHeader(text: text, subheader: subheader), // Use the mainHeader widget
+          MainHeader(text: text, subheader: subheader), // Use the mainHeader widget
           const SizedBox(height: AppSpacing.large), // Adds space below the header
         ],
       ),
