@@ -7,7 +7,7 @@ class MyFooter extends StatelessWidget {
 
   const MyFooter({
     super.key,
-    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.medium), // Default padding
+    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.small), // Default padding
   });
 
   @override

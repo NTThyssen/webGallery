@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
     bool isSmallScreen = screenWidth < AppSpacing.smallscreen; // Example threshold for small screens
 
     // Determine container height based on the aspect ratio for large screens
-    double containerHeight = isSmallScreen ? 400.0 : screenWidth * _imageAspectRatio;
+    double containerHeight = isSmallScreen ? 450.0 : screenWidth * _imageAspectRatio;
     // Set container width for small screens to be screen width (cropping the image)
     double containerWidth = isSmallScreen ? screenWidth : screenWidth;
 

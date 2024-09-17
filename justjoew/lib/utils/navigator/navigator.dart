@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:justjoew/pages/about_me_page.dart';
 import 'package:justjoew/pages/comissions_page.dart';
 import 'package:justjoew/pages/contact_page.dart';
+import 'package:justjoew/pages/home_page.dart';
 import 'package:justjoew/pages/main_page.dart';
 import 'package:justjoew/utils/theme/theme_manager.dart';
 import 'package:justjoew/widgets/main_content.dart';
@@ -24,20 +25,22 @@ class AppRouter {
         path: AppRoutes.root,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
-          child: const MainPage(), // Use MainPage as the root route
+          child: const MainPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // No animation
           },
+          transitionDuration: Duration.zero, // No animation duration
         ),
       ),
       GoRoute(
         path: AppRoutes.portfolio,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
-          child: const MainContent(), // Only use MainContent here if intended
+          child: const MainContent(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // No animation
           },
+          transitionDuration: Duration.zero,
         ),
       ),
       GoRoute(
@@ -48,6 +51,7 @@ class AppRouter {
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // No animation
           },
+          transitionDuration: Duration.zero,
         ),
       ),
       GoRoute(
@@ -58,6 +62,7 @@ class AppRouter {
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // No animation
           },
+          transitionDuration: Duration.zero,
         ),
       ),
       GoRoute(
@@ -68,21 +73,15 @@ class AppRouter {
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // No animation
           },
+          transitionDuration: Duration.zero,
         ),
       ),
     ],
+    errorBuilder: (context, state) => Scaffold(
+      body: Center(
+        child: Text('Page not found: ${state.uri.path}'),
+      ),
+    ),
   );
 }
 
-
-class MyInitApp extends StatelessWidget {
-  const MyInitApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: AppRouter.router, // Use the static router from AppRouter
-      theme: myTheme, // Apply the custom theme here
-    );
-  }
-}

@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 
-class mainHeader extends StatelessWidget {
+class MainHeader extends StatelessWidget {
   final String text;
   final String? subheader;
 
-  const mainHeader({super.key, required this.text, this.subheader});
+  const MainHeader({super.key, required this.text, this.subheader});
 
   @override
   Widget build(BuildContext context) {
-    // Use MediaQuery to get the screen width
     double screenWidth = MediaQuery.of(context).size.width;
 
-    // Adjust the font size based on screen width
+    // Adjust the font sizes based on screen width
     double fontSize;
+    double subheaderFontSize;
+    EdgeInsetsGeometry padding;
+
     if (screenWidth < 400) {
-      fontSize = 24.0; // Very small screens
-    } else if (screenWidth < 600) {
-      fontSize = 32.0; // Mobile
+      fontSize = 24.0;
+      subheaderFontSize = 16.0;
+      padding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
+    } else if (screenWidth < AppSpacing.smallscreen) {
+      fontSize = 32.0;
+      subheaderFontSize = 20.0;
+      padding = EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0);
     } else {
-      fontSize = 40.0; // Tablet and larger screens
+      fontSize = 40.0;
+      subheaderFontSize = 24.0;
+      padding = EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0);
     }
 
-    return Column(
+    return Padding(
+      padding: padding,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             text,
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  fontSize: fontSize, // Use dynamic font size
-                  color: Colors.white, // Override color to always be white
-                  shadows: [], // Remove drop shadows
+                  fontSize: fontSize,
+                  color: Colors.white,
+                  shadows: [],
                 ),
+            textAlign: TextAlign.center,
           ),
+          if (subheader != null)
+            SizedBox(height: 8.0), // Add some spacing between the header and subheader
           if (subheader != null)
             Text(
               subheader!,
-              style: Theme.of(context).textTheme.displayMedium,
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontSize: subheaderFontSize,
+                    color: Colors.white70, // Slightly dimmed color for subheader
+                  ),
+              textAlign: TextAlign.center,
             ),
         ],
-      );
+      ),
+    );
   }
 }

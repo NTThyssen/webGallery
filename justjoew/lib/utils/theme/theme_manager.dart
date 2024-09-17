@@ -14,7 +14,7 @@ final ThemeData myTheme = ThemeData(
     backgroundColor: AppColors.background,
     elevation: 1,
     iconTheme: IconThemeData(color: AppColors.primary400),
-    toolbarHeight: 105,
+    toolbarHeight: 50,
     titleTextStyle: AppTextStyles.headerLarge,
   ),
 
