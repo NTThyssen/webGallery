@@ -16,7 +16,7 @@ class mainHeader extends StatelessWidget {
     double fontSize;
     if (screenWidth < 400) {
       fontSize = 24.0; // Very small screens
-    } else if (screenWidth < 600) {
+    } else if (screenWidth < AppSpacing.smallscreen) {
       fontSize = 32.0; // Mobile
     } else {
       fontSize = 40.0; // Tablet and larger screens

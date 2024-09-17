@@ -73,22 +73,19 @@ class AppStrings {
   // Commissions Page
   static const String commissionsSubheader = '(Open)';
   static const String comissionsIntroductionText = 
-      "I love turning your ideas into vibrant emotes. "
-      "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
-      "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"
-      "Let’s create something amazing together!";
+      "Custom emotes designed to match your channel's and community's personality and style. "
+      "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life.";
   static const String emotesTitle = 'Emotes';
   static const String emotesDescription = 
-      "Custom emotes designed to match your channel's and community's personality and style.\n"
-      "Delivery times are set generously to account for life’s demands, but they are usually shorter.";
+      "Delivery times are set generously to account for life’s demands, but they are usually shorter. "
+      "Unless anything else is agreed upon you will get: ";
   static const List<String> emotesDetails = [
-    "PNG in 4 sizes (28x28, 56x56, 112x112, 128x128)",
-    "600 dpi",
+    "4 PNG files in sizes (28x28, 56x56, 112x112, 128x128) px",
+    "At a 600 dpi resulotion",
   ];
-  static const String otherRequestsTitle = 'Other Requests';
+  static const String letscreate = "Let’s create something amazing together!";
   static const String otherRequestsDescription = 
       "Looking for something else? I specialize in emotes, but feel free to reach out and let's have a chat about it.";
-
   // Commission Packages
   static const String basicPackageTitle = 'Basic';
   static const String basicPackagePrice = '\$10';
