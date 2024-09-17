@@ -6,6 +6,8 @@ class AppStrings {
   static const String submit = 'Submit';
   static const String loading = 'Loading...';
   static const String noDataAvailable = 'No data available at this time.';
+  static const String taglineText = "Your digital artist tagline here";
+
 
   // Messages
   static const String welcomeMessage = 'Welcome to JustJoeW!';
@@ -14,6 +16,8 @@ class AppStrings {
   static const String snackbarSuccess = 'Operation completed successfully!';
   static const String snackbarFailure = 'Something went wrong. Please try again.';
   static const String formSubmittingMessage = 'Submitting form';
+  static const String welcomeText = 'Welcome to JustJoeW!';
+  static const String introductionText = 'Your introduction here...';
 
   // Form Labels
   static const String nameLabel = 'Name';
@@ -68,7 +72,7 @@ class AppStrings {
 
   // Commissions Page
   static const String commissionsSubheader = '(Open)';
-  static const String introductionText = 
+  static const String comissionsIntroductionText = 
       "I love turning your ideas into vibrant emotes. "
       "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life. "
       "From sketches to the final piece, I put my heart into each step to ensure you'll love the result.\n\n"

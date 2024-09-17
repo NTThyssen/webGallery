@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Color Shades
-  static const Color primary = Color(0xFF8dd1fc);
-  static const Color primary50 = Color(0xFFE1F5FE);
-  static const Color primary100 = Color(0xFFB3E5FC);
-  static const Color primary200 = primary;
-  static const Color primary300 = Color(0xFF4FC3F7);
-  static const Color primary400 = Color(0xFF29B6F6);
-  static const Color primary500 = Color(0xFF03A9F4);
-  static const Color primary600 = Color(0xFF039BE5);
-  static const Color primary700 = Color(0xFF0288D1);
-  static const Color primary800 = Color(0xFF0277BD);
-  static const Color primary900 = Color(0xFF01579B);
+
+  static const Color primary = Color(0xFF00AEEF);
+  //static const Color primary300 = Color(0xFF66CFFF);
+  static const Color darkBlue = Color(0xFF001F3F);
+  static const Color black = Color(0xFF000000);
+  static const Color darkGray = Color(0xFF2C2C2C);
+  static const Color twitch = Color(0xFF6441A5); // Custom color for the Twitch icon
+  static const Color text = Color(0xFFE0E0E0); // Light grey or any preferred color
+
+
+// Primary Color Shades
+static const Color primary50 = Color(0xFFE0F7FA);
+static const Color primary100 = Color(0xFFB3E5FC);
+static const Color primary200 = Color(0xFF81D4FA);
+static const Color primary300 = Color(0xFF4FC3F7);
+static const Color primary400 = primary; // Original primary color
+static const Color primary500 = Color(0xFF0099CC);
+static const Color primary600 = Color(0xFF008BB3);
+static const Color primary700 = Color(0xFF007399);
+static const Color primary800 = Color(0xFF005C80);
+static const Color primary900 = Color(0xFF004366);
+
 
   // Background and Surface Colors
   static const Color background = Color(0xFF212121);

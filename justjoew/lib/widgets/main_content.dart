@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/pages/design_page.dart';
-import 'package:justjoew/utils/theme/spacing.dart';
 
 class MainContent extends StatefulWidget {
   const MainContent({super.key});

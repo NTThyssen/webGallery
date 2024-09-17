@@ -64,7 +64,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
 
   Widget _buildIntroSection() {
     return Text(
-      AppStrings.introductionText,
+      AppStrings.comissionsIntroductionText,
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.bodyMedium,
     );

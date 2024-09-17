@@ -5,6 +5,7 @@ import 'package:justjoew/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart';
 import 'package:justjoew/utils/theme/spacing.dart'; // Use AppSpacing
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
@@ -20,20 +21,28 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       drawer: _buildDrawer(context),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
+          return Column(
+            children: [
+              // Main body wrapped in Expanded to fill the available space
+              Expanded(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: IntrinsicHeight( // Adjust to avoid infinite size error
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          body(), // The main content of the page
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  body(), // The main content of the page
-                  MyFooter(), // The footer, now aligned at the bottom
-                ],
-              ),
-            ),
+              MyFooter(), // Place footer outside of Expanded to stick it at the bottom
+            ],
           );
         },
       ),
@@ -58,7 +67,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ListTile(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: AppTextStyles.menuText,
       ),
       onTap: () => context.go(route),
     );
@@ -71,8 +80,8 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         child: Hero(
           tag: 'logohero',
           child: Image.asset(
-            ImageStrings.logoPath, // Use a constant for the logo path
-            height: AppSpacing.xl, // Use AppSpacing for consistent sizing
+            ImageStrings.logoPath,
+            height: AppSpacing.large,
           ),
         ),
       ),
@@ -85,3 +94,4 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
 
   bool extendBehindAppBar() => false;
 }
+
