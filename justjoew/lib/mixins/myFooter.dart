@@ -7,7 +7,7 @@ class MyFooter extends StatelessWidget {
 
   const MyFooter({
     super.key,
-    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.small), // Default padding
+    this.padding = const EdgeInsets.symmetric(vertical: 0), // Default padding
   });
 
   @override
@@ -15,7 +15,7 @@ class MyFooter extends StatelessWidget {
     return Container(
       width: double.infinity, // Full width
       padding: padding, // Use the padding parameter
-      color: Theme.of(context).scaffoldBackgroundColor, // Optional: Use theme color if needed
+      //color: Theme.of(context).scaffoldBackgroundColor, // Optional: Use theme color if needed
       child: const Center(
         child: SocialMediaBar(), // Centers the social media bar horizontally
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';

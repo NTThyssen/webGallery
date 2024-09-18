@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
@@ -36,7 +36,6 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                   subheader: AppStrings.commissionsSubheader,
                 ),
               ),
-              const SizedBox(height: AppSpacing.large),
               _buildIntroSection(),
               const SizedBox(height: AppSpacing.medium),
               _detailsSection(),
@@ -48,7 +47,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               _buildOtherRequestsNote(context),
               const SizedBox(height: AppSpacing.large),
               _buildLicenseSection(),
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.large),
             ],
           ),
         ),

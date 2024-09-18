@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/ImageStrings.dart';
+import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 
@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
         image: DecorationImage(
           image: const AssetImage(ImageStrings.landscapeImage), // Use centralized image path
           fit: isSmallScreen ? BoxFit.cover : BoxFit.fitWidth, // Cover for small screens, fitWidth for large screens
-          alignment: Alignment.center, // Center the image
+          alignment: Alignment.topCenter, // Center the image
         ),
       ),
     );

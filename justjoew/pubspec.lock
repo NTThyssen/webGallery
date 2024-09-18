@@ -229,6 +229,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  sticky_footer_scrollview:
+    dependency: "direct main"
+    description:
+      name: sticky_footer_scrollview
+      sha256: c828fd3140e46612f71cda35f4a954340633f0a3f5eacd2ae860e6ff3bddf247
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   stream_channel:
     dependency: transitive
     description:
