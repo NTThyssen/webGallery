@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
