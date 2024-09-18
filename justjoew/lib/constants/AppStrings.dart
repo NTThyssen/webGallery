@@ -144,7 +144,7 @@ class AppStrings {
       "\nLet’s create something amazing together!";
 
   // Emotes Page
-  static const String emotesHeader = 'EMOTE----------------------';
+  static const String emotesHeader = 'EMOTES';
   static const String scatrattHeader = 'ScatRatt';
   static const String scatrattUrl = 'https://www.twitch.tv/scatratt/about';
   static const String olmaphHeader = 'Olmaph';
