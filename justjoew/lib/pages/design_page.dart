@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/constants/ImageStrings.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:justjoew/constants/costum_colors.dart';
 
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
@@ -14,138 +15,93 @@ class DesignPage extends StatefulWidget {
 }
 
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
-  late final GifController controller1, controller2, controller3, controller4, controller5;
-  int _fps = 20;
+  late final List<GifController> controllers;
 
   @override
   void initState() {
-    controller1 = GifController(vsync: this);
-    controller2 = GifController(vsync: this);
-    controller3 = GifController(vsync: this);
-    controller4 = GifController(vsync: this);
-    controller5 = GifController(vsync: this);
+    // Initialize all GIF controllers
+    controllers = List.generate(5, (index) => GifController(vsync: this));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 40),
-            const Center(
-              child: CustomHeaderLarge(text: 'EMOTES'),
+    final double gifSize = 64.0; // Define a constant for GIF size
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Define padding values for different screen sizes
+    final horizontalPadding = screenWidth < AppSpacing.smallscreen
+        ? screenWidth * 0.08
+        : screenWidth * 0.20;
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Use calculated padding
+        child: Column(
+          children: [
+            Center(
+              child: CustomHeaderLarge(text: AppStrings.emotesHeader),
             ),
-        EmoteSection(
-          header: "ScatRatt",
-          url: 'https://www.twitch.tv/scatratt/about',
-          portfolioWidgets: [
-            ArtImage(path: 'images/ratcry.png'),
-            ArtImage(path: 'images/ratez.png'),
-            ArtImage(path: 'images/ratheart.png'),
-            ArtImage(path: 'images/ratwave.png'),
-            ArtImage(path: 'images/ratlul.png'),
-            ArtImage(path: 'images/ratpat.png'),
-            ArtImage(path: 'images/ratlurk.png'),
-            ArtImage(path: 'images/rathydrate.png'),
-            ArtImage(path: 'images/fineRat.png'),
-            Gif(
-              width: 80,
-              height: 80,
-              image: const AssetImage("images/RatDanceJam10.gif"),
-              controller:
-                  controller1, // if duration and fps is null, original gif fps will be used.
-              fps: 16,
-              //duration: const Duration(seconds: 3),
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller1.reset();
-                controller1.forward();
-              },
+            EmoteSection(
+              header: AppStrings.scatrattHeader,
+              url: AppStrings.scatrattUrl,
+              portfolioWidgets: [
+                ArtImage(path: ImageStrings.ratCry),
+                ArtImage(path: ImageStrings.ratEz),
+                ArtImage(path: ImageStrings.ratHeart),
+                ArtImage(path: ImageStrings.ratWave),
+                ArtImage(path: ImageStrings.ratLul),
+                ArtImage(path: ImageStrings.ratPat),
+                ArtImage(path: ImageStrings.ratLurk),
+                ArtImage(path: ImageStrings.ratHydrate),
+                ArtImage(path: ImageStrings.ratFine),
+                _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
+                _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
+              ],
             ),
-            Gif(
-              width: 80,
-              height: 80,
-              image: const AssetImage("images/RatShyNotNaked.gif"),
-              controller:
-                  controller2, // if duration and fps is null, original gif fps will be used.
-              fps: 16,
-              //duration: const Duration(seconds: 3),
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller2.reset();
-                controller2.forward();
-              },
+            EmoteSection(
+              header: AppStrings.olmaphHeader,
+              url: AppStrings.olmaphUrl,
+              portfolioWidgets: [
+                ArtImage(path: ImageStrings.ollieWave),
+                ArtImage(path: ImageStrings.ollieSnickers),
+                ArtImage(path: ImageStrings.ollieToni),
+                ArtImage(path: ImageStrings.ollieWiggly),
+                _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
+                _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
+                _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
+              ],
             ),
+            const SizedBox(height: AppSpacing.large),
           ],
         ),
-        EmoteSection(
-          header: "Olmaph",
-          url: 'https://www.twitch.tv/olmaph/about',
-          portfolioWidgets: [
-            ArtImage(path: 'images/olliewave.png'),
-            ArtImage(path: 'images/ollieSnickers.png'),
-            ArtImage(path: 'images/ollietoni.png'),
-            ArtImage(path: 'images/olliewiggly.png'),
-            Gif(
-              width: 80,
-              height: 80,
-              image: const AssetImage("images/bar.gif"),
-              controller:
-                  controller3, // if duration and fps is null, original gif fps will be used.  
-              fps: 10,
-              //duration: const Duration(seconds: 3),
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller3.reset();
-                controller3.forward();
-              },
-            ),
-            Gif(
-              width: 80,
-              height: 80,
-              image: const AssetImage("images/olliePump.gif"),
-              controller:
-                  controller4, // if duration and fps is null, original gif fps will be used. 
-              fps: 20,
-              //duration: const Duration(seconds: 3),
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller4.reset();
-                controller4.forward();
-              },
-            ),
-            Gif(
-              width: 80,
-              height: 80,
-              image: const AssetImage("images/wiggly350.gif"),
-              controller:
-                  controller4, // if duration and fps is null, original gif fps will be used. 
-              fps: 20,
-              //duration: const Duration(seconds: 3),
-              autostart: Autostart.loop,
-              placeholder: (context) => const Text('Loading...'),
-              onFetchCompleted: () {
-                controller4.reset();
-                controller4.forward();
-              },
-            ),
-          ],
-        ),
-      ],
+      ),
+    );
+  }
+
+  // Helper method to create a GIF widget
+  Widget _buildGif(String path, GifController controller, double size, int fps) {
+    return Gif(
+      width: size,
+      height: size,
+      image: AssetImage(path),
+      controller: controller,
+      fps: fps,
+      autostart: Autostart.loop,
+      placeholder: (context) => const Text('Loading...'),
+      onFetchCompleted: () {
+        controller.reset();
+        controller.forward();
+      },
     );
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    controller1.dispose();
-    controller2.dispose();
-    controller3.dispose();
-    controller4.dispose();
+    // Dispose of all GIF controllers
+    for (var controller in controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 }
@@ -155,26 +111,31 @@ class EmoteSection extends StatelessWidget {
     super.key,
     required this.portfolioWidgets,
     required this.header,
-    required this.url, // Add the URL parameter
+    required this.url,
   });
 
   final List<Widget> portfolioWidgets;
   final String header;
-  final String url; // Add the URL field
+  final String url;
 
   Future<void> _launchUrl(BuildContext context, String url) async {
     final Uri uri = Uri.parse(url);
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString(), forceWebView: true, enableJavaScript: true);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not launch $url')),
+        SnackBar(
+          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final double dividerIndent = screenWidth * 0.20; // 20% of the screen width
+
     return Column(
       children: [
         MouseRegion(
@@ -183,45 +144,33 @@ class EmoteSection extends StatelessWidget {
             onTap: () => _launchUrl(context, url),
             child: Text(
               header,
-              style: const TextStyle(
-                color: blueThemePrimary,
-                fontSize: 36.0,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'SourceCodePro',
-                shadows: [
-                  Shadow(
-                    color: Colors.black, // Specify shadow color and opacity
-                    offset: Offset(2, 2), // Specify shadow offset
-                    blurRadius: 4, // Specify shadow blur radius
-                  ),
-                ],
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
         ),
         Divider(
-          thickness: 0.7,
-          color: blueThemePrimary100,
-          endIndent: MediaQuery.of(context).size.width * 0.20,
-          indent: MediaQuery.of(context).size.width * 0.20,
+          thickness: Theme.of(context).dividerTheme.thickness,
+          color: Theme.of(context).dividerTheme.color,
+          indent: dividerIndent,
+          endIndent: dividerIndent,
         ),
-        SizedBox(
-          height: 30,
-        ),
-        SizedBox(
-          child: Wrap(
+        const SizedBox(height: AppSpacing.large),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.8,
+          ),
+          child: SingleChildScrollView(
+            child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               runAlignment: WrapAlignment.center,
-              alignment:
-                  WrapAlignment.center, // centers the children in the Wrap
-
-              runSpacing: 40,
-              spacing: 80,
-              children: portfolioWidgets),
+              alignment: WrapAlignment.center,
+              runSpacing: AppSpacing.large,
+              spacing: AppSpacing.large,
+              children: portfolioWidgets,
+            ),
+          ),
         ),
-        SizedBox(
-          height: 100,
-        )
+        const SizedBox(height: AppSpacing.xl),
       ],
     );
   }

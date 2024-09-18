@@ -1,30 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/costum_colors.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 
 final ThemeData myTheme = ThemeData(
-  primarySwatch: Colors.blue,
-  //textButtonTheme: const TextButtonThemeData(
-  // style: ButtonStyle(overlayColor: WidgetStatePropertyAll(Colors.red))),'
-  textTheme: const TextTheme(
-    displaySmall: defaultStyle,
-    labelSmall: defaultStyle,
-    titleSmall: defaultStyle,
-    bodySmall: defaultStyle
-    
+  primarySwatch: Colors.lightBlue,
+
+  // Background color for the Scaffold
+  scaffoldBackgroundColor: AppColors.background,
+
+  // AppBar theme
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.background,
+    elevation: 1,
+    iconTheme: IconThemeData(color: AppColors.primary400),
+    toolbarHeight: 50,
+    titleTextStyle: AppTextStyles.headerLarge,
+  ),
+
+  // Text themes
+  textTheme: TextTheme(
+    bodyMedium: AppTextStyles.paragraph,
+    headlineMedium: AppTextStyles.smallTitle,
+    labelLarge: AppTextStyles.price,
+    labelMedium: AppTextStyles.link,
+    bodySmall: AppTextStyles.formLabel,
+    labelSmall: AppTextStyles.snackbarText,
+    headlineLarge: AppTextStyles.header,
+    titleLarge: AppTextStyles.headerLarge,
+    displayMedium: AppTextStyles.subheader,
+    displaySmall: AppTextStyles.list,
+  ),
+
+  // Input decoration theme for text fields
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: AppTextStyles.formLabel,
+    filled: true,
+    fillColor: AppColors.formFill,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.small),
+      borderSide: BorderSide(color: AppColors.formFill),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.small),
+      borderSide: BorderSide(color: AppColors.formFill),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.small),
+      borderSide: BorderSide(color: AppColors.primary900),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.small),
+      borderSide: BorderSide(color: AppColors.error),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.small),
+      borderSide: BorderSide(color: AppColors.primary900),
+    ),
+    errorStyle: AppTextStyles.link,
+  ),
+
+  // ElevatedButton theme
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primary300,
+      minimumSize: Size.fromHeight(AppSpacing.large),
+      padding: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.medium),
+      ),
+      textStyle: AppTextStyles.menuText,
+    ),
+  ),
+
+  // TextButton theme
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      textStyle: AppTextStyles.menuText,
+      foregroundColor: AppColors.primary300,
+    ),
+  ),
+
+  // Divider theme
+  dividerTheme: DividerThemeData(
+    color: AppColors.divider,
+    thickness: 0.7,
+  ),
+
+  // SnackBar theme
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: AppColors.primary300,
+    contentTextStyle: AppTextStyles.snackbarText,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.medium),
+    ),
+    behavior: SnackBarBehavior.floating,
   ),
 );
-
-
-const defaultStyle = TextStyle(
-      color: blueThemePrimary,
-      fontSize: 36.0,
-      fontWeight: FontWeight.w400,
-      fontFamily: 'SourceCodePro',
-      shadows: [
-        Shadow(
-          color: Colors.black, // Specify shadow color and opacity
-          offset: Offset(2, 2), // Specify shadow offset
-          blurRadius: 4, // Specify shadow blur radius
-        ),
-      ],
-    );

@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
+import 'package:justjoew/widgets/mainheader.dart';
 
 class CustomHeaderLarge extends StatelessWidget {
   final String text;
+  final String? subheader;
 
-  const CustomHeaderLarge({Key? key, required this.text}) : super(key: key);
+  const CustomHeaderLarge({super.key, required this.text, this.subheader});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 60.0,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'SourceCodePro',
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0), // Add spacing below the header
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.large), // Adds padding at the top
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MainHeader(text: text, subheader: subheader), // Use the mainHeader widget
+          const SizedBox(height: AppSpacing.large), // Adds space below the header
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:justjoew/mixins/scaffoldMixin.dart';
+import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/pages/design_page.dart';
 
 class MainContent extends StatefulWidget {
@@ -14,13 +13,14 @@ class _MainContentState extends State<MainContent> with BasicMixin {
   @override
   Widget body() {
     return Center(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.70,
-            child: DesignPage(),
-          ),
-        ],
+      child: SingleChildScrollView( // Allows scrolling if content overflows
+        child: Column(
+          children: [
+            SizedBox(
+              child: const DesignPage(),
+            ),
+          ],
+        ),
       ),
     );
   }

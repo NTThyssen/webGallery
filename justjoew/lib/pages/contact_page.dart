@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart'; // Import for kIsWeb
-import 'package:justjoew/constants/costum_colors.dart';
-import 'package:justjoew/mixins/scaffoldMixin.dart';
+import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
-import 'package:url_launcher/url_launcher.dart'; // Import for url_launcher
+import 'package:url_launcher/url_launcher.dart'; // For launching email
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -16,7 +16,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
@@ -24,7 +23,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   @override
   void dispose() {
     _firstNameController.dispose();
-    _lastNameController.dispose();
     _emailController.dispose();
     _subjectController.dispose();
     _messageController.dispose();
@@ -34,13 +32,17 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Future<void> _launchEmail() async {
     final emailUri = Uri(
       scheme: 'mailto',
-      path: 'justjoewjoew@gmail.com',
-      query: 'subject=Hello', // Optional: you can add a default subject
+      path: AppStrings.emailUrl,
+      query: 'subject=Hello', // Optional default subject
     );
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
     } else {
-      throw 'Could not launch $emailUri';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch $emailUri', style: Theme.of(context).textTheme.labelSmall),
+        ),
+      );
     }
   }
 
@@ -48,317 +50,152 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Widget body() {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // Define padding values for narrow and wide screens
-    final horizontalPadding = screenWidth < 600
-        ? screenWidth * 0.08 // Less padding for narrow screens (including mobile web)
-        : screenWidth * 0.20; // Larger padding for wider screens
-
-    final buttonColor = blueThemePrimary300; // Define the button color
-    final snackBarTextStyle = TextStyle(
-      fontWeight: FontWeight.w400,
-      fontFamily: 'SourceCodePro',
-      fontSize: 16,
-      color: Colors.black,
-    ); // Define the SnackBar text style
+    // Define padding values for different screen sizes
+    final horizontalPadding = screenWidth < AppSpacing.smallscreen
+        ? screenWidth * 0.08
+        : screenWidth * 0.20;
 
     return Center(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Apply responsive padding
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
             const Center(
-              child: CustomHeaderLarge(text: 'CONTACT'),
+              child: CustomHeaderLarge(text: AppStrings.contact),
             ),
-            Column(
-              children: [
-                const Text(
-                  "Hello!\n\n"
-                  "If you want to request a commission or have any questions, feel free to reach out through this form or at my email address: \n",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'SourceCodePro',
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: _launchEmail,
-                    child: const Text(
-                      "justjoewjoew@gmail.com",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SourceCodePro',
-                        fontSize: 18,
-                        decoration: TextDecoration.underline, // Underline to indicate a link
-                        color: blueThemePrimary,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black, // Specify shadow color and opacity
-                            offset: Offset(2, 2), // Specify shadow offset
-                            blurRadius: 4, // Specify shadow blur radius
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const Text(
-                  "\nLet’s create something amazing together!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'SourceCodePro',
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Name ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SourceCodePro',
-                        fontSize: 16,
-                        color: blueThemePrimary300,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _firstNameController,
-                            decoration: InputDecoration(
-                              labelStyle: const TextStyle(color: Colors.black),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: const OutlineInputBorder(),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: blueThemePrimary900),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: blueThemePrimary700),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: blueThemePrimary900),
-                              ),
-                              errorStyle: TextStyle(
-                                color: blueThemePrimary, // Set error text color
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                fontFamily: 'SourceCodePro',
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your first name';
-                              }
-                              return null;
-                            },
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16.0),
-                    const Text(
-                      'Email Address ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SourceCodePro',
-                        fontSize: 16,
-                        color: blueThemePrimary300,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary700),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorStyle: TextStyle(
-                          color: blueThemePrimary, // Set error text color
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          fontFamily: 'SourceCodePro',
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email address';
-                        }
-                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const Text(
-                      'Subject ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SourceCodePro',
-                        fontSize: 16,
-                        color: blueThemePrimary300,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _subjectController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary700),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorStyle: TextStyle(
-                          color: blueThemePrimary, // Set error text color
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          fontFamily: 'SourceCodePro',
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter the subject';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const Text(
-                      'Message ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SourceCodePro',
-                        fontSize: 16,
-                        color: blueThemePrimary300,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _messageController,
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(color: Colors.black),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: const OutlineInputBorder(),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary700),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blueThemePrimary900),
-                        ),
-                        errorStyle: TextStyle(
-                          color: blueThemePrimary, // Set error text color
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          fontFamily: 'SourceCodePro',
-                        ),
-                      ),
-                      maxLines: 5,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your message';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    const SizedBox(height: 36.0),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Process data
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Submitting form',
-                                  style: snackBarTextStyle, // Apply custom text style
-                                ),
-                                backgroundColor: buttonColor, // Set the SnackBar background color to match the button
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'SUBMIT',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600, // Font weight
-                            fontFamily: 'SourceCodePro', // Use the Source Pro font
-                            fontSize: 18, // Adjust font size as needed
-                            color: Colors.black,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: blueThemePrimary300, // Light blue button color
-                          minimumSize: Size(screenWidth * 0.25, 60), // Responsive width
-                          padding: EdgeInsets.zero, // Remove extra padding
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Adjust the radius for rounded corners
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 50.0), // Adjust bottom space as needed
-                  ],
-                ),
-              ),
-            ),
+            const SizedBox(height: AppSpacing.large),
+            _buildContactInfoSection(),
+            const SizedBox(height: AppSpacing.xl),
+            
+            // Contact Form Section
+            //_buildContactForm(),
           ],
         ),
       ),
     );
   }
 
+  // Contact information section
+  Widget _buildContactInfoSection() {
+    return Column(
+      children: [
+        Text(
+          AppStrings.contactIntroText,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: _launchEmail,
+            child: Text(
+              AppStrings.email,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
+        ),
+        Text(
+          AppStrings.contactOutroText,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ],
+    );
+  }
+
+  // Contact form section
+  // Contact form section
+Widget _buildContactForm() {
+  return Form(
+    key: _formKey,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFormLabel(AppStrings.nameLabel),
+        _buildTextFormField(
+          controller: _firstNameController,
+          hint: AppStrings.nameHint,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.emailLabel),
+        _buildTextFormField(
+          controller: _emailController,
+          hint: AppStrings.emailHint,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return AppStrings.emailValidationError;
+            }
+            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+              return AppStrings.emailInvalidError;
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.subjectLabel),
+        _buildTextFormField(
+          controller: _subjectController,
+          hint: AppStrings.subjectHint,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        _buildFormLabel(AppStrings.messageLabel),
+        _buildTextFormField(
+          controller: _messageController,
+          hint: AppStrings.messageHint,
+          maxLines: 5,
+        ),
+        const SizedBox(height: AppSpacing.large),
+        Center(
+          child: SizedBox(
+            width: 200, // Set the width for the button
+            height: 50, // Set the height for the button
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppStrings.formSubmittingMessage,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: Text(AppStrings.submit), // Remove explicit styling here
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
+
+  // Helper method to build form labels
+  Widget _buildFormLabel(String label) {
+    return Text(
+      label,
+      style: Theme.of(context).textTheme.bodySmall,
+    );
+  }
+
+  // Helper method to build text form fields
+  Widget _buildTextFormField({
+    required TextEditingController controller,
+    required String hint,
+    int maxLines = 1,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hint,
+      ),
+      maxLines: maxLines,
+      validator: validator,
+    );
+  }
+}
