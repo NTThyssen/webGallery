@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:justjoew/constants/AppStrings.dart';
-import 'package:justjoew/constants/ImageStrings.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
+import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/utils/theme/AppTextStyle.dart';
 import 'package:justjoew/utils/theme/spacing.dart'; // Use AppSpacing
+import 'package:sticky_footer_scrollview/sticky_footer_scrollview.dart';
+
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
@@ -19,32 +21,19 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
       extendBodyBehindAppBar: extendBehindAppBar(),
       appBar: appBar(),
       drawer: _buildDrawer(context),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
-            children: [
-              // Main body wrapped in Expanded to fill the available space
-              Expanded(
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight( // Adjust to avoid infinite size error
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          body(), // The main content of the page
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              MyFooter(), // Place footer outside of Expanded to stick it at the bottom
-            ],
-          );
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: StickyFooterScrollView(
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return body();
+          },
+          footer: MyFooter()
+          ),
+          ),
+          
+        ],
       ),
     );
   }
@@ -94,4 +83,3 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
 
   bool extendBehindAppBar() => false;
 }
-

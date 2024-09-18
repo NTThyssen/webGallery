@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
-import 'package:justjoew/constants/AppStrings.dart';
-import 'package:justjoew/constants/ImageStrings.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
+import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';

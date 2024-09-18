@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/AppStrings.dart';
-import 'package:justjoew/constants/ImageStrings.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
+import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
@@ -28,31 +28,29 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: CustomHeaderLarge(text: AppStrings.aboutMeHeader)),
-            const SizedBox(height: AppSpacing.large),
+            const Center(child: CustomHeaderLarge(text: AppStrings.aboutMeHeader)),
             
             // Introduction Section
-            const SizedBox(height: AppSpacing.medium),
             _buildIntroSection(screenWidth),
             
             // About Me Section
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.large*1.25),
             _buildSectionTitle(AppStrings.backgroundTitle),
             const SizedBox(height: AppSpacing.medium),
             _buildTextSection(AppStrings.aboutMeText),
             
             // Process Section
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.large*1.25),
             _buildSectionTitle(AppStrings.processTitle),
             const SizedBox(height: AppSpacing.medium),
             _buildProcessSection(),
             
             // Passion Section
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.large*1.25),
             _buildSectionTitle(AppStrings.passionTitle),
             const SizedBox(height: AppSpacing.medium),
             _buildTextSection(AppStrings.passionText),
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.large),
           ],
         ),
       ),

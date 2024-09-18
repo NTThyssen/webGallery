@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:justjoew/constants/AppStrings.dart';
+import 'package:justjoew/mixins/myFooter.dart';
+import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
@@ -56,23 +57,32 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         : screenWidth * 0.20;
 
     return Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Center(
-              child: CustomHeaderLarge(text: AppStrings.contact),
+      
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Center(
+                  child: CustomHeaderLarge(text: AppStrings.contact),
+                ),
+                const SizedBox(height: AppSpacing.large),
+                _buildContactInfoSection(),
+                const SizedBox(height: AppSpacing.xl),
+                
+                
+                // Contact Form Section
+                //_buildContactForm(),
+              ],
+              
             ),
-            const SizedBox(height: AppSpacing.large),
-            _buildContactInfoSection(),
-            const SizedBox(height: AppSpacing.xl),
             
-            // Contact Form Section
-            //_buildContactForm(),
-          ],
-        ),
+          ),
+        ],
       ),
+      
     );
   }
 

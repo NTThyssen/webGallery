@@ -11,10 +11,10 @@ final ThemeData myTheme = ThemeData(
 
   // AppBar theme
   appBarTheme: AppBarTheme(
-    backgroundColor: AppColors.background,
-    elevation: 1,
-    iconTheme: IconThemeData(color: AppColors.primary400),
-    toolbarHeight: 50,
+    backgroundColor: Colors.transparent,
+    //elevation: 1,
+    iconTheme: IconThemeData(color: AppColors.primary),
+    //toolbarHeight: 100,
     titleTextStyle: AppTextStyles.headerLarge,
   ),
 
