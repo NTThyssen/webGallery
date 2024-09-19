@@ -14,10 +14,6 @@ void main() {
         Brightness.light, // Choose icon brightness
   ));
 
-  FlutterDisplayMode.setHighRefreshRate().then(
-    (value) => print("high refrehsrate set"),
-  );
-
   runApp(const MyApp());
 }
 

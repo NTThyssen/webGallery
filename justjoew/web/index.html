@@ -19,6 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="JustJoeW a digital artist">
+  <meta name="theme-color" content="#004366">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,23 +36,23 @@
 
 <body>
   <script>
-    {{flutter_bootstrap_js}}
-    {{flutter_service_worker_version}}
-    var t = {{flutter_service_worker_version}}
+    { { flutter_bootstrap_js } }
+    { { flutter_service_worker_version } }
+    var t = {{ flutter_service_worker_version }}
     console.log(t)
-     window.addEventListener('load', function (ev) {
-       // Download main.dart.js
-       _flutter.loader.loadEntrypoint({
-         entrypointUrl: "main.dart.js?v=" + t,
-         serviceWorker: {
-           serviceWorkerVersion: t
-         }
-       }).then(function (engineInitializer) {
-         return engineInitializer.initializeEngine();
-       }).then(function (appRunner) {
-         return appRunner.runApp();
-       });
- });
+    window.addEventListener('load', function (ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        entrypointUrl: "main.dart.js?v=" + t,
+        serviceWorker: {
+          serviceWorkerVersion: t
+        }
+      }).then(function (engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function (appRunner) {
+        return appRunner.runApp();
+      });
+    });
   </script>
 
 
