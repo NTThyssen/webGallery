@@ -36,9 +36,8 @@
 
 <body>
   <script>
-    { { flutter_bootstrap_js } }
-    { { flutter_service_worker_version } }
-    var t = {{ flutter_service_worker_version }}
+    {{flutter_bootstrap_js}}
+    var t = {{flutter_service_worker_version}}
     console.log(t)
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
