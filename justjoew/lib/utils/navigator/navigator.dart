@@ -3,9 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:justjoew/pages/about_me_page.dart';
 import 'package:justjoew/pages/comissions_page.dart';
 import 'package:justjoew/pages/contact_page.dart';
-import 'package:justjoew/pages/home_page.dart';
 import 'package:justjoew/pages/main_page.dart';
-import 'package:justjoew/utils/theme/theme_manager.dart';
 import 'package:justjoew/widgets/main_content.dart';
 
 // Path constants

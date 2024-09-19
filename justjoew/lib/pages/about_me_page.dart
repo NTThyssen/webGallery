@@ -4,6 +4,8 @@ import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/custom_header.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart';
 
 class AboutMePage extends StatefulWidget {
   const AboutMePage({super.key});
@@ -13,130 +15,222 @@ class AboutMePage extends StatefulWidget {
 }
 
 class _AboutMePageState extends State<AboutMePage> with BasicMixin {
+  final List<ProcessStep> processSteps = [
+    ProcessStep(
+      title: 'Consult',
+      description: AppStrings.processConsult,
+      icon: Icons.chat_bubble_outline,
+    ),
+    ProcessStep(
+      title: 'Concept',
+      description: AppStrings.processConcept,
+      icon: Icons.lightbulb_outline,
+    ),
+    ProcessStep(
+      title: 'Sketch',
+      description: AppStrings.processSketch,
+      icon: Icons.brush,
+    ),
+    ProcessStep(
+      title: 'Finalize',
+      description: AppStrings.processFinalize,
+      icon: Icons.check_circle_outline,
+    ),
+  ];
+
   @override
   Widget body() {
-    double screenWidth = MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double screenWidth = constraints.maxWidth;
 
-    // Use the provided horizontal padding logic
-    final horizontalPadding = screenWidth < AppSpacing.smallscreen
-        ? screenWidth * 0.08
-        : screenWidth * 0.20;
+        final double maxContentWidth = 1100;
 
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(child: CustomHeaderLarge(text: AppStrings.aboutMeHeader)),
-            
-            // Introduction Section
-            _buildIntroSection(screenWidth),
-            
-            // About Me Section
-            const SizedBox(height: AppSpacing.large*1.25),
-            _buildSectionTitle(AppStrings.backgroundTitle),
-            const SizedBox(height: AppSpacing.medium),
-            _buildTextSection(AppStrings.aboutMeText),
-            
-            // Process Section
-            const SizedBox(height: AppSpacing.large*1.25),
-            _buildSectionTitle(AppStrings.processTitle),
-            const SizedBox(height: AppSpacing.medium),
-            _buildProcessSection(),
-            
-            // Passion Section
-            const SizedBox(height: AppSpacing.large*1.25),
-            _buildSectionTitle(AppStrings.passionTitle),
-            const SizedBox(height: AppSpacing.medium),
-            _buildTextSection(AppStrings.passionText),
-            const SizedBox(height: AppSpacing.large),
-          ],
-        ),
-      ),
+        return SingleChildScrollView(
+          child: Center(
+            child: Container(
+              width: screenWidth < maxContentWidth ? screenWidth : maxContentWidth,
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: CustomHeaderLarge(
+                      text: AppStrings.aboutMeHeader,
+                    ),
+                  ),
+                  _buildIntroSection(screenWidth),
+                  const SizedBox(height: AppSpacing.xl),
+                  _buildSection(
+                    title: AppStrings.backgroundTitle,
+                    content: AppStrings.aboutMeText,
+                  ),
+                  /*const SizedBox(height: AppSpacing.large),
+                  _buildSection(
+                    title: AppStrings.processTitle,
+                    content: AppStrings.combinedProcessDescription,
+                    verticalPadding: AppSpacing.large,
+                    contentWidget: _buildProcessSection(screenWidth),
+                  ),*/
+                  const SizedBox(height: AppSpacing.large),
+                  _buildSection(
+                    title: AppStrings.processTitle,
+                    content: AppStrings.combinedProcessDescription,
+                  ),
+                  const SizedBox(height: AppSpacing.large),
+                  _buildSection(
+                    title: AppStrings.passionTitle,
+                    content: AppStrings.passionText,
+                  ),
+                  const SizedBox(height: AppSpacing.large),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildIntroSection(double screenWidth) {
     if (screenWidth < AppSpacing.smallscreen) {
-      // Vertical layout for smaller screens
       return Column(
         children: [
-          _buildTextSection(AppStrings.introText),
-          const SizedBox(height: AppSpacing.large),
           _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+          const SizedBox(height: AppSpacing.large),
+          _buildTextSection(AppStrings.introText),
         ],
       );
     } else {
-      // Horizontal layout for larger screens
       return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Expanded(
+            flex: 1,
+            child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+          ),
+          const SizedBox(width: AppSpacing.large),
           Expanded(
             flex: 2,
             child: _buildTextSection(AppStrings.introText),
-          ),
-          const SizedBox(width: AppSpacing.xl),
-          Expanded(
-            child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
           ),
         ],
       );
     }
   }
 
-  Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.headlineMedium,
-    );
-  }
-
-  Widget _buildTextSection(String text) {
-    return Text(
-      text,
-      textAlign: TextAlign.left,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(height: 1.5),
-    );
-  }
-
-  Widget _buildProcessSection() {
+  Widget _buildSection({
+    required String title,
+    String? content,
+    Widget? contentWidget,
+    double verticalPadding = 0,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildBulletPoint('Consult', AppStrings.processConsult),
-        _buildBulletPoint('Concept', AppStrings.processConcept),
-        _buildBulletPoint('Sketch', AppStrings.processSketch),
-        _buildBulletPoint('Finalize', AppStrings.processFinalize),
+        _buildSectionTitle(title),
+        SizedBox(height: verticalPadding),
+        if (content != null) _buildTextSection(content),
+        if (contentWidget != null) contentWidget,
       ],
     );
   }
 
-  Widget _buildBulletPoint(String title, String description) {
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: AppTextStyles.smallTitle.copyWith(
+        color: AppColors.primary,
+      ),
+    );
+  }
+
+  Widget _buildTextSection(String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
+      child: Text(
+        text,
+        style: AppTextStyles.paragraph.copyWith(height: 1.6),
+      ),
+    );
+  }
+
+  Widget _buildProcessSection(double screenWidth) {
+    final double horizontalPadding = AppSpacing.medium * 2;
+    final int numberOfSteps = processSteps.length;
+
+    // Available width for the boxes after subtracting padding
+    double availableWidth = screenWidth - horizontalPadding;
+
+    // Set desired width for each box
+    double itemWidth = 150; // Adjust as needed
+
+    // Calculate total required width for all boxes and spacing
+    double totalItemWidth = itemWidth * numberOfSteps;
+    double spacing = AppSpacing.small;
+
+    // Check if total required width exceeds available width
+    if (totalItemWidth + spacing * (numberOfSteps - 1) > availableWidth) {
+      // Adjust itemWidth to fit all boxes
+      itemWidth = (availableWidth - spacing * (numberOfSteps - 1)) / numberOfSteps;
+      // Ensure itemWidth doesn't go below a minimum value
+      if (itemWidth < 120) {
+        itemWidth = 120;
+        // Allow horizontal scrolling
+      }
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            '• ',
-            style: TextStyle(fontSize: 16),
-          ),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(height: 1.5),
-                children: [
-                  TextSpan(
-                    text: '$title: ',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: description,
-                  ),
-                ],
-              ),
+        children: processSteps.map((step) {
+          return Container(
+            width: itemWidth,
+            margin: EdgeInsets.symmetric(horizontal: spacing / 2),
+            child: _buildProcessStep(
+              step.title,
+              step.description,
+              step.icon,
             ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildProcessStep(String title, String description, IconData iconData) {
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.small),
+      decoration: BoxDecoration(
+        color: AppColors.darkGray,
+        borderRadius: BorderRadius.circular(AppSpacing.small),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            iconData,
+            color: AppColors.primary,
+            size: 30,
+          ),
+          const SizedBox(height: AppSpacing.small),
+          Text(
+            title,
+            style: AppTextStyles.paragraph.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.small),
+          Text(
+            description,
+            style: AppTextStyles.paragraph.copyWith(
+              fontSize: 12,
+              height: 1.4,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -144,11 +238,31 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildCenteredImage(String imagePath, double screenWidth) {
-    double imageSize = screenWidth < AppSpacing.smallscreen ? 135 : 250;
-    return Image.asset(
-      imagePath,
-      filterQuality: FilterQuality.high,
-      width: imageSize,
+    double imageSize = screenWidth < AppSpacing.smallscreen ? 150 : 250;
+    imageSize = imageSize > 250 ? 250 : imageSize;
+
+    return Center(
+      child: ClipOval(
+        child: Image.asset(
+          imagePath,
+          filterQuality: FilterQuality.high,
+          width: imageSize,
+          height: imageSize,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
+}
+
+class ProcessStep {
+  final String title;
+  final String description;
+  final IconData icon;
+
+  ProcessStep({
+    required this.title,
+    required this.description,
+    required this.icon,
+  });
 }

@@ -7,7 +7,7 @@ class AppTextStyles {
   static final TextStyle paragraph = TextStyle(
     fontWeight: FontWeight.w300,
     fontFamily: 'SourceCodePro',
-    fontSize: 14,
+    fontSize: 16, // Increased from 14
     color: Colors.white,
   );
 
@@ -42,8 +42,8 @@ class AppTextStyles {
   static final TextStyle list = TextStyle(
     fontWeight: FontWeight.w300,
     fontFamily: 'SourceCodePro',
-    fontSize: 14,
-    color: AppColors.listText,
+    fontSize: 16,
+    color: Colors.white,
   );
 
   static final TextStyle snackbarText = TextStyle(
@@ -81,4 +81,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.primary400,
   );
+
+  static final TextStyle paragraphBold = paragraph.copyWith(
+    fontWeight: FontWeight.w600, // Adjusted to bold
+  );
+
+  
 }

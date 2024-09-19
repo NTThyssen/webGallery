@@ -49,10 +49,10 @@ class AppStrings {
   static const String processTitle = 'My Creative Process';
   static const String passionTitle = 'What I Love';
   static const String introText = 
-      "Hi there!\n\n"
-      "I'm Joe, a digital artist from Denmark. I specialize in custom emotes for Twitch and Discord, blending my background in software engineering with creative expression.\n\n"
+      "I'm Joe!\n\n"
+      "A digital artist from Denmark. I create custom emotes for Twitch, blending my background in software engineering with creative expression.\n\n"
       "Seeing my creations bring joy to others is what motivates me the most. If you have a concept in mind or simply want to explore ideas, I'd love to hear from you.\n\n"
-      "Let’s create something amazing together!";
+     ;
   static const String aboutMeText = 
       "I began my journey as a traditional artist, sketching on paper. My move into digital art was inspired by a friend who needed emotes for his Twitch channel. I decided to give it a try, and to my surprise, the emotes were a hit within his community. This success ignited my passion for digital art, and I've been exploring it ever since.\n\n"
       "I have a background in software engineering and have specialized in frontend design and UX, which greatly influences my approach to art.";
@@ -61,7 +61,7 @@ class AppStrings {
       "Feedback and revisions are a crucial part of my process. I believe in sharing the creative journey with my clients, making them feel involved in crafting something unique and personal. My goal is to produce emotes that both of us can take pride in, with the final result reflecting the effort and care put into its creation.";
 
   // Creative Process Section
-  static const String processConsult = 
+  /*static const String processConsult = 
       "I start by understanding your vision and expectations. This helps me align my designs with your ideas.";
   static const String processConcept = 
       "We brainstorm and develop concepts together, reviewing any references you might have. I value this collaborative stage as it sets the foundation for the final piece.";
@@ -69,6 +69,18 @@ class AppStrings {
       "I create rough drafts for approval. We go through a feedback loop to refine the design until you're happy with the direction.";
   static const String processFinalize = 
       "I polish the emote with coloring, shading, and highlights, ensuring it captures the essence of your idea.";
+*/
+
+  // Shortened process descriptions
+static const String processConsult = "Understanding your vision.";
+static const String processConcept = "Developing concepts together.";
+static const String processSketch = "Creating drafts and refining.";
+static const String processFinalize = "Polishing the final emote.";
+static const String combinedProcessDescription = "My process is a collaborative journey from start to finish. I begin by understanding your vision and expectations, aligning my designs with your ideas. Together, we brainstorm and explore concepts, reviewing any references you might have to set a solid foundation. I then create rough sketches for your approval, refining the design through feedback loops until we’re both satisfied with the direction. Once finalized, I bring the emote to life with careful coloring, shading, and highlights, ensuring it captures the essence of your idea. I take pride in every step, making each creation uniquely special.";
+/*'''
+My creative process is a collaborative journey that involves you every step of the way. We start by understanding your vision and expectations, brainstorm concepts together, create drafts, and refine the design until you're happy. Finally, I polish the emote to capture the essence of your idea.
+''';*/
+
 
   // Commissions Page
   static const String commissionsSubheader = '(Open)';
