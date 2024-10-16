@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/constants/ImageStrings.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,19 +35,21 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
           AppStrings.fiverrUrl,
           'fiverr',
         ),
+        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
         _buildIconButton(
           FaIcon(
             FontAwesomeIcons.envelope,
-            color: _hoverStates['gmail']! ? Colors.red : Colors.white,
+            color: _hoverStates['gmail']! ? Colors.red : AppColors.icons,
             size: 32, // Set the icon size to 32
           ),
           AppStrings.emailUrl,
           'gmail',
         ),
+        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
         _buildIconButton(
           FaIcon(
             FontAwesomeIcons.twitch,
-            color: _hoverStates['twitch']! ? Colors.purple : Colors.white,
+            color: _hoverStates['twitch']! ? Colors.purple : AppColors.icons,
             size: 32, // Set the icon size to 32
           ),
           AppStrings.twitchUrl,
@@ -64,7 +67,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
       child: IconButton(
         icon: icon,
         onPressed: () => _launchURL(url),
-        padding: const EdgeInsets.all(AppSpacing.small), // Adjust padding if necessary
+        padding: const EdgeInsets.all(AppSpacing.small), // Consistent padding with theme
       ),
     );
   }

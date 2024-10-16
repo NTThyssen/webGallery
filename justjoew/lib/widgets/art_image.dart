@@ -3,7 +3,7 @@ import 'package:justjoew/utils/theme/spacing.dart';
 
 class ArtImage extends StatefulWidget {
   final String path;
-  final bool isWaterMarked; // Keeps track of whether the image is watermarked.
+  final bool isWaterMarked; // Indicates whether the image is watermarked.
 
   const ArtImage({
     super.key,
@@ -29,24 +29,24 @@ class _ArtImageState extends State<ArtImage> {
       onEnter: (_) => setState(() => isHover = true),
       onExit: (_) => setState(() => isHover = false),
       child: SizedBox(
-        height: _hoverImageSize, // Use the hover size for the container height
+        height: _hoverImageSize, // Container height matches hover size
         child: Column(
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHover ? _hoverImageSize : _defaultImageSize, // Hover effect
+              height: isHover ? _hoverImageSize : _defaultImageSize, // Change height on hover
               child: PhysicalModel(
-                elevation: isHover ? _hoverElevation : 0,
+                elevation: isHover ? _hoverElevation : 0, // Elevate on hover
                 color: Colors.transparent,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
                   child: Stack(
                     children: [
                       // Main image content
                       Image.asset(
                         widget.path,
-                        width: AppSpacing.xl,
-                        height: AppSpacing.xl,
+                        width: isHover ? _hoverImageSize : _defaultImageSize, // Adjust width dynamically
+                        height: isHover ? _hoverImageSize : _defaultImageSize, // Adjust height dynamically
                         fit: BoxFit.contain,
                         filterQuality: FilterQuality.medium,
                       ),
@@ -56,12 +56,15 @@ class _ArtImageState extends State<ArtImage> {
                           right: 4,
                           child: Opacity(
                             opacity: 0.5,
-                            child: Text(
-                              'Watermarked',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                backgroundColor: Colors.black54,
+                            child: Container(
+                              color: Colors.black54,
+                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                              child: Text(
+                                'Watermarked',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
                           ),

@@ -62,14 +62,14 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   Widget _buildIntroSection() {
     return Text(
       AppStrings.comissionsIntroductionText,
-      style: AppTextStyles.paragraph,
+      style: AppTextStyles.bodyText,
     );
   }
 
   Widget _detailsSection() {
     return Text(
       AppStrings.emotesDescription,
-      style: AppTextStyles.paragraph,
+      style: AppTextStyles.bodyText,
     );
   }
 
@@ -79,19 +79,18 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       children: points
           .map(
             (point) => Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.small * 0.25),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.25),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     '- ', // The bullet character
-                    style: AppTextStyles.list,
+                    style: AppTextStyles.listText, // Updated to listText
                   ),
                   Expanded(
                     child: Text(
                       point,
-                      style: AppTextStyles.list,
+                      style: AppTextStyles.listText, // Updated to listText
                     ),
                   ),
                 ],
@@ -165,14 +164,14 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.large),
       child: Text(
         AppStrings.otherRequestsDescription,
-        style: AppTextStyles.paragraph.copyWith(
+        style: AppTextStyles.bodyText.copyWith(
           fontStyle: FontStyle.italic,
         ),
       ),
     );
   }
 
-  Widget _buildLicenseSection(isLargeScreen) {
+  Widget _buildLicenseSection(bool isLargeScreen) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.large),
       decoration: BoxDecoration(
@@ -190,16 +189,16 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-          alignment: isLargeScreen ? Alignment.center : Alignment.centerLeft,
-          child: Text(
-            AppStrings.licenseTitle,
-            style: AppTextStyles.smallTitle,
+            alignment: isLargeScreen ? Alignment.center : Alignment.centerLeft,
+            child: Text(
+              AppStrings.licenseTitle,
+              style: AppTextStyles.headingSmall,
+            ),
           ),
-        ),
           const SizedBox(height: AppSpacing.small),
           Text(
             AppStrings.licenseDescription,
-            style: AppTextStyles.paragraph,
+            style: AppTextStyles.bodyText,
           ),
           _buildBulletPointsSection(
             title: AppStrings.whatYouCantDoTitle,
@@ -212,7 +211,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
           const SizedBox(height: AppSpacing.medium),
           Text(
             AppStrings.commercialRightsText,
-            style: AppTextStyles.paragraph,
+            style: AppTextStyles.bodyText,
           ),
         ],
       ),
@@ -230,7 +229,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         children: [
           Text(
             title,
-            style: AppTextStyles.paragraph.copyWith(fontWeight: FontWeight.w600),
+            style: AppTextStyles.bodyTextBold.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppSpacing.small),
           _buildBulletPoints(points),

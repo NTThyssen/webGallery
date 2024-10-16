@@ -13,9 +13,17 @@ class MyFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity, // Full width
-      padding: padding, // Use the padding parameter
-      //color: Theme.of(context).scaffoldBackgroundColor, // Optional: Use theme color if needed
+      width: double.infinity, // Full width to cover the entire screen width
+      padding: padding, // Use the padding parameter, adjustable from the caller
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor, // Ensure background matches the overall theme
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).dividerColor, // Optional: add a top border for separation
+            width: 1.0,
+          ),
+        ),
+      ),
       child: const Center(
         child: SocialMediaBar(), // Centers the social media bar horizontally
       ),

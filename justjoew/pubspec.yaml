@@ -1,21 +1,7 @@
 name: justjoew
-description: "JustJoeW a digital artist"
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: "JustJoew a digital artist"
+publish_to: 'none'
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.2+1
 
 environment:
@@ -27,7 +13,6 @@ dependencies:
   url_launcher: ^6.1.7
   getwidget: ^2.0.4
   font_awesome_flutter: ^10.0.0
-
   cupertino_icons: ^1.0.6
   gif: ^2.3.0
   go_router: ^14.2.0
@@ -37,60 +22,133 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.0
 
-
-# The following section is specific to Flutter packages.
 flutter:
 
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - images/
   
   fonts:
     - family: SourceCodePro
       fonts:
-        - asset: fonts/SourceCodePro-Black.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Black.ttf
           weight: 900
-        - asset: fonts/SourceCodePro-BlackItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-BlackItalic.ttf
           weight: 900
           style: italic
-        - asset: fonts/SourceCodePro-Bold.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Bold.ttf
           weight: 700
-        - asset: fonts/SourceCodePro-BoldItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-BoldItalic.ttf
           weight: 700
           style: italic
-        - asset: fonts/SourceCodePro-ExtraBold.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-ExtraBold.ttf
           weight: 800
-        - asset: fonts/SourceCodePro-ExtraBoldItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-ExtraBoldItalic.ttf
           weight: 800
           style: italic
-        - asset: fonts/SourceCodePro-ExtraLight.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-ExtraLight.ttf
           weight: 200
-        - asset: fonts/SourceCodePro-ExtraLightItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-ExtraLightItalic.ttf
           weight: 200
           style: italic
-        - asset: fonts/SourceCodePro-Italic-VariableFont_wght.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Italic-VariableFont_wght.ttf
           style: italic
-        - asset: fonts/SourceCodePro-Italic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Italic.ttf
           style: italic
-        - asset: fonts/SourceCodePro-Light.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Light.ttf
           weight: 300
-        - asset: fonts/SourceCodePro-LightItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-LightItalic.ttf
           weight: 300
           style: italic
-        - asset: fonts/SourceCodePro-Medium.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Medium.ttf
           weight: 500
-        - asset: fonts/SourceCodePro-MediumItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-MediumItalic.ttf
           weight: 500
           style: italic
-        - asset: fonts/SourceCodePro-Regular.ttf
-        - asset: fonts/SourceCodePro-SemiBold.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-Regular.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-SemiBold.ttf
           weight: 600
-        - asset: fonts/SourceCodePro-SemiBoldItalic.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-SemiBoldItalic.ttf
           weight: 600
           style: italic
-        - asset: fonts/SourceCodePro-VariableFont_wght.ttf
+        - asset: fonts/SourceCodePro/SourceCodePro-VariableFont_wght.ttf
+
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat/Montserrat-Black.ttf
+          weight: 900
+        - asset: fonts/Montserrat/Montserrat-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: fonts/Montserrat/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Italic.ttf
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Light.ttf
+          weight: 300
+        - asset: fonts/Montserrat/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Medium.ttf
+          weight: 500
+        - asset: fonts/Montserrat/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/Montserrat/Montserrat-Thin.ttf
+          weight: 100
+        - asset: fonts/Montserrat/Montserrat-ThinItalic.ttf
+          weight: 100
+          style: italic
+
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans/OpenSans-Bold.ttf
+          weight: 700
+        - asset: fonts/OpenSans/OpenSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/OpenSans/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/OpenSans/OpenSans-Italic.ttf
+          style: italic
+        - asset: fonts/OpenSans/OpenSans-Light.ttf
+          weight: 300
+        - asset: fonts/OpenSans/OpenSans-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/OpenSans/OpenSans-Medium.ttf
+          weight: 500
+        - asset: fonts/OpenSans/OpenSans-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/OpenSans/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans/OpenSans-SemiBold.ttf
+          weight: 600
+        - asset: fonts/OpenSans/OpenSans-SemiBoldItalic.ttf
+          weight: 600
+          style: italic

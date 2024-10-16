@@ -145,7 +145,9 @@ class EmoteSection extends StatelessWidget {
             onTap: () => _launchUrl(context, url),
             child: Text(
               header,
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w500, // Montserrat for section headers
+              ),
             ),
           ),
         ),

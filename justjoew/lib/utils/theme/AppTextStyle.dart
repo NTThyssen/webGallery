@@ -1,90 +1,85 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 
 class AppTextStyles {
-  static final TextStyle paragraph = TextStyle(
-    fontWeight: FontWeight.w300,
-    fontFamily: 'SourceCodePro',
-    fontSize: 16, // Increased from 14
+  // Heading Styles (Montserrat)
+  static final TextStyle headingLarge = TextStyle(
+    color: Colors.white,
+    fontSize: 32.0,
+    fontWeight: FontWeight.w700, // Bold
+    fontFamily: 'Montserrat',
+  );
+
+  static final TextStyle headingMedium = TextStyle(
+    color: AppColors.primary,
+    fontSize: 28.0,
+    fontWeight: FontWeight.w600, // Semi-bold
+    fontFamily: 'Montserrat',
+  );
+
+  static final TextStyle headingSmall = TextStyle(
+    color: Colors.white,
+    fontSize: 20.0,
+    fontWeight: FontWeight.w600, // Semi-bold
+    fontFamily: 'Montserrat',
+  );
+
+  // Body Text Styles (Open Sans)
+  static final TextStyle bodyText = TextStyle(
+    fontWeight: FontWeight.w300, // Regular weight for readability
+    fontFamily: 'OpenSans',
+    fontSize: 16, // Standard size for body text
     color: Colors.white,
   );
 
-  static final TextStyle smallTitle = TextStyle(
-    fontWeight: FontWeight.w600,
-    fontFamily: 'SourceCodePro',
-    fontSize: 20,
-    color: Colors.white,
+  static final TextStyle bodyTextBold = bodyText.copyWith(
+    fontWeight: FontWeight.w600, // Bold for emphasis in body text
   );
 
-  static final TextStyle price = TextStyle(
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
+  // List text style using Open Sans
+  static final TextStyle listText = TextStyle(
+    fontWeight: FontWeight.w300, // Regular weight
+    fontFamily: 'OpenSans', // Open Sans for list items
+    fontSize: 16, // Standard size for lists
+    color: Colors.white, // Adjust based on your design
+  );
+
+  // Price or special highlighted text (Open Sans)
+  static final TextStyle priceText = TextStyle(
+    fontWeight: FontWeight.w400, // Regular weight
+    fontFamily: 'OpenSans',
     fontSize: 18,
-    color: AppColors.primary400,
+    color: AppColors.price,
   );
 
-  static final TextStyle link = TextStyle(
+  // Interactive Text (Links, Buttons) (Montserrat)
+  static final TextStyle linkText = TextStyle(
     fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
+    fontFamily: 'Montserrat',
     fontSize: 18,
     color: AppColors.link,
   );
 
+  static final TextStyle buttonText = TextStyle(
+    fontWeight: FontWeight.w600, // Semi-bold for button text
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    color: Colors.white, // Ensure contrast with button background
+  );
+
+  // Miscellaneous Styles
   static final TextStyle formLabel = TextStyle(
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
+    fontWeight: FontWeight.w400, // Regular weight
+    fontFamily: 'OpenSans',
     fontSize: 14,
     color: AppColors.primary300,
   );
 
-  static final TextStyle list = TextStyle(
-    fontWeight: FontWeight.w300,
-    fontFamily: 'SourceCodePro',
-    fontSize: 16,
-    color: Colors.white,
-  );
-
   static final TextStyle snackbarText = TextStyle(
     fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
+    fontFamily: 'OpenSans',
     fontSize: 16,
     color: AppColors.snackbarText,
   );
-
-  static final TextStyle header = TextStyle(
-    color: AppColors.primary,
-    fontSize: 28.0,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
-  );
-
-  static final TextStyle headerLarge = TextStyle(
-    color: Colors.white,
-    fontSize: 32.0,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SourceCodePro',
-  );
-
-  static final TextStyle subheader = TextStyle(
-    color: Color.fromARGB(255, 196, 196, 196),
-    fontSize: 28.0,
-    fontWeight: FontWeight.w100,
-    fontFamily: 'SourceCodePro',
-    fontStyle: FontStyle.italic,
-  );
-
-  static final TextStyle menuText = TextStyle(
-    fontSize: 16.0,
-    fontFamily: 'SourceCodePro',
-    fontWeight: FontWeight.w400,
-    color: AppColors.primary400,
-  );
-
-  static final TextStyle paragraphBold = paragraph.copyWith(
-    fontWeight: FontWeight.w600, // Adjusted to bold
-  );
-
-  
 }

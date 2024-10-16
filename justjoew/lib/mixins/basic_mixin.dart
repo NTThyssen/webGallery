@@ -5,10 +5,10 @@ import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/mixins/myFooter.dart';
 import 'package:justjoew/mixins/responsive_appbar.dart';
 import 'package:justjoew/utils/navigator/navigator.dart';
-import 'package:justjoew/utils/theme/AppTextStyle.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart'; // Updated text styles
 import 'package:justjoew/utils/theme/spacing.dart'; // Use AppSpacing
 import 'package:sticky_footer_scrollview/sticky_footer_scrollview.dart';
-
 
 mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
   @override
@@ -25,14 +25,13 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         children: [
           Expanded(
             child: StickyFooterScrollView(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return body();
-          },
-          footer: MyFooter()
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return body();
+              },
+              footer: MyFooter(),
+            ),
           ),
-          ),
-          
         ],
       ),
     );
@@ -56,7 +55,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ListTile(
       title: Text(
         title,
-        style: AppTextStyles.menuText,
+        style: AppTextStyles.buttonText.copyWith(color: AppColors.primary600), // Updated to match button styles
       ),
       onTap: () => context.go(route),
     );
