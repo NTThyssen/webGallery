@@ -1,51 +1,56 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
+  // Primary Color (Main brand color)
   static const Color primary = Color(0xFF00AEEF);
-  //static const Color primary300 = Color(0xFF66CFFF);
+
+  // Dark and Accent Colors
   static const Color darkBlue = Color(0xFF001F3F);
   static const Color black = Color(0xFF000000);
   static const Color darkGray = Color(0xFF2C2C2C);
+
+  // Twitch Custom Color
   static const Color twitch = Color(0xFF6441A5); // Custom color for the Twitch icon
-  static const Color text = Color(0xFFE0E0E0); // Light grey or any preferred color
-
-
-// Primary Color Shades
-static const Color primary50 = Color(0xFFE0F7FA);
-static const Color primary100 = Color(0xFFB3E5FC);
-static const Color primary200 = Color(0xFF81D4FA);
-static const Color primary300 = Color(0xFF4FC3F7);
-static const Color primary400 = primary; // Original primary color
-static const Color primary500 = Color(0xFF0099CC);
-static const Color primary600 = Color(0xFF008BB3);
-static const Color primary700 = Color(0xFF007399);
-static const Color primary800 = Color(0xFF005C80);
-static const Color primary900 = Color(0xFF004366);
-
-
-  // Background and Surface Colors
-  static const Color background = Color(0xFF212121);
-  static const Color formFill = Colors.white;
-  static const Color packageBackground = Colors.white10; // Background for commission packages
 
   // Text Colors
-  static const Color formLabel = Colors.black;
-  static const Color snackbarText = Colors.black;
-  static const Color elevatedButtonText = Colors.black;
-  static const Color listText = primary200;
-  static const Color link = primary;
+  static const Color textPrimary = Color(0xFFE0E0E0); // Light grey for standard text
+  static const Color textSecondary = Color(0xFFB0BEC5); // A muted grey for secondary text
+  static const Color link = primary; // Links in primary brand color
+  static const Color price = primary500; // Price color with a bolder tone
+
+  // Primary Color Shades (For gradients, button states, etc.)
+  static const Color primary50 = Color(0xFFE0F7FA);
+  static const Color primary100 = Color(0xFFB3E5FC);
+  static const Color primary200 = Color(0xFF81D4FA);
+  static const Color primary300 = Color(0xFF4FC3F7);
+  static const Color primary400 = primary;
+  static const Color primary500 = Color(0xFF0099CC); // Mid tone for buttons
+  static const Color primary600 = Color(0xFF008BB3);
+  static const Color primary700 = Color(0xFF007399);
+  static const Color primary800 = Color(0xFF005C80);
+  static const Color primary900 = Color(0xFF004366); // Darker shade for pressed buttons
+
+  // Background and Surface Colors
+  static const Color background = Color(0xFF1A1A1A); // Darker grey for contrast
+  static const Color surface = Color(0xFF303030); // Dark surface color for containers
+  static const Color formFill = Colors.white; // Form field background
+  static const Color packageBackground = Colors.white12; // Slightly transparent white for subtle backgrounds
 
   // Divider and Icon Colors
-  static const Color divider = primary100;
-  static const Color commissionIcons = primary300;
+  static const Color divider = Color(0xFFB0BEC5); // Lighter divider for soft separation
+  static const Color icons = Color(0xFFFFFFFF); // White icons for dark backgrounds
+  static const Color commissionIcons = primary300; // Lighter tone for icons in specific sections
 
-  // Error Color
-  static const Color error = primary700;
+  // Error and Warning Colors
+  static const Color error = Color(0xFFEF5350); // Brighter red for better visibility
+  static const Color warning = Color(0xFFFFA726); // A warmer color for warnings
 
-  // Primary Swatch
+  // Snackbar Text
+  static const Color snackbarText = Colors.white; // White text for snackbar
+
+  // Primary Swatch for consistent branding
   static const MaterialColor primarySwatch = MaterialColor(
-    0xFF8dd1fc,
+    0xFF00AEEF, // Base primary color
     <int, Color>{
       50: primary50,
       100: primary100,

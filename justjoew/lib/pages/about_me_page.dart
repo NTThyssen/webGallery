@@ -43,7 +43,6 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
     return LayoutBuilder(
       builder: (context, constraints) {
         double screenWidth = constraints.maxWidth;
-
         final double maxContentWidth = 1100;
 
         return SingleChildScrollView(
@@ -59,19 +58,13 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                       text: AppStrings.aboutMeHeader,
                     ),
                   ),
+                  const SizedBox(height: AppSpacing.large),
                   _buildIntroSection(screenWidth),
                   const SizedBox(height: AppSpacing.xl),
                   _buildSection(
                     title: AppStrings.backgroundTitle,
                     content: AppStrings.aboutMeText,
                   ),
-                  /*const SizedBox(height: AppSpacing.large),
-                  _buildSection(
-                    title: AppStrings.processTitle,
-                    content: AppStrings.combinedProcessDescription,
-                    verticalPadding: AppSpacing.large,
-                    contentWidget: _buildProcessSection(screenWidth),
-                  ),*/
                   const SizedBox(height: AppSpacing.large),
                   _buildSection(
                     title: AppStrings.processTitle,
@@ -93,30 +86,28 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildIntroSection(double screenWidth) {
-    if (screenWidth < AppSpacing.smallscreen) {
-      return Column(
-        children: [
-          _buildCenteredImage(ImageStrings.profileImage, screenWidth),
-          const SizedBox(height: AppSpacing.large),
-          _buildTextSection(AppStrings.introText),
-        ],
-      );
-    } else {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
-          ),
-          const SizedBox(width: AppSpacing.large),
-          Expanded(
-            flex: 2,
-            child: _buildTextSection(AppStrings.introText),
-          ),
-        ],
-      );
-    }
+    return screenWidth < AppSpacing.smallscreen
+        ? Column(
+            children: [
+              _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+              const SizedBox(height: AppSpacing.large),
+              _buildTextSection(AppStrings.introText),
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+              ),
+              const SizedBox(width: AppSpacing.large),
+              Expanded(
+                flex: 2,
+                child: _buildTextSection(AppStrings.introText),
+              ),
+            ],
+          );
   }
 
   Widget _buildSection({
@@ -129,7 +120,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle(title),
-        SizedBox(height: verticalPadding),
+        const SizedBox(height: AppSpacing.medium),
         if (content != null) _buildTextSection(content),
         if (contentWidget != null) contentWidget,
       ],
@@ -139,8 +130,9 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: AppTextStyles.smallTitle.copyWith(
+      style: AppTextStyles.headingSmall.copyWith(
         color: AppColors.primary,
+        fontWeight: FontWeight.w600, // Emphasizing section titles
       ),
     );
   }
@@ -150,35 +142,16 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
       child: Text(
         text,
-        style: AppTextStyles.paragraph.copyWith(height: 1.6),
+        style: AppTextStyles.bodyText.copyWith(
+          height: 1.6, // Increased line height for readability
+        ),
       ),
     );
   }
 
   Widget _buildProcessSection(double screenWidth) {
-    final double horizontalPadding = AppSpacing.medium * 2;
-    final int numberOfSteps = processSteps.length;
-
-    // Available width for the boxes after subtracting padding
-    double availableWidth = screenWidth - horizontalPadding;
-
-    // Set desired width for each box
-    double itemWidth = 150; // Adjust as needed
-
-    // Calculate total required width for all boxes and spacing
-    double totalItemWidth = itemWidth * numberOfSteps;
-    double spacing = AppSpacing.small;
-
-    // Check if total required width exceeds available width
-    if (totalItemWidth + spacing * (numberOfSteps - 1) > availableWidth) {
-      // Adjust itemWidth to fit all boxes
-      itemWidth = (availableWidth - spacing * (numberOfSteps - 1)) / numberOfSteps;
-      // Ensure itemWidth doesn't go below a minimum value
-      if (itemWidth < 120) {
-        itemWidth = 120;
-        // Allow horizontal scrolling
-      }
-    }
+    double itemWidth = screenWidth < AppSpacing.smallscreen ? 130 : 150;
+    double spacing = AppSpacing.medium;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -187,11 +160,19 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           return Container(
             width: itemWidth,
             margin: EdgeInsets.symmetric(horizontal: spacing / 2),
-            child: _buildProcessStep(
-              step.title,
-              step.description,
-              step.icon,
+            decoration: BoxDecoration(
+              color: AppColors.darkGray,
+              borderRadius: BorderRadius.circular(AppSpacing.small),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 6,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
+            padding: const EdgeInsets.all(AppSpacing.small),
+            child: _buildProcessStep(step.title, step.description, step.icon),
           );
         }).toList(),
       ),
@@ -199,41 +180,23 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildProcessStep(String title, String description, IconData iconData) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.small),
-      decoration: BoxDecoration(
-        color: AppColors.darkGray,
-        borderRadius: BorderRadius.circular(AppSpacing.small),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            iconData,
-            color: AppColors.primary,
-            size: 30,
-          ),
-          const SizedBox(height: AppSpacing.small),
-          Text(
-            title,
-            style: AppTextStyles.paragraph.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.small),
-          Text(
-            description,
-            style: AppTextStyles.paragraph.copyWith(
-              fontSize: 12,
-              height: 1.4,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(iconData, color: AppColors.primary, size: 30),
+        const SizedBox(height: AppSpacing.small),
+        Text(
+          title,
+          style: AppTextStyles.bodyTextBold.copyWith(fontSize: 14),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: AppSpacing.small),
+        Text(
+          description,
+          style: AppTextStyles.bodyText.copyWith(fontSize: 12, height: 1.4),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 
@@ -245,10 +208,10 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
       child: ClipOval(
         child: Image.asset(
           imagePath,
-          filterQuality: FilterQuality.high,
           width: imageSize,
           height: imageSize,
           fit: BoxFit.cover,
+          filterQuality: FilterQuality.high,
         ),
       ),
     );

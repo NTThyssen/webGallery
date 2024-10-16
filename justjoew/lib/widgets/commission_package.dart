@@ -1,5 +1,3 @@
-// lib/widgets/commission_package.dart
-
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
@@ -33,7 +31,7 @@ class CommissionPackage extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 5), // Soft shadow effect
           ),
         ],
       ),
@@ -45,7 +43,9 @@ class CommissionPackage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold, // Emphasize the package title
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.small),
@@ -60,7 +60,9 @@ class CommissionPackage extends StatelessWidget {
           const SizedBox(height: AppSpacing.medium),
           Text(
             description,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              height: 1.4, // Improve readability with line height
+            ),
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: AppSpacing.medium),
@@ -87,7 +89,7 @@ class CommissionPackage extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium
           ),
         ),
       ],

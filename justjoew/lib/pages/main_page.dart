@@ -24,16 +24,18 @@ class _MainPageState extends State<MainPage> with BasicMixin {
     // Determine container height based on the aspect ratio for large screens
     double containerHeight = isSmallScreen ? 450.0 : screenWidth * _imageAspectRatio;
     // Set container width for small screens to be screen width (cropping the image)
-    double containerWidth = isSmallScreen ? screenWidth : screenWidth;
+    double containerWidth = screenWidth; // Full width for both small and large screens
 
-    return Container(
-      width: containerWidth,
-      height: containerHeight,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: const AssetImage(ImageStrings.landscapeImage), // Use centralized image path
-          fit: isSmallScreen ? BoxFit.cover : BoxFit.fitWidth, // Cover for small screens, fitWidth for large screens
-          alignment: Alignment.topCenter, // Center the image
+    return Center(
+      child: Container(
+        width: containerWidth,
+        height: containerHeight,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage(ImageStrings.landscapeImage), // Use centralized image path
+            fit: isSmallScreen ? BoxFit.cover : BoxFit.fitWidth, // Cover for small screens, fitWidth for large screens
+            alignment: Alignment.topCenter, // Center the image
+          ),
         ),
       ),
     );
