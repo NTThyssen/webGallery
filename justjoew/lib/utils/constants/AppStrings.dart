@@ -1,6 +1,6 @@
 class AppStrings {
   // General
-  static const String appName = 'JustJoeW';
+  static const String appName = 'JustJoew';
   static const String ok = 'OK';
   static const String cancel = 'Cancel';
   static const String submit = 'Submit';
