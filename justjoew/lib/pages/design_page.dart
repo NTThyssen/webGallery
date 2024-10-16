@@ -20,7 +20,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   @override
   void initState() {
     // Initialize all GIF controllers
-    controllers = List.generate(5, (index) => GifController(vsync: this));
+    controllers = List.generate(6, (index) => GifController(vsync: this));
     super.initState();
   }
 
@@ -57,6 +57,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ArtImage(path: ImageStrings.ratFine),
                 _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
                 _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
+                _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
               ],
             ),
             EmoteSection(
