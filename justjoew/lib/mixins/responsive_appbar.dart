@@ -51,6 +51,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           _buildTextButton(context, AppStrings.aboutMeHeader, AppRoutes.about),
           const SizedBox(width: AppSpacing.large),
           _buildTextButton(context, AppStrings.contact, AppRoutes.contact),
+          const SizedBox(width: AppSpacing.large * 1.25),
         ],
       ),
     );
