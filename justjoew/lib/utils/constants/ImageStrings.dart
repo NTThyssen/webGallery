@@ -18,6 +18,7 @@ class ImageStrings {
   static const String ratLurk = 'images/ratlurk.png';
   static const String ratHydrate = 'images/rathydrate.png';
   static const String ratFine = 'images/ratfine.png';
+  static const String ratPopcorn = 'images/ratpopcorn.png';
   static const String ratDanceJam = 'images/RatDanceJam10.gif';
   static const String ratShyNotNaked = 'images/RatShyNotNaked.gif';
   static const String ratfight = 'images/ratfight.gif';

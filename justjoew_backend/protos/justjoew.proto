@@ -56,7 +56,20 @@ message UpdateAssetOrderResponse {
   uint32 newOrderIndex = 1;
 }
 
+message DeleteSectionResponse {
 
+}
+
+message DeleteSectionRequest {
+  uint32 sectionId = 1;
+}
+
+message DeleteAssetRequest{
+  uint32 assetId = 1;
+}
+
+message DeleteAssetResponse{
+}
 
 service AssetController {
 
@@ -64,5 +77,7 @@ service AssetController {
   rpc CreateSection (CreateSectionRequest) returns (CreateSectionResponse) {}
   rpc CreateAsset (CreateAssetRequest) returns (CreateAssetResponse) {}
   rpc UpdateAssetorder (UpdateAssetOrderRequest) returns (UpdateAssetOrderResponse) {}
+  rpc DeleteSection(DeleteSectionRequest) returns (DeleteSectionResponse) {}
+  rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse) {}
 
 }

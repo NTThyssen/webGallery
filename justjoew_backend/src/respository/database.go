@@ -65,3 +65,12 @@ func GetAllSections() ([]Section, error) {
 
 	return sections, result.Error
 }
+
+func DeleteSection(sectionId uint32) error {
+
+	result := db.Delete("Section").Where(sectionId)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
