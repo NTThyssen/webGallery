@@ -78,7 +78,7 @@ func mapAssetsToResponse(assets []repository.Asset) []*pb.Asset {
 		resAsset := &pb.Asset{
 			Id:          uint32(asset.ID),
 			SectionName: asset.Section.Name,
-			BlobPath:    fmt.Sprintf("%s/%d", blobRepository.CreatePreSignedUrls(asset.BlobPath), 512),
+			BlobPath:    blobRepository.CreatePreSignedUrls(asset.BlobPath),
 			OrderIndex:  asset.OrderIndex,
 			SectionId:   asset.SectionID,
 		}
