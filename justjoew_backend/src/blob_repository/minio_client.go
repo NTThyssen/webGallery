@@ -75,11 +75,10 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	metadata := map[string]string{
 		"X-Amz-Meta-X-Meta-Filename": filename,
 	}
-	fmt.Printf("this is key data %s/512.png", objectUuid)
 	_, err := minioClient.PutObject(context.Background(),
 		"assets",
-		fmt.Sprintf("%s/512.png",
-			objectUuid),
+		fmt.Sprintf("%s/%d.png",
+			objectUuid, ratio),
 		reader,
 		reader.Size(),
 		minio.PutObjectOptions{ContentType: "image/png", UserMetadata: metadata})
@@ -105,7 +104,6 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 
 	// Generate pre-signed GET URL
 	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
-	fmt.Println("this is pre signed url data", preSignedURL.String())
 
 	if err != nil {
 		return "", err
