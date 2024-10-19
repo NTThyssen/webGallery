@@ -22,6 +22,7 @@ class ImageStrings {
   static const String ratDanceJam = 'images/RatDanceJam10.gif';
   static const String ratShyNotNaked = 'images/RatShyNotNaked.gif';
   static const String ratfight = 'images/ratfight.gif';
+  static const String ratdead = 'images/ratdead.png';
 
 
   // Ollie Emotes
