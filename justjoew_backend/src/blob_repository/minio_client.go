@@ -75,11 +75,11 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	metadata := map[string]string{
 		"X-Amz-Meta-X-Meta-Filename": filename,
 	}
-	fmt.Println("this is key data %s/512.png", objectUuid)
+	fmt.Printf("this is key data %s/512.png", objectUuid)
 	_, err := minioClient.PutObject(context.Background(),
 		"assets",
-		fmt.Sprintf("%s//512.png",
-			objectUuid, ratio),
+		fmt.Sprintf("%s/512.png",
+			objectUuid),
 		reader,
 		reader.Size(),
 		minio.PutObjectOptions{ContentType: "image/png", UserMetadata: metadata})
