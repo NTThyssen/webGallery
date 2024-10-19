@@ -20,12 +20,12 @@ var minioClient *minio.Client
 
 func InitClient() {
 
-	accessKey, err := os.ReadFile("/run/secrets/access_key")
+	accessKey, err := os.ReadFile("/run/secrets/access_key.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	secretKey, err := os.ReadFile("/run/secrets/secret_key")
+	secretKey, err := os.ReadFile("/run/secrets/secret_key.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -49,7 +49,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode image: %v", err)
 	}
-
+	objectUuid := uuid.NewString()
 	for _, v := range sizesList {
 		imageResize := resize.Resize(v, v, img, resize.Lanczos3)
 		var buf bytes.Buffer
@@ -57,7 +57,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 		if err != nil {
 			return nil, err
 		}
-		path, err := uploadAsset(buf.Bytes(), filename, v)
+		path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid)
 		pathList = append(pathList, path)
 		if err != nil {
 			return nil, err
@@ -68,9 +68,9 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 
 }
 
-func uploadAsset(assetBytes []byte, filename string, ratio uint) (string, error) {
+func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid string) (string, error) {
 
-	objectUuid := uuid.NewString()
+	
 	reader := bytes.NewReader(assetBytes)
 
 	metadata := map[string]string{

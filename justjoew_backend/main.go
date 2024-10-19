@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 
@@ -28,7 +29,7 @@ func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
+	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: fmt.Sprintf("%s/%d", res.BlobPath, 512), OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
 }
 
 func (s *server) DeleteSection(ctx context.Context, in *pb.DeleteSectionRequest) (*pb.DeleteSectionResponse, error) {
@@ -77,7 +78,7 @@ func mapAssetsToResponse(assets []repository.Asset) []*pb.Asset {
 		resAsset := &pb.Asset{
 			Id:          uint32(asset.ID),
 			SectionName: asset.Section.Name,
-			BlobPath:    blobRepository.CreatePreSignedUrls(asset.BlobPath),
+			BlobPath:    fmt.Sprintf("%s/%d", blobRepository.CreatePreSignedUrls(asset.BlobPath), 512),
 			OrderIndex:  asset.OrderIndex,
 			SectionId:   asset.SectionID,
 		}
