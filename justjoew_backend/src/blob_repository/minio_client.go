@@ -73,7 +73,7 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	reader := bytes.NewReader(assetBytes)
 
 	metadata := map[string]string{
-		"X-Meta-Filename": filename,
+		"X-Amz-Meta-X-Meta-Filename": filename,
 	}
 
 	_, err := minioClient.PutObject(context.Background(),
