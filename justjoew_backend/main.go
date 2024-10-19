@@ -24,7 +24,10 @@ type server struct {
 
 func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*pb.CreateAssetResponse, error) {
 	log.Printf("Received: %v", in.SectionId)
-	res := repository.CreateAsset(in)
+	res, err := repository.CreateAsset(in)
+	if err != nil {
+		return nil, err
+	}
 	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
 }
 

@@ -3,15 +3,17 @@ package blobrepository
 import (
 	"bytes"
 	"context"
-	"net/url"
-	"time"
-
+	"fmt"
+	image "image/png" // to support PNG decoding
 	"log"
+	"net/url"
 	"os"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/nfnt/resize"
 )
 
 var minioClient *minio.Client
@@ -37,38 +39,75 @@ func InitClient() {
 		log.Fatalln(err)
 	}
 
-	log.Printf("is online: %v ",  minioClient.IsOnline())
+	log.Printf("is online: %v ", minioClient.IsOnline())
 }
 
-func UploadAsset(assetBytes []byte) string {
+func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
+	sizesList := []uint{512, 384, 256, 196, 128, 112, 56, 28}
+	pathList := []string{}
+	img, err := image.Decode(bytes.NewReader(byteArray))
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode image: %v", err)
+	}
+
+	for _, v := range sizesList {
+		imageResize := resize.Resize(v, v, img, resize.Lanczos3)
+		var buf bytes.Buffer
+		err := image.Encode(&buf, imageResize)
+		if err != nil {
+			return nil, err
+		}
+		path, err := uploadAsset(buf.Bytes(), filename, v)
+		pathList = append(pathList, path)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return pathList, nil
+
+}
+
+func uploadAsset(assetBytes []byte, filename string, ratio uint) (string, error) {
 
 	objectUuid := uuid.NewString()
 	reader := bytes.NewReader(assetBytes)
-	_, err := minioClient.PutObject(context.Background(), "assets", objectUuid, reader, reader.Size(), minio.PutObjectOptions{ContentType: "image/png"})
+
+	metadata := map[string]string{
+		"X-Meta-Filename": filename,
+	}
+
+	_, err := minioClient.PutObject(context.Background(),
+		"assets",
+		fmt.Sprintf("%s/%d",
+			objectUuid, ratio),
+		reader,
+		reader.Size(),
+		minio.PutObjectOptions{ContentType: "image/png", UserMetadata: metadata})
 
 	if err != nil {
 		log.Panicln(err)
-		return objectUuid
+		return objectUuid, err
 	}
-	return objectUuid
+	return objectUuid, nil
 }
 
 func CreatePreSignedUrls(objectKey string) string {
 	res, err := generatePresignedURL(minioClient, "assets", objectKey, time.Minute*10)
 	if err != nil {
-		log.Panicf("failed to fetch object %s", objectKey )
+		log.Panicf("failed to fetch object %s", objectKey)
 	}
 	return res
 }
 
 func generatePresignedURL(client *minio.Client, bucketName, objectName string, expiry time.Duration) (string, error) {
-    reqParams := make(url.Values)
+	reqParams := make(url.Values)
 
-    // Generate pre-signed GET URL
-    preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
-    if err != nil {
-        return "", err
-    }
+	// Generate pre-signed GET URL
+	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
+	if err != nil {
+		return "", err
+	}
 
-    return preSignedURL.String(), nil
+	return preSignedURL.String(), nil
 }

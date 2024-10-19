@@ -98,13 +98,14 @@ const CreateAssetRequest$json = {
   '2': [
     {'1': 'sectionId', '3': 1, '4': 1, '5': 13, '10': 'sectionId'},
     {'1': 'blob', '3': 2, '4': 1, '5': 12, '10': 'blob'},
+    {'1': 'filename', '3': 3, '4': 1, '5': 9, '10': 'filename'},
   ],
 };
 
 /// Descriptor for `CreateAssetRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createAssetRequestDescriptor = $convert.base64Decode(
     'ChJDcmVhdGVBc3NldFJlcXVlc3QSHAoJc2VjdGlvbklkGAEgASgNUglzZWN0aW9uSWQSEgoEYm'
-    'xvYhgCIAEoDFIEYmxvYg==');
+    'xvYhgCIAEoDFIEYmxvYhIaCghmaWxlbmFtZRgDIAEoCVIIZmlsZW5hbWU=');
 
 @$core.Deprecated('Use createAssetResponseDescriptor instead')
 const CreateAssetResponse$json = {

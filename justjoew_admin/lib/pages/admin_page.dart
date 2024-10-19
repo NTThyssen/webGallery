@@ -191,7 +191,8 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
           onPressed: () async {
             await _pickFile();
             var bytes = _pickedFile!.bytes;
-            section_cubit.createAsset(bytes!.toList(), widget.section.id);
+            
+            section_cubit.createAsset(bytes!.toList(), widget.section.id, _pickedFile!.name);
           },
           label: Text('Add New Asset'),
           icon: Icon(Icons.add),

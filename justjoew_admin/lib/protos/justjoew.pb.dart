@@ -372,6 +372,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   factory CreateAssetRequest({
     $core.int? sectionId,
     $core.List<$core.int>? blob,
+    $core.String? filename,
   }) {
     final $result = create();
     if (sectionId != null) {
@@ -379,6 +380,9 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
     }
     if (blob != null) {
       $result.blob = blob;
+    }
+    if (filename != null) {
+      $result.filename = filename;
     }
     return $result;
   }
@@ -389,6 +393,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateAssetRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'sectionId', $pb.PbFieldType.OU3, protoName: 'sectionId')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'blob', $pb.PbFieldType.OY)
+    ..aOS(3, _omitFieldNames ? '' : 'filename')
     ..hasRequiredFields = false
   ;
 
@@ -430,6 +435,15 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   $core.bool hasBlob() => $_has(1);
   @$pb.TagNumber(2)
   void clearBlob() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get filename => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set filename($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFilename() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFilename() => clearField(3);
 }
 
 /// The response message containing the greetings

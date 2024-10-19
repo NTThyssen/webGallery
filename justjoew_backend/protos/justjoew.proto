@@ -37,7 +37,7 @@ message Asset {
 message CreateAssetRequest {
   uint32 sectionId = 1;
   bytes blob = 2;
-
+  string filename = 3;
 }
 
 // The response message containing the greetings

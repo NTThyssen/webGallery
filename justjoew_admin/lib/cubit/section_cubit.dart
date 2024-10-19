@@ -20,10 +20,10 @@ class SectionCubit extends Cubit<SectionState> {
     }
 
 
-    void createAsset(List<int> bytes, int sectionId) async {
+    void createAsset(List<int> bytes, int sectionId, String filename) async {
 
-     await _assetRepository.createAsset(bytes, sectionId);
-     getAllSections();
+     var asset  = await _assetRepository.createAsset(bytes, sectionId, filename);
+      getAllSections();
     }
 
     void createSection(String sectioName ) async {
