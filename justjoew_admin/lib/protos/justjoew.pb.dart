@@ -372,6 +372,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   factory CreateAssetRequest({
     $core.int? sectionId,
     $core.List<$core.int>? blob,
+    $core.String? filename,
   }) {
     final $result = create();
     if (sectionId != null) {
@@ -379,6 +380,9 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
     }
     if (blob != null) {
       $result.blob = blob;
+    }
+    if (filename != null) {
+      $result.filename = filename;
     }
     return $result;
   }
@@ -389,6 +393,7 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateAssetRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'sectionId', $pb.PbFieldType.OU3, protoName: 'sectionId')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'blob', $pb.PbFieldType.OY)
+    ..aOS(3, _omitFieldNames ? '' : 'filename')
     ..hasRequiredFields = false
   ;
 
@@ -430,6 +435,15 @@ class CreateAssetRequest extends $pb.GeneratedMessage {
   $core.bool hasBlob() => $_has(1);
   @$pb.TagNumber(2)
   void clearBlob() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get filename => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set filename($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFilename() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFilename() => clearField(3);
 }
 
 /// The response message containing the greetings
@@ -597,6 +611,170 @@ class UpdateAssetOrderResponse extends $pb.GeneratedMessage {
   $core.bool hasNewOrderIndex() => $_has(0);
   @$pb.TagNumber(1)
   void clearNewOrderIndex() => clearField(1);
+}
+
+class DeleteSectionResponse extends $pb.GeneratedMessage {
+  factory DeleteSectionResponse() => create();
+  DeleteSectionResponse._() : super();
+  factory DeleteSectionResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteSectionResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeleteSectionResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteSectionResponse clone() => DeleteSectionResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteSectionResponse copyWith(void Function(DeleteSectionResponse) updates) => super.copyWith((message) => updates(message as DeleteSectionResponse)) as DeleteSectionResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteSectionResponse create() => DeleteSectionResponse._();
+  DeleteSectionResponse createEmptyInstance() => create();
+  static $pb.PbList<DeleteSectionResponse> createRepeated() => $pb.PbList<DeleteSectionResponse>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteSectionResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteSectionResponse>(create);
+  static DeleteSectionResponse? _defaultInstance;
+}
+
+class DeleteSectionRequest extends $pb.GeneratedMessage {
+  factory DeleteSectionRequest({
+    $core.int? sectionId,
+  }) {
+    final $result = create();
+    if (sectionId != null) {
+      $result.sectionId = sectionId;
+    }
+    return $result;
+  }
+  DeleteSectionRequest._() : super();
+  factory DeleteSectionRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteSectionRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeleteSectionRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'sectionId', $pb.PbFieldType.OU3, protoName: 'sectionId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteSectionRequest clone() => DeleteSectionRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteSectionRequest copyWith(void Function(DeleteSectionRequest) updates) => super.copyWith((message) => updates(message as DeleteSectionRequest)) as DeleteSectionRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteSectionRequest create() => DeleteSectionRequest._();
+  DeleteSectionRequest createEmptyInstance() => create();
+  static $pb.PbList<DeleteSectionRequest> createRepeated() => $pb.PbList<DeleteSectionRequest>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteSectionRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteSectionRequest>(create);
+  static DeleteSectionRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get sectionId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set sectionId($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSectionId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSectionId() => clearField(1);
+}
+
+class DeleteAssetRequest extends $pb.GeneratedMessage {
+  factory DeleteAssetRequest({
+    $core.int? assetId,
+  }) {
+    final $result = create();
+    if (assetId != null) {
+      $result.assetId = assetId;
+    }
+    return $result;
+  }
+  DeleteAssetRequest._() : super();
+  factory DeleteAssetRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteAssetRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeleteAssetRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'assetId', $pb.PbFieldType.OU3, protoName: 'assetId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteAssetRequest clone() => DeleteAssetRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteAssetRequest copyWith(void Function(DeleteAssetRequest) updates) => super.copyWith((message) => updates(message as DeleteAssetRequest)) as DeleteAssetRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteAssetRequest create() => DeleteAssetRequest._();
+  DeleteAssetRequest createEmptyInstance() => create();
+  static $pb.PbList<DeleteAssetRequest> createRepeated() => $pb.PbList<DeleteAssetRequest>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteAssetRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteAssetRequest>(create);
+  static DeleteAssetRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get assetId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set assetId($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAssetId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAssetId() => clearField(1);
+}
+
+class DeleteAssetResponse extends $pb.GeneratedMessage {
+  factory DeleteAssetResponse() => create();
+  DeleteAssetResponse._() : super();
+  factory DeleteAssetResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteAssetResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeleteAssetResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteAssetResponse clone() => DeleteAssetResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteAssetResponse copyWith(void Function(DeleteAssetResponse) updates) => super.copyWith((message) => updates(message as DeleteAssetResponse)) as DeleteAssetResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeleteAssetResponse create() => DeleteAssetResponse._();
+  DeleteAssetResponse createEmptyInstance() => create();
+  static $pb.PbList<DeleteAssetResponse> createRepeated() => $pb.PbList<DeleteAssetResponse>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteAssetResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteAssetResponse>(create);
+  static DeleteAssetResponse? _defaultInstance;
 }
 
 

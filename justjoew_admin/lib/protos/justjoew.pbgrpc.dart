@@ -37,6 +37,14 @@ class AssetControllerClient extends $grpc.Client {
       '/justjoew.asstes.AssetController/UpdateAssetorder',
       ($0.UpdateAssetOrderRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.UpdateAssetOrderResponse.fromBuffer(value));
+  static final _$deleteSection = $grpc.ClientMethod<$0.DeleteSectionRequest, $0.DeleteSectionResponse>(
+      '/justjoew.asstes.AssetController/DeleteSection',
+      ($0.DeleteSectionRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.DeleteSectionResponse.fromBuffer(value));
+  static final _$deleteAsset = $grpc.ClientMethod<$0.DeleteAssetRequest, $0.DeleteAssetResponse>(
+      '/justjoew.asstes.AssetController/DeleteAsset',
+      ($0.DeleteAssetRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.DeleteAssetResponse.fromBuffer(value));
 
   AssetControllerClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -58,6 +66,14 @@ class AssetControllerClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.UpdateAssetOrderResponse> updateAssetorder($0.UpdateAssetOrderRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateAssetorder, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteSectionResponse> deleteSection($0.DeleteSectionRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteSection, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteAssetResponse> deleteAsset($0.DeleteAssetRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteAsset, request, options: options);
   }
 }
 
@@ -94,6 +110,20 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UpdateAssetOrderRequest.fromBuffer(value),
         ($0.UpdateAssetOrderResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteSectionRequest, $0.DeleteSectionResponse>(
+        'DeleteSection',
+        deleteSection_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.DeleteSectionRequest.fromBuffer(value),
+        ($0.DeleteSectionResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteAssetRequest, $0.DeleteAssetResponse>(
+        'DeleteAsset',
+        deleteAsset_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.DeleteAssetRequest.fromBuffer(value),
+        ($0.DeleteAssetResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.GetAllSectionsResonse> getAllSections_Pre($grpc.ServiceCall call, $async.Future<$0.GetAllSectionsRequest> request) async {
@@ -112,8 +142,18 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
     return updateAssetorder(call, await request);
   }
 
+  $async.Future<$0.DeleteSectionResponse> deleteSection_Pre($grpc.ServiceCall call, $async.Future<$0.DeleteSectionRequest> request) async {
+    return deleteSection(call, await request);
+  }
+
+  $async.Future<$0.DeleteAssetResponse> deleteAsset_Pre($grpc.ServiceCall call, $async.Future<$0.DeleteAssetRequest> request) async {
+    return deleteAsset(call, await request);
+  }
+
   $async.Future<$0.GetAllSectionsResonse> getAllSections($grpc.ServiceCall call, $0.GetAllSectionsRequest request);
   $async.Future<$0.CreateSectionResponse> createSection($grpc.ServiceCall call, $0.CreateSectionRequest request);
   $async.Future<$0.CreateAssetResponse> createAsset($grpc.ServiceCall call, $0.CreateAssetRequest request);
   $async.Future<$0.UpdateAssetOrderResponse> updateAssetorder($grpc.ServiceCall call, $0.UpdateAssetOrderRequest request);
+  $async.Future<$0.DeleteSectionResponse> deleteSection($grpc.ServiceCall call, $0.DeleteSectionRequest request);
+  $async.Future<$0.DeleteAssetResponse> deleteAsset($grpc.ServiceCall call, $0.DeleteAssetRequest request);
 }

@@ -20,8 +20,10 @@ class SectionCubit extends Cubit<SectionState> {
     }
 
 
-    void createAsset(List<int> bytes, int sectionId) async {
-      await _assetRepository.createAsset(bytes, sectionId);
+    void createAsset(List<int> bytes, int sectionId, String filename) async {
+
+     var asset  = await _assetRepository.createAsset(bytes, sectionId, filename);
+      getAllSections();
     }
 
     void createSection(String sectioName ) async {
@@ -30,7 +32,6 @@ class SectionCubit extends Cubit<SectionState> {
       if(state is SectionReady){
           var prevState = state as SectionReady;
           prevState.sectionList.add(new Section(prevState.sectionList.length, sectioName, []));
-          //emit(state);
       }
 
       await _assetRepository.createSection(sectioName);

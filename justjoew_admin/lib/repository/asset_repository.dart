@@ -21,14 +21,14 @@ class AssetRepository {
     }
   }
 
-  Future<String> createAsset(List<int> bytes, sectionId) async {
-    final request = CreateAssetRequest(blob: bytes, sectionId: sectionId);
+  Future<Asset> createAsset(List<int> bytes, int sectionId, String filename) async {
+    final request = CreateAssetRequest(blob: bytes, sectionId: sectionId, filename: filename);
     try {
       final response = await stub!.createAsset(request);
-      return response.asset.sectionName;
+      return response.asset;
     } catch (e) {
       print('Caught error: $e');
-      return 'Error';
+      throw Exception("failed to create asset");
     }
   }
 

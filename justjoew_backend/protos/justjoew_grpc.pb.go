@@ -26,6 +26,8 @@ type AssetControllerClient interface {
 	CreateSection(ctx context.Context, in *CreateSectionRequest, opts ...grpc.CallOption) (*CreateSectionResponse, error)
 	CreateAsset(ctx context.Context, in *CreateAssetRequest, opts ...grpc.CallOption) (*CreateAssetResponse, error)
 	UpdateAssetorder(ctx context.Context, in *UpdateAssetOrderRequest, opts ...grpc.CallOption) (*UpdateAssetOrderResponse, error)
+	DeleteSection(ctx context.Context, in *DeleteSectionRequest, opts ...grpc.CallOption) (*DeleteSectionResponse, error)
+	DeleteAsset(ctx context.Context, in *DeleteAssetRequest, opts ...grpc.CallOption) (*DeleteAssetResponse, error)
 }
 
 type assetControllerClient struct {
@@ -72,6 +74,24 @@ func (c *assetControllerClient) UpdateAssetorder(ctx context.Context, in *Update
 	return out, nil
 }
 
+func (c *assetControllerClient) DeleteSection(ctx context.Context, in *DeleteSectionRequest, opts ...grpc.CallOption) (*DeleteSectionResponse, error) {
+	out := new(DeleteSectionResponse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/DeleteSection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetControllerClient) DeleteAsset(ctx context.Context, in *DeleteAssetRequest, opts ...grpc.CallOption) (*DeleteAssetResponse, error) {
+	out := new(DeleteAssetResponse)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/DeleteAsset", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AssetControllerServer is the server API for AssetController service.
 // All implementations must embed UnimplementedAssetControllerServer
 // for forward compatibility
@@ -80,6 +100,8 @@ type AssetControllerServer interface {
 	CreateSection(context.Context, *CreateSectionRequest) (*CreateSectionResponse, error)
 	CreateAsset(context.Context, *CreateAssetRequest) (*CreateAssetResponse, error)
 	UpdateAssetorder(context.Context, *UpdateAssetOrderRequest) (*UpdateAssetOrderResponse, error)
+	DeleteSection(context.Context, *DeleteSectionRequest) (*DeleteSectionResponse, error)
+	DeleteAsset(context.Context, *DeleteAssetRequest) (*DeleteAssetResponse, error)
 	mustEmbedUnimplementedAssetControllerServer()
 }
 
@@ -98,6 +120,12 @@ func (UnimplementedAssetControllerServer) CreateAsset(context.Context, *CreateAs
 }
 func (UnimplementedAssetControllerServer) UpdateAssetorder(context.Context, *UpdateAssetOrderRequest) (*UpdateAssetOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAssetorder not implemented")
+}
+func (UnimplementedAssetControllerServer) DeleteSection(context.Context, *DeleteSectionRequest) (*DeleteSectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSection not implemented")
+}
+func (UnimplementedAssetControllerServer) DeleteAsset(context.Context, *DeleteAssetRequest) (*DeleteAssetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAsset not implemented")
 }
 func (UnimplementedAssetControllerServer) mustEmbedUnimplementedAssetControllerServer() {}
 
@@ -184,6 +212,42 @@ func _AssetController_UpdateAssetorder_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AssetController_DeleteSection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).DeleteSection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/DeleteSection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).DeleteSection(ctx, req.(*DeleteSectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetController_DeleteAsset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAssetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).DeleteAsset(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/DeleteAsset",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).DeleteAsset(ctx, req.(*DeleteAssetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AssetController_ServiceDesc is the grpc.ServiceDesc for AssetController service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +270,14 @@ var AssetController_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAssetorder",
 			Handler:    _AssetController_UpdateAssetorder_Handler,
+		},
+		{
+			MethodName: "DeleteSection",
+			Handler:    _AssetController_DeleteSection_Handler,
+		},
+		{
+			MethodName: "DeleteAsset",
+			Handler:    _AssetController_DeleteAsset_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

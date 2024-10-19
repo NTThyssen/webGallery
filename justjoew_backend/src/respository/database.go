@@ -34,28 +34,32 @@ func CreateSection(sectionName string) (string, error) {
 	return sectionName, nil
 }
 
-func CreateAsset(domainAsset *pb.CreateAssetRequest) Asset {
+func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 	var dbSection Section
 	var assetInSectionCount int64
-	res := blobrepository.UploadAsset(domainAsset.Blob)
+
+	res, err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
+
+	if err != nil {
+		return Asset{}, err
+	}
 	dbSection.ID = uint(domainAsset.SectionId)
 	db.Where(dbSection).Count(&assetInSectionCount)
 
 	asset := Asset{
 		OrderIndex: uint32(assetInSectionCount),
 		SectionID:  domainAsset.SectionId,
-		BlobPath:   res,
+		BlobPath:   res[0],
 	}
 
 	dbRes := db.Create(&asset)
 
 	if dbRes.Error != nil {
 		log.Panicln(dbRes.Error)
-		return Asset{}
+		return Asset{}, db.Error
 	}
-
-	return asset
-
+	
+	return asset, nil
 }
 
 func GetAllSections() ([]Section, error) {
@@ -64,4 +68,13 @@ func GetAllSections() ([]Section, error) {
 	result := db.Preload("AssetList").Find(&sections)
 
 	return sections, result.Error
+}
+
+func DeleteSection(sectionId uint32) error {
+
+	result := db.Delete("Section").Where(sectionId)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
 }
