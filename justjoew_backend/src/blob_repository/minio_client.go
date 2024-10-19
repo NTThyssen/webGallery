@@ -92,7 +92,7 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 }
 
 func CreatePreSignedUrls(objectKey string) string {
-	encodedObjectKey := url.QueryEscape(fmt.Sprintf("%s/%d", objectKey, 512))
+	encodedObjectKey := url.QueryEscape(fmt.Sprintf("%s/%d.png", objectKey, 512))
 
 	res, err := generatePresignedURL(minioClient, "assets", encodedObjectKey, time.Minute*10)
 	if err != nil {
