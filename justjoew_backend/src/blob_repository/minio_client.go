@@ -20,12 +20,12 @@ var minioClient *minio.Client
 
 func InitClient() {
 
-	accessKey, err := os.ReadFile("/run/secrets/access_key")
+	accessKey, err := os.ReadFile("/run/secrets/access_key.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	secretKey, err := os.ReadFile("/run/secrets/secret_key")
+	secretKey, err := os.ReadFile("/run/secrets/secret_key.txt")
 	if err != nil {
 		panic(err)
 	}
