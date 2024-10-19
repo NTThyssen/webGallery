@@ -89,11 +89,11 @@ My creative process is a collaborative journey that involves you every step of t
       "Whether you have a clear vision or just a rough idea, we'll work together to bring it to life.";
   static const String emotesTitle = 'Emotes';
   static const String emotesDescription = 
-      "Delivery times are set generously to account for life’s demands, but they are usually shorter. "
+      "Delivery times are set generously to account for life’s demands. "
       "Unless anything else is agreed upon you will get: ";
   static const List<String> emotesDetails = [
-    "4 PNG files in sizes (28x28, 56x56, 112x112, 128x128) px",
-    "At a 600 dpi resulotion",
+    "1 PNG file in sizes 128x128 px",
+    "At a 300 dpi resulotion",
   ];
   static const String letscreate = "Let’s create something amazing together!";
   static const String otherRequestsDescription = 
@@ -110,11 +110,11 @@ My creative process is a collaborative journey that involves you every step of t
   static const String standardPackagePrice = '\$25';
   static const String standardPackageDescription = '3 custom static emotes, tailored to your specifications.';
   static const String standardPackageDelivery = '10-day delivery';
-  static const String standardPackageRevisions = '3 Revisions';
+  static const String standardPackageRevisions = '2 Revisions';
   static const String standardPackageEmotes = '3 emotes';
 
   static const String premiumPackageTitle = 'Premium';
-  static const String premiumPackagePrice = '\$40';
+  static const String premiumPackagePrice = '\$45';
   static const String premiumPackageDescription = '6 custom static emotes, tailored to your specifications.';
   static const String premiumPackageDelivery = '14-day delivery';
   static const String premiumPackageRevisions = '4 Revisions';
