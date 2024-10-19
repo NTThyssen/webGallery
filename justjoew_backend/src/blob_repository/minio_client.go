@@ -70,7 +70,6 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 
 func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid string) (string, error) {
 
-	
 	reader := bytes.NewReader(assetBytes)
 
 	metadata := map[string]string{
@@ -93,9 +92,9 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 }
 
 func CreatePreSignedUrls(objectKey string) string {
-	res, err := generatePresignedURL(minioClient, "assets", objectKey, time.Minute*10)
+	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d", objectKey, 512), time.Minute*10)
 	if err != nil {
-		log.Panicf("failed to fetch object %s", objectKey)
+		log.Panicf("failed to fetch object %s/%d", objectKey, 512)
 	}
 	return res
 }
