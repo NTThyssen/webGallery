@@ -78,7 +78,7 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 
 	_, err := minioClient.PutObject(context.Background(),
 		"assets",
-		fmt.Sprintf("%s/%d",
+		fmt.Sprintf("%s/%d.png",
 			objectUuid, ratio),
 		reader,
 		reader.Size(),
@@ -92,7 +92,9 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 }
 
 func CreatePreSignedUrls(objectKey string) string {
-	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d", objectKey, 512), time.Minute*10)
+	encodedObjectKey := url.QueryEscape(fmt.Sprintf("%s/%d", objectKey, 512))
+
+	res, err := generatePresignedURL(minioClient, "assets", encodedObjectKey, time.Minute*10)
 	if err != nil {
 		log.Panicf("failed to fetch object %s/%d", objectKey, 512)
 	}
