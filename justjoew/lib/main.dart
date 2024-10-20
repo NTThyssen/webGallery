@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/navigator/navigator.dart'; // Make sure AppRouter is correctly defined
 import 'package:justjoew/utils/theme/AppColors.dart';
