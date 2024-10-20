@@ -22,7 +22,7 @@ var minioClient *minio.Client
 func InitClient() {
 
 	config := vault.DefaultConfig()
-    config.Address = "http://127.0.0.1:8200" // Vault address
+    config.Address = "http://0.0.0.0:8200" // Vault address
 
     client, err := vault.NewClient(config)
     if err != nil {
