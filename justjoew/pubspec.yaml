@@ -18,6 +18,11 @@ dependencies:
   go_router: ^14.2.0
   sticky_footer_scrollview: ^1.1.1
   flutter_displaymode: ^0.6.0
+  protobuf: ^3.1.0
+  grpc: ^4.0.1
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   flutter_test:
