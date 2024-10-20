@@ -21,8 +21,10 @@ class AssetRepository {
     }
   }
 
-  Future<Asset> createAsset(List<int> bytes, int sectionId, String filename) async {
-    final request = CreateAssetRequest(blob: bytes, sectionId: sectionId, filename: filename);
+  Future<Asset> createAsset(
+      List<int> bytes, int sectionId, String filename) async {
+    final request = CreateAssetRequest(
+        blob: bytes, sectionId: sectionId, filename: filename);
     try {
       final response = await stub!.createAsset(request);
       return response.asset;
@@ -32,15 +34,15 @@ class AssetRepository {
     }
   }
 
-    Future<GetAllSectionsResonse> getAllSections() async {
+  Future<GetAllSectionsResonse> getAllSections() async {
     try {
-      final response = await stub!.getAllSections(GetAllSectionsRequest());
-      return  response;
+      final response =
+          await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: 512));
+      return response;
     } catch (e) {
-      throw('Caught error: $e');
+      throw ('Caught error: $e');
     }
   }
-
 
   void shutdown() async {
     await channel!.shutdown();

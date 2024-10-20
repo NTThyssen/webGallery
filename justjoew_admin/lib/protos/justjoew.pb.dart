@@ -14,12 +14,21 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class GetAllSectionsRequest extends $pb.GeneratedMessage {
-  factory GetAllSectionsRequest() => create();
+  factory GetAllSectionsRequest({
+    $core.int? aspectRatio,
+  }) {
+    final $result = create();
+    if (aspectRatio != null) {
+      $result.aspectRatio = aspectRatio;
+    }
+    return $result;
+  }
   GetAllSectionsRequest._() : super();
   factory GetAllSectionsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetAllSectionsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetAllSectionsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'aspectRatio', $pb.PbFieldType.OU3, protoName: 'aspectRatio')
     ..hasRequiredFields = false
   ;
 
@@ -43,6 +52,15 @@ class GetAllSectionsRequest extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static GetAllSectionsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetAllSectionsRequest>(create);
   static GetAllSectionsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get aspectRatio => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set aspectRatio($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAspectRatio() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAspectRatio() => clearField(1);
 }
 
 class GetAllSectionsResonse extends $pb.GeneratedMessage {

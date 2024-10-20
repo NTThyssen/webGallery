@@ -58,7 +58,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 		log.Panicln(dbRes.Error)
 		return Asset{}, db.Error
 	}
-	
+
 	return asset, nil
 }
 

@@ -90,11 +90,11 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	return objectUuid, nil
 }
 
-func CreatePreSignedUrls(objectKey string) string {
+func CreatePreSignedUrls(objectKey string, aspectRation uint32) string {
 
-	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/512.png", objectKey), time.Minute*10)
+	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.png", objectKey, aspectRation), time.Minute*10)
 	if err != nil {
-		log.Panicf("failed to fetch object %s/%d", objectKey, 512)
+		log.Panicf("failed to fetch object %s/%d", objectKey, aspectRation)
 	}
 	return res
 }

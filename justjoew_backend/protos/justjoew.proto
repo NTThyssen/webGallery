@@ -6,7 +6,9 @@ option go_package = "justjoew/backend/protos";
 
 
 
-message GetAllSectionsRequest{}
+message GetAllSectionsRequest{
+  uint32 aspectRatio = 1;
+}
 
 message GetAllSectionsResonse {
   repeated Section sections = 1;

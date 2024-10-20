@@ -16,11 +16,15 @@ import 'dart:typed_data' as $typed_data;
 @$core.Deprecated('Use getAllSectionsRequestDescriptor instead')
 const GetAllSectionsRequest$json = {
   '1': 'GetAllSectionsRequest',
+  '2': [
+    {'1': 'aspectRatio', '3': 1, '4': 1, '5': 13, '10': 'aspectRatio'},
+  ],
 };
 
 /// Descriptor for `GetAllSectionsRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getAllSectionsRequestDescriptor = $convert.base64Decode(
-    'ChVHZXRBbGxTZWN0aW9uc1JlcXVlc3Q=');
+    'ChVHZXRBbGxTZWN0aW9uc1JlcXVlc3QSIAoLYXNwZWN0UmF0aW8YASABKA1SC2FzcGVjdFJhdG'
+    'lv');
 
 @$core.Deprecated('Use getAllSectionsResonseDescriptor instead')
 const GetAllSectionsResonse$json = {
