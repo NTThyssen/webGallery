@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"time"
+    vault "github.com/hashicorp/vault/api"
 
 	"github.com/google/uuid"
 	"github.com/minio/minio-go/v7"
@@ -20,18 +21,30 @@ var minioClient *minio.Client
 
 func InitClient() {
 
-	accessKey, err := os.ReadFile("/run/secrets/access_key.txt")
-	if err != nil {
-		panic(err)
-	}
+	config := vault.DefaultConfig()
+    config.Address = "http://127.0.0.1:8200" // Vault address
 
-	secretKey, err := os.ReadFile("/run/secrets/secret_key.txt")
-	if err != nil {
-		panic(err)
-	}
+    client, err := vault.NewClient(config)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Set the Vault token (use root-token or an app-specific token)
+    client.SetToken(os.Getenv("VAULT_TOKEN"))
+
+     // Retrieve the secret from Vault
+    secret, err := client.KVv2("kv").Get(context.Background(), "justjoew_backend/config")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Access secret data
+    username := secret.Data["username"].(string)
+    password := secret.Data["password"].(string)
+
 
 	minioClient, err = minio.New("minio.justjoew.com", &minio.Options{
-		Creds:  credentials.NewStaticV4(string(accessKey), string(secretKey), ""),
+		Creds:  credentials.NewStaticV4(string(username), string(password), ""),
 		Secure: true,
 	})
 
