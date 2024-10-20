@@ -95,7 +95,6 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
                 color: AppColors.link,
-                decoration: TextDecoration.underline,
               ),
             ),
           ),

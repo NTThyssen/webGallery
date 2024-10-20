@@ -25,7 +25,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildIconButton(
+        /*_buildIconButton(
           Image.asset(
             _hoverStates['fiverr']! ? ImageStrings.fiverGreen : ImageStrings.fiverr,
             width: 32, // Set the image icon size to 32
@@ -34,7 +34,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
           ),
           AppStrings.fiverrUrl,
           'fiverr',
-        ),
+        ),*/
         const SizedBox(width: AppSpacing.medium), // Add spacing between icons
         _buildIconButton(
           FaIcon(
