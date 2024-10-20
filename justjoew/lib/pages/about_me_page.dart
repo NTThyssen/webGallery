@@ -71,10 +71,10 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
                     content: AppStrings.combinedProcessDescription,
                   ),
                   const SizedBox(height: AppSpacing.large),
-                  _buildSection(
+                  /*_buildSection(
                     title: AppStrings.passionTitle,
                     content: AppStrings.passionText,
-                  ),
+                  ),*/
                   const SizedBox(height: AppSpacing.large),
                 ],
               ),
