@@ -38,6 +38,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       toolbarHeight: toolbarHeight, // Use the height from the theme
       elevation: appBarTheme.elevation ?? 0,
+      shadowColor: Colors.white.withOpacity(0.3),
       centerTitle: true,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +52,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           _buildTextButton(context, AppStrings.aboutMeHeader, AppRoutes.about),
           const SizedBox(width: AppSpacing.large),
           _buildTextButton(context, AppStrings.contact, AppRoutes.contact),
-          const SizedBox(width: AppSpacing.large * 1.25),
+          const SizedBox(width: AppSpacing.large * 1.6),
         ],
       ),
     );
@@ -90,12 +91,12 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           if (states.contains(MaterialState.hovered)) {
             return AppColors.primary400; // Hover color
           }
-          return isSelected ? AppColors.primary200 : AppColors.primary600; // Selected or default color
+          return isSelected ? AppColors.primary300 : AppColors.primary700; // Selected or default color
         }),
         textStyle: MaterialStateProperty.all(
           isSelected
               ? AppTextStyles.buttonText.copyWith(color: AppColors.primary200)
-              : AppTextStyles.buttonText.copyWith(fontWeight: FontWeight.w400),
+              : AppTextStyles.buttonText.copyWith(fontWeight: FontWeight.w500),
         ),
         overlayColor: MaterialStateProperty.all(AppColors.primary50.withOpacity(0.1)), // Subtle hover effect
         splashFactory: NoSplash.splashFactory, // Removes splash effect

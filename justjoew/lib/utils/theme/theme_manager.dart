@@ -11,9 +11,10 @@ final ThemeData myTheme = ThemeData(
 
   // AppBar theme
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.transparent,
+    backgroundColor: AppColors.background,
     iconTheme: IconThemeData(color: AppColors.primary),
     titleTextStyle: AppTextStyles.headingLarge, // Montserrat heading style
+    elevation: 0.5
   ),
 
   // Text themes
@@ -110,8 +111,8 @@ final ThemeData myTheme = ThemeData(
 
   // Divider theme
   dividerTheme: DividerThemeData(
-    color: AppColors.divider.withOpacity(0.5), // Slightly lower opacity for a subtle look
-    thickness: 0.7,
+    color: AppColors.divider, // Slightly lower opacity for a subtle look
+    thickness: 0.2,
     space: AppSpacing.medium, // Space around the divider for balance
   ),
 

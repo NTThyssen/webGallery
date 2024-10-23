@@ -33,25 +33,28 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: CustomHeaderLarge(
                   text: AppStrings.commissionsHeader,
                   subheader: AppStrings.commissionsSubheader,
                 ),
               ),
-              const SizedBox(height: AppSpacing.large),
+              //const SizedBox(height: AppSpacing.large),
               _buildIntroSection(),
+              _buildOtherRequestsNote(),
+              const SizedBox(height: AppSpacing.large),
+              _detailsheader(),
               const SizedBox(height: AppSpacing.medium),
               _detailsSection(),
               const SizedBox(height: AppSpacing.medium),
               _buildBulletPoints(AppStrings.emotesDetails),
-              const SizedBox(height: AppSpacing.large),
+              const SizedBox(height: AppSpacing.xl),
               _buildPackagesSection(screenWidth),
-              const SizedBox(height: AppSpacing.medium),
-              _buildOtherRequestsNote(),
-              const SizedBox(height: AppSpacing.large),
+              const SizedBox(height: AppSpacing.xl),
+              _addsection(),
+              const SizedBox(height: AppSpacing.xl), 
               _buildLicenseSection(isLargeScreen),
-              const SizedBox(height: AppSpacing.large),
+              const SizedBox(height: AppSpacing.xxxl),
             ],
           ),
         ),
@@ -73,13 +76,30 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     );
   }
 
+  Widget _addsection() {
+    return Text(
+      AppStrings.additional,
+      style: AppTextStyles.bodyText,
+    );
+  }
+
+  Widget _detailsheader() {
+    return Text(
+      AppStrings.dets,
+      style: AppTextStyles.headingSmall.copyWith(
+        color: AppColors.primary,
+        fontWeight: FontWeight.w600, // Emphasizing section titles
+      ),
+    );
+  }
+
   Widget _buildBulletPoints(List<String> points) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: points
           .map(
             (point) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.25),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.5),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -171,6 +191,48 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     );
   }
 
+
+
+
+  Widget _buildLicenseSection(bool isLargeScreen) {
+    return Container(      
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [          
+          Text(
+              AppStrings.licenseTitle,
+              style: AppTextStyles.headingSmall.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600, // Emphasizing section titles
+              ),
+          ),
+          const SizedBox(height: AppSpacing.medium),
+          Text(
+            AppStrings.licenseDescription,
+            style: AppTextStyles.bodyText,
+          ),
+          const SizedBox(height: AppSpacing.medium),
+          _buildBulletPointsSection(
+            title: AppStrings.whatYouCantDoTitle,
+            points: AppStrings.whatYouCantDoPoints,
+          ),
+          _buildBulletPointsSection(
+            title: AppStrings.whatYouCanDoTitle,
+            points: AppStrings.whatYouCanDoPoints,
+          ),
+          const SizedBox(height: AppSpacing.large),
+          Text(
+            AppStrings.commercialRightsText,
+            style: AppTextStyles.bodyText.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+/*
   Widget _buildLicenseSection(bool isLargeScreen) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.large),
@@ -216,7 +278,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildBulletPointsSection({
     required String title,

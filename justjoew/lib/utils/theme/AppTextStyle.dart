@@ -11,6 +11,13 @@ class AppTextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static final TextStyle pagetitle = TextStyle(
+    color: AppColors.primary100,
+    fontSize: 28.0,
+    fontWeight: FontWeight.w400, // Bold
+    fontFamily: 'Montserrat',
+  );
+
   static final TextStyle headingMedium = TextStyle(
     color: AppColors.primary,
     fontSize: 28.0,
@@ -31,6 +38,7 @@ class AppTextStyles {
     fontFamily: 'OpenSans',
     fontSize: 16, // Standard size for body text
     color: Colors.white,
+    height: 1.6, // Increased line height for readability
   );
 
   static final TextStyle bodyTextBold = bodyText.copyWith(
@@ -43,6 +51,7 @@ class AppTextStyles {
     fontFamily: 'OpenSans', // Open Sans for list items
     fontSize: 16, // Standard size for lists
     color: Colors.white, // Adjust based on your design
+    height: 1.6, // Increased line height for readability
   );
 
   // Price or special highlighted text (Open Sans)
@@ -55,7 +64,7 @@ class AppTextStyles {
 
   // Interactive Text (Links, Buttons) (Montserrat)
   static final TextStyle linkText = TextStyle(
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     fontFamily: 'Montserrat',
     fontSize: 18,
     color: AppColors.link,

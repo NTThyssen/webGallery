@@ -37,7 +37,7 @@ class AppColors {
   static const Color packageBackground = Colors.white12; // Slightly transparent white for subtle backgrounds
 
   // Divider and Icon Colors
-  static const Color divider = Color(0xFFB0BEC5); // Lighter divider for soft separation
+  static const Color divider = Colors.white; // Lighter divider for soft separation
   static const Color icons = Color(0xFFFFFFFF); // White icons for dark backgrounds
   static const Color commissionIcons = primary300; // Lighter tone for icons in specific sections
 
