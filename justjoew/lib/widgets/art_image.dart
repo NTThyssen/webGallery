@@ -19,9 +19,9 @@ class _ArtImageState extends State<ArtImage> {
   bool isHover = false;
 
   // Define default image size and hover elevation
-  static const double _defaultImageSize = 70;
-  static const double _hoverImageSize = 80;
-  static const double _hoverElevation = 16;
+  static const double _defaultImageSize = 60;
+  static const double _hoverImageSize = 64;
+  static const double _hoverElevation = 5;
 
   @override
   Widget build(BuildContext context) {

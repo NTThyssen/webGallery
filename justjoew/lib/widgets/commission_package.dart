@@ -44,14 +44,16 @@ class CommissionPackage extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold, // Emphasize the package title
+                    fontWeight: FontWeight.w600, // Emphasize the package title
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.small),
                 Text(
                   price,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600, // Emphasize the package title
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],

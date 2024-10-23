@@ -11,12 +11,12 @@ class CustomHeaderLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: AppSpacing.large), // Adds padding at the top
+      padding: const EdgeInsets.only(top: AppSpacing.xl), // Adds padding at the top
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MainHeader(text: text, subheader: subheader), // Use the mainHeader widget
-          const SizedBox(height: AppSpacing.large), // Adds space below the header
+          const SizedBox(height: AppSpacing.xl), // Adds space below the header
         ],
       ),
     );

@@ -67,10 +67,14 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
         onTap: () => context.go(AppRoutes.root),
         child: Hero(
           tag: 'logohero',
-          child: Image.asset(
+          child: Text(
+            "JustJoew",
+            style: AppTextStyles.pagetitle
+          )
+          /*Image.asset(
             ImageStrings.logoPath,
             height: AppSpacing.large,
-          ),
+          ),*/
         ),
       ),
     );

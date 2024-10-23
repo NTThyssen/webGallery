@@ -25,7 +25,7 @@ class MainHeader extends StatelessWidget {
       subheaderFontSize = 20.0;
       padding = const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0);
     } else {
-      fontSize = 40.0;
+      fontSize = 48.0;
       subheaderFontSize = 24.0;
       padding = const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0);
     }
@@ -40,13 +40,13 @@ class MainHeader extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontSize: fontSize,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold, // Add bold to make the header stand out
-                  shadows: [], // Remove shadows for a cleaner look
+                  fontWeight: FontWeight.w400, // Add bold to make the header stand out
+                  //shadows: [], // Remove shadows for a cleaner look
                 ),
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 8.0), // Add space between the header and subheader
           if (subheader != null) ...[
-            const SizedBox(height: 8.0), // Add space between the header and subheader
             Text(
               subheader!,
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -56,6 +56,8 @@ class MainHeader extends StatelessWidget {
                   ),
               textAlign: TextAlign.center,
             ),
+          ] else ...[
+            SizedBox(height: subheaderFontSize+ AppSpacing.medium), // Add blank space when subheader is null
           ],
         ],
       ),

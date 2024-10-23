@@ -7,7 +7,7 @@ class MyFooter extends StatelessWidget {
 
   const MyFooter({
     super.key,
-    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.medium), // Default padding
+    this.padding = const EdgeInsets.symmetric(vertical: AppSpacing.small), // Default padding
   });
 
   @override
@@ -19,8 +19,8 @@ class MyFooter extends StatelessWidget {
         color: Theme.of(context).scaffoldBackgroundColor, // Ensure background matches the overall theme
         border: Border(
           top: BorderSide(
-            color: Theme.of(context).dividerColor, // Optional: add a top border for separation
-            width: 1.0,
+            color: Theme.of(context).dividerColor.withOpacity(0.3), // Optional: add a top border for separation
+            width: 0.5,
           ),
         ),
       ),

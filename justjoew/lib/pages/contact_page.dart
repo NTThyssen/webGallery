@@ -66,14 +66,24 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
             const Center(
               child: CustomHeaderLarge(text: AppStrings.contact),
             ),
-            const SizedBox(height: AppSpacing.large),
+            //const SizedBox(height: AppSpacing.large),
             _buildContactInfoSection(),
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.xxxl),
            // _buildContactForm(), // Add the form section here
           ],
         ),
       ),
     );
+  }
+
+
+  Widget _buildTextSectionNoPadding(String text) {
+    return Text(
+      text,
+      style: AppTextStyles.bodyText.copyWith(
+          height: 1.6, // Increased line height for readability
+      )
+     );
   }
 
   // Contact information section
@@ -83,7 +93,9 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         Text(
           AppStrings.contactIntroText,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium, // Open Sans for body text
+          style: AppTextStyles.bodyText.copyWith(
+            height: 1.6, // Increased line height for readability
+          )
         ),
         const SizedBox(height: AppSpacing.medium),
         MouseRegion(
@@ -93,9 +105,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
             child: Text(
               AppStrings.email,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: AppColors.link,
-              ),
+              style: AppTextStyles.linkText
             ),
           ),
         ),
@@ -103,7 +113,9 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         Text(
           AppStrings.contactOutroText,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium, // Open Sans for outro text
+          style: AppTextStyles.bodyText.copyWith(
+            height: 1.6, // Increased line height for readability
+          )
         ),
       ],
     );

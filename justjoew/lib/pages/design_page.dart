@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/constants/ImageStrings.dart';
+import 'package:justjoew/utils/theme/AppColors.dart';
+import 'package:justjoew/utils/theme/AppTextStyle.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/art_image.dart';
 import 'package:justjoew/widgets/custom_header.dart';
@@ -26,7 +28,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final double gifSize = 64.0; // Define a constant for GIF size
+    const double gifSize = 60.0; // Define a constant for GIF size
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Define padding values for different screen sizes
@@ -57,6 +59,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ArtImage(path: ImageStrings.ratFine),
                 ArtImage(path: ImageStrings.ratPopcorn),
                 ArtImage(path: ImageStrings.ratdead),
+                ArtImage(path: ImageStrings.rato7),
                 _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
                 _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
                 _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
@@ -70,12 +73,13 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ArtImage(path: ImageStrings.ollieSnickers),
                 ArtImage(path: ImageStrings.ollieToni),
                 ArtImage(path: ImageStrings.ollieWiggly),
+                ArtImage(path: ImageStrings.toes),
                 _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
                 _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
                 _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
               ],
             ),
-            const SizedBox(height: AppSpacing.large),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),
@@ -147,7 +151,7 @@ class EmoteSection extends StatelessWidget {
             onTap: () => _launchUrl(context, url),
             child: Text(
               header,
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              style: AppTextStyles.headingMedium.copyWith(
                 fontWeight: FontWeight.w500, // Montserrat for section headers
               ),
             ),
@@ -155,11 +159,11 @@ class EmoteSection extends StatelessWidget {
         ),
         Divider(
           thickness: Theme.of(context).dividerTheme.thickness,
-          color: Theme.of(context).dividerTheme.color,
+          color: AppColors.divider,
           indent: dividerIndent,
           endIndent: dividerIndent,
         ),
-        const SizedBox(height: AppSpacing.large),
+        const SizedBox(height: AppSpacing.xl),
         ConstrainedBox(
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.8,
