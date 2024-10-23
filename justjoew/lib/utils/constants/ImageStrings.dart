@@ -31,6 +31,7 @@ class ImageStrings {
   static const String ollieSnickers = 'images/ollieSnickers.png';
   static const String ollieToni = 'images/ollietoni.png';
   static const String ollieWiggly = 'images/olliewiggly.png';
+  static const String toes = 'images/toes300.png';
   static const String barGif = 'images/bar.gif';
   static const String olliePump = 'images/olliePump.gif';
   static const String wiggly350 = 'images/wiggly350.gif';

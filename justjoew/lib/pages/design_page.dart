@@ -73,6 +73,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ArtImage(path: ImageStrings.ollieSnickers),
                 ArtImage(path: ImageStrings.ollieToni),
                 ArtImage(path: ImageStrings.ollieWiggly),
+                ArtImage(path: ImageStrings.toes),
                 _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
                 _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
                 _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
