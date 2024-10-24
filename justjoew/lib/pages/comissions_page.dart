@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/AppTextStyle.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/commission_package.dart';
 import 'package:justjoew/widgets/custom_header.dart';
+import 'package:go_router/go_router.dart';
+
 
 class CommissionPage extends StatefulWidget {
   const CommissionPage({super.key});
@@ -39,7 +42,6 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                   subheader: AppStrings.commissionsSubheader,
                 ),
               ),
-              //const SizedBox(height: AppSpacing.large),
               _buildIntroSection(),
               _buildOtherRequestsNote(),
               const SizedBox(height: AppSpacing.large),
@@ -52,7 +54,9 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               _buildPackagesSection(screenWidth),
               const SizedBox(height: AppSpacing.xl),
               _addsection(),
-              const SizedBox(height: AppSpacing.xl), 
+              const SizedBox(height: AppSpacing.medium),
+              _buildContactButton(), // Inserted here
+              const SizedBox(height: AppSpacing.xxl),
               _buildLicenseSection(isLargeScreen),
               const SizedBox(height: AppSpacing.xxxl),
             ],
@@ -129,7 +133,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.basicPackageDescription,
         deliveryTime: AppStrings.basicPackageDelivery,
         revisions: AppStrings.basicPackageRevisions,
-        emotes: AppStrings.basicPackageEmotes,
+        emotes: AppStrings.basicPackageDescription,
       ),
       const CommissionPackage(
         title: AppStrings.standardPackageTitle,
@@ -137,7 +141,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.standardPackageDescription,
         deliveryTime: AppStrings.standardPackageDelivery,
         revisions: AppStrings.standardPackageRevisions,
-        emotes: AppStrings.standardPackageEmotes,
+        emotes: AppStrings.standardPackageDescription,
       ),
       const CommissionPackage(
         title: AppStrings.premiumPackageTitle,
@@ -145,7 +149,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.premiumPackageDescription,
         deliveryTime: AppStrings.premiumPackageDelivery,
         revisions: AppStrings.premiumPackageRevisions,
-        emotes: AppStrings.premiumPackageEmotes,
+        emotes: AppStrings.premiumPackageDescription,
       ),
     ];
 
@@ -191,8 +195,36 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     );
   }
 
-
-
+  Widget _buildContactButton() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Does this sound like something for you? Contact me!",
+        style: AppTextStyles.bodyText
+      ),
+      const SizedBox(height: AppSpacing.xl), // Increase spacing for balance
+      Center( // Centering the button to make it stand out more
+        child: SizedBox(
+          width: 150, // Set a fixed width for a better look
+          height: 40,  // Set a fixed height to make the button more prominent
+          child: ElevatedButton(
+            onPressed: () {
+               context.go(AppRoutes.contact); // Using context.go() for navigation
+            },
+            child: Text(
+              'Contact',
+              style: AppTextStyles.buttonText.copyWith(
+                fontSize: 16, // Button text should be a bit larger for better readability
+                color: AppColors.darkGray, // White text to contrast the button background
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
 
   Widget _buildLicenseSection(bool isLargeScreen) {
     return Container(      
@@ -231,54 +263,6 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       ),
     );
   }
-
-/*
-  Widget _buildLicenseSection(bool isLargeScreen) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.large),
-      decoration: BoxDecoration(
-        color: AppColors.packageBackground.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.small),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: isLargeScreen ? Alignment.center : Alignment.centerLeft,
-            child: Text(
-              AppStrings.licenseTitle,
-              style: AppTextStyles.headingSmall,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.small),
-          Text(
-            AppStrings.licenseDescription,
-            style: AppTextStyles.bodyText,
-          ),
-          _buildBulletPointsSection(
-            title: AppStrings.whatYouCantDoTitle,
-            points: AppStrings.whatYouCantDoPoints,
-          ),
-          _buildBulletPointsSection(
-            title: AppStrings.whatYouCanDoTitle,
-            points: AppStrings.whatYouCanDoPoints,
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          Text(
-            AppStrings.commercialRightsText,
-            style: AppTextStyles.bodyText,
-          ),
-        ],
-      ),
-    );
-  }*/
 
   Widget _buildBulletPointsSection({
     required String title,
