@@ -41,7 +41,9 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return Drawer(
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
+        physics: const BouncingScrollPhysics(), // Smooth scrolling for better performance
         children: [
+          const SizedBox(height: AppSpacing.large), // Add spacing for aesthetics
           _buildDrawerItem(context, AppStrings.commissionsHeader, AppRoutes.commissions),
           _buildDrawerItem(context, AppStrings.portfolio, AppRoutes.portfolio),
           _buildDrawerItem(context, AppStrings.aboutMeHeader, AppRoutes.about),
@@ -71,10 +73,6 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
             "JustJoew",
             style: AppTextStyles.pagetitle
           )
-          /*Image.asset(
-            ImageStrings.logoPath,
-            height: AppSpacing.large,
-          ),*/
         ),
       ),
     );
