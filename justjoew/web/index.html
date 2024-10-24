@@ -6,31 +6,90 @@
   <meta charset="UTF-8">
   <meta name="theme-color" content="#1A1A1A">
   <meta name="description" content="JustJoew a digital artist">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Removed the meta viewport tag as Flutter Web handles it automatically -->
+  
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="justjoew">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  
   <!-- Windows Phone -->
   <meta name="msapplication-navbutton-color" content="#1A1A1A">
+  
   <!-- Android Chrome -->
   <meta name="mobile-web-app-capable" content="yes">
+  
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
+  
   <!-- Manifest -->
   <link rel="manifest" href="manifest.json">
+  
   <title>justjoew</title>
+
+  <style>
+    /* Custom Splash Screen Styles */
+    body {
+      margin: 0;
+      background-color: #1A1A1A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #loading-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading-logo {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Customize loading text */
+    #loading-text {
+      color: #FFFFEF;
+      margin-top: 30px;
+      font-size: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-weight: lighter;
+      letter-spacing: 2px;
+    }
+
+    /* Hide the splash screen initially to show it until Flutter is ready */
+    #loading-container.hidden {
+      display: none;
+    }
+  </style>
+
 </head>
 
 <body>
+  <!-- Splash screen -->
+  <div id="loading-container">
+    <img id="loading-logo" src="icons/bounce.gif" alt="JustJoew Logo"> <!-- Replace with your logo path -->
+    <div id="loading-text">Loading..</div>
+  </div>
+
   <script>
     {{flutter_bootstrap_js}}
-    var t = {{flutter_service_worker_version}}
-    console.log(t)
+    var t = {{flutter_service_worker_version}};
+    console.log(t);
+
+    // Show splash screen initially
+    window.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('loading-container').classList.remove('hidden');
+    });
+
+    // Hide splash screen after Flutter has fully loaded
     window.addEventListener('load', function (ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
+      _flutter.loader.load({
         entrypointUrl: "main.dart.js?v=" + t,
         serviceWorker: {
           serviceWorkerVersion: t
@@ -38,12 +97,12 @@
       }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
+        // Hide splash screen when Flutter is ready
+        document.getElementById('loading-container').style.display = 'none';
         return appRunner.runApp();
       });
     });
   </script>
-
-
 </body>
 
 </html>
