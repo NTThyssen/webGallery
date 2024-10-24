@@ -64,7 +64,8 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildIntroSection(double screenWidth) {
-  return screenWidth < AppSpacing.smallscreen
+  // Use different layouts depending on the screen width
+  return screenWidth < 800 // Adjust the breakpoint as needed
       ? Column(
           children: [
             _buildCenteredImage(ImageStrings.profileImage, screenWidth),
@@ -73,9 +74,9 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           ],
         )
       : Row(
-          crossAxisAlignment: CrossAxisAlignment.start, // Aligns to the top
+          crossAxisAlignment: CrossAxisAlignment.center, // Aligns to the center
           children: [
-            Expanded(
+            Flexible(
               flex: 1,
               child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
             ),
@@ -87,6 +88,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           ],
         );
 }
+
 
 
   Widget _buildSection({
@@ -133,20 +135,32 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildCenteredImage(String imagePath, double screenWidth) {
-    double imageSize = screenWidth < AppSpacing.smallscreen ? 150 : 250;
-    imageSize = imageSize > 250 ? 250 : imageSize;
+  // Define image sizes for different screen widths
+  double imageSize;
 
-    return Center(
-      child: ClipOval(
-        child: Image.asset(
-          imagePath,
-          width: imageSize,
-          height: imageSize,
-          fit: BoxFit.cover,
-          filterQuality: FilterQuality.high,
-        ),
-      ),
-    );
+  if (screenWidth < 600) {
+    // Small screens (e.g., mobile)
+    imageSize = 150;
+  } else if (screenWidth < 1200) {
+    // Medium screens (e.g., tablets, small desktops)
+    imageSize = 200;
+  } else {
+    // Large screens (e.g., large desktops)
+    imageSize = 250;
   }
+
+  return Center(
+    child: ClipOval(
+      child: Image.asset(
+        imagePath,
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover, // Keep the aspect ratio while covering the container
+        filterQuality: FilterQuality.high,
+      ),
+    ),
+  );
+}
+
 }
 
