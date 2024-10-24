@@ -42,6 +42,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                   subheader: AppStrings.commissionsSubheader,
                 ),
               ),
+              if (!isLargeScreen) const SizedBox(height: AppSpacing.medium), // Conditionally add space for large screens
               _buildIntroSection(),
               _buildOtherRequestsNote(),
               const SizedBox(height: AppSpacing.large),
