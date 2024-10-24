@@ -8,6 +8,8 @@ class AppColors {
   static const Color darkBlue = Color(0xFF001F3F);
   static const Color black = Color(0xFF000000);
   static const Color darkGray = Color(0xFF2C2C2C);
+    static const Color white = Color(0xFFFFFFFF);
+
 
   // Twitch Custom Color
   static const Color twitch = Color(0xFF6441A5); // Custom color for the Twitch icon

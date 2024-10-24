@@ -11,11 +11,19 @@ class AppTextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static final TextStyle pagetitle = TextStyle(
+  /*static final TextStyle pagetitle = TextStyle(
     color: AppColors.primary100,
     fontSize: 28.0,
     fontWeight: FontWeight.w400, // Bold
     fontFamily: 'Montserrat',
+  );*/
+
+  static const pagetitle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w300, // Semi-bold for balanced emphasis
+    fontSize: 30, // Medium size
+    color:Colors.white, // Light grey for a softer contrast
+    letterSpacing: 1.3, // A bit more spacing for readability
   );
 
   static final TextStyle headingMedium = TextStyle(
@@ -74,7 +82,7 @@ class AppTextStyles {
     fontWeight: FontWeight.w600, // Semi-bold for button text
     fontFamily: 'Montserrat',
     fontSize: 16,
-    color: Colors.white, // Ensure contrast with button background
+    color: Colors.black, // Ensure contrast with button background
   );
 
   // Miscellaneous Styles

@@ -60,24 +60,26 @@ class CommissionPackage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.medium),
-          Text(
+          /*Text(
             description,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               height: 1.4, // Improve readability with line height
             ),
             textAlign: TextAlign.left,
           ),
-          const SizedBox(height: AppSpacing.medium),
+          const SizedBox(height: AppSpacing.medium),*/
           Divider(
             color: Theme.of(context).dividerTheme.color,
             thickness: Theme.of(context).dividerTheme.thickness,
           ),
           const SizedBox(height: AppSpacing.medium),
+          
+          _buildIconTextRow(context, Icons.check, emotes),
+          const SizedBox(height: AppSpacing.small),
           _buildIconTextRow(context, Icons.access_time, deliveryTime),
           const SizedBox(height: AppSpacing.small),
           _buildIconTextRow(context, Icons.replay, revisions),
-          const SizedBox(height: AppSpacing.small),
-          _buildIconTextRow(context, Icons.check, emotes),
+          
         ],
       ),
     );
