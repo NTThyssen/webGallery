@@ -68,7 +68,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   return screenWidth < 800 // Adjust the breakpoint as needed
       ? Column(
           children: [
-            _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+            _buildCenteredImage(ImageStrings.aboutImage, screenWidth),
             const SizedBox(height: AppSpacing.large),
             _buildTextSectionNoPadding(AppStrings.introText),
           ],
@@ -78,7 +78,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           children: [
             Flexible(
               flex: 1,
-              child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+              child: _buildCenteredImage(ImageStrings.aboutImage, screenWidth),
             ),
             const SizedBox(width: AppSpacing.xl),
             Expanded(
