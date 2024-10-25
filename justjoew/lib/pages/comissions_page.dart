@@ -68,28 +68,28 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   }
 
   Widget _buildIntroSection() {
-    return Text(
+    return SelectableText(
       AppStrings.comissionsIntroductionText,
       style: AppTextStyles.bodyText,
     );
   }
 
   Widget _detailsSection() {
-    return Text(
+    return SelectableText(
       AppStrings.emotesDescription,
       style: AppTextStyles.bodyText,
     );
   }
 
   Widget _addsection() {
-    return Text(
+    return SelectableText(
       AppStrings.additional,
       style: AppTextStyles.bodyText,
     );
   }
 
   Widget _detailsheader() {
-    return Text(
+    return SelectableText(
       AppStrings.dets,
       style: AppTextStyles.headingSmall.copyWith(
         color: AppColors.primary,
@@ -108,12 +108,12 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SelectableText(
                     '- ', // The bullet character
                     style: AppTextStyles.listText, // Updated to listText
                   ),
                   Expanded(
-                    child: Text(
+                    child: SelectableText(
                       point,
                       style: AppTextStyles.listText, // Updated to listText
                     ),
@@ -187,7 +187,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   Widget _buildOtherRequestsNote() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.large),
-      child: Text(
+      child: SelectableText(
         AppStrings.otherRequestsDescription,
         style: AppTextStyles.bodyText.copyWith(
           fontStyle: FontStyle.italic,
@@ -200,7 +200,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
+      SelectableText(
         "Does this sound like something for you? Contact me!",
         style: AppTextStyles.bodyText
       ),
@@ -213,7 +213,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             onPressed: () {
                context.go(AppRoutes.contact); // Using context.go() for navigation
             },
-            child: Text(
+            child: SelectableText(
               'Contact',
               style: AppTextStyles.buttonText.copyWith(
                 fontSize: 16, // Button text should be a bit larger for better readability
@@ -232,7 +232,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [          
-          Text(
+          SelectableText(
               AppStrings.licenseTitle,
               style: AppTextStyles.headingSmall.copyWith(
                 color: AppColors.primary,
@@ -240,7 +240,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               ),
           ),
           const SizedBox(height: AppSpacing.medium),
-          Text(
+          SelectableText(
             AppStrings.licenseDescription,
             style: AppTextStyles.bodyText,
           ),
@@ -254,7 +254,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             points: AppStrings.whatYouCanDoPoints,
           ),
           const SizedBox(height: AppSpacing.large),
-          Text(
+          SelectableText(
             AppStrings.commercialRightsText,
             style: AppTextStyles.bodyText.copyWith(
               fontStyle: FontStyle.italic,
@@ -274,7 +274,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          SelectableText(
             title,
             style: AppTextStyles.bodyTextBold.copyWith(fontWeight: FontWeight.w600),
           ),

@@ -41,7 +41,7 @@ class CommissionPackage extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                Text(
+               SelectableText(
                   title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w600, // Emphasize the package title
@@ -49,7 +49,7 @@ class CommissionPackage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.small),
-                Text(
+               SelectableText(
                   price,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontWeight: FontWeight.w600, // Emphasize the package title
@@ -91,7 +91,7 @@ class CommissionPackage extends StatelessWidget {
         Icon(icon, color: AppColors.commissionIcons, size: 20),
         const SizedBox(width: AppSpacing.small),
         Expanded(
-          child: Text(
+          child:SelectableText(
             text,
             style: Theme.of(context).textTheme.bodyMedium
           ),

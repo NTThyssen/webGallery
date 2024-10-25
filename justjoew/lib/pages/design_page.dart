@@ -58,11 +58,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ArtImage(path: ImageStrings.ratHydrate),
                 ArtImage(path: ImageStrings.ratFine),
                 ArtImage(path: ImageStrings.ratPopcorn),
-                ArtImage(path: ImageStrings.ratdead),
-                ArtImage(path: ImageStrings.rato7),
+                ArtImage(path: ImageStrings.ratDead),
+                ArtImage(path: ImageStrings.ratSalute),
                 _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
                 _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
-                _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
+                _buildGif(ImageStrings.ratFight, controllers[5], gifSize, 16),
               ],
             ),
             EmoteSection(
@@ -132,7 +132,7 @@ class EmoteSection extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+          content: SelectableText('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
         ),
       );
     }
@@ -149,7 +149,7 @@ class EmoteSection extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => _launchUrl(context, url),
-            child: Text(
+            child: SelectableText(
               header,
               style: AppTextStyles.headingMedium.copyWith(
                 fontWeight: FontWeight.w500, // Montserrat for section headers

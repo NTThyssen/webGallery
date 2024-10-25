@@ -35,7 +35,7 @@ class MainHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+         SelectableText(
             text,
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontSize: fontSize,
@@ -47,7 +47,7 @@ class MainHeader extends StatelessWidget {
           ),
           const SizedBox(height: 8.0), // Add space between the header and subheader
           if (subheader != null) ...[
-            Text(
+           SelectableText(
               subheader!,
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: subheaderFontSize,

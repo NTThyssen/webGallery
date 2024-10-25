@@ -68,7 +68,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   return screenWidth < 800 // Adjust the breakpoint as needed
       ? Column(
           children: [
-            _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+            _buildCenteredImage(ImageStrings.aboutImage, screenWidth),
             const SizedBox(height: AppSpacing.large),
             _buildTextSectionNoPadding(AppStrings.introText),
           ],
@@ -78,7 +78,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
           children: [
             Flexible(
               flex: 1,
-              child: _buildCenteredImage(ImageStrings.profileImage, screenWidth),
+              child: _buildCenteredImage(ImageStrings.aboutImage, screenWidth),
             ),
             const SizedBox(width: AppSpacing.xl),
             Expanded(
@@ -108,7 +108,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildSectionTitle(String title) {
-    return Text(
+    return SelectableText(
       title,
       style: AppTextStyles.headingSmall.copyWith(
         color: AppColors.primary,
@@ -120,7 +120,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   Widget _buildTextSection(String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
-      child: Text(
+      child: SelectableText(
         text,
         style: AppTextStyles.bodyText
       ),
@@ -128,7 +128,7 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
   }
 
   Widget _buildTextSectionNoPadding(String text) {
-    return Text(
+    return SelectableText(
       text,
       style: AppTextStyles.bodyText
      );

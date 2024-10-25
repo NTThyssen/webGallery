@@ -32,6 +32,11 @@ flutter:
     - images/
   
   fonts:
+    - family: Perpetua
+      fonts:
+        - asset: fonts/perpetua.ttf # Regular version
+        - asset: fonts/perpetua_light.ttf # Light version
+          weight: 300
     - family: SourceCodePro
       fonts:
         - asset: fonts/SourceCodePro/SourceCodePro-Black.ttf
