@@ -132,7 +132,7 @@ class EmoteSection extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+          content: SelectableText('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
         ),
       );
     }
@@ -149,7 +149,7 @@ class EmoteSection extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => _launchUrl(context, url),
-            child: Text(
+            child: SelectableText(
               header,
               style: AppTextStyles.headingMedium.copyWith(
                 fontWeight: FontWeight.w500, // Montserrat for section headers

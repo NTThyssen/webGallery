@@ -42,7 +42,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not launch $emailUri', style: Theme.of(context).textTheme.labelSmall),
+          content: SelectableText('Could not launch $emailUri', style: Theme.of(context).textTheme.labelSmall),
         ),
       );
     }
@@ -78,7 +78,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
 
 
   Widget _buildTextSectionNoPadding(String text) {
-    return Text(
+    return SelectableText(
       text,
       style: AppTextStyles.bodyText.copyWith(
           height: 1.6, // Increased line height for readability
@@ -90,7 +90,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Widget _buildContactInfoSection() {
     return Column(
       children: [
-        Text(
+        SelectableText(
           AppStrings.contactIntroText,
           textAlign: TextAlign.center,
           style: AppTextStyles.bodyText.copyWith(
@@ -102,7 +102,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: _launchEmail,
-            child: Text(
+            child: SelectableText(
               AppStrings.email,
               textAlign: TextAlign.center,
               style: AppTextStyles.linkText
@@ -110,7 +110,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
           ),
         ),
         const SizedBox(height: AppSpacing.small),
-        Text(
+        SelectableText(
           AppStrings.contactOutroText,
           textAlign: TextAlign.center,
           style: AppTextStyles.bodyText.copyWith(
@@ -171,7 +171,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
+                        content: SelectableText(
                           AppStrings.formSubmittingMessage,
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
@@ -202,7 +202,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
   Widget _buildFormLabel(String label) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
-      child: Text(
+      child: SelectableText(
         label,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.bold, // Emphasizing form labels
