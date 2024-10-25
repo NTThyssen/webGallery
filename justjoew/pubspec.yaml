@@ -34,8 +34,8 @@ flutter:
   fonts:
     - family: Perpetua
       fonts:
-        - asset: fonts/Perpetua.ttf # Regular version
-        - asset: fonts/Perpetua_light.ttf # Light version
+        - asset: fonts/perpetua.ttf # Regular version
+        - asset: fonts/perpetua_light.ttf # Light version
           weight: 300
     - family: SourceCodePro
       fonts:
