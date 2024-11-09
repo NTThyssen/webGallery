@@ -156,7 +156,7 @@ class EmoteSection extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => _launchUrl(context, url),
-            child: SelectableText(
+            child: Text(
               header,
               style: AppTextStyles.headingMedium.copyWith(
                 fontWeight: FontWeight.w500, // Montserrat for section headers
@@ -186,7 +186,7 @@ class EmoteSection extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.large),
       ],
     );
   }
