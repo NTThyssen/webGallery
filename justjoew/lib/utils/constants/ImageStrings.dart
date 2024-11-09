@@ -46,4 +46,7 @@ class ImageStrings {
   static const String barGif = 'images/bar.gif';
   static const String olliePump = 'images/olliePump.gif';
   static const String wiggly350 = 'images/wiggly350.gif';
+
+  //Joe emotes
+  static const String joePeace = 'images/joepeace.png';
 }
