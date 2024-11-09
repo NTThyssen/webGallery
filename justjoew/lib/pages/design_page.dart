@@ -66,6 +66,13 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               ],
             ),
             EmoteSection(
+              header: AppStrings.joeHeader,
+              url: AppStrings.joeUrl,
+              portfolioWidgets: [
+                ArtImage(path: ImageStrings.joePeace),
+              ],
+            ),
+            EmoteSection(
               header: AppStrings.olmaphHeader,
               url: AppStrings.olmaphUrl,
               portfolioWidgets: [
