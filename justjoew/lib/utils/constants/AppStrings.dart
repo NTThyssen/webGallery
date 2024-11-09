@@ -152,6 +152,6 @@ static const String combinedProcessDescription =
   static const String scatrattUrl = 'https://www.twitch.tv/scatratt/about';
   static const String olmaphHeader = 'Olmaph';
   static const String olmaphUrl = 'https://www.twitch.tv/olmaph/about';
-  static const String olmaphHeader = 'JustJoew';
-  static const String olmaphUrl = 'https://www.twitch.tv/imjustjoew/about';
+  static const String joeHeader = 'JustJoew';
+  static const String joeUrl = 'https://www.twitch.tv/imjustjoew/about';
 }
