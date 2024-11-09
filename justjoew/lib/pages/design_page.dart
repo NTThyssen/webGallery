@@ -186,7 +186,7 @@ class EmoteSection extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: AppSpacing.large),
+        const SizedBox(height: AppSpacing.xl),
       ],
     );
   }
