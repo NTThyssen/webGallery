@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure bindings are initialized
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: AppColors.background, // Set the desired color
     systemNavigationBarIconBrightness:
         Brightness.light, // Choose icon brightness

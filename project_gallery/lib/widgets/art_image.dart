@@ -49,7 +49,7 @@ class _ArtImageState extends State<ArtImage> {
                     const SizedBox(
                       width: 150,
                       height: 200,
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.center,
                         child: Opacity(
                           opacity: 0.7,

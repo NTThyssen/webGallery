@@ -228,19 +228,19 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
         fillColor: AppColors.formFill,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: BorderSide(color: AppColors.primary200),
+          borderSide: const BorderSide(color: AppColors.primary200),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: BorderSide(color: AppColors.primary500, width: 2.0),
+          borderSide: const BorderSide(color: AppColors.primary500, width: 2.0),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: BorderSide(color: AppColors.error),
+          borderSide: const BorderSide(color: AppColors.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: BorderSide(color: AppColors.error, width: 2.0),
+          borderSide: const BorderSide(color: AppColors.error, width: 2.0),
         ),
         hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.primary300),
       ),

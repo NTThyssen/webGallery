@@ -31,7 +31,7 @@ class SectionCubit extends Cubit<SectionState> {
 
       if(state is SectionReady){
           var prevState = state as SectionReady;
-          prevState.sectionList.add(new Section(prevState.sectionList.length, sectioName, []));
+          prevState.sectionList.add(Section(prevState.sectionList.length, sectioName, const []));
       }
 
       await _assetRepository.createSection(sectioName);

@@ -41,31 +41,31 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
         padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Use calculated padding
         child: Column(
           children: [
-            Center(
+            const Center(
               child: CustomHeaderLarge(text: AppStrings.emotesHeader),
             ),
             EmoteSection(
               header: AppStrings.scatrattHeader,
               url: AppStrings.scatrattUrl,
               portfolioWidgets: [
-                ArtImage(path: ImageStrings.ratCry),
-                ArtImage(path: ImageStrings.ratEz),
-                ArtImage(path: ImageStrings.ratHeart),
-                ArtImage(path: ImageStrings.ratWave),
-                ArtImage(path: ImageStrings.ratLul),
-                ArtImage(path: ImageStrings.ratPat),
-                ArtImage(path: ImageStrings.ratLurk),
-                ArtImage(path: ImageStrings.ratHydrate),
-                ArtImage(path: ImageStrings.ratFine),
-                ArtImage(path: ImageStrings.ratPopcorn),
-                ArtImage(path: ImageStrings.ratDead),
-                ArtImage(path: ImageStrings.ratSalute),
+                const ArtImage(path: ImageStrings.ratCry),
+                const ArtImage(path: ImageStrings.ratEz),
+                const ArtImage(path: ImageStrings.ratHeart),
+                const ArtImage(path: ImageStrings.ratWave),
+                const ArtImage(path: ImageStrings.ratLul),
+                const ArtImage(path: ImageStrings.ratPat),
+                const ArtImage(path: ImageStrings.ratLurk),
+                const ArtImage(path: ImageStrings.ratHydrate),
+                const ArtImage(path: ImageStrings.ratFine),
+                const ArtImage(path: ImageStrings.ratPopcorn),
+                const ArtImage(path: ImageStrings.ratDead),
+                const ArtImage(path: ImageStrings.ratSalute),
                 _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
                 _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
                 _buildGif(ImageStrings.ratFight, controllers[5], gifSize, 16),
               ],
             ),
-            EmoteSection(
+            const EmoteSection(
               header: AppStrings.joeHeader,
               url: AppStrings.joeUrl,
               portfolioWidgets: [
@@ -76,11 +76,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
               header: AppStrings.olmaphHeader,
               url: AppStrings.olmaphUrl,
               portfolioWidgets: [
-                ArtImage(path: ImageStrings.ollieWave),
-                ArtImage(path: ImageStrings.ollieSnickers),
-                ArtImage(path: ImageStrings.ollieToni),
-                ArtImage(path: ImageStrings.ollieWiggly),
-                ArtImage(path: ImageStrings.toes),
+                const ArtImage(path: ImageStrings.ollieWave),
+                const ArtImage(path: ImageStrings.ollieSnickers),
+                const ArtImage(path: ImageStrings.ollieToni),
+                const ArtImage(path: ImageStrings.ollieWiggly),
+                const ArtImage(path: ImageStrings.toes),
                 _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
                 _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
                 _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),

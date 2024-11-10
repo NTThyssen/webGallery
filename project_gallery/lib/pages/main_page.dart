@@ -5,7 +5,7 @@ import 'package:project_gallery/widgets/main_content.dart';
 import 'package:project_gallery/widgets/sidebar.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
         Container(
           width: 100,
         ),
-        SingleChildScrollView(child: MainContent())
+        const SingleChildScrollView(child: MainContent())
       ],
     );
   }

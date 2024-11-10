@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:html' as html;
 
 class FileUploadWidget extends StatefulWidget {
+  const FileUploadWidget({super.key});
+
   @override
   _FileUploadWidgetState createState() => _FileUploadWidgetState();
 }
@@ -42,7 +44,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
       children: [
         ElevatedButton(
           onPressed: _pickFile,
-          child: Text('Pick and Upload File'),
+          child: const Text('Pick and Upload File'),
         ),
         if (_fileName != null) Text('Selected file: $_fileName'),
       ],

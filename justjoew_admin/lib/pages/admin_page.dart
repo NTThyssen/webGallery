@@ -94,20 +94,20 @@ class _AdminPageState extends State<AdminPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Title of section'),
+          title: const Text('Title of section'),
           content: TextField(
             controller: _textFieldController,
-            decoration: InputDecoration(hintText: "Title"),
+            decoration: const InputDecoration(hintText: "Title"),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             TextButton(
-              child: Text('Ok'),
+              child: const Text('Ok'),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -144,13 +144,13 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
 
   @override
   Widget build(BuildContext context) {
-    var section_cubit = context.read<SectionCubit>();
+    var sectionCubit = context.read<SectionCubit>();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(widget.section.name),
-        Container(
+        SizedBox(
             width: 800,
             height: 120,
             child: ReorderableListView(
@@ -174,7 +174,7 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
                       index++)
                     ReorderableDragStartListener(
                       key: Key(
-                          '$index' + Random(200).nextInt(200000).toString()),
+                          '$index${Random(200).nextInt(200000)}'),
                       index: index,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -192,12 +192,12 @@ class _ReOrderbleSectionState extends State<ReOrderbleSection> {
             await _pickFile();
             var bytes = _pickedFile!.bytes;
             
-            section_cubit.createAsset(bytes!.toList(), widget.section.id, _pickedFile!.name);
+            sectionCubit.createAsset(bytes!.toList(), widget.section.id, _pickedFile!.name);
           },
-          label: Text('Add New Asset'),
-          icon: Icon(Icons.add),
+          label: const Text('Add New Asset'),
+          icon: const Icon(Icons.add),
         ),
-        SizedBox(
+        const SizedBox(
           height: 50,
         )
       ],

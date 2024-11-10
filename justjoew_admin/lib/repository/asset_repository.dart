@@ -1,5 +1,4 @@
 import 'package:grpc/grpc_web.dart';
-import 'package:justjoew_admin/mapper/object_mapper.dart' as model;
 import 'package:justjoew_admin/protos/justjoew.pbgrpc.dart';
 
 class AssetRepository {

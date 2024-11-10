@@ -38,9 +38,9 @@ class Asset extends Equatable {
 class Mapper{
 
     static List<Section> mapResponse(GetAllSectionsResonse response){
-      var sectionList = new List<Section>.empty(growable: true);
+      var sectionList = List<Section>.empty(growable: true);
       for (var sectionEle in response.sections) {
-        var assetList = new List<Asset>.empty(growable: true);
+        var assetList = List<Asset>.empty(growable: true);
         for (var assetEle in sectionEle.assetList) {
            assetList.add(Asset(assetEle.blobPath, assetEle.id, assetEle.orderIndex, assetEle.sectionId, assetEle.sectionName));
         }

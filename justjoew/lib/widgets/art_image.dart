@@ -59,9 +59,9 @@ class _ArtImageState extends State<ArtImage> {
                             child: Container(
                               color: Colors.black54,
                               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                              child: Text(
+                              child: const Text(
                                 'Watermarked',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
                                 ),

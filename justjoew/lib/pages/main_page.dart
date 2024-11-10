@@ -91,7 +91,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
     double dynamicLogoSize = isSmallScreen ? staticLogoSize : _dynamicScaleFactor(screenWidth);
     double dynamicTextSize = dynamicLogoSize * logoToTextRatio; // Ensure the ratio remains constant
 
-    return Container(
+    return SizedBox(
       width: screenWidth,
       height: availableHeight, // Set height to available space between AppBar and Footer
       child: Stack(
@@ -138,7 +138,7 @@ class _MainPageState extends State<MainPage> with BasicMixin {
                   ImageStrings.logoPath,
                   width: dynamicLogoSize, // Adjust logo size
                 ),
-                SizedBox(height: 10), // Adjust the spacing between the logo and text
+                const SizedBox(height: 10), // Adjust the spacing between the logo and text
                 // Digital Artist Text (Keep the ratio with JustJoew)
                 Image.asset(
                   ImageStrings.digitalArtist,

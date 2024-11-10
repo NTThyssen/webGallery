@@ -13,8 +13,8 @@ class _MainContentState extends State<MainContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-      child: Column(
+      padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+      child: const Column(
         children: [
           DesignPage(),
         ],

@@ -21,7 +21,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   @override
   Widget body() {
     double screenWidth = MediaQuery.of(context).size.width;
-    final double maxContentWidth = 1100;
+    const double maxContentWidth = 1100;
     bool isLargeScreen = screenWidth > AppSpacing.smallscreen;
 
     return Center(
@@ -174,7 +174,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.large / 2,
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: 300, // Set a fixed width for each package
                       child: package,
                     ),

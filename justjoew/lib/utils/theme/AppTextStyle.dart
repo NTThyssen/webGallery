@@ -4,7 +4,7 @@ import 'package:justjoew/utils/theme/AppColors.dart';
 
 class AppTextStyles {
   // Heading Styles (Montserrat)
-  static final TextStyle headingLarge = TextStyle(
+  static final TextStyle headingLarge = const TextStyle(
     color: Colors.white,
     fontSize: 32.0,
     fontWeight: FontWeight.w700, // Bold
@@ -20,14 +20,14 @@ class AppTextStyles {
     
   );
 
-  static final TextStyle headingMedium = TextStyle(
+  static final TextStyle headingMedium = const TextStyle(
     color: AppColors.primary,
     fontSize: 28.0,
     fontWeight: FontWeight.w600, // Semi-bold
     fontFamily: 'Montserrat',
   );
 
-  static final TextStyle headingSmall = TextStyle(
+  static final TextStyle headingSmall = const TextStyle(
     color: Colors.white,
     fontSize: 20.0,
     fontWeight: FontWeight.w600, // Semi-bold
@@ -35,7 +35,7 @@ class AppTextStyles {
   );
 
   // Body Text Styles (Open Sans)
-  static final TextStyle bodyText = TextStyle(
+  static final TextStyle bodyText = const TextStyle(
     fontWeight: FontWeight.w300, // Regular weight for readability
     fontFamily: 'OpenSans',
     fontSize: 16, // Standard size for body text
@@ -48,7 +48,7 @@ class AppTextStyles {
   );
 
   // List text style using Open Sans
-  static final TextStyle listText = TextStyle(
+  static final TextStyle listText = const TextStyle(
     fontWeight: FontWeight.w300, // Regular weight
     fontFamily: 'OpenSans', // Open Sans for list items
     fontSize: 16, // Standard size for lists
@@ -57,7 +57,7 @@ class AppTextStyles {
   );
 
   // Price or special highlighted text (Open Sans)
-  static final TextStyle priceText = TextStyle(
+  static final TextStyle priceText = const TextStyle(
     fontWeight: FontWeight.w400, // Regular weight
     fontFamily: 'OpenSans',
     fontSize: 18,
@@ -65,14 +65,14 @@ class AppTextStyles {
   );
 
   // Interactive Text (Links, Buttons) (Montserrat)
-  static final TextStyle linkText = TextStyle(
+  static final TextStyle linkText = const TextStyle(
     fontWeight: FontWeight.w500,
     fontFamily: 'Montserrat',
     fontSize: 18,
     color: AppColors.link,
   );
 
-  static final TextStyle buttonText = TextStyle(
+  static final TextStyle buttonText = const TextStyle(
     fontWeight: FontWeight.w600, // Semi-bold for button text
     fontFamily: 'Montserrat',
     fontSize: 16,
@@ -80,14 +80,14 @@ class AppTextStyles {
   );
 
   // Miscellaneous Styles
-  static final TextStyle formLabel = TextStyle(
+  static final TextStyle formLabel = const TextStyle(
     fontWeight: FontWeight.w400, // Regular weight
     fontFamily: 'OpenSans',
     fontSize: 14,
     color: AppColors.primary300,
   );
 
-  static final TextStyle snackbarText = TextStyle(
+  static final TextStyle snackbarText = const TextStyle(
     fontWeight: FontWeight.w400,
     fontFamily: 'OpenSans',
     fontSize: 16,

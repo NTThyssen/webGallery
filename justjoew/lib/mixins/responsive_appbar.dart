@@ -87,18 +87,18 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     return TextButton(
       onPressed: () => _navigateTo(context, route),
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.hovered)) {
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
             return AppColors.primary400; // Hover color
           }
           return isSelected ? AppColors.primary300 : AppColors.primary700; // Selected or default color
         }),
-        textStyle: MaterialStateProperty.all(
+        textStyle: WidgetStateProperty.all(
           isSelected
               ? AppTextStyles.buttonText.copyWith(color: AppColors.primary200)
               : AppTextStyles.buttonText.copyWith(fontWeight: FontWeight.w500),
         ),
-        overlayColor: MaterialStateProperty.all(AppColors.primary50.withOpacity(0.1)), // Subtle hover effect
+        overlayColor: WidgetStateProperty.all(AppColors.primary50.withOpacity(0.1)), // Subtle hover effect
         splashFactory: NoSplash.splashFactory, // Removes splash effect
       ),
       child: Text(text),

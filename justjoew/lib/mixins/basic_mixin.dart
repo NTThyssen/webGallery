@@ -29,7 +29,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
               itemBuilder: (context, index) {
                 return body();
               },
-              footer: MyFooter(),
+              footer: const MyFooter(),
             ),
           ),
         ],
@@ -67,7 +67,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ResponsiveAppBar(
       title: InkWell(
         onTap: () => context.go(AppRoutes.root),
-        child: Hero(
+        child: const Hero(
           tag: 'logohero',
           child: Text(
             "JustJoew",

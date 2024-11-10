@@ -21,17 +21,17 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
     return LayoutBuilder(
       builder: (context, constraints) {
         double screenWidth = constraints.maxWidth;
-        final double maxContentWidth = 1100;
+        const double maxContentWidth = 1100;
 
         return SingleChildScrollView(
           child: Center(
             child: Container(
               width: screenWidth < maxContentWidth ? screenWidth : maxContentWidth,
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
+                  const Center(
                     child: CustomHeaderLarge(
                       text: AppStrings.aboutMeHeader,
                     ),
@@ -95,7 +95,6 @@ class _AboutMePageState extends State<AboutMePage> with BasicMixin {
     required String title,
     String? content,
     Widget? contentWidget,
-    double verticalPadding = 0,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
