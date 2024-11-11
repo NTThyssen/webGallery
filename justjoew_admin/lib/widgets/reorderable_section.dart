@@ -48,7 +48,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
   }
 
   void _showRenameDialog(BuildContext context) {
-    final TextEditingController controller = TextEditingController(text: widget.section.name);
+    final TextEditingController nameController = TextEditingController(text: widget.section.name);
+    //final TextEditingController urlController = TextEditingController(text: widget.section.url);
 
     showDialog(
       context: context,
@@ -62,23 +63,43 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
             'Rename Section',
             style: AppTextStyles.headingSmall,
           ),
-          content: Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: 'Enter new section name',
-                hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
-                filled: true,
-                fillColor: AppColors.darkGray,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter new section name',
+                    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+                    filled: true,
+                    fillColor: AppColors.darkGray,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
                 ),
               ),
-              style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
-            ),
+              TextField(
+                //controller: urlController,
+                decoration: InputDecoration(
+                  hintText: 'Enter Twitch URL',
+                  hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+                  filled: true,
+                  fillColor: AppColors.darkGray,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
+              ),
+            ],
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: <Widget>[
@@ -91,8 +112,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Update the section name in the cubit
-                // context.read<SectionCubit>().renameSection(widget.section.id, controller.text);
+                // Update the section name and URL in the cubit
+                // context.read<SectionCubit>().renameSection(widget.section.id, nameController.text, urlController.text);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
@@ -112,7 +133,6 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +191,6 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                   ),
                   icon: Icon(Icons.more_vert, color: AppColors.primary),
                 )
-
               ],
             ),
             const SizedBox(height: AppSpacing.medium),

@@ -28,7 +28,7 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
               child: TextField(
                 controller: _titleController,
                 decoration: InputDecoration(
-                  hintText: 'Title',  // Updated hint text for title
+                  hintText: ' Title',  // Updated hint text for title
                   hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
                   filled: true,
                   fillColor: AppColors.darkGray,
@@ -42,9 +42,9 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
               ),
             ),
             TextField(
-              controller: _urlController,
+              //controller: _urlController,
               decoration: InputDecoration(
-                hintText: 'URL',  // Updated hint text for URL
+                hintText: 'Enter Twitch URL',  // Updated hint text for URL
                 hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
                 filled: true,
                 fillColor: AppColors.darkGray,
