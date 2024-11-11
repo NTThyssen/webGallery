@@ -1,6 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
+import 'package:justjoew_admin/utils/constants/AppStrings.dart';
+import 'package:justjoew_admin/utils/theme/AppColors.dart';
+import 'package:justjoew_admin/utils/theme/AppTextStyle.dart';
+import 'package:justjoew_admin/utils/theme/spacing.dart';
 
 class FileUploadWidget extends StatefulWidget {
   const FileUploadWidget({super.key});
@@ -44,9 +48,29 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
       children: [
         ElevatedButton(
           onPressed: _pickFile,
-          child: const Text('Pick and Upload File'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.large,
+              vertical: AppSpacing.medium,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.small),
+            ),
+          ),
+          child: Text(
+            AppStrings.pickAndUploadFile,
+            style: AppTextStyles.buttonText,
+          ),
         ),
-        if (_fileName != null) Text('Selected file: $_fileName'),
+        if (_fileName != null)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.medium),
+            child: Text(
+              '${AppStrings.selectedFile} $_fileName',
+              style: AppTextStyles.bodyText,
+            ),
+          ),
       ],
     );
   }

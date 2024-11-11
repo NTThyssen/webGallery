@@ -1,0 +1,306 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:justjoew_admin/cubit/section_cubit.dart';
+import 'package:justjoew_admin/mapper/object_mapper.dart';
+import 'package:justjoew_admin/utils/constants/AppStrings.dart';
+import 'package:justjoew_admin/utils/theme/AppColors.dart';
+import 'package:justjoew_admin/utils/theme/AppTextStyle.dart';
+import 'package:justjoew_admin/utils/theme/spacing.dart';
+
+class ReOrderableSection extends StatefulWidget {
+  final Section section;
+
+  const ReOrderableSection({Key? key, required this.section}) : super(key: key);
+
+  @override
+  _ReOrderableSectionState createState() => _ReOrderableSectionState();
+}
+
+class _ReOrderableSectionState extends State<ReOrderableSection> {
+  PlatformFile? _pickedFile;
+  int? _hoveredIndex;
+  final ScrollController _scrollController = ScrollController();
+
+  Future<void> _pickFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        _pickedFile = result.files.first;
+      });
+    }
+  }
+
+  void _scrollLeft() {
+    _scrollController.animateTo(
+      _scrollController.offset - 100,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+  }
+
+  void _scrollRight() {
+    _scrollController.animateTo(
+      _scrollController.offset + 100,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+  }
+
+  void _showRenameDialog(BuildContext context) {
+    final TextEditingController controller = TextEditingController(text: widget.section.name);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: AppColors.surface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          title: Text(
+            'Rename Section',
+            style: AppTextStyles.headingSmall,
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: 'Enter new section name',
+                hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+                filled: true,
+                fillColor: AppColors.darkGray,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
+            ),
+          ),
+          actionsAlignment: MainAxisAlignment.spaceBetween,
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Cancel',
+                style: AppTextStyles.buttonText.copyWith(color: AppColors.primary600),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Update the section name in the cubit
+                // context.read<SectionCubit>().renameSection(widget.section.id, controller.text);
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+              ),
+              child: Text(
+                'Rename',
+                style: AppTextStyles.buttonText,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    var sectionCubit = context.read<SectionCubit>();
+
+    return Card(
+      color: AppColors.surface,
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.small),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.medium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section header with title and actions in popup menu
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.section.name,
+                  style: AppTextStyles.headingSmall.copyWith(color: AppColors.primary),
+                ),
+                PopupMenuButton<String>(
+                  onSelected: (value) {
+                    switch (value) {
+                      case 'Rename':
+                        _showRenameDialog(context);
+                        break;
+                      case 'Delete':
+                        // sectionCubit.deleteSection(widget.section.id);
+                        break;
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'Rename',
+                      child: Text(
+                        'Rename Section',
+                        style: AppTextStyles.bodyText.copyWith(color: AppColors.primary),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'Delete',
+                      child: Text(
+                        'Delete Section',
+                        style: AppTextStyles.bodyText.copyWith(color: Color.fromARGB(255, 229, 65, 62)),
+                      ),
+                    ),
+                  ],
+                  color: AppColors.darkGray,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  icon: Icon(Icons.more_vert, color: AppColors.primary),
+                )
+
+              ],
+            ),
+            const SizedBox(height: AppSpacing.medium),
+
+            // Scrollable ReorderableListView with left and right scroll buttons
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_left, color: AppColors.primary),
+                  onPressed: _scrollLeft,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: 130,
+                    child: ReorderableListView.builder(
+                      scrollController: _scrollController,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      onReorder: (oldIndex, newIndex) {
+                        setState(() {
+                          if (newIndex > widget.section.assetList.length) newIndex--;
+                          final item = widget.section.assetList.removeAt(oldIndex);
+                          widget.section.assetList.insert(newIndex, item);
+                        });
+                      },
+                      buildDefaultDragHandles: false,
+                      proxyDecorator: (Widget child, int index, Animation<double> animation) {
+                        return Material(
+                          color: Color.fromARGB(20, 0, 0, 0),
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: child,
+                          ),
+                        );
+                      },
+                      itemCount: widget.section.assetList.length,
+                      itemBuilder: (context, index) {
+                        final asset = widget.section.assetList[index];
+                        return ReorderableDragStartListener(
+                          key: Key(asset.id.toString()),
+                          index: index,
+                          child: MouseRegion(
+                            onEnter: (_) {
+                              setState(() {
+                                _hoveredIndex = index;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                _hoveredIndex = null;
+                              });
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(AppSpacing.small),
+                                  child: Padding(
+                                    padding: AppSpacing.paddingMedium,
+                                    child: Container(
+                                      child: Image.network(
+                                        widget.section.assetList[index].bloburl,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // Show delete icon only on hover
+                                if (_hoveredIndex == index)
+                                  Positioned(
+                                    top: 10,
+                                    right: 10,
+                                    child: IconButton(
+                                      icon: Icon(Icons.delete, color: Color.fromARGB(255, 255, 4, 0), size: 28),
+                                      onPressed: () {
+                                        // sectionCubit.deleteAsset(widget.section.id, asset.id);
+                                      },
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_right, color: AppColors.primary),
+                  onPressed: _scrollRight,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.medium),
+
+            // "Add Asset" button aligned to the right
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium, vertical: AppSpacing.small),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSpacing.small),
+                  ),
+                ),
+                onPressed: () async {
+                  await _pickFile();
+                  if (_pickedFile != null) {
+                    sectionCubit.createAsset(
+                      _pickedFile!.bytes!.toList(),
+                      widget.section.id,
+                      _pickedFile!.name,
+                    );
+                  }
+                },
+                label: Text(
+                  AppStrings.addAssetButton,
+                  style: AppTextStyles.buttonText.copyWith(color: AppColors.darkGray),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
