@@ -26,7 +26,7 @@ class SectionCubit extends Cubit<SectionState> {
       getAllSections();
     }
 
-    void createSection(String sectioName ) async {
+    void createSection(String sectioName, String text, ) async {
 
 
       if(state is SectionReady){

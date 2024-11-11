@@ -5,7 +5,8 @@ import 'package:justjoew_admin/utils/theme/AppTextStyle.dart';
 import 'package:justjoew_admin/cubit/section_cubit.dart';
 
 Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) async {
-  final TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
 
   await showDialog(
     context: context,
@@ -17,25 +18,45 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
         ),
         title: Text(
           AppStrings.addSectionTitle,
-          style: AppTextStyles.headingSmall
+          style: AppTextStyles.headingSmall,
         ),
-        content: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
-          child: TextField(
-            controller: _textFieldController,
-            decoration: InputDecoration(
-              hintText: AppStrings.sectionTitleHint,
-              hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
-              filled: true,
-              fillColor: AppColors.darkGray,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide.none,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: TextField(
+                controller: _titleController,
+                decoration: InputDecoration(
+                  hintText: ' Title',  // Updated hint text for title
+                  hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
+                  filled: true,
+                  fillColor: AppColors.darkGray,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
               ),
             ),
-            style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
-          ),
+            TextField(
+              //controller: _urlController,
+              decoration: InputDecoration(
+                hintText: 'Enter Twitch URL',  // Updated hint text for URL
+                hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
+                filled: true,
+                fillColor: AppColors.darkGray,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: <Widget>[
@@ -48,7 +69,10 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
           ),
           ElevatedButton(
             onPressed: () {
-              sectionCubit.createSection(_textFieldController.text);
+              sectionCubit.createSection(
+                _titleController.text,
+                _urlController.text, // Pass the Twitch URL as a string
+              );
               sectionCubit.getAllSections();
               Navigator.pop(context);
             },

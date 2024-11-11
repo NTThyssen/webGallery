@@ -111,6 +111,7 @@ class Section extends $pb.GeneratedMessage {
   factory Section({
     $core.int? id,
     $core.String? name,
+    $core.String? url,
     $core.Iterable<Asset>? assetList,
   }) {
     final $result = create();
