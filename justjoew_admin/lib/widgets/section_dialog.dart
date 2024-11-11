@@ -13,39 +13,34 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
       return AlertDialog(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(16.0),
         ),
         title: Text(
           AppStrings.addSectionTitle,
-          style: AppTextStyles.headingSmall.copyWith(color: AppColors.primary),
+          style: AppTextStyles.headingSmall
         ),
-        content: TextField(
-          controller: _textFieldController,
-          decoration: InputDecoration(
-            hintText: AppStrings.sectionTitleHint,
-            hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.textSecondary),
-            filled: true,
-            fillColor: AppColors.formFill,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(color: AppColors.primary300),
+        content: Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+          child: TextField(
+            controller: _textFieldController,
+            decoration: InputDecoration(
+              hintText: AppStrings.sectionTitleHint,
+              hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+              filled: true,
+              fillColor: AppColors.darkGray,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide.none,
+              ),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(color: AppColors.primary200),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(color: AppColors.primary600, width: 2.0),
-            ),
+            style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
           ),
         ),
+        actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: <Widget>[
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             child: Text(
               AppStrings.cancel,
               style: AppTextStyles.buttonText.copyWith(color: AppColors.primary600),

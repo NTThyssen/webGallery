@@ -20,7 +20,7 @@ class CustomHeaderLarge extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MainHeader(text: text, subheader: subheader), // Use the mainHeader widget
-          if (isLargeScreen) const SizedBox(height: AppSpacing.large), // Conditionally add space for large screens
+          //if (isLargeScreen) const SizedBox(height: AppSpacing.small), // Conditionally add space for large screens
         ],
       ),
     );
