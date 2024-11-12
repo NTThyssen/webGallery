@@ -71,18 +71,21 @@ func GetAllSections() ([]Section, error) {
 }
 
 func DeleteSection(sectionId uint32) error {
+	log.Panicf("deleting section with id: %d", sectionId)
 
-	result := db.Delete("Section").Where(sectionId)
+	result := db.Delete("Section").Where(&Section{Model: gorm.Model{ID: uint(sectionId)}})
 	if result.Error != nil {
+		log.Panicln(result.Error.Error())
 		return result.Error
 	}
 	return nil
 }
 
-func DeleteAsset(sectionId uint32) error {
-
-	result := db.Delete("Asset").Where(sectionId)
+func DeleteAsset(assetId uint32) error {
+	log.Panicf("deleting asset with id: %d", assetId)
+	result := db.Delete("Asset").Where(&Asset{Model: gorm.Model{ID: uint(assetId)}})
 	if result.Error != nil {
+		log.Panicln(result.Error.Error())
 		return result.Error
 	}
 	return nil

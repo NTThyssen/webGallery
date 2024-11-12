@@ -39,7 +39,7 @@ func (s *server) DeleteSection(ctx context.Context, in *pb.DeleteSectionRequest)
 
 func (s *server) DeleteAsset(ctx context.Context, in *pb.DeleteAssetRequest) (*pb.DeleteAssetResponse, error) {
 	log.Printf("Received: %v", in.GetAssetId())
-	err := repository.DeleteSection(in.GetAssetId())
+	err := repository.DeleteAsset(in.GetAssetId())
 	return &pb.DeleteAssetResponse{}, err
 }
 
