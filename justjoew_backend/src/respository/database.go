@@ -71,7 +71,7 @@ func GetAllSections() ([]Section, error) {
 }
 
 func DeleteSection(sectionId uint32) error {
-	log.Panicf("deleting section with id: %d", sectionId)
+	log.Printf("deleting section with id: %d", sectionId)
 
 	result := db.Where("id = ?", sectionId).Delete(&Section{})
 	if result.Error != nil {
@@ -82,7 +82,7 @@ func DeleteSection(sectionId uint32) error {
 }
 
 func DeleteAsset(assetId uint32) error {
-	log.Panicf("deleting asset with id: %d", assetId)
+	log.Printf("deleting asset with id: %d", assetId)
 	result := db.Where("id = ?", assetId).Delete(&Asset{})
 	if result.Error != nil {
 		log.Panicln(result.Error.Error())
