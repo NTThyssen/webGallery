@@ -93,7 +93,6 @@ class AdminPage extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large, vertical: AppSpacing.medium*1.25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSpacing.small),
