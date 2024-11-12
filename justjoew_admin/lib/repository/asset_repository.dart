@@ -9,14 +9,14 @@ class AssetRepository {
     stub = AssetControllerClient(channel!);
   }
 
-  Future<String> createSection(String name) async {
-    final request = CreateSectionRequest()..name = name;
+  Future<Section> createSection(String name, sectionUrl) async {
+    final request = CreateSectionRequest(name: name, sectionURL: sectionUrl);
     try {
       final response = await stub!.createSection(request);
-      return response.name;
+      return response.section;
     } catch (e) {
       print('Caught error: $e');
-      return 'Error';
+     throw Error();
     }
   }
 
@@ -37,6 +37,26 @@ class AssetRepository {
     try {
       final response =
           await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: 512));
+      return response;
+    } catch (e) {
+      throw ('Caught error: $e');
+    }
+  }
+
+  Future<DeleteSectionResponse> deleteSection(int sectionId) async {
+    try {
+      final response =
+          await stub!.deleteSection(DeleteSectionRequest(sectionId: sectionId));
+      return response;
+    } catch (e) {
+      throw ('Caught error: $e');
+    }
+  }
+
+  Future<DeleteAssetResponse> deleteAsset(int assetId) async {
+    try {
+      final response =
+          await stub!.deleteAsset(DeleteAssetRequest(assetId: assetId));
       return response;
     } catch (e) {
       throw ('Caught error: $e');

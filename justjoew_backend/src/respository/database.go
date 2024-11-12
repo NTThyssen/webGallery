@@ -23,15 +23,15 @@ func InitDb() {
 	db.AutoMigrate(&Section{}, &Asset{})
 }
 
-func CreateSection(sectionName string) (string, error) {
-	section := Section{Name: sectionName}
+func CreateSection(sectionName string, sectionUrl string) (Section, error) {
+	section := Section{Name: sectionName, SectionUrl: sectionUrl}
 	res := db.Create(&section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
-		return "", res.Error
+		return Section{}, res.Error
 	}
-	return sectionName, nil
+	return section, nil
 }
 
 func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
@@ -73,6 +73,15 @@ func GetAllSections() ([]Section, error) {
 func DeleteSection(sectionId uint32) error {
 
 	result := db.Delete("Section").Where(sectionId)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func DeleteAsset(sectionId uint32) error {
+
+	result := db.Delete("Asset").Where(sectionId)
 	if result.Error != nil {
 		return result.Error
 	}

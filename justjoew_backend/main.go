@@ -45,8 +45,8 @@ func (s *server) DeleteAsset(ctx context.Context, in *pb.DeleteAssetRequest) (*p
 
 func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest) (*pb.CreateSectionResponse, error) {
 	log.Printf("Received: %v", in.GetName())
-	res, err := repository.CreateSection(in.Name)
-	return &pb.CreateSectionResponse{Name: res}, err
+	res, err := repository.CreateSection(in.Name, in.SectionURL)
+	return &pb.CreateSectionResponse{Section: &pb.Section{Name: res.Name, SectionUrl: res.SectionUrl}}, err
 }
 
 func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error) {

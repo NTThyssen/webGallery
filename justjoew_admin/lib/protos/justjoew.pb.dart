@@ -111,8 +111,8 @@ class Section extends $pb.GeneratedMessage {
   factory Section({
     $core.int? id,
     $core.String? name,
-    $core.String? url,
     $core.Iterable<Asset>? assetList,
+    $core.String? sectionUrl,
   }) {
     final $result = create();
     if (id != null) {
@@ -124,6 +124,9 @@ class Section extends $pb.GeneratedMessage {
     if (assetList != null) {
       $result.assetList.addAll(assetList);
     }
+    if (sectionUrl != null) {
+      $result.sectionUrl = sectionUrl;
+    }
     return $result;
   }
   Section._() : super();
@@ -134,6 +137,7 @@ class Section extends $pb.GeneratedMessage {
     ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OU3)
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..pc<Asset>(3, _omitFieldNames ? '' : 'assetList', $pb.PbFieldType.PM, protoName: 'assetList', subBuilder: Asset.create)
+    ..aOS(4, _omitFieldNames ? '' : 'sectionUrl', protoName: 'sectionUrl')
     ..hasRequiredFields = false
   ;
 
@@ -178,15 +182,28 @@ class Section extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(3)
   $core.List<Asset> get assetList => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.String get sectionUrl => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set sectionUrl($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSectionUrl() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSectionUrl() => clearField(4);
 }
 
 class CreateSectionRequest extends $pb.GeneratedMessage {
   factory CreateSectionRequest({
     $core.String? name,
+    $core.String? sectionURL,
   }) {
     final $result = create();
     if (name != null) {
       $result.name = name;
+    }
+    if (sectionURL != null) {
+      $result.sectionURL = sectionURL;
     }
     return $result;
   }
@@ -196,6 +213,7 @@ class CreateSectionRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateSectionRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'sectionURL', protoName: 'sectionURL')
     ..hasRequiredFields = false
   ;
 
@@ -228,15 +246,24 @@ class CreateSectionRequest extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
   void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get sectionURL => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set sectionURL($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSectionURL() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSectionURL() => clearField(2);
 }
 
 class CreateSectionResponse extends $pb.GeneratedMessage {
   factory CreateSectionResponse({
-    $core.String? name,
+    Section? section,
   }) {
     final $result = create();
-    if (name != null) {
-      $result.name = name;
+    if (section != null) {
+      $result.section = section;
     }
     return $result;
   }
@@ -245,7 +272,7 @@ class CreateSectionResponse extends $pb.GeneratedMessage {
   factory CreateSectionResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateSectionResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOM<Section>(1, _omitFieldNames ? '' : 'section', subBuilder: Section.create)
     ..hasRequiredFields = false
   ;
 
@@ -271,13 +298,15 @@ class CreateSectionResponse extends $pb.GeneratedMessage {
   static CreateSectionResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get name => $_getSZ(0);
+  Section get section => $_getN(0);
   @$pb.TagNumber(1)
-  set name($core.String v) { $_setString(0, v); }
+  set section(Section v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasName() => $_has(0);
+  $core.bool hasSection() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
+  void clearSection() => clearField(1);
+  @$pb.TagNumber(1)
+  Section ensureSection() => $_ensure(0);
 }
 
 class Asset extends $pb.GeneratedMessage {
