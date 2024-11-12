@@ -71,8 +71,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    hintText: 'Enter new section name',
-                    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+                    hintText: 'Enter Title',
+                    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
                     filled: true,
                     fillColor: AppColors.darkGray,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
@@ -87,8 +87,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
               TextField(
                 //controller: urlController,
                 decoration: InputDecoration(
-                  hintText: 'Enter Twitch URL',
-                  hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.darkGray),
+                  hintText: 'Enter URL',
+                  hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
                   filled: true,
                   fillColor: AppColors.darkGray,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
@@ -199,7 +199,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_left, color: AppColors.primary),
+                  icon: Icon(Icons.arrow_left, color: AppColors.white),
                   onPressed: _scrollLeft,
                 ),
                 Expanded(
@@ -268,7 +268,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                                     top: 10,
                                     right: 10,
                                     child: IconButton(
-                                      icon: Icon(Icons.delete, color: Color.fromARGB(255, 255, 4, 0), size: 28),
+                                      icon: Icon(Icons.delete, color: Color.fromARGB(255, 255, 4, 0), size: 28,),
+                                      
                                       onPressed: () {
                                         // sectionCubit.deleteAsset(widget.section.id, asset.id);
                                       },
@@ -283,7 +284,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.arrow_right, color: AppColors.primary),
+                  icon: Icon(Icons.arrow_right, color: AppColors.white),
                   onPressed: _scrollRight,
                 ),
               ],
@@ -295,7 +296,6 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
               alignment: Alignment.centerRight,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium, vertical: AppSpacing.small),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(AppSpacing.small),
