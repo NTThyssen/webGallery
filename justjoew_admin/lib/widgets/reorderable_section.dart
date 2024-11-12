@@ -117,7 +117,6 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -189,7 +188,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  icon: Icon(Icons.more_vert, color: AppColors.primary),
+                  icon: Icon(Icons.more_vert, color: AppColors.white),
                 )
               ],
             ),
