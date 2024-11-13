@@ -4,7 +4,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	image "image/png" // to support PNG decoding
+	"image"
+	"image/gif"
+	"image/png"
+	"strings"
+
+	//image "image/png" // to support PNG decoding
 	"log"
 	"net/url"
 	"os"
@@ -58,22 +63,52 @@ func InitClient() {
 func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	sizesList := []uint{512, 384, 256, 196, 128, 112, 56, 28}
 	pathList := []string{}
-	img, err := image.Decode(bytes.NewReader(byteArray))
+	objectUuid := uuid.NewString()
+
+	img, format, err := image.Decode(bytes.NewReader(byteArray))
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode image: %v", err)
 	}
-	objectUuid := uuid.NewString()
-	for _, v := range sizesList {
-		imageResize := resize.Resize(v, v, img, resize.Lanczos3)
-		var buf bytes.Buffer
-		err := image.Encode(&buf, imageResize)
+
+	if format == "gif" {
+		// Handle animated GIFs
+		gifImg, err := gif.DecodeAll(bytes.NewReader(byteArray))
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to decode GIF: %v", err)
 		}
-		path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid)
-		pathList = append(pathList, path)
-		if err != nil {
-			return nil, err
+
+		for _, v := range sizesList {
+			resizedGif := &gif.GIF{}
+			for _, frame := range gifImg.Image {
+				resizedFrame := resize.Resize(v, v, frame, resize.Lanczos3)
+				resizedGif.Image = append(resizedGif.Image, resizedFrame.(*image.Paletted))
+				resizedGif.Delay = append(resizedGif.Delay, gifImg.Delay[0])
+			}
+
+			var buf bytes.Buffer
+			if err := gif.EncodeAll(&buf, resizedGif); err != nil {
+				return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
+			}
+			path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid, format)
+			if err != nil {
+				return nil, err
+			}
+			pathList = append(pathList, path)
+		}
+	} else {
+		// Handle static images (e.g., PNG)
+		for _, v := range sizesList {
+			imageResize := resize.Resize(v, v, img, resize.Lanczos3)
+			var buf bytes.Buffer
+			err := png.Encode(&buf, imageResize)
+			if err != nil {
+				return nil, err
+			}
+			path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid, format)
+			if err != nil {
+				return nil, err
+			}
+			pathList = append(pathList, path)
 		}
 	}
 
@@ -81,7 +116,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 
 }
 
-func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid string) (string, error) {
+func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid string, format string) (string, error) {
 
 	reader := bytes.NewReader(assetBytes)
 
@@ -90,11 +125,11 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	}
 	_, err := minioClient.PutObject(context.Background(),
 		"assets",
-		fmt.Sprintf("%s/%d.png",
-			objectUuid, ratio),
+		fmt.Sprintf("%s/%d.%s",
+			objectUuid, ratio, format),
 		reader,
 		reader.Size(),
-		minio.PutObjectOptions{ContentType: "image/png", UserMetadata: metadata})
+		minio.PutObjectOptions{ContentType:  fmt.Sprintf("image/%s", format), UserMetadata: metadata})
 
 	if err != nil {
 		log.Panicln(err)
@@ -104,8 +139,13 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 }
 
 func CreatePreSignedUrls(objectKey string, aspectRation uint32) string {
-
-	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.png", objectKey, aspectRation), time.Minute*10)
+	var format = ""
+	if strings.Contains(objectKey, ".png"){
+		format = "png"
+	}else{
+		format = "gif"
+	}
+	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.%s", objectKey, aspectRation, format), time.Minute*10)
 	if err != nil {
 		log.Panicf("failed to fetch object %s/%d", objectKey, aspectRation)
 	}
