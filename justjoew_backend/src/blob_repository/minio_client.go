@@ -60,46 +60,42 @@ func InitClient() {
 	log.Printf("is online: %v ", minioClient.IsOnline())
 }
 
-func ResizeGif(byteArray []byte, sizesList []uint) ([]byte, error) {
+func ResizeGif(byteArray []byte, size uint) ([]byte, error) {
 	// Decode GIF and get all frames
 	gifImg, err := gif.DecodeAll(bytes.NewReader(byteArray))
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode GIF: %v", err)
 	}
-	var buf bytes.Buffer
+
+	// Create a new GIF to hold the resized frames
+	resizedGif := &gif.GIF{
+		Delay:     gifImg.Delay,
+		LoopCount: gifImg.LoopCount,
+	}
+
 	// Resize each frame and convert it to Paletted
-	for _, size := range sizesList {
-		resizedGif := &gif.GIF{
-			Delay:    gifImg.Delay,
-			LoopCount: gifImg.LoopCount,
-		}
-		for _, frame := range gifImg.Image {
-			// Resize the frame
-			resizedFrame := resize.Resize(size, size, frame, resize.Lanczos3)
+	for _, frame := range gifImg.Image {
+		// Resize the frame
+		resizedFrame := resize.Resize(size, size, frame, resize.Lanczos3)
 
-			// Create a new paletted image with the same bounds and palette as the original GIF
-			palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
+		// Create a new paletted image with the same bounds and palette as the original GIF
+		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
 
-			// Draw the resized frame onto the new paletted image
-			for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
-				for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
-					palettedFrame.Set(x, y, resizedFrame.At(x, y))
-				}
+		// Draw the resized frame onto the new paletted image
+		for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
+			for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
+				palettedFrame.Set(x, y, resizedFrame.At(x, y))
 			}
-
-			// Update the bounds of the frame to match the resized GIF canvas
-			palettedFrame.Rect = resizedFrame.Bounds()
-
-			// Append resized frame to the new GIF structure
-			resizedGif.Image = append(resizedGif.Image, palettedFrame)
 		}
 
-		// Encode the resized frames back into an animated GIF
-		var buflocal bytes.Buffer
-		if err := gif.EncodeAll(&buflocal, resizedGif); err != nil {
-			return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
-		}
-		buf = buflocal;
+		// Append the resized paletted frame to the new GIF
+		resizedGif.Image = append(resizedGif.Image, palettedFrame)
+	}
+
+	// Encode the resized frames back into an animated GIF
+	var buf bytes.Buffer
+	if err := gif.EncodeAll(&buf, resizedGif); err != nil {
+		return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
 	}
 
 	return buf.Bytes(), nil
@@ -119,7 +115,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	if format == "gif" {
 		// Handle animated GIFs using ResizeGif function
 		for _, size := range sizesList {
-			resizedGif, err := ResizeGif(byteArray, []uint{size})
+			resizedGif, err := ResizeGif(byteArray, size)
 			if err != nil {
 				fmt.Printf("failed to resize GIF: %v", err)
 				return nil, fmt.Errorf("failed to resize GIF: %v", err)
