@@ -5,6 +5,8 @@ import (
 	"context"
 	"fmt"
 	"image"
+	"image/color/palette"
+	"image/draw"
 	"image/gif"
 	"image/png"
 	"strings"
@@ -61,7 +63,7 @@ func InitClient() {
 }
 
 func ResizeGif(gifData []byte, size uint )([]byte, error) {
-	// Create a bytes.Reader to read the GIF data from memory
+		// Create a bytes.Reader to read the GIF data from memory
 	reader := bytes.NewReader(gifData)
 	var width, height = size, size;
 	// Decode the GIF
@@ -73,8 +75,14 @@ func ResizeGif(gifData []byte, size uint )([]byte, error) {
 	// Resize each frame
 	for i := range g.Image {
 		// Resize the frame
-		g.Image[i] = resize.Resize(width, height, g.Image[i], resize.Lanczos3).(*image.Paletted)
-		g.Delay[i] = g.Delay[i] // Keep original delay for each frame
+		resizedFrame := resize.Resize(width, height, g.Image[i], resize.Lanczos3)
+
+		// Convert resized frame to *image.Paletted
+		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), palette.Plan9)
+		draw.FloydSteinberg.Draw(palettedFrame, resizedFrame.Bounds(), resizedFrame, image.Point{})
+
+		// Replace the frame with the paletted version
+		g.Image[i] = palettedFrame
 	}
 
 	// Encode the resized GIF to a new byte buffer
