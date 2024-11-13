@@ -66,30 +66,39 @@ func ResizeGif(byteArray []byte, sizesList []uint) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode GIF: %v", err)
 	}
-
+	var buf bytes.Buffer
 	// Resize each frame and convert it to Paletted
-	for i, frame := range gifImg.Image {
-		// Resize the frame
-		resizedFrame := resize.Resize(sizesList[0], sizesList[0], frame, resize.Lanczos3)
+	for _, size := range sizesList {
+		resizedGif := &gif.GIF{
+			Delay:    gifImg.Delay,
+			LoopCount: gifImg.LoopCount,
+		}
+		for _, frame := range gifImg.Image {
+			// Resize the frame
+			resizedFrame := resize.Resize(size, size, frame, resize.Lanczos3)
 
-		// Create a new paletted image with the same bounds and palette as the original GIF
-		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
+			// Create a new paletted image with the same bounds and palette as the original GIF
+			palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
 
-		// Draw the resized RGBA frame onto the new paletted image
-		for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
-			for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
-				palettedFrame.Set(x, y, resizedFrame.At(x, y))
+			// Draw the resized frame onto the new paletted image
+			for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
+				for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
+					palettedFrame.Set(x, y, resizedFrame.At(x, y))
+				}
 			}
+
+			// Update the bounds of the frame to match the resized GIF canvas
+			palettedFrame.Rect = resizedFrame.Bounds()
+
+			// Append resized frame to the new GIF structure
+			resizedGif.Image = append(resizedGif.Image, palettedFrame)
 		}
 
-		// Update the GIF image with the resized paletted frame
-		gifImg.Image[i] = palettedFrame
-	}
-
-	// Encode the resized frames back into an animated GIF
-	var buf bytes.Buffer
-	if err := gif.EncodeAll(&buf, gifImg); err != nil {
-		return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
+		// Encode the resized frames back into an animated GIF
+	
+		if err := gif.EncodeAll(&buf, resizedGif); err != nil {
+			return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
+		}
 	}
 
 	return buf.Bytes(), nil
