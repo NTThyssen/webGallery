@@ -124,3 +124,17 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 
 	return preSignedURL.String(), nil
 }
+
+
+func DeleteAsset(bucketName, objectName string) (error) {
+
+	// Generate pre-signed GET URL
+	err := minioClient.RemoveObject(context.Background(), bucketName, objectName, minio.RemoveObjectOptions{})
+
+	if err != nil {
+		return  err
+	}
+
+	return err
+}
+
