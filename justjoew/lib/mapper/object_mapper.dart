@@ -40,7 +40,7 @@ class Mapper {
         assetList.add(Asset(assetEle.blobPath, assetEle.id, assetEle.orderIndex,
             assetEle.sectionId, assetEle.sectionName));
       }
-      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList));
+      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl));
     }
 
     return sectionList;

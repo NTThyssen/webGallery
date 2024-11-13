@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justjoew/cubit/section_cubit.dart';
+import 'package:justjoew/mapper/object_mapper.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ArtImage extends StatefulWidget {
-  final String path;
   final bool isWaterMarked; // Indicates whether the image is watermarked.
-
+  final Asset asset;
   const ArtImage({
     super.key,
-    required this.path,
+    required this.asset,
     this.isWaterMarked = false,
   });
 
@@ -45,49 +45,41 @@ class _ArtImageState extends State<ArtImage> {
                 color: Colors.transparent,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.0), // Rounded corners
-                  child: BlocBuilder<SectionCubit, SectionState>(
-                    builder: (context, state) {
-                      return Stack(
-                        children: [
-                          // Main image content
-                          if(state is SectionReady)
-                            for(var asset in state.sectionList)
-                            FadeInImage.memoryNetwork(
-                              placeholder: kTransparentImage,
-                              image: state.sectionList[0].assetList[0].bloburl,
-                              width: isHover
-                                  ? _hoverImageSize
-                                  : _defaultImageSize, // Adjust width dynamically
-                              height: isHover
-                                  ? _hoverImageSize
-                                  : _defaultImageSize, // Adjust height dynamically
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.medium,
-                            ),
-                          if (widget
-                              .isWaterMarked) // Conditionally show watermark
-                            Positioned(
-                              bottom: 4,
-                              right: 4,
-                              child: Opacity(
-                                opacity: 0.5,
-                                child: Container(
-                                  color: Colors.black54,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 4, vertical: 2),
-                                  child: Text(
-                                    'Watermarked',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                    ),
-                                  ),
+                  child: Stack(
+                    children: [
+                      FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.asset.bloburl,
+                        width: isHover
+                            ? _hoverImageSize
+                            : _defaultImageSize, // Adjust width dynamically
+                        height: isHover
+                            ? _hoverImageSize
+                            : _defaultImageSize, // Adjust height dynamically
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.medium,
+                      ),
+                      if (widget.isWaterMarked) // Conditionally show watermark
+                        Positioned(
+                          bottom: 4,
+                          right: 4,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: Container(
+                              color: Colors.black54,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4, vertical: 2),
+                              child: Text(
+                                'Watermarked',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
                                 ),
                               ),
                             ),
-                        ],
-                      );
-                    },
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ),

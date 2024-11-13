@@ -44,35 +44,29 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             BlocBuilder<SectionCubit, SectionState>(builder: (context, state) {
           return Column(
             children: [
-             const Center(
+              const Center(
                 child: CustomHeaderLarge(text: AppStrings.emotesHeader),
               ),
               if (state is SectionLoading) const CircularProgressIndicator(),
               if (state is SectionReady)
-              for(var section in state.sectionList)
-                EmoteSection(
-                  header: section.name,
-                  url: AppStrings.scatrattUrl,
-                  portfolioWidgets: [
-                    ArtImage(path: ImageStrings.ratCry),
-                    ArtImage(path: ImageStrings.ratEz),
-                    ArtImage(path: ImageStrings.ratHeart),
-                    ArtImage(path: ImageStrings.ratWave),
-                    ArtImage(path: ImageStrings.ratLul),
-                    ArtImage(path: ImageStrings.ratPat),
-                    ArtImage(path: ImageStrings.ratLurk),
-                    ArtImage(path: ImageStrings.ratHydrate),
-                    ArtImage(path: ImageStrings.ratFine),
-                    ArtImage(path: ImageStrings.ratPopcorn),
-                    ArtImage(path: ImageStrings.ratdead),
-                    _buildGif(
-                        ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
-                    _buildGif(
-                        ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
-                    _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
-                  ],
-                ),
-              EmoteSection(
+                for (var section in state.sectionList)
+                  EmoteSection(
+                    header: section.name,
+                    url: section.sectionlUrl,
+                    portfolioWidgets: [
+                      for (var asset in section.assetList)
+                        ArtImage(
+                          asset: asset,
+                        ),
+                      _buildGif(ImageStrings.ratDanceJam, controllers[0],
+                          gifSize, 16),
+                      _buildGif(ImageStrings.ratShyNotNaked, controllers[1],
+                          gifSize, 16),
+                      _buildGif(
+                          ImageStrings.ratfight, controllers[5], gifSize, 16),
+                    ],
+                  ),
+              /* EmoteSection(
                 header: AppStrings.olmaphHeader,
                 url: AppStrings.olmaphUrl,
                 portfolioWidgets: [
@@ -86,7 +80,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                   _buildGif(
                       ImageStrings.wiggly350, controllers[4], gifSize, 20),
                 ],
-              ),
+              ),*/
               const SizedBox(height: AppSpacing.large),
             ],
           );

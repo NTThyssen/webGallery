@@ -13,7 +13,10 @@ class SectionCubit extends Cubit<SectionState> {
 
   void getAllSections() async {
     var lists = Mapper.mapResponse(await _assetRepository.getAllSections());
-
+    for (var list in lists) {
+      //sort each assets list and return the section list with sub sorted lists
+      list.assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
+    }
     emit(SectionReady(lists));
   }
 }
