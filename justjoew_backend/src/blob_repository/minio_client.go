@@ -5,8 +5,6 @@ import (
 	"context"
 	"fmt"
 	"image"
-	"image/color"
-	"image/color/palette"
 	"image/gif"
 	"image/png"
 	"strings"
@@ -78,30 +76,25 @@ func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
 
 	// Resize each frame and maintain transparency
 	for i, originalFrame := range g.Image {
+		// Get the original transparent color index
+		transparentIndex := g.BackgroundIndex
+
 		// Resize the frame
 		resizedFrame := resize.Resize(width, height, originalFrame, resize.Lanczos3)
 
-		// Create a paletted image with a transparent palette
-		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), palette.Plan9)
+		// Create a new paletted image for the resized frame with the same palette as the original
+		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), originalFrame.Palette)
 
-		// Identify the transparent color in the original frame
-		var transparent color.Color
-		if originalFrame.Palette != nil {
-			transparent = originalFrame.Palette[originalFrame.Palette.Index(originalFrame.At(0, 0))]
-		} else {
-			// Use white as a default fallback if no palette is set (uncommon)
-			transparent = color.RGBA{255, 255, 255, 0}
-		}
-
-		// Apply resized frame onto the paletted frame, setting transparent pixels
+		// Apply the resized frame onto the paletted frame, setting the transparent pixels
 		for y := 0; y < palettedFrame.Bounds().Dy(); y++ {
 			for x := 0; x < palettedFrame.Bounds().Dx(); x++ {
-				col := resizedFrame.At(x, y)
-				if col == transparent {
+				originalColor := resizedFrame.At(x, y)
+				if originalFrame.Palette[transparentIndex] == originalColor {
 					// Set the transparent color
-					palettedFrame.Set(x, y, transparent)
+					palettedFrame.SetColorIndex(x, y, uint8(transparentIndex))
 				} else {
-					palettedFrame.Set(x, y, col)
+					// Set the actual color
+					palettedFrame.Set(x, y, originalColor)
 				}
 			}
 		}
