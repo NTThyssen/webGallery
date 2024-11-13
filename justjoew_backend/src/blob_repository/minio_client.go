@@ -7,9 +7,7 @@ import (
 	"image"
 	"image/gif"
 	"image/png"
-	"strings"
 
-	//image "image/png" // to support PNG decoding
 	"log"
 	"net/url"
 	"os"
@@ -61,7 +59,7 @@ func InitClient() {
 }
 
 func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
-		// Create a bytes.Reader to read the GIF data from memory
+	// Create a bytes.Reader to read the GIF data from memory
 	reader := bytes.NewReader(gifData)
 
 	// Decode the GIF
@@ -115,7 +113,7 @@ func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
 	return outputBuffer.Bytes(), nil
 }
 
-func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
+func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, string, error) {
 	sizesList := []uint{512, 384, 256, 196, 128, 112, 56, 28}
 	pathList := []string{}
 	objectUuid := uuid.NewString()
@@ -123,7 +121,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	img, format, err := image.Decode(bytes.NewReader(byteArray))
 	if err != nil {
 		fmt.Printf("failed to decode image: %v", err)
-		return nil, fmt.Errorf("failed to decode image: %v", err)
+		return nil, format, fmt.Errorf("failed to decode image: %v", err)
 	}
 
 	if format == "gif" {
@@ -132,12 +130,12 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 			resizedGif, err := ResizeGif(byteArray, size, size)
 			if err != nil {
 				fmt.Printf("failed to resize GIF: %v", err)
-				return nil, fmt.Errorf("failed to resize GIF: %v", err)
+				return nil, format, fmt.Errorf("failed to resize GIF: %v", err)
 			}
 			path, err := uploadAsset(resizedGif, filename, size, objectUuid, format)
 			if err != nil {
 				fmt.Printf("failed to upload GIF: %v", err)
-				return nil, err
+				return nil, format, err
 			}
 			pathList = append(pathList, path)
 		}
@@ -148,17 +146,17 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 			var buf bytes.Buffer
 			err := png.Encode(&buf, imageResize)
 			if err != nil {
-				return nil, err
+				return nil, format, err
 			}
 			path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid, format)
 			if err != nil {
-				return nil, err
+				return nil, format, err
 			}
 			pathList = append(pathList, path)
 		}
 	}
 
-	return pathList, nil
+	return pathList, format, nil
 
 }
 
@@ -184,13 +182,7 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	return objectUuid, nil
 }
 
-func CreatePreSignedUrls(objectKey string, aspectRation uint32) string {
-	var format = ""
-	if strings.Contains(objectKey, "png") {
-		format = "png"
-	} else {
-		format = "gif"
-	}
+func CreatePreSignedUrls(objectKey string, aspectRation uint32, format string) string {
 	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.%s", objectKey, aspectRation, format), time.Minute*10)
 	if err != nil {
 		log.Panicf("failed to fetch object %s/%d", objectKey, aspectRation)

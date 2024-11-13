@@ -39,7 +39,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 	var dbSection Section
 	var assetInSectionCount int64
 
-	res, err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
+	res, format,  err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
 
 	if err != nil {
 		fmt.Printf("error in creating asset: %s", err.Error())
@@ -52,6 +52,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 		OrderIndex: uint32(assetInSectionCount),
 		SectionID:  domainAsset.SectionId,
 		BlobPath:   res[0],
+		Format: format,
 	}
 
 	dbRes := db.Create(&asset)
