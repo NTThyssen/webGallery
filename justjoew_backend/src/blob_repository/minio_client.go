@@ -5,8 +5,8 @@ import (
 	"context"
 	"fmt"
 	"image"
+	"image/color"
 	"image/color/palette"
-	"image/draw"
 	"image/gif"
 	"image/png"
 	"strings"
@@ -63,7 +63,7 @@ func InitClient() {
 }
 
 func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
-	// Create a bytes.Reader to read the GIF data from memory
+		// Create a bytes.Reader to read the GIF data from memory
 	reader := bytes.NewReader(gifData)
 
 	// Decode the GIF
@@ -76,16 +76,37 @@ func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
 	g.Config.Width = int(width)
 	g.Config.Height = int(height)
 
-	// Resize each frame and align it to the global canvas dimensions
-	for i := range g.Image {
+	// Resize each frame and maintain transparency
+	for i, originalFrame := range g.Image {
 		// Resize the frame
-		resizedFrame := resize.Resize(width, height, g.Image[i], resize.Lanczos3)
+		resizedFrame := resize.Resize(width, height, originalFrame, resize.Lanczos3)
 
-		// Convert resized frame to *image.Paletted
-		palettedFrame := image.NewPaletted(image.Rect(0, 0, int(width), int(height)), palette.Plan9)
-		draw.FloydSteinberg.Draw(palettedFrame, resizedFrame.Bounds(), resizedFrame, image.Point{})
+		// Create a paletted image with a transparent palette
+		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), palette.Plan9)
 
-		// Replace the frame with the paletted version aligned to the global canvas
+		// Identify the transparent color in the original frame
+		var transparent color.Color
+		if originalFrame.Palette != nil {
+			transparent = originalFrame.Palette[originalFrame.Palette.Index(originalFrame.At(0, 0))]
+		} else {
+			// Use white as a default fallback if no palette is set (uncommon)
+			transparent = color.RGBA{255, 255, 255, 0}
+		}
+
+		// Apply resized frame onto the paletted frame, setting transparent pixels
+		for y := 0; y < palettedFrame.Bounds().Dy(); y++ {
+			for x := 0; x < palettedFrame.Bounds().Dx(); x++ {
+				col := resizedFrame.At(x, y)
+				if col == transparent {
+					// Set the transparent color
+					palettedFrame.Set(x, y, transparent)
+				} else {
+					palettedFrame.Set(x, y, col)
+				}
+			}
+		}
+
+		// Replace the frame with the paletted version
 		g.Image[i] = palettedFrame
 		g.Delay[i] = g.Delay[i] // Keep original delay for each frame
 	}
