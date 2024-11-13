@@ -60,45 +60,32 @@ func InitClient() {
 	log.Printf("is online: %v ", minioClient.IsOnline())
 }
 
-func ResizeGif(byteArray []byte, size uint) ([]byte, error) {
-	// Decode GIF and get all frames
-	gifImg, err := gif.DecodeAll(bytes.NewReader(byteArray))
+func ResizeGif(gifData []byte, size uint )([]byte, error) {
+	// Create a bytes.Reader to read the GIF data from memory
+	reader := bytes.NewReader(gifData)
+	var width, height = size, size;
+	// Decode the GIF
+	g, err := gif.DecodeAll(reader)
 	if err != nil {
-		return nil, fmt.Errorf("failed to decode GIF: %v", err)
+		return nil, err
 	}
 
-	// Create a new GIF to hold the resized frames
-	resizedGif := &gif.GIF{
-		Delay:     gifImg.Delay,
-		LoopCount: gifImg.LoopCount,
-	}
-
-	// Resize each frame and convert it to Paletted
-	for _, frame := range gifImg.Image {
+	// Resize each frame
+	for i := range g.Image {
 		// Resize the frame
-		resizedFrame := resize.Resize(size, size, frame, resize.Lanczos3)
-
-		// Create a new paletted image with the same bounds and palette as the original GIF
-		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
-
-		// Draw the resized frame onto the new paletted image
-		for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
-			for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
-				palettedFrame.Set(x, y, resizedFrame.At(x, y))
-			}
-		}
-
-		// Append the resized paletted frame to the new GIF
-		resizedGif.Image = append(resizedGif.Image, palettedFrame)
+		g.Image[i] = resize.Resize(width, height, g.Image[i], resize.Lanczos3).(*image.Paletted)
+		g.Delay[i] = g.Delay[i] // Keep original delay for each frame
 	}
 
-	// Encode the resized frames back into an animated GIF
-	var buf bytes.Buffer
-	if err := gif.EncodeAll(&buf, resizedGif); err != nil {
-		return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
+	// Encode the resized GIF to a new byte buffer
+	var outputBuffer bytes.Buffer
+	err = gif.EncodeAll(&outputBuffer, g)
+	if err != nil {
+		return nil, err
 	}
 
-	return buf.Bytes(), nil
+	// Return the resized GIF as a byte array
+	return outputBuffer.Bytes(), nil
 }
 
 func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
