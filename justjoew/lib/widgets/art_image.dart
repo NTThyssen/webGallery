@@ -51,6 +51,7 @@ class _ArtImageState extends State<ArtImage> {
                         children: [
                           // Main image content
                           if(state is SectionReady)
+                            for(var asset in state.sectionList)
                             FadeInImage.memoryNetwork(
                               placeholder: kTransparentImage,
                               image: state.sectionList[0].assetList[0].bloburl,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/cubit/section_cubit.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
@@ -36,54 +38,66 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Use calculated padding
-        child: Column(
-          children: [
-            Center(
-              child: CustomHeaderLarge(text: AppStrings.emotesHeader),
-            ),
-            EmoteSection(
-              header: AppStrings.scatrattHeader,
-              url: AppStrings.scatrattUrl,
-              portfolioWidgets: [
-                ArtImage(path: ImageStrings.ratCry),
-                ArtImage(path: ImageStrings.ratEz),
-                ArtImage(path: ImageStrings.ratHeart),
-                ArtImage(path: ImageStrings.ratWave),
-                ArtImage(path: ImageStrings.ratLul),
-                ArtImage(path: ImageStrings.ratPat),
-                ArtImage(path: ImageStrings.ratLurk),
-                ArtImage(path: ImageStrings.ratHydrate),
-                ArtImage(path: ImageStrings.ratFine),
-                ArtImage(path: ImageStrings.ratPopcorn),
-                ArtImage(path: ImageStrings.ratdead),
-                _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
-                _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
-                _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
-              ],
-            ),
-            EmoteSection(
-              header: AppStrings.olmaphHeader,
-              url: AppStrings.olmaphUrl,
-              portfolioWidgets: [
-                ArtImage(path: ImageStrings.ollieWave),
-                ArtImage(path: ImageStrings.ollieSnickers),
-                ArtImage(path: ImageStrings.ollieToni),
-                ArtImage(path: ImageStrings.ollieWiggly),
-                _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
-                _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
-                _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.large),
-          ],
-        ),
+        padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding), // Use calculated padding
+        child:
+            BlocBuilder<SectionCubit, SectionState>(builder: (context, state) {
+          return Column(
+            children: [
+             const Center(
+                child: CustomHeaderLarge(text: AppStrings.emotesHeader),
+              ),
+              if (state is SectionLoading) const CircularProgressIndicator(),
+              if (state is SectionReady)
+              for(var section in state.sectionList)
+                EmoteSection(
+                  header: section.name,
+                  url: AppStrings.scatrattUrl,
+                  portfolioWidgets: [
+                    ArtImage(path: ImageStrings.ratCry),
+                    ArtImage(path: ImageStrings.ratEz),
+                    ArtImage(path: ImageStrings.ratHeart),
+                    ArtImage(path: ImageStrings.ratWave),
+                    ArtImage(path: ImageStrings.ratLul),
+                    ArtImage(path: ImageStrings.ratPat),
+                    ArtImage(path: ImageStrings.ratLurk),
+                    ArtImage(path: ImageStrings.ratHydrate),
+                    ArtImage(path: ImageStrings.ratFine),
+                    ArtImage(path: ImageStrings.ratPopcorn),
+                    ArtImage(path: ImageStrings.ratdead),
+                    _buildGif(
+                        ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
+                    _buildGif(
+                        ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
+                    _buildGif(ImageStrings.ratfight, controllers[5], gifSize, 16),
+                  ],
+                ),
+              EmoteSection(
+                header: AppStrings.olmaphHeader,
+                url: AppStrings.olmaphUrl,
+                portfolioWidgets: [
+                  ArtImage(path: ImageStrings.ollieWave),
+                  ArtImage(path: ImageStrings.ollieSnickers),
+                  ArtImage(path: ImageStrings.ollieToni),
+                  ArtImage(path: ImageStrings.ollieWiggly),
+                  _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
+                  _buildGif(
+                      ImageStrings.olliePump, controllers[3], gifSize, 20),
+                  _buildGif(
+                      ImageStrings.wiggly350, controllers[4], gifSize, 20),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.large),
+            ],
+          );
+        }),
       ),
     );
   }
 
   // Helper method to create a GIF widget
-  Widget _buildGif(String path, GifController controller, double size, int fps) {
+  Widget _buildGif(
+      String path, GifController controller, double size, int fps) {
     return Gif(
       width: size,
       height: size,
@@ -128,7 +142,8 @@ class EmoteSection extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+          content: Text('Could not launch $url',
+              style: Theme.of(context).textTheme.labelSmall),
         ),
       );
     }
@@ -148,8 +163,9 @@ class EmoteSection extends StatelessWidget {
             child: Text(
               header,
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                fontWeight: FontWeight.w500, // Montserrat for section headers
-              ),
+                    fontWeight:
+                        FontWeight.w500, // Montserrat for section headers
+                  ),
             ),
           ),
         ),

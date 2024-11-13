@@ -6,12 +6,13 @@ class Section extends Equatable {
   int id;
   String name;
   List<Asset> assetList;
+  String sectionlUrl;
 
-  Section(this.id, this.name, this.assetList);
+  Section(this.id, this.name, this.assetList, this.sectionlUrl);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, name, assetList];
+  List<Object?> get props => [id, name, assetList, sectionlUrl];
 }
 
 // ignore: must_be_immutable
