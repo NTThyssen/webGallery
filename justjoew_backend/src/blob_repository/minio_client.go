@@ -62,27 +62,32 @@ func InitClient() {
 	log.Printf("is online: %v ", minioClient.IsOnline())
 }
 
-func ResizeGif(gifData []byte, size uint )([]byte, error) {
-		// Create a bytes.Reader to read the GIF data from memory
+func ResizeGif(gifData []byte, width, height uint) ([]byte, error) {
+	// Create a bytes.Reader to read the GIF data from memory
 	reader := bytes.NewReader(gifData)
-	var width, height = size, size;
+
 	// Decode the GIF
 	g, err := gif.DecodeAll(reader)
 	if err != nil {
 		return nil, err
 	}
 
-	// Resize each frame
+	// Set the global dimensions to the target width and height
+	g.Config.Width = int(width)
+	g.Config.Height = int(height)
+
+	// Resize each frame and align it to the global canvas dimensions
 	for i := range g.Image {
 		// Resize the frame
 		resizedFrame := resize.Resize(width, height, g.Image[i], resize.Lanczos3)
 
 		// Convert resized frame to *image.Paletted
-		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), palette.Plan9)
+		palettedFrame := image.NewPaletted(image.Rect(0, 0, int(width), int(height)), palette.Plan9)
 		draw.FloydSteinberg.Draw(palettedFrame, resizedFrame.Bounds(), resizedFrame, image.Point{})
 
-		// Replace the frame with the paletted version
+		// Replace the frame with the paletted version aligned to the global canvas
 		g.Image[i] = palettedFrame
+		g.Delay[i] = g.Delay[i] // Keep original delay for each frame
 	}
 
 	// Encode the resized GIF to a new byte buffer
@@ -110,7 +115,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	if format == "gif" {
 		// Handle animated GIFs using ResizeGif function
 		for _, size := range sizesList {
-			resizedGif, err := ResizeGif(byteArray, size)
+			resizedGif, err := ResizeGif(byteArray, size, size)
 			if err != nil {
 				fmt.Printf("failed to resize GIF: %v", err)
 				return nil, fmt.Errorf("failed to resize GIF: %v", err)
