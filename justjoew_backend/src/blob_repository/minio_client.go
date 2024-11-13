@@ -95,10 +95,11 @@ func ResizeGif(byteArray []byte, sizesList []uint) ([]byte, error) {
 		}
 
 		// Encode the resized frames back into an animated GIF
-	
-		if err := gif.EncodeAll(&buf, resizedGif); err != nil {
+		var buflocal bytes.Buffer
+		if err := gif.EncodeAll(&buflocal, resizedGif); err != nil {
 			return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
 		}
+		buf = buflocal;
 	}
 
 	return buf.Bytes(), nil
