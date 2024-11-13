@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	pb "justjoew/backend/protos"
 	blobrepository "justjoew/backend/src/blob_repository"
 	"log"
@@ -41,6 +42,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 	res, err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
 
 	if err != nil {
+		fmt.Printf("error in creating asset: %s", err.Error())
 		return Asset{}, err
 	}
 	dbSection.ID = uint(domainAsset.SectionId)
