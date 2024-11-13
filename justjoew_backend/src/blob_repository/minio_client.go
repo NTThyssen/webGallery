@@ -60,6 +60,41 @@ func InitClient() {
 	log.Printf("is online: %v ", minioClient.IsOnline())
 }
 
+func ResizeGif(byteArray []byte, sizesList []uint) ([]byte, error) {
+	// Decode GIF and get all frames
+	gifImg, err := gif.DecodeAll(bytes.NewReader(byteArray))
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode GIF: %v", err)
+	}
+
+	// Resize each frame and convert it to Paletted
+	for i, frame := range gifImg.Image {
+		// Resize the frame
+		resizedFrame := resize.Resize(sizesList[0], sizesList[0], frame, resize.Lanczos3)
+
+		// Create a new paletted image with the same bounds and palette as the original GIF
+		palettedFrame := image.NewPaletted(resizedFrame.Bounds(), frame.Palette)
+
+		// Draw the resized RGBA frame onto the new paletted image
+		for y := 0; y < resizedFrame.Bounds().Dy(); y++ {
+			for x := 0; x < resizedFrame.Bounds().Dx(); x++ {
+				palettedFrame.Set(x, y, resizedFrame.At(x, y))
+			}
+		}
+
+		// Update the GIF image with the resized paletted frame
+		gifImg.Image[i] = palettedFrame
+	}
+
+	// Encode the resized frames back into an animated GIF
+	var buf bytes.Buffer
+	if err := gif.EncodeAll(&buf, gifImg); err != nil {
+		return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
+	}
+
+	return buf.Bytes(), nil
+}
+
 func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	sizesList := []uint{512, 384, 256, 196, 128, 112, 56, 28}
 	pathList := []string{}
@@ -71,25 +106,13 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 	}
 
 	if format == "gif" {
-		// Handle animated GIFs
-		gifImg, err := gif.DecodeAll(bytes.NewReader(byteArray))
-		if err != nil {
-			return nil, fmt.Errorf("failed to decode GIF: %v", err)
-		}
-
-		for _, v := range sizesList {
-			resizedGif := &gif.GIF{}
-			for _, frame := range gifImg.Image {
-				resizedFrame := resize.Resize(v, v, frame, resize.Lanczos3)
-				resizedGif.Image = append(resizedGif.Image, resizedFrame.(*image.Paletted))
-				resizedGif.Delay = append(resizedGif.Delay, gifImg.Delay[0])
+		// Handle animated GIFs using ResizeGif function
+		for _, size := range sizesList {
+			resizedGif, err := ResizeGif(byteArray, []uint{size})
+			if err != nil {
+				return nil, fmt.Errorf("failed to resize GIF: %v", err)
 			}
-
-			var buf bytes.Buffer
-			if err := gif.EncodeAll(&buf, resizedGif); err != nil {
-				return nil, fmt.Errorf("failed to encode resized GIF: %v", err)
-			}
-			path, err := uploadAsset(buf.Bytes(), filename, v, objectUuid, format)
+			path, err := uploadAsset(resizedGif, filename, size, objectUuid, format)
 			if err != nil {
 				return nil, err
 			}
@@ -129,7 +152,7 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 			objectUuid, ratio, format),
 		reader,
 		reader.Size(),
-		minio.PutObjectOptions{ContentType:  fmt.Sprintf("image/%s", format), UserMetadata: metadata})
+		minio.PutObjectOptions{ContentType: fmt.Sprintf("image/%s", format), UserMetadata: metadata})
 
 	if err != nil {
 		log.Panicln(err)
@@ -140,9 +163,9 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 
 func CreatePreSignedUrls(objectKey string, aspectRation uint32) string {
 	var format = ""
-	if strings.Contains(objectKey, ".png"){
+	if strings.Contains(objectKey, "png") {
 		format = "png"
-	}else{
+	} else {
 		format = "gif"
 	}
 	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.%s", objectKey, aspectRation, format), time.Minute*10)
@@ -165,16 +188,14 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 	return preSignedURL.String(), nil
 }
 
-
-func DeleteAsset(bucketName, objectName string) (error) {
+func DeleteAsset(bucketName, objectName string) error {
 
 	// Generate pre-signed GET URL
 	err := minioClient.RemoveObject(context.Background(), bucketName, objectName, minio.RemoveObjectOptions{})
 
 	if err != nil {
-		return  err
+		return err
 	}
 
 	return err
 }
-
