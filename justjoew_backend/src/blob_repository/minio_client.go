@@ -102,6 +102,7 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 
 	img, format, err := image.Decode(bytes.NewReader(byteArray))
 	if err != nil {
+		fmt.Printf("failed to decode image: %v", err)
 		return nil, fmt.Errorf("failed to decode image: %v", err)
 	}
 
@@ -110,10 +111,12 @@ func ResizeImageAndUpload(byteArray []byte, filename string) ([]string, error) {
 		for _, size := range sizesList {
 			resizedGif, err := ResizeGif(byteArray, []uint{size})
 			if err != nil {
+				fmt.Printf("failed to resize GIF: %v", err)
 				return nil, fmt.Errorf("failed to resize GIF: %v", err)
 			}
 			path, err := uploadAsset(resizedGif, filename, size, objectUuid, format)
 			if err != nil {
+				fmt.Printf("failed to upload GIF: %v", err)
 				return nil, err
 			}
 			pathList = append(pathList, path)
