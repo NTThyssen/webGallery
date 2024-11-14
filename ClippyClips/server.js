@@ -47,6 +47,7 @@ async function getClips() {
       params: {
         broadcaster_id: TWITCH_CHANNEL_NAME,
         first: 50, // Fetch 50 clips to increase randomness
+        started_at: '2024-09-01T00:00:00Z'
       },
     });
 
