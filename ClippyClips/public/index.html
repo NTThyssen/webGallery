@@ -30,14 +30,16 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      width: 80%;
-      max-width: 900px;
+      width: 100%;
+      max-width: 1440px; /* Increase max width to maximize quality */
       position: relative;
     }
 
     /* Iframe styling with responsive scaling */
     iframe {
       width: 100%;
+      height: 100%;
+      max-width: 1440px;
       aspect-ratio: 16 / 9; /* Keeps 16:9 ratio for responsive sizing */
       border-radius: 8px;
       outline: none;
@@ -100,9 +102,7 @@
       const clipPlayer = document.getElementById('clip-player');
 
       // Construct the embed URL with the necessary parent parameter
-      //const embedUrl = `${clip.embed_url}&parent=clips.justjoew.com&autoplay=true`;
       const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
-
 
       // Set a slight delay before loading the clip (0.5 seconds)
       setTimeout(() => {
