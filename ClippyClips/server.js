@@ -9,6 +9,10 @@ const port = 3003;
 // Serve static files in the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
 // Function to get clips from the Twitch API
 async function getClips() {
     const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_CHANNEL_NAME } = process.env;
@@ -57,6 +61,7 @@ app.get('/clips', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch clips' });
   }
 });
+
 /*
 async function getBroadcasterId(username) {
     const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
@@ -94,9 +99,7 @@ async function getBroadcasterId(username) {
   // Call this function with the username to get the ID
   getBroadcasterId('scatratt');
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+*/
 
 async function verifyUserById(userId) {
     const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
@@ -140,4 +143,3 @@ async function verifyUserById(userId) {
   verifyUserById('763795097'); // Replace with the ID you want to verify
 
 
-*/
