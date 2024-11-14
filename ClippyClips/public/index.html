@@ -100,7 +100,12 @@
       const clipPlayer = document.getElementById('clip-player');
 
       // Construct the embed URL with the necessary parent parameter
-      const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
+      const embedUrl = `${clip.embed_url}&parent=clips.justjoew.com&autoplay=true`;
+      
+
+      // Update title and details
+      document.getElementById('clip-title').textContent = clip.title;
+      document.getElementById('clip-details').textContent = `Clipped by ${clip.creator_name} on ${new Date(clip.created_at).toLocaleDateString()}`;
 
       // Set the new embed URL for the iframe
       clipPlayer.src = embedUrl;

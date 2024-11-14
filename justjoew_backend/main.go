@@ -26,6 +26,7 @@ func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*p
 	log.Printf("Received: %v", in.SectionId)
 	res, err := repository.CreateAsset(in)
 	if err != nil {
+	log.Printf("error: %v", err.Error())
 		return nil, err
 	}
 	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
@@ -39,14 +40,14 @@ func (s *server) DeleteSection(ctx context.Context, in *pb.DeleteSectionRequest)
 
 func (s *server) DeleteAsset(ctx context.Context, in *pb.DeleteAssetRequest) (*pb.DeleteAssetResponse, error) {
 	log.Printf("Received: %v", in.GetAssetId())
-	err := repository.DeleteSection(in.GetAssetId())
+	err := repository.DeleteAsset(in.GetAssetId())
 	return &pb.DeleteAssetResponse{}, err
 }
 
 func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest) (*pb.CreateSectionResponse, error) {
 	log.Printf("Received: %v", in.GetName())
-	res, err := repository.CreateSection(in.Name)
-	return &pb.CreateSectionResponse{Name: res}, err
+	res, err := repository.CreateSection(in.Name, in.SectionURL)
+	return &pb.CreateSectionResponse{Section: &pb.Section{Name: res.Name, SectionUrl: res.SectionUrl}}, err
 }
 
 func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error) {
@@ -77,7 +78,7 @@ func mapAssetsToResponse(assets []repository.Asset, aspectRation uint32) []*pb.A
 		resAsset := &pb.Asset{
 			Id:          uint32(asset.ID),
 			SectionName: asset.Section.Name,
-			BlobPath:    blobRepository.CreatePreSignedUrls(asset.BlobPath, aspectRation),
+			BlobPath:    blobRepository.CreatePreSignedUrls(asset.BlobPath, aspectRation, asset.Format),
 			OrderIndex:  asset.OrderIndex,
 			SectionId:   asset.SectionID,
 		}

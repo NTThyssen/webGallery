@@ -48,7 +48,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
   }
 
   void _showRenameDialog(BuildContext context) {
-    final TextEditingController nameController = TextEditingController(text: widget.section.name);
+    final TextEditingController nameController =
+        TextEditingController(text: widget.section.name);
     //final TextEditingController urlController = TextEditingController(text: widget.section.url);
 
     showDialog(
@@ -72,26 +73,31 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                   controller: nameController,
                   decoration: InputDecoration(
                     hintText: 'Enter Title',
-                    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
+                    hintStyle: AppTextStyles.formLabel
+                        .copyWith(color: AppColors.primary600),
                     filled: true,
                     fillColor: AppColors.darkGray,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 14.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  style: AppTextStyles.bodyText.copyWith(color: AppColors.white),
+                  style:
+                      AppTextStyles.bodyText.copyWith(color: AppColors.white),
                 ),
               ),
               TextField(
                 //controller: urlController,
                 decoration: InputDecoration(
                   hintText: 'Enter URL',
-                  hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),
+                  hintStyle: AppTextStyles.formLabel
+                      .copyWith(color: AppColors.primary600),
                   filled: true,
                   fillColor: AppColors.darkGray,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 14.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -107,7 +113,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
               onPressed: () => Navigator.pop(context),
               child: Text(
                 'Cancel',
-                style: AppTextStyles.buttonText.copyWith(color: AppColors.primary600),
+                style: AppTextStyles.buttonText
+                    .copyWith(color: AppColors.primary600),
               ),
             ),
             ElevatedButton(
@@ -120,7 +127,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 12.0),
               ),
               child: Text(
                 'Rename',
@@ -155,7 +163,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
               children: [
                 Text(
                   widget.section.name,
-                  style: AppTextStyles.headingSmall.copyWith(color: AppColors.primary),
+                  style: AppTextStyles.headingSmall
+                      .copyWith(color: AppColors.primary),
                 ),
                 PopupMenuButton<String>(
                   onSelected: (value) {
@@ -173,15 +182,21 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                       value: 'Rename',
                       child: Text(
                         'Rename Section',
-                        style: AppTextStyles.bodyText.copyWith(color: AppColors.primary),
+                        style: AppTextStyles.bodyText
+                            .copyWith(color: AppColors.primary),
                       ),
                     ),
                     PopupMenuItem(
                       value: 'Delete',
                       child: Text(
                         'Delete Section',
-                        style: AppTextStyles.bodyText.copyWith(color: Color.fromARGB(255, 229, 65, 62)),
+                        style: AppTextStyles.bodyText
+                            .copyWith(color: Color.fromARGB(255, 229, 65, 62)),
                       ),
+                      onTap: (){
+                        sectionCubit
+                            .deleteSection(widget.section.id);
+                      },
                     ),
                   ],
                   color: AppColors.darkGray,
@@ -210,13 +225,16 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                       scrollDirection: Axis.horizontal,
                       onReorder: (oldIndex, newIndex) {
                         setState(() {
-                          if (newIndex > widget.section.assetList.length) newIndex--;
-                          final item = widget.section.assetList.removeAt(oldIndex);
+                          if (newIndex > widget.section.assetList.length)
+                            newIndex--;
+                          final item =
+                              widget.section.assetList.removeAt(oldIndex);
                           widget.section.assetList.insert(newIndex, item);
                         });
                       },
                       buildDefaultDragHandles: false,
-                      proxyDecorator: (Widget child, int index, Animation<double> animation) {
+                      proxyDecorator: (Widget child, int index,
+                          Animation<double> animation) {
                         return Material(
                           color: Color.fromARGB(20, 0, 0, 0),
                           elevation: 1,
@@ -250,7 +268,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                               alignment: Alignment.center,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(AppSpacing.small),
+                                  borderRadius:
+                                      BorderRadius.circular(AppSpacing.small),
                                   child: Padding(
                                     padding: AppSpacing.paddingMedium,
                                     child: Container(
@@ -267,10 +286,14 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                                     top: 10,
                                     right: 10,
                                     child: IconButton(
-                                      icon: Icon(Icons.delete, color: Color.fromARGB(255, 255, 4, 0), size: 28,),
-                                      
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Color.fromARGB(255, 255, 4, 0),
+                                        size: 28,
+                                      ),
                                       onPressed: () {
-                                        // sectionCubit.deleteAsset(widget.section.id, asset.id);
+                                        sectionCubit.deleteAsset(
+                                            widget.section.assetList[index].id);
                                       },
                                     ),
                                   ),
@@ -295,7 +318,9 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
               alignment: Alignment.centerRight,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium, vertical: AppSpacing.small),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.medium,
+                      vertical: AppSpacing.small),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(AppSpacing.small),
                   ),
@@ -312,7 +337,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                 },
                 label: Text(
                   AppStrings.addAssetButton,
-                  style: AppTextStyles.buttonText.copyWith(color: AppColors.darkGray),
+                  style: AppTextStyles.buttonText
+                      .copyWith(color: AppColors.darkGray),
                 ),
               ),
             ),

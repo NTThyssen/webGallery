@@ -3,8 +3,8 @@ name: Build and Push Docker image
 on:
   push:
     paths:
-      - 'justjoew/**'
-      - '.github/workflows/docker-publish-joew.yml'
+      - 'ClippyClips/**'
+      - '.github/workflows/docker-publish-joew-clips.yml'
 permissions:
   contents: read
   packages: write
@@ -30,12 +30,12 @@ jobs:
     - name: Build and push Docker  image
       uses: docker/build-push-action@v3
       with:
-        context: ./justjoew
-        file: ./justjoew/Dockerfile
+        context: ./ClippyClips
+        file: ./ClippyClips/Dockerfile
         push: true
-        tags: ghcr.io/ntthyssen/justjoew:latest 
-    - name: Run curl command
-      if: github.ref == 'refs/heads/master'
-      run: |
-        curl -X POST "http://z-signal.net:9301/deploy?servicename=justjoew"
+        tags: ghcr.io/ntthyssen/justjoew_clips:latest 
+   # - name: Run curl command
+   #   if: github.ref == 'refs/heads/master'
+   #   run: |
+   #     curl -X POST "http://z-signal.net:9301/deploy?servicename=clips"
     

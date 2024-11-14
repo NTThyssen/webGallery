@@ -44,6 +44,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
             const Center(
               child: CustomHeaderLarge(text: AppStrings.emotesHeader),
             ),
+            
             EmoteSection(
               header: AppStrings.scatrattHeader,
               url: AppStrings.scatrattUrl,

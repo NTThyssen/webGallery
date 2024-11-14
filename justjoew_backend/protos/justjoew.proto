@@ -18,14 +18,16 @@ message Section {
   uint32 id = 1;
   string name = 2;
   repeated Asset assetList = 3;
+  string sectionUrl = 4;
 }
 
 message CreateSectionRequest {
   string name = 1;
+  string sectionURL = 2;
 }
 
 message CreateSectionResponse {
-  string name = 1;
+  Section section = 1;
 }
 
 message Asset {

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	pb "justjoew/backend/protos"
 	blobrepository "justjoew/backend/src/blob_repository"
 	"log"
@@ -23,24 +24,25 @@ func InitDb() {
 	db.AutoMigrate(&Section{}, &Asset{})
 }
 
-func CreateSection(sectionName string) (string, error) {
-	section := Section{Name: sectionName}
+func CreateSection(sectionName string, sectionUrl string) (Section, error) {
+	section := Section{Name: sectionName, SectionUrl: sectionUrl}
 	res := db.Create(&section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
-		return "", res.Error
+		return Section{}, res.Error
 	}
-	return sectionName, nil
+	return section, nil
 }
 
 func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 	var dbSection Section
 	var assetInSectionCount int64
 
-	res, err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
+	res, format,  err := blobrepository.ResizeImageAndUpload(domainAsset.Blob, domainAsset.Filename)
 
 	if err != nil {
+		fmt.Printf("error in creating asset: %s", err.Error())
 		return Asset{}, err
 	}
 	dbSection.ID = uint(domainAsset.SectionId)
@@ -50,6 +52,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 		OrderIndex: uint32(assetInSectionCount),
 		SectionID:  domainAsset.SectionId,
 		BlobPath:   res[0],
+		Format: format,
 	}
 
 	dbRes := db.Create(&asset)
@@ -71,9 +74,21 @@ func GetAllSections() ([]Section, error) {
 }
 
 func DeleteSection(sectionId uint32) error {
+	log.Printf("deleting section with id: %d", sectionId)
 
-	result := db.Delete("Section").Where(sectionId)
+	result := db.Where("id = ?", sectionId).Delete(&Section{})
 	if result.Error != nil {
+		log.Panicln(result.Error.Error())
+		return result.Error
+	}
+	return nil
+}
+
+func DeleteAsset(assetId uint32) error {
+	log.Printf("deleting asset with id: %d", assetId)
+	result := db.Where("id = ?", assetId).Delete(&Asset{})
+	if result.Error != nil {
+		log.Panicln(result.Error.Error())
 		return result.Error
 	}
 	return nil
