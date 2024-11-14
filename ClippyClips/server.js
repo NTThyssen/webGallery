@@ -13,43 +13,54 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-// Function to get clips from the Twitch API
-async function getClips() {
-    const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_CHANNEL_NAME } = process.env;
-  
-    try {
-        // Step 1: Get an OAuth token
-        const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
-            params: {
-                client_id: TWITCH_CLIENT_ID,
-                client_secret: TWITCH_CLIENT_SECRET,
-                grant_type: 'client_credentials',
-            },
-        });
-        const accessToken = tokenResponse.data.access_token;
-        console.log('Access Token:', accessToken); // Log the token to confirm it's being generated
-
-        // Step 2: Use the token to get clips starting from August 1, 2024
-        const clipsResponse = await axios.get(`https://api.twitch.tv/helix/clips`, {
-            headers: {
-                'Client-ID': TWITCH_CLIENT_ID,
-                Authorization: `Bearer ${accessToken}`,
-            },
-            params: {
-                broadcaster_id: TWITCH_CHANNEL_NAME,
-                first: 10, // Number of clips to fetch
-                started_at: '2024-09-01T00:00:00Z' // Starting date in ISO format (August 1, 2024)
-            },
-        });
-
-        console.log('Clips Response:', clipsResponse.data); // Log the response to check the data
-        return clipsResponse.data.data;
-    } catch (error) {
-        console.error('Error fetching clips:', error.response ? error.response.data : error.message);
-        return [];
-    }
+// Function to shuffle an array (Fisher-Yates Shuffle)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
+// Function to get clips from the Twitch API
+async function getClips() {
+  const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_CHANNEL_NAME } = process.env;
+
+  try {
+    // Step 1: Get an OAuth token
+    const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
+      params: {
+        client_id: TWITCH_CLIENT_ID,
+        client_secret: TWITCH_CLIENT_SECRET,
+        grant_type: 'client_credentials',
+      },
+    });
+    const accessToken = tokenResponse.data.access_token;
+    //console.log('Access Token:', accessToken); // Log the token to confirm it's being generated
+
+    // Step 2: Use the token to get clips without a date restriction
+    const clipsResponse = await axios.get(`https://api.twitch.tv/helix/clips`, {
+      headers: {
+        'Client-ID': TWITCH_CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        broadcaster_id: TWITCH_CHANNEL_NAME,
+        first: 50, // Fetch 50 clips to increase randomness
+      },
+    });
+
+    let clips = clipsResponse.data.data;
+    // Shuffle clips to add randomness
+    clips = shuffleArray(clips);
+
+    //console.log('Clips Response:', clips); // Log the response to check the data
+    return clips;
+  } catch (error) {
+    console.error('Error fetching clips:', error.response ? error.response.data : error.message);
+    return [];
+  }
+}
 
 // Endpoint to serve clips data to the frontend
 app.get('/clips', async (req, res) => {
@@ -98,48 +109,45 @@ async function getBroadcasterId(username) {
   
   // Call this function with the username to get the ID
   getBroadcasterId('scatratt');
-
 */
 
 async function verifyUserById(userId) {
-    const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
-  
-    try {
-      // Step 1: Get an OAuth token
-      const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
-        params: {
-          client_id: TWITCH_CLIENT_ID,
-          client_secret: TWITCH_CLIENT_SECRET,
-          grant_type: 'client_credentials',
-        },
-      });
-      const accessToken = tokenResponse.data.access_token;
-  
-      // Step 2: Use the token to get user information by ID
-      const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
-        headers: {
-          'Client-ID': TWITCH_CLIENT_ID,
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          id: userId, // Use the broadcaster ID here
-        },
-      });
-  
-      const userData = userResponse.data.data[0];
-      if (userData) {
-        console.log(`Verified User: ${userData.display_name} (ID: ${userData.id})`);
-        console.log(`User Bio: ${userData.description}`);
-        console.log(`Profile Image: ${userData.profile_image_url}`);
-      } else {
-        console.log('No user found with that ID.');
-      }
-    } catch (error) {
-      console.error('Error verifying user by ID:', error.response ? error.response.data : error.message);
+  const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
+
+  try {
+    // Step 1: Get an OAuth token
+    const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
+      params: {
+        client_id: TWITCH_CLIENT_ID,
+        client_secret: TWITCH_CLIENT_SECRET,
+        grant_type: 'client_credentials',
+      },
+    });
+    const accessToken = tokenResponse.data.access_token;
+
+    // Step 2: Use the token to get user information by ID
+    const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
+      headers: {
+        'Client-ID': TWITCH_CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        id: userId, // Use the broadcaster ID here
+      },
+    });
+
+    const userData = userResponse.data.data[0];
+    if (userData) {
+      console.log(`Verified User: ${userData.display_name} (ID: ${userData.id})`);
+      //console.log(`User Bio: ${userData.description}`);
+      //console.log(`Profile Image: ${userData.profile_image_url}`);
+    } else {
+      console.log('No user found with that ID.');
     }
+  } catch (error) {
+    console.error('Error verifying user by ID:', error.response ? error.response.data : error.message);
   }
-  
-  // Call this function with the broadcaster ID to verify
-  verifyUserById('763795097'); // Replace with the ID you want to verify
+}
 
-
+// Call this function with the broadcaster ID to verify
+verifyUserById('763795097'); // Replace with the ID you want to verify
