@@ -100,20 +100,24 @@
       const clipPlayer = document.getElementById('clip-player');
 
       // Construct the embed URL with the necessary parent parameter
-      const embedUrl = `${clip.embed_url}&parent=clips.justjoew.com&autoplay=true`;
+      //const embedUrl = `${clip.embed_url}&parent=clips.justjoew.com&autoplay=true`;
+      const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
 
-      // Set the new embed URL for the iframe
-      clipPlayer.src = embedUrl;
+
+      // Set a slight delay before loading the clip (0.5 seconds)
+      setTimeout(() => {
+        clipPlayer.src = embedUrl;
+      }, 1000);
 
       // Start the countdown timer based on clip duration
       const duration = Math.floor(clip.duration);
       startCountdown(duration);
 
-      // Move to the next clip after the clip's duration
+      // Move to the next clip after the clip's duration plus the extra delay (1 second)
       clipTimeout = setTimeout(() => {
         currentClipIndex = (currentClipIndex + 1) % clips.length; // Loop back to start if at the end
         playNextClip();
-      }, duration * 1000);
+      }, (duration + 4) * 1000); // Adding 1 second to the duration
     }
 
     function startCountdown(duration) {
