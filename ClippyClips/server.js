@@ -10,7 +10,7 @@ const port = 3003;
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at https://clips.justjoew.com:${port}`);
 });
 
 // Function to get clips from the Twitch API
