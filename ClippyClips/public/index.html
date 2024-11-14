@@ -109,6 +109,7 @@
     let clips = [];
     let currentClipIndex = 0;
     let countdownInterval;
+    let clipTimeout;
 
     async function loadClips() {
       try {
@@ -127,12 +128,15 @@
         return;
       }
 
+      // Clear any previous timeout and interval
+      clearInterval(countdownInterval);
+      clearTimeout(clipTimeout);
+
       const clip = clips[currentClipIndex];
       const clipPlayer = document.getElementById('clip-player');
 
       // Construct the embed URL with the necessary parent parameter
       const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
-      
 
       // Update title and details
       document.getElementById('clip-title').textContent = clip.title;
@@ -141,14 +145,15 @@
       // Set the new embed URL for the iframe
       clipPlayer.src = embedUrl;
 
-      // Start the countdown timer (assuming a standard clip duration for Twitch, since iframe doesn't allow direct control)
-      startCountdown(30); // Example countdown duration
+      // Start the countdown timer based on clip duration
+      const duration = Math.floor(clip.duration);
+      startCountdown(duration);
 
-      // Move to the next clip after a set duration
-      setTimeout(() => {
+      // Move to the next clip after the clip's duration
+      clipTimeout = setTimeout(() => {
         currentClipIndex = (currentClipIndex + 1) % clips.length; // Loop back to start if at the end
         playNextClip();
-      }, 30000); // Move to the next clip after 30 seconds
+      }, duration * 1000);
     }
 
     function startCountdown(duration) {
