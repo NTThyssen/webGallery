@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRB Clip Player</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Full-screen background */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1e1e1e;
+      font-family: Arial, sans-serif;
+      color: #f1f1f1;
+      overflow: hidden;
+    }
+
+    /* Container for the clip */
+    #clips-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 80%;
+      max-width: 900px;
+      position: relative;
+    }
+
+    /* Iframe styling */
+    iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Sleek Overlay for clip info */
+    .clip-info-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 45, 90, 0.85); /* Darker blue theme with transparency */
+      color: #ffffff;
+      padding: 10px 15px;
+      border-bottom-right-radius: 8px; /* Rounded bottom right corner only */
+      width: auto;
+      opacity: 0;
+      animation: fadeInOut 10s ease forwards;
+      font-size: 0.95em;
+      font-family: 'Segoe UI', sans-serif; /* Cleaner, more readable font */
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    .clip-info-overlay div {
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Subtle text shadow for readability */
+    }
+
+    /* Timer circle styling */
+    .timer {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 35px;
+      height: 35px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9em;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Fade in and out animation */
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-10px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="clips-container">
+    <div class="clip-info-overlay" id="clip-info">
+      <div id="clip-title">Loading clip...</div>
+      <div id="clip-details">Clip details will appear here.</div>
+    </div>
+    <iframe id="clip-player" allowfullscreen></iframe>
+    <div class="timer" id="timer">00</div>
+  </div>
+
+  <script>
+    let clips = [];
+    let currentClipIndex = 0;
+    let countdownInterval;
+
+    async function loadClips() {
+      try {
+        const response = await fetch('/clips');
+        clips = await response.json();
+        playNextClip();
+      } catch (error) {
+        console.error('Error loading clips:', error);
+      }
+    }
+
+    function playNextClip() {
+      if (clips.length === 0) {
+        document.getElementById('clip-title').textContent = 'No clips available';
+        document.getElementById('clip-details').textContent = '';
+        return;
+      }
+
+      const clip = clips[currentClipIndex];
+      const clipPlayer = document.getElementById('clip-player');
+
+      // Construct the embed URL with the necessary parent parameter
+      const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
+      
+
+      // Update title and details
+      document.getElementById('clip-title').textContent = clip.title;
+      document.getElementById('clip-details').textContent = `Clipped by ${clip.creator_name} on ${new Date(clip.created_at).toLocaleDateString()}`;
+
+      // Set the new embed URL for the iframe
+      clipPlayer.src = embedUrl;
+
+      // Start the countdown timer (assuming a standard clip duration for Twitch, since iframe doesn't allow direct control)
+      startCountdown(30); // Example countdown duration
+
+      // Move to the next clip after a set duration
+      setTimeout(() => {
+        currentClipIndex = (currentClipIndex + 1) % clips.length; // Loop back to start if at the end
+        playNextClip();
+      }, 30000); // Move to the next clip after 30 seconds
+    }
+
+    function startCountdown(duration) {
+      const timerElement = document.getElementById('timer');
+      let remainingTime = duration;
+
+      // Clear any existing interval
+      clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        timerElement.textContent = remainingTime;
+        remainingTime--;
+
+        // Stop countdown when it reaches zero
+        if (remainingTime < 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    }
+
+    // Load clips on page load
+    window.onload = loadClips;
+  </script>
+</body>
+</html>
