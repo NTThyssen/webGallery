@@ -126,28 +126,29 @@
       loadingSpinner.style.display = 'block';
 
       // Construct the embed URL with the necessary parent parameter
-      //const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
       const embedUrl = `${clip.embed_url}&parent=justjoew.com&autoplay=true`;
+      //const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
 
-      // Set a slight delay before loading the clip (0.5 seconds)
+      // Delay before setting the video source to allow the spinner to show (0.5 seconds)
       setTimeout(() => {
         clipPlayer.src = embedUrl;
         loadingSpinner.style.display = 'none'; // Hide spinner once video is ready
-      }, 1000);
+      }, 500);
 
       // Start the countdown timer based on clip duration
       const duration = Math.floor(clip.duration);
       startCountdown(duration);
 
-      // Show spinner again after video ends for transition delay (4 seconds)
+      // Move to the next clip after the clip's duration plus a 1-second delay
       clipTimeout = setTimeout(() => {
         loadingSpinner.style.display = 'block'; // Show spinner during transition
         currentClipIndex = (currentClipIndex + 1) % clips.length; // Loop back to start if at the end
+
         setTimeout(() => {
           loadingSpinner.style.display = 'none'; // Hide spinner before playing next clip
           playNextClip();
-        }, 2000); 
-      }, (duration + 2) * 1000);
+        }, 1000); // 1-second delay between clips
+      }, (duration + 1) * 1000); // Add 1 second to duration for delay
     }
 
     function startCountdown(duration) {
