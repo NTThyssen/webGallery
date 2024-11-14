@@ -73,44 +73,6 @@ app.get('/clips', async (req, res) => {
   }
 });
 
-/*
-async function getBroadcasterId(username) {
-    const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
-    
-    try {
-      // Step 1: Get an OAuth token
-      const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
-        params: {
-          client_id: TWITCH_CLIENT_ID,
-          client_secret: TWITCH_CLIENT_SECRET,
-          grant_type: 'client_credentials',
-        },
-      });
-      const accessToken = tokenResponse.data.access_token;
-  
-      // Step 2: Get the user information to find the broadcaster ID
-      const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
-        headers: {
-          'Client-ID': TWITCH_CLIENT_ID,
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          login: username, // Twitch username
-        },
-      });
-  
-      const userId = userResponse.data.data[0]?.id;
-      console.log(`Broadcaster ID for ${username} is: ${userId}`);
-      return userId;
-    } catch (error) {
-      console.error('Error fetching broadcaster ID:', error.response ? error.response.data : error.message);
-    }
-  }
-  
-  // Call this function with the username to get the ID
-  getBroadcasterId('scatratt');
-*/
-
 async function verifyUserById(userId) {
   const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
 
@@ -139,8 +101,6 @@ async function verifyUserById(userId) {
     const userData = userResponse.data.data[0];
     if (userData) {
       console.log(`Verified User: ${userData.display_name} (ID: ${userData.id})`);
-      //console.log(`User Bio: ${userData.description}`);
-      //console.log(`Profile Image: ${userData.profile_image_url}`);
     } else {
       console.log('No user found with that ID.');
     }
