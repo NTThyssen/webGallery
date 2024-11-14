@@ -30,16 +30,14 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      width: 100%;
-      max-width: 1440px; /* Increase max width to maximize quality */
+      width: 80%;
+      max-width: 900px;
       position: relative;
     }
 
     /* Iframe styling with responsive scaling */
     iframe {
       width: 100%;
-      height: 100%;
-      max-width: 1440px;
       aspect-ratio: 16 / 9; /* Keeps 16:9 ratio for responsive sizing */
       border-radius: 8px;
       outline: none;
@@ -65,12 +63,34 @@
       font-family: 'Segoe UI', sans-serif;
       z-index: 2;
     }
+
+    /* Loading spinner styling */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #ffffff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none; /* Initially hidden */
+      z-index: 3;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
   <div id="clips-container">
     <iframe id="clip-player" allowfullscreen></iframe>
     <div class="timer" id="timer">00</div>
+    <div class="loading-spinner" id="loading-spinner"></div>
   </div>
 
   <script>
@@ -100,6 +120,10 @@
 
       const clip = clips[currentClipIndex];
       const clipPlayer = document.getElementById('clip-player');
+      const loadingSpinner = document.getElementById('loading-spinner');
+
+      // Show the loading spinner
+      loadingSpinner.style.display = 'block';
 
       // Construct the embed URL with the necessary parent parameter
       const embedUrl = `${clip.embed_url}&parent=localhost&autoplay=true`;
@@ -107,17 +131,22 @@
       // Set a slight delay before loading the clip (0.5 seconds)
       setTimeout(() => {
         clipPlayer.src = embedUrl;
+        loadingSpinner.style.display = 'none'; // Hide spinner once video is ready
       }, 1000);
 
       // Start the countdown timer based on clip duration
       const duration = Math.floor(clip.duration);
       startCountdown(duration);
 
-      // Move to the next clip after the clip's duration plus the extra delay (1 second)
+      // Show spinner again after video ends for transition delay (4 seconds)
       clipTimeout = setTimeout(() => {
+        loadingSpinner.style.display = 'block'; // Show spinner during transition
         currentClipIndex = (currentClipIndex + 1) % clips.length; // Loop back to start if at the end
-        playNextClip();
-      }, (duration + 4) * 1000); // Adding 1 second to the duration
+        setTimeout(() => {
+          loadingSpinner.style.display = 'none'; // Hide spinner before playing next clip
+          playNextClip();
+        }, 2000); 
+      }, (duration + 2) * 1000);
     }
 
     function startCountdown(duration) {
