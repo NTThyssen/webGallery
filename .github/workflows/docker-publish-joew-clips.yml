@@ -34,8 +34,8 @@ jobs:
         file: ./ClippyClips/Dockerfile
         push: true
         tags: ghcr.io/ntthyssen/justjoew_clips:latest 
-   # - name: Run curl command
-   #   if: github.ref == 'refs/heads/master'
-   #   run: |
-   #     curl -X POST "http://z-signal.net:9301/deploy?servicename=clips"
+    - name: Run curl command
+      if: github.ref == 'refs/heads/master'
+      run: |
+        curl -X POST "http://z-signal.net:9301/deploy?servicename=clips"
     
