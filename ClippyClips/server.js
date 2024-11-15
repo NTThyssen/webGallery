@@ -111,7 +111,7 @@ async function getAllClips() {
     clips = shuffleArray(clips);
 
     // Optionally, limit to a smaller number for the response (e.g., 50 random clips)
-    return clips.slice(0, 50);
+    return clips.slice(0, 100);
   } catch (error) {
     console.error('Error fetching clips:', error.response ? error.response.data : error.message);
     return [];

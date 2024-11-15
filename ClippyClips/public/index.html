@@ -135,131 +135,151 @@
       display: block;
     }
   </style>
-</head>
-<body>
-  <div id="clips-container">
-    <video id="clip-player" autoplay playsinline muted></video>
-    <div class="loading-screen" id="loading-screen">
-      <div class="spinner"></div>
+  </head>
+  <body>
+    <div id="clips-container">
+      <video id="clip-player" autoplay playsinline muted></video>
+      <div class="loading-screen" id="loading-screen">
+        <div class="spinner"></div>
+      </div>
+      <div class="clip-info-overlay" id="clip-info">
+        <div id="clip-title">Loading clips...</div>
+        <div id="clip-details" class="clip-subinfo"></div>
+      </div>
+      <div class="timer" id="timer">00</div>
+      <button id="play-button" class="play-button">Enable Sound</button>
     </div>
-    <div class="clip-info-overlay" id="clip-info">
-      <div id="clip-title">Loading clips...</div>
-      <div id="clip-details" class="clip-subinfo"></div>
-    </div>
-    <div class="timer" id="timer">00</div>
-    <button id="play-button" class="play-button">Enable Sound</button>
-  </div>
 
-  <script>
-    let clips = [];
-    let currentClipIndex = 0;
-    let countdownInterval;
-    let soundEnabled = false;
-    let fadeTimeout;
+    <script>
+      let clips = [];
+      let currentClipIndex = 0;
+      let countdownInterval;
+      let soundEnabled = false;
+      let fadeTimeout;
 
-    function isOBS() {
-      const userAgent = navigator.userAgent;
-      return userAgent.includes("OBS");
-    }
+      function isOBS() {
+        const userAgent = navigator.userAgent;
+        return userAgent.includes("OBS");
+      }
 
-    function handleAutoplay(videoPlayer) {
-      const playButton = document.getElementById('play-button');
-      if (!isOBS() && !soundEnabled) {
-        playButton.classList.add('show');
-        playButton.addEventListener('click', () => {
-          soundEnabled = true;
+      function handleAutoplay(videoPlayer) {
+        const playButton = document.getElementById('play-button');
+        if (!isOBS() && !soundEnabled) {
+          playButton.classList.add('show');
+          playButton.addEventListener('click', () => {
+            soundEnabled = true;
+            videoPlayer.muted = false;
+            videoPlayer.play();
+            playButton.classList.remove('show');
+          });
+        } else {
           videoPlayer.muted = false;
           videoPlayer.play();
-          playButton.classList.remove('show');
-        });
-      } else {
-        videoPlayer.muted = false;
-        videoPlayer.play();
-      }
-    }
-
-    async function loadClips() {
-      try {
-        const response = await fetch('/clips');
-        clips = await response.json();
-        playNextClip();
-      } catch (error) {
-        console.error('Error loading clips:', error);
-      }
-    }
-
-    function playNextClip() {
-      const loadingScreen = document.getElementById('loading-screen');
-      loadingScreen.style.display = 'flex';
-      const clipInfoOverlay = document.getElementById('clip-info');
-
-      // Clear any previous fade timeout
-      clearTimeout(fadeTimeout);
-      clipInfoOverlay.style.opacity = 1; // Reset opacity when new clip starts
-
-      if (clips.length === 0) {
-        document.getElementById('clip-title').textContent = 'No clips available';
-        document.getElementById('clip-details').textContent = '';
-        return;
+        }
       }
 
-      const clip = clips[currentClipIndex];
-      const videoPlayer = document.getElementById('clip-player');
-
-      videoPlayer.pause();
-      videoPlayer.src = '';
-      videoPlayer.load();
-
-      const formattedDate = new Date(clip.created_at).toLocaleDateString('en-GB');
-      const gameName = clip.game_name || 'Unknown Game';
-      document.getElementById('clip-title').textContent = clip.title;
-      document.getElementById('clip-details').textContent = `${gameName} | ${formattedDate}`;
-
-      if (!clip.thumbnail_url.includes('static')) {
-        videoPlayer.src = clip.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
-        videoPlayer.oncanplay = () => {
-          loadingScreen.style.display = 'none';
-          handleAutoplay(videoPlayer);
-          startCountdown(videoPlayer);
-
-          // Fade out the details box after 10 seconds
-          fadeTimeout = setTimeout(() => {
-            clipInfoOverlay.style.opacity = 0;
-          }, 10000);
-        };
-      } else {
-        currentClipIndex = (currentClipIndex + 1) % clips.length;
-        playNextClip();
+      async function loadClips() {
+        try {
+          const response = await fetch('/clips');
+          clips = await response.json();
+          playNextClip();
+        } catch (error) {
+          console.error('Error loading clips:', error);
+        }
       }
 
-      videoPlayer.onended = () => {
+      function playNextClip() {
+        const loadingScreen = document.getElementById('loading-screen');
+        const clipInfoOverlay = document.getElementById('clip-info');
+        const videoPlayer = document.getElementById('clip-player');
+
+        // Show the loading screen immediately
         loadingScreen.style.display = 'flex';
-        setTimeout(() => {
+        videoPlayer.style.display = 'none'; // Hide the video player during the delay
+        clipInfoOverlay.style.opacity = 0; // Hide details initially
+
+        if (clips.length === 0) {
+          document.getElementById('clip-title').textContent = 'No clips available';
+          document.getElementById('clip-details').textContent = '';
+          return;
+        }
+
+        const clip = clips[currentClipIndex];
+
+        // Validate the clip and ensure it's not skipped before updating details
+        if (!clip.thumbnail_url.includes('static')) {
+          setTimeout(() => {
+            // Prepare the video for playback after the delay
+            videoPlayer.pause();
+            videoPlayer.src = ''; // Clear old video
+            videoPlayer.load();
+
+            videoPlayer.src = clip.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
+            videoPlayer.oncanplay = () => {
+              loadingScreen.style.display = 'none'; // Hide loading screen when ready
+              videoPlayer.style.display = 'block'; // Show video player
+
+              // Update clip details and make them visible
+              let streamTitle = clip.title;
+              if (streamTitle.includes('|')) {
+                streamTitle = streamTitle.split('|')[0].trim();
+              };
+              console.log(`Playing clip: ${clip.title}, ${new Date(clip.created_at).toLocaleDateString('en-GB')}, ${clip.game_name}`);
+              document.getElementById('clip-title').textContent =streamTitle;
+              const formattedDate = new Date(clip.created_at).toLocaleDateString('en-GB');
+              const gameName = clip.game_name || 'Unknown Game';
+              document.getElementById('clip-details').textContent = `${gameName} | ${formattedDate}`;
+              clipInfoOverlay.style.opacity = 1; // Show details box
+
+              handleAutoplay(videoPlayer);
+              startCountdown(videoPlayer);
+
+              // Fade out the details box after 10 seconds
+              setTimeout(() => {
+                clipInfoOverlay.style.opacity = 0;
+              }, 10000);
+            };
+          }, 2000); // 3-second delay
+        } else {
+          // Skip invalid clips without updating details
+          console.warn(`Static clip skipped: ${clip.title}, ${new Date(clip.created_at).toLocaleDateString('en-GB')}, ${clip.game_name}`);
           currentClipIndex = (currentClipIndex + 1) % clips.length;
           playNextClip();
-        }, 3000);
-      };
-
-      videoPlayer.onerror = () => {
-        currentClipIndex = (currentClipIndex + 1) % clips.length;
-        playNextClip();
-      };
-    }
-
-    function startCountdown(videoPlayer) {
-      const timerElement = document.getElementById('timer');
-      clearInterval(countdownInterval);
-
-      countdownInterval = setInterval(() => {
-        const remainingTime = Math.ceil(videoPlayer.duration - videoPlayer.currentTime);
-        timerElement.textContent = isNaN(remainingTime) || remainingTime < 0 ? '00' : remainingTime;
-        if (remainingTime <= 0) {
-          clearInterval(countdownInterval);
         }
-      }, 1000);
-    }
 
-    window.onload = loadClips;
-  </script>
-</body>
+        videoPlayer.onended = () => {
+          // Wait for a brief moment to ensure the video is completely finished
+          setTimeout(() => {
+            currentClipIndex = (currentClipIndex + 1) % clips.length;
+            playNextClip();
+          }, 500); // 500ms buffer to ensure the clip finishes completely
+        };
+
+
+        videoPlayer.onerror = () => {
+          currentClipIndex = (currentClipIndex + 1) % clips.length;
+          playNextClip();
+        };
+      }
+
+
+
+
+
+      function startCountdown(videoPlayer) {
+        const timerElement = document.getElementById('timer');
+        clearInterval(countdownInterval);
+
+        countdownInterval = setInterval(() => {
+          const remainingTime = Math.ceil(videoPlayer.duration - videoPlayer.currentTime);
+          timerElement.textContent = isNaN(remainingTime) || remainingTime < 0 ? '00' : remainingTime;
+          if (remainingTime <= 0) {
+            clearInterval(countdownInterval);
+          }
+        }, 1000);
+      }
+
+      window.onload = loadClips;
+    </script>
+  </body>
 </html>
