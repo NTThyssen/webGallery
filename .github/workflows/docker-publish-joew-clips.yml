@@ -37,5 +37,5 @@ jobs:
     - name: Run curl command
       if: github.ref == 'refs/heads/master'
       run: |
-        curl -X POST "http://z-signal.net:9301/deploy?servicename=clips"
+        curl -X POST "http://z-signal.net:9301/deploy?servicename=clips_server"
     
