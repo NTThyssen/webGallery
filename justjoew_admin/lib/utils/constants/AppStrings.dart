@@ -6,6 +6,8 @@ class AppStrings {
   static const String submit = 'Submit';
   static const String loading = 'Loading...';
   static const String noDataAvailable = 'No data available at this time.';
+  static const String errorAddingSection = 'Error adding section. Please try again.';
+  static const String errorLoadingData = 'Error loading data. Please try again.';
 
   // Messages
   static const String welcomeMessage = 'Welcome to JustJoeW!';
@@ -23,10 +25,17 @@ class AppStrings {
   static const String addNewSection = 'Add Section';
   static const String addNewAsset = 'Add New Asset';
   static const String unableToLoadSections = 'Unable to load sections';
-  
+
   // Section Dialog
   static const String addSectionTitle = 'New Section';
-  static const String sectionTitleHint = 'Title';
+  static const String sectionTitleHint = 'Enter section title';
+  static const String sectionUrlHint = 'Enter Twitch URL';
+
+  // Rename Dialog
+  static const String renameSectionTitle = 'Rename Section';
+  static const String renameSectionNameHint = 'Enter new section name';
+  static const String renameSectionUrlHint = 'Enter new Twitch URL';
+  static const String renameSectionButton = 'Rename';
 
   // Form Labels
   static const String nameLabel = 'Name';
@@ -39,7 +48,7 @@ class AppStrings {
   static const String subjectHint = 'Please enter the subject';
   static const String messageLabel = 'Message';
   static const String messageHint = 'Please enter your message';
-  
+
   // Buttons
   static const String loginButton = 'Login';
   static const String registerButton = 'Register';
@@ -54,8 +63,7 @@ class AppStrings {
   static const String joeHeader = 'JustJoew';
   static const String joeUrl = 'https://www.twitch.tv/imjustjoew/about';
 
-
+  // File Picker
   static const String pickAndUploadFile = 'Pick and Upload File';
   static const String selectedFile = 'Selected file:';
-
 }
