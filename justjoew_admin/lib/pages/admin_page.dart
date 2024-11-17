@@ -29,14 +29,13 @@ class AdminPage extends StatelessWidget {
           AppStrings.appName, // Display the app name as the title
           style: AppTextStyles.pagetitle,
         ),
-        
         centerTitle: true,
         backgroundColor: AppColors.background,
         elevation: 1.0,
       ),
       backgroundColor: AppColors.background,
       body: Stack(
-        children: [          
+        children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
             child: SingleChildScrollView(
@@ -54,6 +53,14 @@ class AdminPage extends StatelessWidget {
                         );
                       }
                       if (state is SectionReady) {
+                        if (state.sectionList.isEmpty) {
+                          return Center(
+                            child: Text(
+                              AppStrings.noDataAvailable,
+                              style: AppTextStyles.bodyText.copyWith(color: AppColors.textSecondary),
+                            ),
+                          );
+                        }
                         return Column(
                           children: List.generate(
                             state.sectionList.length,
@@ -64,16 +71,20 @@ class AdminPage extends StatelessWidget {
                           ),
                         );
                       }
-                      return Center(
-                        child: Text(
-                          AppStrings.noDataAvailable,
-                          style: AppTextStyles.bodyText.copyWith(color: AppColors.textSecondary),
-                        ),
+                      if (state is SectionError) {
+                        return Center(
+                          child: Text(
+                            AppStrings.errorLoadingData,
+                            style: AppTextStyles.bodyText.copyWith(color: AppColors.error),
+                          ),
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(color: AppColors.primary),
                       );
                     },
                   ),
-                  const SizedBox(height: AppSpacing.xxl), 
-
+                  const SizedBox(height: AppSpacing.xxl),
                 ],
               ),
             ),
@@ -83,7 +94,24 @@ class AdminPage extends StatelessWidget {
             right: AppSpacing.xxl,
             child: ElevatedButton.icon(
               onPressed: () async {
-                await showSectionDialog(context, sectionCubit);
+                showDialog(
+                  context: context,
+                  barrierDismissible: false, // Prevent dismissing the dialog
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  ),
+                );
+
+                try {
+                  await showSectionDialog(context, sectionCubit);
+                } catch (e) {
+                  // Handle errors appropriately
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(AppStrings.errorAddingSection)),
+                  );
+                } finally {
+                  Navigator.of(context).pop(); // Close the spinner dialog
+                }
               },
               label: Text(
                 AppStrings.addNewSection,
@@ -93,7 +121,7 @@ class AdminPage extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large, vertical: AppSpacing.medium*1.25),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large, vertical: AppSpacing.medium * 1.25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSpacing.small),
                 ),
