@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRB Clip Player</title>
+  <title>ScatRatt Clip Player</title>
   <style>
     /* Basic reset to remove default margins and paddings */
     * {
@@ -75,10 +75,10 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        padding: 10px 14px;
+        padding: clamp(6px, 1.5vw, 14px);
         color: #ffffff;
         font-family: 'Segoe UI', sans-serif;
-        font-size: 1em;
+        font-size: clamp(0.8em, 2vw, 1.2em); /* Responsive font size */
         font-weight: bold;
         line-height: 1.4;
         max-width: 70%;
@@ -92,7 +92,7 @@
     /* Subtitle text within overlay */
     .clip-subinfo {
         font-weight: normal;
-        font-size: 0.85em;
+        font-size: clamp(0.7em, 1.8vw, 1em); /* Responsive font size */
         opacity: 0.85;
     }
 
@@ -101,20 +101,21 @@
         position: absolute;
         bottom: 10px;
         right: 10px;
-        width: 40px;
-        height: 40px;
+        width: clamp(30px, 6vw, 50px); /* Responsive size */
+        height: clamp(30px, 6vw, 50px); /* Responsive size */
         background-color: rgba(0, 0, 0, 0.8);
         color: #ffffff;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1em;
+        font-size: clamp(0.8em, 2vw, 1.2em); /* Responsive font size */
         font-weight: bold;
         font-family: 'Segoe UI', sans-serif;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         z-index: 2;
     }
+
 
     /* Play button styling for enabling sound */
     .play-button {
