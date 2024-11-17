@@ -22,59 +22,44 @@ function shuffleArray(array) {
   return array;
 }
 
-// Fetch game names using game IDs
-async function fetchGameNames(gameIds) {
+// Cached data for optimization
+let cachedClips = [];
+let lastFetched = 0;
+
+// Function to get the OAuth token (cached to avoid redundant requests)
+let cachedAccessToken = null;
+let tokenExpiry = 0;
+
+async function getOAuthToken() {
+  if (cachedAccessToken && Date.now() < tokenExpiry) {
+    return cachedAccessToken;
+  }
+
   const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
-  const accessTokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
+  const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
     params: {
       client_id: TWITCH_CLIENT_ID,
       client_secret: TWITCH_CLIENT_SECRET,
       grant_type: 'client_credentials',
     },
   });
-  const accessToken = accessTokenResponse.data.access_token;
 
-  try {
-    const response = await axios.get('https://api.twitch.tv/helix/games', {
-      headers: {
-        'Client-ID': TWITCH_CLIENT_ID,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        id: gameIds,
-      },
-    });
+  cachedAccessToken = tokenResponse.data.access_token;
+  tokenExpiry = Date.now() + tokenResponse.data.expires_in * 1000;
 
-    const gameData = {};
-    response.data.data.forEach((game) => {
-      gameData[game.id] = game.name;
-    });
-
-    return gameData;
-  } catch (error) {
-    console.error('Error fetching game names:', error.response ? error.response.data : error.message);
-    return {};
-  }
+  return cachedAccessToken;
 }
 
-// Function to get all clips from the Twitch API
+// Function to fetch all clips from the Twitch API
 async function getAllClips() {
-  const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_CHANNEL_NAME } = process.env;
+  const { TWITCH_CLIENT_ID, TWITCH_CHANNEL_NAME } = process.env;
   let clips = [];
-  let cursor = null; // For pagination
+  let cursor = null;
 
   try {
-    // Step 1: Get an OAuth token
-    const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
-      params: {
-        client_id: TWITCH_CLIENT_ID,
-        client_secret: TWITCH_CLIENT_SECRET,
-        grant_type: 'client_credentials',
-      },
-    });
-    const accessToken = tokenResponse.data.access_token;
+    const accessToken = await getOAuthToken();
 
-    // Step 2: Use the token to fetch clips across multiple pages
+    // Fetch clips across multiple pages
     do {
       const response = await axios.get('https://api.twitch.tv/helix/clips', {
         headers: {
@@ -95,53 +80,48 @@ async function getAllClips() {
       cursor = response.data.pagination.cursor;
     } while (cursor && clips.length < 1000); // Limit to 1000 clips to avoid excessive data
 
-    // Get unique game IDs
-    const gameIds = [...new Set(clips.map((clip) => clip.game_id).filter(Boolean))];
-
-    // Fetch game names
-    const gameNames = await fetchGameNames(gameIds);
-
-    // Add game names to clips
-    clips = clips.map((clip) => ({
-      ...clip,
-      game_name: gameNames[clip.game_id] || 'Unknown Game',
-    }));
-
-    // Shuffle the collected clips to add randomness
-    clips = shuffleArray(clips);
-
-    // Optionally, limit to a smaller number for the response (e.g., 50 random clips)
-    return clips.slice(0, 60);
+    console.log(`Total number of clips fetched: ${clips.length}`);
+    return clips;
   } catch (error) {
     console.error('Error fetching clips:', error.response ? error.response.data : error.message);
     return [];
   }
 }
 
+// Function to refresh clips cache
+async function refreshClipsCache() {
+  try {
+    cachedClips = await getAllClips();
+    lastFetched = Date.now();
+    console.log(`Clips cache refreshed at ${new Date(lastFetched)}`);
+  } catch (error) {
+    console.error('Failed to refresh clips cache:', error);
+  }
+}
+
+// Initial refresh
+refreshClipsCache();
+
+// Set an interval to refresh cache periodically
+setInterval(refreshClipsCache, 24 * 60 * 60 * 1000); // Refresh once a day //
+
 // Endpoint to serve clips data to the frontend
 app.get('/clips', async (req, res) => {
   try {
-    const clips = await getAllClips();
-    res.json(clips);
+    // Shuffle the cached clips to maintain randomness
+    const shuffledClips = shuffleArray([...cachedClips]);
+    res.json(shuffledClips);
   } catch (error) {
     console.error('Error fetching clips:', error);
     res.status(500).json({ error: 'Failed to fetch clips' });
   }
 });
 
-
+// Function to verify user by ID (not optimized, but reusable with cached tokens)
 async function verifyUserById(userId) {
-  const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
-
   try {
-    const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
-      params: {
-        client_id: TWITCH_CLIENT_ID,
-        client_secret: TWITCH_CLIENT_SECRET,
-        grant_type: 'client_credentials',
-      },
-    });
-    const accessToken = tokenResponse.data.access_token;
+    const accessToken = await getOAuthToken();
+    const { TWITCH_CLIENT_ID } = process.env;
 
     const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
       headers: {
