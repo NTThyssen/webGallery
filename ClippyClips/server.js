@@ -81,6 +81,19 @@ async function getAllClips() {
     } while (cursor && clips.length < 1000); // Limit to 1000 clips to avoid excessive data
 
     console.log(`Total number of clips fetched: ${clips.length}`);
+
+    // Get unique game IDs
+    const gameIds = [...new Set(clips.map((clip) => clip.game_id).filter(Boolean))];
+
+    // Fetch game names
+    const gameNames = await fetchGameNames(gameIds);
+
+    clips = clips.map((clip) => ({
+      ...clip,
+      game_name: gameNames[clip.game_id] || 'Unknown Game',
+    }));
+
+
     return clips;
   } catch (error) {
     console.error('Error fetching clips:', error.response ? error.response.data : error.message);
@@ -146,3 +159,38 @@ async function verifyUserById(userId) {
 
 // Call this function with the broadcaster ID to verify
 verifyUserById('763795097'); // Replace with the ID you want to verify
+
+// Fetch game names using game IDs
+async function fetchGameNames(gameIds) {
+  const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
+  const accessTokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', null, {
+    params: {
+      client_id: TWITCH_CLIENT_ID,
+      client_secret: TWITCH_CLIENT_SECRET,
+      grant_type: 'client_credentials',
+    },
+  });
+  const accessToken = accessTokenResponse.data.access_token;
+
+  try {
+    const response = await axios.get('https://api.twitch.tv/helix/games', {
+      headers: {
+        'Client-ID': TWITCH_CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        id: gameIds,
+      },
+    });
+
+    const gameData = {};
+    response.data.data.forEach((game) => {
+      gameData[game.id] = game.name;
+    });
+
+    return gameData;
+  } catch (error) {
+    console.error('Error fetching game names:', error.response ? error.response.data : error.message);
+    return {};
+  }
+}
