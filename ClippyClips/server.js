@@ -13,15 +13,6 @@ app.listen(port, () => {
   console.log(`Server running at https://clips.justjoew.com:${port}`);
 });
 
-// Function to shuffle an array (Fisher-Yates Shuffle)
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 // Cached data for optimization
 let cachedClips = [];
 let lastFetched = 0;
@@ -29,6 +20,38 @@ let lastFetched = 0;
 // Function to get the OAuth token (cached to avoid redundant requests)
 let cachedAccessToken = null;
 let tokenExpiry = 0;
+
+// Call this function with the broadcaster ID to verify
+verifyUserById('763795097'); // Replace with the ID you want to verify
+
+// Initial refresh
+refreshClipsCache();
+
+// Set an interval to refresh cache periodically
+setInterval(refreshClipsCache, 24 * 60 * 60 * 1000); // Refresh once a day //
+
+// Endpoint to serve clips data to the frontend
+app.get('/clips', async (req, res) => {
+  try {
+    // Shuffle the cached clips to maintain randomness
+    const shuffledClips = shuffleArray([...cachedClips]);
+    res.json(shuffledClips);
+  } catch (error) {
+    console.error('Error fetching clips:', error);
+    res.status(500).json({ error: 'Failed to fetch clips' });
+  }
+});
+
+// Function to refresh clips cache
+async function refreshClipsCache() {
+  try {
+    cachedClips = await getAllClips();
+    lastFetched = Date.now();
+    console.log(`Clips cache refreshed at ${new Date(lastFetched)}`);
+  } catch (error) {
+    console.error('Failed to refresh clips cache:', error);
+  }
+}
 
 async function getOAuthToken() {
   if (cachedAccessToken && Date.now() < tokenExpiry) {
@@ -101,65 +124,6 @@ async function getAllClips() {
   }
 }
 
-// Function to refresh clips cache
-async function refreshClipsCache() {
-  try {
-    cachedClips = await getAllClips();
-    lastFetched = Date.now();
-    console.log(`Clips cache refreshed at ${new Date(lastFetched)}`);
-  } catch (error) {
-    console.error('Failed to refresh clips cache:', error);
-  }
-}
-
-// Initial refresh
-refreshClipsCache();
-
-// Set an interval to refresh cache periodically
-setInterval(refreshClipsCache, 24 * 60 * 60 * 1000); // Refresh once a day //
-
-// Endpoint to serve clips data to the frontend
-app.get('/clips', async (req, res) => {
-  try {
-    // Shuffle the cached clips to maintain randomness
-    const shuffledClips = shuffleArray([...cachedClips]);
-    res.json(shuffledClips);
-  } catch (error) {
-    console.error('Error fetching clips:', error);
-    res.status(500).json({ error: 'Failed to fetch clips' });
-  }
-});
-
-// Function to verify user by ID (not optimized, but reusable with cached tokens)
-async function verifyUserById(userId) {
-  try {
-    const accessToken = await getOAuthToken();
-    const { TWITCH_CLIENT_ID } = process.env;
-
-    const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
-      headers: {
-        'Client-ID': TWITCH_CLIENT_ID,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        id: userId,
-      },
-    });
-
-    const userData = userResponse.data.data[0];
-    if (userData) {
-      console.log(`Verified User: ${userData.display_name} (ID: ${userData.id})`);
-    } else {
-      console.log('No user found with that ID.');
-    }
-  } catch (error) {
-    console.error('Error verifying user by ID:', error.response ? error.response.data : error.message);
-  }
-}
-
-// Call this function with the broadcaster ID to verify
-verifyUserById('763795097'); // Replace with the ID you want to verify
-
 // Fetch game names using game IDs
 async function fetchGameNames(gameIds) {
   const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
@@ -193,4 +157,40 @@ async function fetchGameNames(gameIds) {
     console.error('Error fetching game names:', error.response ? error.response.data : error.message);
     return {};
   }
+}
+
+// Function to verify user by ID 
+async function verifyUserById(userId) {
+  try {
+    const accessToken = await getOAuthToken();
+    const { TWITCH_CLIENT_ID } = process.env;
+
+    const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
+      headers: {
+        'Client-ID': TWITCH_CLIENT_ID,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        id: userId,
+      },
+    });
+
+    const userData = userResponse.data.data[0];
+    if (userData) {
+      console.log(`Verified User: ${userData.display_name} (ID: ${userData.id})`);
+    } else {
+      console.log('No user found with that ID.');
+    }
+  } catch (error) {
+    console.error('Error verifying user by ID:', error.response ? error.response.data : error.message);
+  }
+}
+
+// Function to shuffle an array (Fisher-Yates Shuffle)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
