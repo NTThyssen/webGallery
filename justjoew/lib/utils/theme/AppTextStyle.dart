@@ -70,6 +70,7 @@ class AppTextStyles {
     fontFamily: 'Montserrat',
     fontSize: 18,
     color: AppColors.link,
+    
   );
 
   static final TextStyle buttonText = const TextStyle(
