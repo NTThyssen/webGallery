@@ -136,7 +136,7 @@ static const String combinedProcessDescription =
 
   // Socials and Links
   static const String fiverrUrl = 'https://fiverr.com/justjoew';
-  static const String emailUrl = 'mailto:justjoewjoew@gmail.com';
+  static const String emailUrl = 'mailto:justjoew@outlook.com';
   static const String email = 'justjoewjoew@gmail.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
   static const String privacyPolicyLink = 'Privacy Policy';
