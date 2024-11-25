@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
@@ -8,6 +9,7 @@ import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/commission_package.dart';
 import 'package:justjoew/widgets/custom_header.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CommissionPage extends StatefulWidget {
   const CommissionPage({super.key});
@@ -165,45 +167,79 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       ],
     );
   }
-
   Widget _buildFAQSection() {
     final faqItems = [
       {
         "question": "How do I request a commission?",
-        "answer": "Getting started is easy! Before any commission, we’ll have a chat about expectations to ensure I’m the right fit for you. \nYou can either visit my Contact Page or book a Concept Chat on Ko-fi. \nOnce we’re aligned, I’ll guide you through the rest, and together we’ll create something amazing!",
+        "answer": [
+          {"text": "Getting started is easy! Before any commission, we’ll have a chat about expectations to ensure I’m the right fit for you. You can either visit my ", "isLink": false},
+          {"text": "Contact Page", "isLink": true, "link": AppRoutes.contact},
+          {"text": " or book a Concept Chat on ", "isLink": false},
+          {"text": "Ko-fi", "isLink": true, "link": "https://ko-fi.com/c/638bf59cac"},
+          {"text": ". Once we’re aligned, I’ll guide you through the rest, and together we’ll create something amazing!", "isLink": false}
+        ],
       },
       {
         "question": "What do you get?",
-        "answer": "You’ll receive high-quality PNG files at 128x128px, 300 DPI - Perfect for platforms like Twitch and Discord. \nFor more details on how you can use the emotes, check out my Usage License to understand what’s allowed and what’s not.",
-      }
+        "answer": [
+          {"text": "You’ll receive high-quality PNG files at 128x128px, 300 DPI—perfect for platforms like Twitch and Discord. For more details on how you can use the emotes, check out my ", "isLink": false},
+          {"text": "Usage License", "isLink": true, "link": AppRoutes.usage},
+          {"text": " to understand what’s allowed and what’s not.", "isLink": false}
+        ],
+      },
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-                const SizedBox(height: AppSpacing.medium),
-        ...faqItems.map((faq) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(
-                  faq["question"]!,
-                  style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary,)
+      children: faqItems.map((faq) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SelectableText(
+                faq["question"] as String, // Explicit cast to String
+                style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
+              ),
+              const SizedBox(height: AppSpacing.small * 0.5),
+              RichText(
+                text: TextSpan(
+                  children: (faq["answer"] as List<dynamic>).map<TextSpan>((answerPart) {
+                    final part = answerPart as Map<String, dynamic>;
+                    if (part["isLink"] == true) {
+                      return TextSpan(
+                        text: part["text"] as String, // Explicit cast to String
+                        style: AppTextStyles.bodyText.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            final link = part["link"] as String; // Explicit cast to String
+                            if (link.startsWith("http")) {
+                              launch(link);
+                            } else {
+                              context.go(link);
+                            }
+                          },
+                      );
+                    } else {
+                      return TextSpan(
+                        text: part["text"] as String, // Explicit cast to String
+                        style: AppTextStyles.bodyText
+                      );
+                    }
+                  }).toList(),
                 ),
-                const SizedBox(height: AppSpacing.small * 0.5),
-                SelectableText(
-                  faq["answer"]!,
-                  style: AppTextStyles.bodyText,
-                ),
-              ],
-            ),
-          );
-        }).toList(),
-      ],
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
+
+
+
 
   Widget _buildContactSection() {
     return Column(
