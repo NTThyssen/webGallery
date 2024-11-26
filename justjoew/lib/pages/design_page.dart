@@ -60,12 +60,12 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                         ArtImage(
                           asset: asset,
                         ),
-                      _buildGif(ImageStrings.ratDanceJam, controllers[0],
+                      /*_buildGif(ImageStrings.ratDanceJam, controllers[0],
                           gifSize, 16),
                       _buildGif(ImageStrings.ratShyNotNaked, controllers[1],
                           gifSize, 16),
                       _buildGif(
-                          ImageStrings.ratFight, controllers[5], gifSize, 16),
+                          ImageStrings.ratFight, controllers[5], gifSize, 16),*/
                     ],
                   ),
               /* EmoteSection(
@@ -83,7 +83,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                       ImageStrings.wiggly350, controllers[4], gifSize, 20),
                 ],
               ),*/
-              const SizedBox(height: AppSpacing.large),
+              const SizedBox(height: AppSpacing.xl),
             ],
           );
         }),

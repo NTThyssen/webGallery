@@ -12,7 +12,7 @@ class AssetRepository {
   Future<GetAllSectionsResonse> getAllSections() async {
     try {
       final response =
-          await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: 512));
+          await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: 112));
       return response;
     } catch (e) {
       throw ('Caught error: $e');
