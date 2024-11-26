@@ -10,8 +10,9 @@ import 'package:justjoew_admin/utils/theme/spacing.dart';
 
 class ReOrderableSection extends StatefulWidget {
   final Section section;
+  final BuildContext cubitContext;
 
-  const ReOrderableSection({Key? key, required this.section}) : super(key: key);
+  const ReOrderableSection({Key? key, required this.section, required this.cubitContext}) : super(key: key);
 
   @override
   _ReOrderableSectionState createState() => _ReOrderableSectionState();
@@ -143,7 +144,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
 
   @override
   Widget build(BuildContext context) {
-    var sectionCubit = context.read<SectionCubit>();
+    var sectionCubit = widget.cubitContext.read<SectionCubit>();
 
     return Card(
       color: AppColors.surface,
