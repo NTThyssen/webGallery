@@ -40,4 +40,10 @@ class SectionCubit extends Cubit<SectionState> {
           .add(Section(res.id, res.name, const [], res.sectionUrl));
     }
   }
+
+  void updateAssetOrder(int sectionId, int index)async {
+    var res = await _assetRepository.updateAssetOrder(sectionId, index);
+
+    getAllSections();
+  }
 }

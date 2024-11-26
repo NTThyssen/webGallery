@@ -42,7 +42,7 @@ Future<void> showSectionDialog(BuildContext context, SectionCubit sectionCubit) 
               ),
             ),
             TextField(
-              //controller: _urlController,
+              controller: _urlController,
               decoration: InputDecoration(
                 hintText: 'Enter URL',  // Updated hint text for URL
                 hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary600),

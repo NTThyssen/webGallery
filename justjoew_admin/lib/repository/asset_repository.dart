@@ -33,6 +33,21 @@ class AssetRepository {
     }
   }
 
+
+    Future<int> updateAssetOrder(
+     int sectionId, int orderIndex) async {
+    final request = UpdateAssetOrderRequest(
+        id:sectionId, orderIndex: orderIndex);
+    try {
+      final response = await stub!.updateAssetorder(request);
+      return response.newOrderIndex;
+    } catch (e) {
+      print('Caught error: $e');
+      throw Exception("failed to create asset");
+    }
+    
+  }
+
   Future<GetAllSectionsResonse> getAllSections() async {
     try {
       final response =
