@@ -41,41 +41,45 @@ class CommissionPackage extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                Text(
+               SelectableText(
                   title,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold, // Emphasize the package title
+                    fontWeight: FontWeight.w600, // Emphasize the package title
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.small),
-                Text(
+               SelectableText(
                   price,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600, // Emphasize the package title
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
           const SizedBox(height: AppSpacing.medium),
-          Text(
+          /*Text(
             description,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               height: 1.4, // Improve readability with line height
             ),
             textAlign: TextAlign.left,
           ),
-          const SizedBox(height: AppSpacing.medium),
+          const SizedBox(height: AppSpacing.medium),*/
           Divider(
             color: Theme.of(context).dividerTheme.color,
             thickness: Theme.of(context).dividerTheme.thickness,
           ),
           const SizedBox(height: AppSpacing.medium),
+          
+          _buildIconTextRow(context, Icons.check, emotes),
+          const SizedBox(height: AppSpacing.small),
           _buildIconTextRow(context, Icons.access_time, deliveryTime),
           const SizedBox(height: AppSpacing.small),
           _buildIconTextRow(context, Icons.replay, revisions),
-          const SizedBox(height: AppSpacing.small),
-          _buildIconTextRow(context, Icons.check, emotes),
+          
         ],
       ),
     );
@@ -87,7 +91,7 @@ class CommissionPackage extends StatelessWidget {
         Icon(icon, color: AppColors.commissionIcons, size: 20),
         const SizedBox(width: AppSpacing.small),
         Expanded(
-          child: Text(
+          child:SelectableText(
             text,
             style: Theme.of(context).textTheme.bodyMedium
           ),

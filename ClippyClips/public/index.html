@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScatRatt Clip Player</title>
+  <style>
+    /* Basic reset to remove default margins and paddings */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Full-screen background with centered content */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #1e1e1e;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    /* Main container for the video clip */
+    #clips-container {
+        width: 88%; /* Slightly reduced width for padding on smaller screens */
+        max-width: 1800px;
+        aspect-ratio: 16 / 9;
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.4); /* Shadow for a floating effect */
+    }
+
+    /* Video element styling */
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Ensures the entire video fits within the container */
+    }
+
+    /* Loading screen styling */
+    .loading-screen {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 5; /* Ensures loading screen is on top */
+    }
+
+    /* Spinner styling for loading animation */
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #ffffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    /* Keyframe for spinner rotation */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Overlay containing clip title and additional info */
+    .clip-info-overlay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: clamp(8px, 1.5vw, 16px);
+        color: #ffffff;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: clamp(0.9em, 2vw, 1.4em); /* Responsive font size */
+        font-weight: bold;
+        line-height: 1.4;
+        max-width: 70%;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-radius: 8px;
+        opacity: 1;
+        transition: opacity 1s ease; /* Fade transition */
+    }
+
+    /* Subtitle text within overlay */
+    .clip-subinfo {
+        font-weight: normal;
+        font-size: clamp(0.7em, 1.8vw, 1em); /* Responsive font size */
+        opacity: 0.85;
+    }
+
+    /* Timer display styling */
+    .timer {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: clamp(30px, 6vw, 50px); /* Responsive size */
+        height: clamp(30px, 6vw, 50px); /* Responsive size */
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(0.8em, 2vw, 1.2em); /* Responsive font size */
+        font-weight: bold;
+        font-family: 'Segoe UI', sans-serif;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+    }
+
+
+    /* Play button styling for enabling sound */
+    .play-button {
+        display: none; /* Initially hidden */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #ffffff;
+        font-size: 1em;
+        font-family: 'Segoe UI', sans-serif;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 6; /* Ensures button appears above video */
+    }
+
+    /* Shows the play button when necessary */
+    .play-button.show {
+        display: block;
+    }
+</style>
+
+</head>
+<body>
+  <div id="clips-container">
+    <!-- Video element for displaying clips -->
+    <video id="clip-player" autoplay playsinline muted></video>
+
+    <!-- Loading screen with spinner animation -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Overlay for clip title and details -->
+    <div class="clip-info-overlay" id="clip-info">
+      <div id="clip-title">Loading clips...</div>
+      <div id="clip-details" class="clip-subinfo"></div>
+    </div>
+
+    <!-- Timer display -->
+    <div class="timer" id="timer">00</div>
+
+    <!-- Button to enable sound if needed -->
+    <button id="play-button" class="play-button">Enable Sound</button>
+  </div>
+
+  <script>
+    let clips = []; // Array to store clip data
+    let currentClipIndex = 0; // Index of the current clip
+    let countdownInterval; // Interval for countdown timer
+    let soundEnabled = false; // Flag for sound state
+    let fadeTimeout; // Timeout for fading info overlay
+
+    // Function to detect if the player is running in OBS
+    function isOBS() {
+      const userAgent = navigator.userAgent;
+      return userAgent.includes("OBS");
+    }
+
+    // Function to handle autoplay with a sound enable button
+    function handleAutoplay(videoPlayer) {
+      const playButton = document.getElementById('play-button');
+      if (!isOBS() && !soundEnabled) {
+        playButton.classList.add('show');
+        playButton.addEventListener('click', () => {
+          soundEnabled = true;
+          videoPlayer.muted = false;
+          videoPlayer.play();
+          playButton.classList.remove('show');
+        });
+      } else {
+        videoPlayer.muted = false;
+        videoPlayer.play();
+      }
+    }
+
+    // Function to load clips from the server
+    async function loadClips() {
+      try {
+        const response = await fetch('/clips');
+        clips = await response.json();
+        playNextClip();
+      } catch (error) {
+        console.error('Error loading clips:', error);
+      }
+    }
+
+    // Function to play the next clip in the array
+    function playNextClip() {
+      const loadingScreen = document.getElementById('loading-screen');
+      const clipInfoOverlay = document.getElementById('clip-info');
+      const videoPlayer = document.getElementById('clip-player');
+
+      // Display loading screen
+      loadingScreen.style.display = 'flex';
+      videoPlayer.style.display = 'none';
+      clipInfoOverlay.style.opacity = 0;
+
+      if (clips.length === 0) {
+        document.getElementById('clip-title').textContent = 'No clips available';
+        document.getElementById('clip-details').textContent = '';
+        return;
+      }
+
+      const clip = clips[currentClipIndex];
+
+      // Check if clip is valid and not static
+      if (!clip.thumbnail_url.includes('static')) {
+        setTimeout(() => {
+          
+          videoPlayer.pause();
+          videoPlayer.src = '';
+          videoPlayer.load();
+
+          // Set the video source and play
+          console.log(`Playing clip: ${clip.title}, ${new Date(clip.created_at).toLocaleDateString('en-GB')}, ${clip.game_name}`);
+          videoPlayer.src = clip.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
+          videoPlayer.oncanplay = () => {
+            loadingScreen.style.display = 'none';
+            videoPlayer.style.display = 'block';
+
+            // Display clip title and details
+            let streamTitle = clip.title;
+            if (streamTitle.includes('|')) {
+              streamTitle = streamTitle.split('|')[0].trim();
+            }
+            document.getElementById('clip-title').textContent = streamTitle;
+            const formattedDate = new Date(clip.created_at).toLocaleDateString('en-GB');
+            const gameName = clip.game_name || 'Unknown Game';
+            document.getElementById('clip-details').textContent = `${gameName} | ${formattedDate}`;
+            clipInfoOverlay.style.opacity = 1;
+
+            handleAutoplay(videoPlayer);
+            startCountdown(videoPlayer);
+
+            // Fade out the details box after 10 seconds
+            setTimeout(() => {
+              clipInfoOverlay.style.opacity = 0;
+            }, 10000);
+          };
+        }, 1500);
+      } else {
+        // Skip invalid clips without updating details
+        console.warn(`Static clip skipped: ${clip.title}, ${new Date(clip.created_at).toLocaleDateString('en-GB')}, ${clip.game_name}`);
+        currentClipIndex = (currentClipIndex + 1) % clips.length;
+        playNextClip();
+      }
+
+      videoPlayer.onended = () => {
+        setTimeout(() => {
+          currentClipIndex = (currentClipIndex + 1) % clips.length;
+          playNextClip();
+        }, 500);
+      };
+
+      videoPlayer.onerror = () => {
+        currentClipIndex = (currentClipIndex + 1) % clips.length;
+        playNextClip();
+      };
+    }
+
+    // Function to start countdown timer for the video
+    function startCountdown(videoPlayer) {
+      const timerElement = document.getElementById('timer');
+      clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        const remainingTime = Math.ceil(videoPlayer.duration - videoPlayer.currentTime);
+        timerElement.textContent = isNaN(remainingTime) || remainingTime < 0 ? '00' : remainingTime;
+        if (remainingTime <= 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+    }
+
+    // Load clips on window load
+    window.onload = loadClips;
+  </script>
+</body>
+</html>

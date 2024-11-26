@@ -11,9 +11,10 @@ final ThemeData myTheme = ThemeData(
 
   // AppBar theme
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.transparent,
-    iconTheme: IconThemeData(color: AppColors.primary),
+    backgroundColor: AppColors.background,
+    iconTheme: const IconThemeData(color: AppColors.primary),
     titleTextStyle: AppTextStyles.headingLarge, // Montserrat heading style
+    elevation: 0.5
   ),
 
   // Text themes
@@ -37,23 +38,23 @@ final ThemeData myTheme = ThemeData(
     fillColor: AppColors.formFill,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: BorderSide(color: AppColors.formFill),
+      borderSide: const BorderSide(color: AppColors.formFill),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: BorderSide(color: AppColors.primary200), // Slight contrast on enabled border
+      borderSide: const BorderSide(color: AppColors.primary200), // Slight contrast on enabled border
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: BorderSide(color: AppColors.primary900, width: 2.0), // Thicker border on focus
+      borderSide: const BorderSide(color: AppColors.primary900, width: 2.0), // Thicker border on focus
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: BorderSide(color: AppColors.error),
+      borderSide: const BorderSide(color: AppColors.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: BorderSide(color: AppColors.error, width: 2.0),
+      borderSide: const BorderSide(color: AppColors.error, width: 2.0),
     ),
     hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary300), // Subtle hint text color
   ),
@@ -61,29 +62,29 @@ final ThemeData myTheme = ThemeData(
   // ElevatedButton theme
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.hovered)) {
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
           return AppColors.primary400;
         }
-        if (states.contains(MaterialState.pressed)) {
+        if (states.contains(WidgetState.pressed)) {
           return AppColors.primary600;
         }
         return AppColors.primary300;
       }),
-      elevation: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.hovered)) {
+      elevation: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
           return 10.0;
         }
         return 5.0;
       }),
-      side: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.focused)) {
-          return BorderSide(color: AppColors.primary200, width: 2.0); // Focus border
+      side: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.focused)) {
+          return const BorderSide(color: AppColors.primary200, width: 2.0); // Focus border
         }
         return BorderSide.none;
       }),
-      textStyle: MaterialStateProperty.all(AppTextStyles.buttonText), // Ensure consistent button text style
-      shape: MaterialStateProperty.all(
+      textStyle: WidgetStateProperty.all(AppTextStyles.buttonText), // Ensure consistent button text style
+      shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSpacing.small), // Consistent border radius
         ),
@@ -94,24 +95,24 @@ final ThemeData myTheme = ThemeData(
   // TextButton theme
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.resolveWith((states) {
-        if (states.contains(MaterialState.hovered)) {
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
           return AppColors.primary500;
         }
-        if (states.contains(MaterialState.focused)) {
+        if (states.contains(WidgetState.focused)) {
           return AppColors.primary600;
         }
         return AppColors.primary300;
       }),
-      textStyle: MaterialStateProperty.all(AppTextStyles.linkText), // Montserrat for link text
-      overlayColor: MaterialStateProperty.all(AppColors.primary50.withOpacity(0.1)), // Subtle hover effect
+      textStyle: WidgetStateProperty.all(AppTextStyles.linkText), // Montserrat for link text
+      overlayColor: WidgetStateProperty.all(AppColors.primary50.withOpacity(0.1)), // Subtle hover effect
     ),
   ),
 
   // Divider theme
-  dividerTheme: DividerThemeData(
-    color: AppColors.divider.withOpacity(0.5), // Slightly lower opacity for a subtle look
-    thickness: 0.7,
+  dividerTheme: const DividerThemeData(
+    color: AppColors.divider, // Slightly lower opacity for a subtle look
+    thickness: 0.2,
     space: AppSpacing.medium, // Space around the divider for balance
   ),
 

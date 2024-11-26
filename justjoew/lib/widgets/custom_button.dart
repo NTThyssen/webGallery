@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton({Key? key, required this.text, required this.onPressed}) : super(key: key);
+  const CustomButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
         elevation: 6, // Elevation for a subtle shadow effect
       ),
       onPressed: onPressed,
-      child: Text(
+      child:SelectableText(
         text,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.white, // White text to contrast with the background

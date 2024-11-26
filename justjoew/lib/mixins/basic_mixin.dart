@@ -29,7 +29,7 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
               itemBuilder: (context, index) {
                 return body();
               },
-              footer: MyFooter(),
+              footer: const MyFooter(),
             ),
           ),
         ],
@@ -41,7 +41,9 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return Drawer(
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       child: ListView(
+        physics: const BouncingScrollPhysics(), // Smooth scrolling for better performance
         children: [
+          const SizedBox(height: AppSpacing.large), // Add spacing for aesthetics
           _buildDrawerItem(context, AppStrings.commissionsHeader, AppRoutes.commissions),
           _buildDrawerItem(context, AppStrings.portfolio, AppRoutes.portfolio),
           _buildDrawerItem(context, AppStrings.aboutMeHeader, AppRoutes.about),
@@ -65,12 +67,12 @@ mixin BasicMixin<Page extends StatefulWidget> on State<Page> {
     return ResponsiveAppBar(
       title: InkWell(
         onTap: () => context.go(AppRoutes.root),
-        child: Hero(
+        child: const Hero(
           tag: 'logohero',
-          child: Image.asset(
-            ImageStrings.logoPath,
-            height: AppSpacing.large,
-          ),
+          child: Text(
+            "JustJoew",
+            style: AppTextStyles.pagetitle
+          )
         ),
       ),
     );

@@ -8,6 +8,8 @@ class AppColors {
   static const Color darkBlue = Color(0xFF001F3F);
   static const Color black = Color(0xFF000000);
   static const Color darkGray = Color(0xFF2C2C2C);
+    static const Color white = Color(0xFFFFFFFF);
+
 
   // Twitch Custom Color
   static const Color twitch = Color(0xFF6441A5); // Custom color for the Twitch icon
@@ -37,7 +39,7 @@ class AppColors {
   static const Color packageBackground = Colors.white12; // Slightly transparent white for subtle backgrounds
 
   // Divider and Icon Colors
-  static const Color divider = Color(0xFFB0BEC5); // Lighter divider for soft separation
+  static const Color divider = Colors.white; // Lighter divider for soft separation
   static const Color icons = Color(0xFFFFFFFF); // White icons for dark backgrounds
   static const Color commissionIcons = primary300; // Lighter tone for icons in specific sections
 

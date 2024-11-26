@@ -12,12 +12,12 @@ class MainContent extends StatefulWidget {
 class _MainContentState extends State<MainContent> with BasicMixin {
   @override
   Widget body() {
-    return Center(
+    return const Center(
       child: SingleChildScrollView( // Allows scrolling if content overflows
         child: Column(
           children: [
             SizedBox(
-              child: const DesignPage(),
+              child: DesignPage(),
             ),
           ],
         ),

@@ -1,11 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/mixins/basic_mixin.dart';
+import 'package:justjoew/utils/navigator/navigator.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/AppTextStyle.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/widgets/commission_package.dart';
 import 'package:justjoew/widgets/custom_header.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CommissionPage extends StatefulWidget {
   const CommissionPage({super.key});
@@ -18,8 +22,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   @override
   Widget body() {
     double screenWidth = MediaQuery.of(context).size.width;
-    final double maxContentWidth = 1100;
-    bool isLargeScreen = screenWidth > AppSpacing.smallscreen;
+    const double maxContentWidth = 1100;
 
     return Center(
       child: Container(
@@ -33,7 +36,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: CustomHeaderLarge(
                   text: AppStrings.commissionsHeader,
                   subheader: AppStrings.commissionsSubheader,
@@ -41,17 +44,15 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               ),
               const SizedBox(height: AppSpacing.large),
               _buildIntroSection(),
-              const SizedBox(height: AppSpacing.medium),
-              _detailsSection(),
-              const SizedBox(height: AppSpacing.medium),
-              _buildBulletPoints(AppStrings.emotesDetails),
+              _buildFAQSection(),
+              //_buildDetailsHeader(),
+              //const SizedBox(height: AppSpacing.medium),
+              //_buildBulletPoints(AppStrings.emotesDetails),
               const SizedBox(height: AppSpacing.large),
               _buildPackagesSection(screenWidth),
-              const SizedBox(height: AppSpacing.medium),
-              _buildOtherRequestsNote(),
               const SizedBox(height: AppSpacing.large),
-              _buildLicenseSection(isLargeScreen),
-              const SizedBox(height: AppSpacing.large),
+              _buildContactSection(),
+              const SizedBox(height: AppSpacing.xxxl),
             ],
           ),
         ),
@@ -60,16 +61,19 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
   }
 
   Widget _buildIntroSection() {
-    return Text(
+    return SelectableText(
       AppStrings.comissionsIntroductionText,
       style: AppTextStyles.bodyText,
     );
   }
 
-  Widget _detailsSection() {
-    return Text(
-      AppStrings.emotesDescription,
-      style: AppTextStyles.bodyText,
+  Widget _buildDetailsHeader() {
+    return SelectableText(
+      AppStrings.dets,
+      style: AppTextStyles.headingSmall.copyWith(
+        color: AppColors.primary,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
@@ -79,18 +83,18 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       children: points
           .map(
             (point) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.25),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.5),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '- ', // The bullet character
-                    style: AppTextStyles.listText, // Updated to listText
+                  SelectableText(
+                    '- ',
+                    style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
                   ),
                   Expanded(
-                    child: Text(
+                    child: SelectableText(
                       point,
-                      style: AppTextStyles.listText, // Updated to listText
+                      style: AppTextStyles.bodyText,
                     ),
                   ),
                 ],
@@ -109,7 +113,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.basicPackageDescription,
         deliveryTime: AppStrings.basicPackageDelivery,
         revisions: AppStrings.basicPackageRevisions,
-        emotes: AppStrings.basicPackageEmotes,
+        emotes: AppStrings.basicPackageDescription,
       ),
       const CommissionPackage(
         title: AppStrings.standardPackageTitle,
@@ -117,7 +121,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.standardPackageDescription,
         deliveryTime: AppStrings.standardPackageDelivery,
         revisions: AppStrings.standardPackageRevisions,
-        emotes: AppStrings.standardPackageEmotes,
+        emotes: AppStrings.standardPackageDescription,
       ),
       const CommissionPackage(
         title: AppStrings.premiumPackageTitle,
@@ -125,116 +129,206 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
         description: AppStrings.premiumPackageDescription,
         deliveryTime: AppStrings.premiumPackageDelivery,
         revisions: AppStrings.premiumPackageRevisions,
-        emotes: AppStrings.premiumPackageEmotes,
+        emotes: AppStrings.premiumPackageDescription,
       ),
     ];
 
-    return screenWidth < AppSpacing.smallscreen
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: packages
-                .map(
-                  (package) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-                    child: package,
-                  ),
-                )
-                .toList(),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: packages
-                .map(
-                  (package) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.large / 2,
-                    ),
-                    child: Container(
-                      width: 300, // Set a fixed width for each package
-                      child: package,
-                    ),
-                  ),
-                )
-                .toList(),
-          );
+    return Column(
+      children: [
+        screenWidth < AppSpacing.smallscreen
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: packages
+                    .map(
+                      (package) => Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+                        child: package,
+                      ),
+                    )
+                    .toList(),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: packages
+                    .map(
+                      (package) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.large / 2,
+                        ),
+                        child: SizedBox(
+                          width: 300,
+                          child: package,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+        const SizedBox(height: AppSpacing.large),
+      ],
+    );
   }
+  Widget _buildFAQSection() {
+    final faqItems = [
+      {
+        "question": "How do I request a commission?",
+        "answer": [
+          {"text": "Getting started is easy! Before any commission, we’ll have a chat about expectations to ensure I’m the right fit for you. You can either visit my ", "isLink": false},
+          {"text": "Contact Page", "isLink": true, "link": AppRoutes.contact},
+          {"text": " or book a Concept Chat on ", "isLink": false},
+          {"text": "Ko-fi", "isLink": true, "link": "https://ko-fi.com/c/638bf59cac"},
+          {"text": ". Once we’re aligned, I’ll guide you through the rest, and together we’ll create something amazing!", "isLink": false}
+        ],
+      },
+      {
+        "question": "What do you get?",
+        "answer": [
+          {"text": "You’ll receive high-quality PNG files at 128x128px, 300 DPI—perfect for platforms like Twitch and Discord. For more details on how you can use the emotes, check out my ", "isLink": false},
+          {"text": "Usage License", "isLink": true, "link": AppRoutes.usage},
+          {"text": " to understand what’s allowed and what’s not.", "isLink": false}
+        ],
+      },
+    ];
 
-  Widget _buildOtherRequestsNote() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.large),
-      child: Text(
-        AppStrings.otherRequestsDescription,
-        style: AppTextStyles.bodyText.copyWith(
-          fontStyle: FontStyle.italic,
-        ),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: faqItems.map((faq) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SelectableText(
+                faq["question"] as String, // Explicit cast to String
+                style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
+              ),
+              const SizedBox(height: AppSpacing.small * 0.5),
+              RichText(
+                text: TextSpan(
+                  children: (faq["answer"] as List<dynamic>).map<TextSpan>((answerPart) {
+                    final part = answerPart as Map<String, dynamic>;
+                    if (part["isLink"] == true) {
+                      return TextSpan(
+                        text: part["text"] as String, // Explicit cast to String
+                        style: AppTextStyles.bodyText.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            final link = part["link"] as String; // Explicit cast to String
+                            if (link.startsWith("http")) {
+                              launch(link);
+                            } else {
+                              context.go(link);
+                            }
+                          },
+                      );
+                    } else {
+                      return TextSpan(
+                        text: part["text"] as String, // Explicit cast to String
+                        style: AppTextStyles.bodyText
+                      );
+                    }
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildLicenseSection(bool isLargeScreen) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.large),
-      decoration: BoxDecoration(
-        color: AppColors.packageBackground.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.small),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: isLargeScreen ? Alignment.center : Alignment.centerLeft,
-            child: Text(
-              AppStrings.licenseTitle,
-              style: AppTextStyles.headingSmall,
+
+
+
+  Widget _buildContactSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildStepsSection(),
+        const SizedBox(height: AppSpacing.medium),
+        SelectableText(
+          "Does this sound like something for you? Contact me!",
+          style: AppTextStyles.bodyText,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        Center(
+          child: SizedBox(
+            width: 150,
+            height: 40,
+            child: ElevatedButton(
+              onPressed: () {
+                context.go(AppRoutes.contact);
+              },
+              child: Text(
+                'Contact',
+                style: AppTextStyles.buttonText.copyWith(
+                  fontSize: 16,
+                  color: AppColors.darkGray,
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: AppSpacing.small),
-          Text(
-            AppStrings.licenseDescription,
-            style: AppTextStyles.bodyText,
-          ),
-          _buildBulletPointsSection(
-            title: AppStrings.whatYouCantDoTitle,
-            points: AppStrings.whatYouCantDoPoints,
-          ),
-          _buildBulletPointsSection(
-            title: AppStrings.whatYouCanDoTitle,
-            points: AppStrings.whatYouCanDoPoints,
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          Text(
-            AppStrings.commercialRightsText,
-            style: AppTextStyles.bodyText,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _buildBulletPointsSection({
-    required String title,
-    required List<String> points,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: AppTextStyles.bodyTextBold.copyWith(fontWeight: FontWeight.w600),
+  Widget _buildStepsSection() {
+    final steps = [
+      {
+        "title": "Concept and Discussion",
+        "description":
+            "We start with a friendly chat to discuss your vision. This can happen through email, Discord, or a Concept Chat on Ko-fi.",
+      },
+      {
+        "title": "Initial Sketches",
+        "description":
+            "Once we align on the concept, I’ll create sketches for your review. You’ll have the chance to provide feedback before we move forward.",
+      },
+      {
+        "title": "Refinement and Coloring",
+        "description":
+            "After the sketches are approved, I’ll refine the designs and add color, keeping you updated throughout the process.",
+      },
+      {
+        "title": "Final Delivery",
+        "description":
+            "Your finished emotes will be delivered as high-quality PNG files. I'll send them via Google Drive, email, or Discord—your choice.",
+      },
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SelectableText(
+          "How It Works",
+          style: AppTextStyles.bodyTextBold.copyWith(
+            color: AppColors.white,
           ),
-          const SizedBox(height: AppSpacing.small),
-          _buildBulletPoints(points),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSpacing.medium),
+        ...steps.map((step) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: AppSpacing.medium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SelectableText(
+                  step["title"]!,
+                  style: AppTextStyles.bodyTextBold.copyWith(
+                    color: AppColors.primary,
+                  ),
+                ),
+                SelectableText(
+                  step["description"]!,
+                  style: AppTextStyles.bodyText,
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ],
     );
   }
 }

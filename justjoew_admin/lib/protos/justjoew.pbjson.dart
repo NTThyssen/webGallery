@@ -46,37 +46,42 @@ const Section$json = {
     {'1': 'id', '3': 1, '4': 1, '5': 13, '10': 'id'},
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'assetList', '3': 3, '4': 3, '5': 11, '6': '.justjoew.asstes.Asset', '10': 'assetList'},
+    {'1': 'sectionUrl', '3': 4, '4': 1, '5': 9, '10': 'sectionUrl'},
   ],
 };
 
 /// Descriptor for `Section`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List sectionDescriptor = $convert.base64Decode(
     'CgdTZWN0aW9uEg4KAmlkGAEgASgNUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEjQKCWFzc2V0TG'
-    'lzdBgDIAMoCzIWLmp1c3Rqb2V3LmFzc3Rlcy5Bc3NldFIJYXNzZXRMaXN0');
+    'lzdBgDIAMoCzIWLmp1c3Rqb2V3LmFzc3Rlcy5Bc3NldFIJYXNzZXRMaXN0Eh4KCnNlY3Rpb25V'
+    'cmwYBCABKAlSCnNlY3Rpb25Vcmw=');
 
 @$core.Deprecated('Use createSectionRequestDescriptor instead')
 const CreateSectionRequest$json = {
   '1': 'CreateSectionRequest',
   '2': [
     {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'sectionURL', '3': 2, '4': 1, '5': 9, '10': 'sectionURL'},
   ],
 };
 
 /// Descriptor for `CreateSectionRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createSectionRequestDescriptor = $convert.base64Decode(
-    'ChRDcmVhdGVTZWN0aW9uUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1l');
+    'ChRDcmVhdGVTZWN0aW9uUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1lEh4KCnNlY3Rpb25VUk'
+    'wYAiABKAlSCnNlY3Rpb25VUkw=');
 
 @$core.Deprecated('Use createSectionResponseDescriptor instead')
 const CreateSectionResponse$json = {
   '1': 'CreateSectionResponse',
   '2': [
-    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'section', '3': 1, '4': 1, '5': 11, '6': '.justjoew.asstes.Section', '10': 'section'},
   ],
 };
 
 /// Descriptor for `CreateSectionResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createSectionResponseDescriptor = $convert.base64Decode(
-    'ChVDcmVhdGVTZWN0aW9uUmVzcG9uc2USEgoEbmFtZRgBIAEoCVIEbmFtZQ==');
+    'ChVDcmVhdGVTZWN0aW9uUmVzcG9uc2USMgoHc2VjdGlvbhgBIAEoCzIYLmp1c3Rqb2V3LmFzc3'
+    'Rlcy5TZWN0aW9uUgdzZWN0aW9u');
 
 @$core.Deprecated('Use assetDescriptor instead')
 const Asset$json = {

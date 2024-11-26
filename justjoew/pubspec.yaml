@@ -37,6 +37,11 @@ flutter:
     - images/
   
   fonts:
+    - family: Perpetua
+      fonts:
+        - asset: fonts/perpetua.ttf # Regular version
+        - asset: fonts/perpetua_light.ttf # Light version
+          weight: 300
     - family: SourceCodePro
       fonts:
         - asset: fonts/SourceCodePro/SourceCodePro-Black.ttf
@@ -157,3 +162,35 @@ flutter:
         - asset: fonts/OpenSans/OpenSans-SemiBoldItalic.ttf
           weight: 600
           style: italic
+
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-Black.ttf
+          weight: 900
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf
+          weight: 700
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-Italic.ttf
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-Medium.ttf
+          weight: 500
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-SemiBold.ttf
+          weight: 600
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/PlayfairDisplay/PlayfairDisplay-VariableFont_wght.ttf

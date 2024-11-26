@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({Key? key}) : super(key: key);
+  const SideBar({super.key});
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -12,7 +12,7 @@ class _SideBarState extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(80.0),
+      padding: const EdgeInsets.all(80.0),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(color: Theme.of(context).primaryColor),
@@ -32,7 +32,7 @@ class _SideBarState extends State<SideBar> {
               ),
             ),
             const Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: null,
                 child: Text(
@@ -42,7 +42,7 @@ class _SideBarState extends State<SideBar> {
               ),
             ),
             const Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: null,
                 child: Text(
