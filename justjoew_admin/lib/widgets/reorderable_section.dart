@@ -231,7 +231,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                           final item =
                               widget.section.assetList.removeAt(oldIndex);
                           widget.section.assetList.insert(newIndex, item);
-                          sectionCubit.updateAssetOrder(widget.section.id, newIndex);
+                          sectionCubit.updateAssetOrder(widget.section.assetList[oldIndex].id, newIndex);
                         });
                       },
                       buildDefaultDragHandles: false,

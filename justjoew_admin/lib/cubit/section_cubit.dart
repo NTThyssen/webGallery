@@ -41,8 +41,8 @@ class SectionCubit extends Cubit<SectionState> {
     }
   }
 
-  void updateAssetOrder(int sectionId, int index)async {
-    var res = await _assetRepository.updateAssetOrder(sectionId, index);
+  void updateAssetOrder(int assetId, int index)async {
+    var res = await _assetRepository.updateAssetOrder(assetId, index);
 
     getAllSections();
   }
