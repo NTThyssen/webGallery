@@ -66,8 +66,9 @@ message UpdateSectionOrderResponse {
 }
 
 message UpdateSectionInfoRequest {
-  string sectionName = 1;
-  string sectionUrl = 2;
+  uint32 id = 1;
+  string sectionName = 2;
+  string sectionUrl = 3;
 
 }
 

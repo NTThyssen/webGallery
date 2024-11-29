@@ -63,6 +63,12 @@ func (s *server) UpdateSectionOrder(ctx context.Context, in *pb.UpdateSectionOrd
 	return &pb.UpdateSectionOrderResponse{NewOrderIndex: res}, err
 }
 
+func (s *server) UpdateSectionInfo(ctx context.Context, in *pb.UpdateSectionInfoRequest) (*pb.UpdateSectionInfoResponse, error) {
+	log.Printf("Received: %v", in.SectionUrl)
+	res, err := repository.UpdateSectionInfo(in.Id, in.SectionName, in.SectionUrl)
+	return &pb.UpdateSectionInfoResponse{SectionName: res.Name, SectionUrl:res.SectionUrl}, err
+}
+
 
 
 func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error) {

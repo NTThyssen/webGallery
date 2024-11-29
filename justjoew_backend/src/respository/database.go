@@ -26,7 +26,7 @@ func InitDb() {
 
 func CreateSection(sectionName string, sectionUrl string) (Section, error) {
 	section := Section{Name: sectionName, SectionUrl: sectionUrl}
-	res := db.Create(&section)
+	res := db.Create(section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
@@ -38,7 +38,7 @@ func CreateSection(sectionName string, sectionUrl string) (Section, error) {
 
 func UpdateAssetOrder(sectionId uint32, newOrderIndex uint32) (uint32, error) {
 
-	res := db.Updates(&Asset{OrderIndex: newOrderIndex} ).Where("section_id = ?", sectionId);
+	res := db.Updates(Asset{OrderIndex: newOrderIndex} ).Where("section_id = ?", sectionId);
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
@@ -49,13 +49,32 @@ func UpdateAssetOrder(sectionId uint32, newOrderIndex uint32) (uint32, error) {
 
 func UpdateSectionOrder(sectionId uint32, newOrderIndex uint32) (uint32, error) {
 
-	res := db.Updates(&Section{OrderIndex: newOrderIndex} ).Where("id = ?", sectionId);
+	res := db.Updates(Section{OrderIndex: newOrderIndex} ).Where("id = ?", sectionId);
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
 		return 0, res.Error
 	}
 	return newOrderIndex, nil
+}
+
+func UpdateSectionInfo(sectionId uint32, sectioName string, sectionUrl string) (Section, error) {
+	
+	section := Section{}
+	if sectioName != "" {
+        section.Name = sectioName
+    }
+    if sectionUrl !=  "" {
+        section.SectionUrl = sectionUrl
+    }
+
+	res := db.Updates(section).Where("id = ?", sectionId);
+
+	if res.Error != nil {
+		log.Panicln(res.Error)
+		return Section{}, res.Error
+	}
+	return section, nil
 }
 
 func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
