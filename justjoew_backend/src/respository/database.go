@@ -41,7 +41,7 @@ func UpdateAssetOrder(assetId uint32, newOrderIndex uint32) (uint32, error) {
 	asset := map[string]interface{}{
 	"order_index": newOrderIndex,
 	}
-	res := db.Model(&Asset{}).Where("asset_id = ? ", assetId).Updates(asset);
+	res := db.Model(&Asset{}).Where("id = ? ", assetId).Updates(asset);
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
