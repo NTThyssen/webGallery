@@ -51,7 +51,7 @@ func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest)
 }
 
 func (s *server) UpdateAssetOrder(ctx context.Context, in *pb.UpdateAssetOrderRequest) (*pb.UpdateAssetOrderResponse, error) {
-	log.Printf("Received: %v", in.OrderIndex)
+	log.Printf("Method invoked: UpdateAssetOrder")
 	res, err := repository.UpdateAssetOrder(in.Id, in.OrderIndex)
 	return &pb.UpdateAssetOrderResponse{NewOrderIndex: res}, err
 }
@@ -111,6 +111,7 @@ func mapAssetsToResponse(assets []repository.Asset, aspectRation uint32) []*pb.A
 func main() {
 
 	repository.InitDb()
+	repository.UpdateAssetOrder(3, 3)
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
