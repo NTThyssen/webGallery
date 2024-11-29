@@ -143,6 +143,62 @@ final $typed_data.Uint8List updateAssetOrderRequestDescriptor = $convert.base64D
     'ChdVcGRhdGVBc3NldE9yZGVyUmVxdWVzdBIOCgJpZBgBIAEoDVICaWQSHgoKb3JkZXJJbmRleB'
     'gCIAEoDVIKb3JkZXJJbmRleA==');
 
+@$core.Deprecated('Use updateSectionOrderRequestDescriptor instead')
+const UpdateSectionOrderRequest$json = {
+  '1': 'UpdateSectionOrderRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 13, '10': 'id'},
+    {'1': 'orderIndex', '3': 2, '4': 1, '5': 13, '10': 'orderIndex'},
+  ],
+};
+
+/// Descriptor for `UpdateSectionOrderRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateSectionOrderRequestDescriptor = $convert.base64Decode(
+    'ChlVcGRhdGVTZWN0aW9uT3JkZXJSZXF1ZXN0Eg4KAmlkGAEgASgNUgJpZBIeCgpvcmRlckluZG'
+    'V4GAIgASgNUgpvcmRlckluZGV4');
+
+@$core.Deprecated('Use updateSectionOrderResponseDescriptor instead')
+const UpdateSectionOrderResponse$json = {
+  '1': 'UpdateSectionOrderResponse',
+  '2': [
+    {'1': 'newOrderIndex', '3': 1, '4': 1, '5': 13, '10': 'newOrderIndex'},
+  ],
+};
+
+/// Descriptor for `UpdateSectionOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateSectionOrderResponseDescriptor = $convert.base64Decode(
+    'ChpVcGRhdGVTZWN0aW9uT3JkZXJSZXNwb25zZRIkCg1uZXdPcmRlckluZGV4GAEgASgNUg1uZX'
+    'dPcmRlckluZGV4');
+
+@$core.Deprecated('Use updateSectionInfoRequestDescriptor instead')
+const UpdateSectionInfoRequest$json = {
+  '1': 'UpdateSectionInfoRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 13, '10': 'id'},
+    {'1': 'sectionName', '3': 2, '4': 1, '5': 9, '10': 'sectionName'},
+    {'1': 'sectionUrl', '3': 3, '4': 1, '5': 9, '10': 'sectionUrl'},
+  ],
+};
+
+/// Descriptor for `UpdateSectionInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateSectionInfoRequestDescriptor = $convert.base64Decode(
+    'ChhVcGRhdGVTZWN0aW9uSW5mb1JlcXVlc3QSDgoCaWQYASABKA1SAmlkEiAKC3NlY3Rpb25OYW'
+    '1lGAIgASgJUgtzZWN0aW9uTmFtZRIeCgpzZWN0aW9uVXJsGAMgASgJUgpzZWN0aW9uVXJs');
+
+@$core.Deprecated('Use updateSectionInfoResponseDescriptor instead')
+const UpdateSectionInfoResponse$json = {
+  '1': 'UpdateSectionInfoResponse',
+  '2': [
+    {'1': 'sectionName', '3': 1, '4': 1, '5': 9, '10': 'sectionName'},
+    {'1': 'sectionUrl', '3': 2, '4': 1, '5': 9, '10': 'sectionUrl'},
+  ],
+};
+
+/// Descriptor for `UpdateSectionInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateSectionInfoResponseDescriptor = $convert.base64Decode(
+    'ChlVcGRhdGVTZWN0aW9uSW5mb1Jlc3BvbnNlEiAKC3NlY3Rpb25OYW1lGAEgASgJUgtzZWN0aW'
+    '9uTmFtZRIeCgpzZWN0aW9uVXJsGAIgASgJUgpzZWN0aW9uVXJs');
+
 @$core.Deprecated('Use updateAssetOrderResponseDescriptor instead')
 const UpdateAssetOrderResponse$json = {
   '1': 'UpdateAssetOrderResponse',
@@ -197,4 +253,13 @@ const DeleteAssetResponse$json = {
 /// Descriptor for `DeleteAssetResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteAssetResponseDescriptor = $convert.base64Decode(
     'ChNEZWxldGVBc3NldFJlc3BvbnNl');
+
+@$core.Deprecated('Use emptyDescriptor instead')
+const Empty$json = {
+  '1': 'Empty',
+};
+
+/// Descriptor for `Empty`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List emptyDescriptor = $convert.base64Decode(
+    'CgVFbXB0eQ==');
 

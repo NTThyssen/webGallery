@@ -39,7 +39,7 @@ class AssetRepository {
     final request = UpdateAssetOrderRequest(
         id:sectionId, orderIndex: orderIndex);
     try {
-      final response = await stub!.updateAssetorder(request);
+      final response = await stub!.updateAssetOrder(request);
       return response.newOrderIndex;
     } catch (e) {
       print('Caught error: $e');
