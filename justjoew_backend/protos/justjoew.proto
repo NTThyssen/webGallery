@@ -19,6 +19,7 @@ message Section {
   string name = 2;
   repeated Asset assetList = 3;
   string sectionUrl = 4;
+  uint32 orderIndex = 5;
 }
 
 message CreateSectionRequest {

@@ -53,7 +53,10 @@ func UpdateAssetOrder(assetId uint32, newOrderIndex uint32) (uint32, error) {
 func UpdateSectionOrder(sectionId uint32, newOrderIndex uint32) (uint32, error) {
 
 
-	res := db.Updates(&Section{OrderIndex: newOrderIndex} ).Where("id = ?", sectionId);
+	section := map[string]interface{}{
+		"order_index": newOrderIndex,
+	}
+	res := db.Model(&Section{}).Where("id = ?", sectionId).Updates(section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
@@ -72,7 +75,7 @@ func UpdateSectionInfo(sectionId uint32, sectioName string, sectionUrl string) (
         section.SectionUrl = sectionUrl
     }
 
-	res := db.Updates(&section).Where("id = ?", sectionId);
+	res := db.Model(&Section{}).Where("id = ?", sectionId).Updates(&section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)

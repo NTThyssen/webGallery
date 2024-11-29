@@ -111,7 +111,6 @@ func mapAssetsToResponse(assets []repository.Asset, aspectRation uint32) []*pb.A
 func main() {
 
 	repository.InitDb()
-	repository.UpdateAssetOrder(3, 3)
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

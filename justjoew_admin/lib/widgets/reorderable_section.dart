@@ -12,7 +12,9 @@ class ReOrderableSection extends StatefulWidget {
   final Section section;
   final BuildContext cubitContext;
 
-  const ReOrderableSection({Key? key, required this.section, required this.cubitContext}) : super(key: key);
+  const ReOrderableSection(
+      {Key? key, required this.section, required this.cubitContext})
+      : super(key: key);
 
   @override
   _ReOrderableSectionState createState() => _ReOrderableSectionState();
@@ -194,9 +196,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                         style: AppTextStyles.bodyText
                             .copyWith(color: Color.fromARGB(255, 229, 65, 62)),
                       ),
-                      onTap: (){
-                        sectionCubit
-                            .deleteSection(widget.section.id);
+                      onTap: () {
+                        sectionCubit.deleteSection(widget.section.id);
                       },
                     ),
                   ],
@@ -225,14 +226,12 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       onReorder: (oldIndex, newIndex) {
-                        setState(() {
-                          if (newIndex > widget.section.assetList.length)
-                            newIndex--;
-                          final item =
-                              widget.section.assetList.removeAt(oldIndex);
-                          widget.section.assetList.insert(newIndex, item);
-                          sectionCubit.updateAssetOrder(widget.section.assetList[oldIndex].id, newIndex);
-                        });
+                        if (newIndex != 0) newIndex--;
+
+                        sectionCubit.updateAssetOrder(
+                            widget.section.assetList[oldIndex].id, newIndex);
+                        sectionCubit.updateAssetOrder(
+                            widget.section.assetList[newIndex].id, oldIndex);
                       },
                       buildDefaultDragHandles: false,
                       proxyDecorator: (Widget child, int index,

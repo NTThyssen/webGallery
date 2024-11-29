@@ -47,6 +47,7 @@ const Section$json = {
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'assetList', '3': 3, '4': 3, '5': 11, '6': '.justjoew.asstes.Asset', '10': 'assetList'},
     {'1': 'sectionUrl', '3': 4, '4': 1, '5': 9, '10': 'sectionUrl'},
+    {'1': 'orderIndex', '3': 5, '4': 1, '5': 13, '10': 'orderIndex'},
   ],
 };
 
@@ -54,7 +55,7 @@ const Section$json = {
 final $typed_data.Uint8List sectionDescriptor = $convert.base64Decode(
     'CgdTZWN0aW9uEg4KAmlkGAEgASgNUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEjQKCWFzc2V0TG'
     'lzdBgDIAMoCzIWLmp1c3Rqb2V3LmFzc3Rlcy5Bc3NldFIJYXNzZXRMaXN0Eh4KCnNlY3Rpb25V'
-    'cmwYBCABKAlSCnNlY3Rpb25Vcmw=');
+    'cmwYBCABKAlSCnNlY3Rpb25VcmwSHgoKb3JkZXJJbmRleBgFIAEoDVIKb3JkZXJJbmRleA==');
 
 @$core.Deprecated('Use createSectionRequestDescriptor instead')
 const CreateSectionRequest$json = {

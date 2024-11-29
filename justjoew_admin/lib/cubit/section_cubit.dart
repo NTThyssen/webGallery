@@ -37,12 +37,19 @@ class SectionCubit extends Cubit<SectionState> {
     if (state is SectionReady) {
       var prevState = state as SectionReady;
       prevState.sectionList
-          .add(Section(res.id, res.name, const [], res.sectionUrl));
+          .add(Section(res.id, res.name, const [], res.sectionUrl, prevState.sectionList.length-1));
     }
   }
 
   void updateAssetOrder(int assetId, int index)async {
     var res = await _assetRepository.updateAssetOrder(assetId, index);
+
+    getAllSections();
+  }
+
+
+    void updateSectionOrder(int sectionid, int index) async {
+    var res = await _assetRepository.updateSectionOrder(sectionid, index);
 
     getAllSections();
   }

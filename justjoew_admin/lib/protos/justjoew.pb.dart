@@ -113,6 +113,7 @@ class Section extends $pb.GeneratedMessage {
     $core.String? name,
     $core.Iterable<Asset>? assetList,
     $core.String? sectionUrl,
+    $core.int? orderIndex,
   }) {
     final $result = create();
     if (id != null) {
@@ -127,6 +128,9 @@ class Section extends $pb.GeneratedMessage {
     if (sectionUrl != null) {
       $result.sectionUrl = sectionUrl;
     }
+    if (orderIndex != null) {
+      $result.orderIndex = orderIndex;
+    }
     return $result;
   }
   Section._() : super();
@@ -138,6 +142,7 @@ class Section extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..pc<Asset>(3, _omitFieldNames ? '' : 'assetList', $pb.PbFieldType.PM, protoName: 'assetList', subBuilder: Asset.create)
     ..aOS(4, _omitFieldNames ? '' : 'sectionUrl', protoName: 'sectionUrl')
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'orderIndex', $pb.PbFieldType.OU3, protoName: 'orderIndex')
     ..hasRequiredFields = false
   ;
 
@@ -191,6 +196,15 @@ class Section extends $pb.GeneratedMessage {
   $core.bool hasSectionUrl() => $_has(3);
   @$pb.TagNumber(4)
   void clearSectionUrl() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get orderIndex => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set orderIndex($core.int v) { $_setUnsignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasOrderIndex() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearOrderIndex() => clearField(5);
 }
 
 class CreateSectionRequest extends $pb.GeneratedMessage {

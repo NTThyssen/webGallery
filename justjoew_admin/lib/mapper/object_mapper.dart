@@ -7,8 +7,9 @@ class Section extends Equatable {
   String name;
   List<Asset> assetList;
   String sectionUrl;
+  int orderIndex;
 
-  Section(this.id, this.name, this.assetList, this.sectionUrl);
+  Section(this.id, this.name, this.assetList, this.sectionUrl, this.orderIndex);
 
   @override
   // TODO: implement props
@@ -40,9 +41,10 @@ class Mapper {
         assetList.add(Asset(assetEle.blobPath, assetEle.id, assetEle.orderIndex,
             assetEle.sectionId, assetEle.sectionName));
       }
-      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl));
+      assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
+      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl, sectionEle.orderIndex));
     }
-
+    sectionList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
     return sectionList;
   }
 }

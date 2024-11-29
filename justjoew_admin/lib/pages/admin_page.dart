@@ -88,14 +88,13 @@ class _AdminPageState extends State<AdminPage> {
                           itemCount: state.sectionList.length,
                           onReorder: (oldIndex, newIndex) {
                             setState(() {
-                              if (newIndex > oldIndex) {
-                                if (newIndex > 0 ||
-                                    newIndex > state.sectionList.length)
+                                if (newIndex != 0 )
                                   newIndex--;
-                              }
+                              sectionCubit.updateSectionOrder(state.sectionList[oldIndex].id, newIndex);
+                              sectionCubit.updateSectionOrder(state.sectionList[newIndex].id, oldIndex);
 
-                              final item = state.sectionList.removeAt(oldIndex);
-                              state.sectionList.insert(newIndex, item);
+
+                    
                             });
                           },
                         ); /*List.generate(
