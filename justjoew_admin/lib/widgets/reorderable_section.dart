@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -226,7 +227,10 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       onReorder: (oldIndex, newIndex) {
-                        if (newIndex != 0) newIndex--;
+                          
+                        if (newIndex > oldIndex) {
+                          if (newIndex != 0) newIndex--;
+                        }
 
                         sectionCubit.updateAssetOrder(
                             widget.section.assetList[oldIndex].id, newIndex);
@@ -274,8 +278,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                                   child: Padding(
                                     padding: AppSpacing.paddingMedium,
                                     child: Container(
-                                      child: Image.network(
-                                        widget.section.assetList[index].bloburl,
+                                      child: CachedNetworkImage(
+                                        imageUrl:  widget.section.assetList[index].bloburl,
                                         fit: BoxFit.fill,
                                       ),
                                     ),

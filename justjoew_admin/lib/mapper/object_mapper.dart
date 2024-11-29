@@ -44,7 +44,7 @@ class Mapper {
       assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
       sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl, sectionEle.orderIndex));
     }
-    sectionList.sort((a, b) => b.orderIndex.compareTo(a.orderIndex));
+    sectionList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
     return sectionList;
   }
 }
