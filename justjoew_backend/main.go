@@ -50,6 +50,21 @@ func (s *server) CreateSection(ctx context.Context, in *pb.CreateSectionRequest)
 	return &pb.CreateSectionResponse{Section: &pb.Section{Name: res.Name, SectionUrl: res.SectionUrl}}, err
 }
 
+func (s *server) UpdateAssetOrder(ctx context.Context, in *pb.UpdateAssetOrderRequest) (*pb.UpdateAssetOrderResponse, error) {
+	log.Printf("Received: %v", in.OrderIndex)
+	res, err := repository.UpdateAssetOrder(in.Id, in.OrderIndex)
+	return &pb.UpdateAssetOrderResponse{NewOrderIndex: res}, err
+}
+
+
+func (s *server) UpdateSectionOrder(ctx context.Context, in *pb.UpdateSectionOrderRequest) (*pb.UpdateSectionOrderResponse, error) {
+	log.Printf("Received: %v", in.OrderIndex)
+	res, err := repository.UpdateSectionOrder(in.Id, in.OrderIndex)
+	return &pb.UpdateSectionOrderResponse{NewOrderIndex: res}, err
+}
+
+
+
 func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error) {
 	log.Printf("Received: get all requets")
 	res, err := repository.GetAllSections()
