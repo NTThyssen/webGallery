@@ -85,6 +85,8 @@ func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsReques
 		section := &pb.Section{
 			Id:        uint32(section.ID),
 			Name:      section.Name,
+			OrderIndex: section.OrderIndex,
+			SectionUrl: section.SectionUrl,
 			AssetList: mapAssetsToResponse(section.AssetList, in.GetAspectRatio()),
 		}
 		sections = append(sections, section)
