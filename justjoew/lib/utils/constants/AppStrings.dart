@@ -68,7 +68,6 @@ static const String passionText =
 static const String combinedProcessDescription = 
     "From start to finish, it's a shared journey. To begin, I like to understand your vision, making sure my designs align with your expectations. If you have any references, we’ll review them, and together, we’ll work out the concept. Then, I'll sketch the initial designs, and together we'll refine the design based on your feedback, ensuring we're both satisfied. Once the concept and design are clear, I’ll create the final emote.\n\n"
     "Feedback is an important part of my process. Our goal is ensuring the final emote reflects the effort, care, and pride we both put into it, as well as the channel it represents.";
-
   // Commissions Page
   static const String commissionsSubheader = '(Open)';
   static const String comissionsIntroductionText = 
@@ -105,14 +104,14 @@ static const String combinedProcessDescription =
   static const String standardPackageTitle = 'Standard';
   static const String standardPackagePrice = '\$25';
   static const String standardPackageDescription = '3 custom static emotes.';
-  static const String standardPackageDelivery = '10-day delivery';
+  static const String standardPackageDelivery = '14-day delivery';
   static const String standardPackageRevisions = '2 Revisions';
   static const String standardPackageEmotes = '3 emotes';
 
   static const String premiumPackageTitle = 'Premium';
   static const String premiumPackagePrice = '\$45';
   static const String premiumPackageDescription = '6 custom static emotes.';
-  static const String premiumPackageDelivery = '14-day delivery';
+  static const String premiumPackageDelivery = '28-day delivery';
   static const String premiumPackageRevisions = '4 Revisions';
   static const String premiumPackageEmotes = '6 - emotes';
 
@@ -365,7 +364,7 @@ static const String combinedProcessDescription =
     {
       "question": "How long does a commission take?",
       "answer":
-          "I pour my heart and creativity into each piece, so commissions typically take 5 days to 3 weeks to complete, depending on the complexity and my current workload. I’ll keep you updated every step of the way—consider me your creative partner on this journey!"
+          "I pour my heart and creativity into each piece, so commissions typically take 5 days to 4 weeks to complete, depending on the complexity and my current workload. I’ll keep you updated every step of the way—consider me your creative partner on this journey!"
     },
     {
       "question": "Do you work with all types of clients?",
