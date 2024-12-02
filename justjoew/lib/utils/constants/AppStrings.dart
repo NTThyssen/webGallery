@@ -73,8 +73,8 @@ static const String combinedProcessDescription =
   static const String comissionsIntroductionText = 
       "Welcome and hello!\n\n"
       "I'm Joe, and I make custom emotes designed to match you and your channel. Whether you have a clear vision or just a rough idea, we can work together to bring it to life.\n\n"
-      "While I'm currently working on some exciting projects, my waitlist is open, and I'd still love to hear from you!\n\n"
-      "If you have any questions or requests not listed here, feel free to reach out.";
+      "While I'm currently working on some exciting projects, my waitlist is open, and I'd still love to hear from you!\n"
+      "If you have any questions or requests not listed here, feel free to reach out.\n";
   static const String emotesTitle = 'Emotes';
   static const String dets = 'Details';
   static const String emotesDescription = 
