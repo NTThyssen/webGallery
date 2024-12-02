@@ -69,13 +69,12 @@ static const String combinedProcessDescription =
     "From start to finish, it's a shared journey. To begin, I like to understand your vision, making sure my designs align with your expectations. If you have any references, we’ll review them, and together, we’ll work out the concept. Then, I'll sketch the initial designs, and together we'll refine the design based on your feedback, ensuring we're both satisfied. Once the concept and design are clear, I’ll create the final emote.\n\n"
     "Feedback is an important part of my process. Our goal is ensuring the final emote reflects the effort, care, and pride we both put into it, as well as the channel it represents.";
   // Commissions Page
-  static const String commissionsSubheader = '(Open)';
+  static const String commissionsSubheader = '(Waitlist)';
   static const String comissionsIntroductionText = 
       "Welcome and hello!\n\n"
-      "I'm Joe, and I make custom emotes designed to match you and your channel, whether you have a clear vision or just a rough idea, we can work together to bring it to life. \n\n"
-      "If you have a concept in mind or simply want to explore ideas, I'd love to hear from you. \n"
-      "If you have any questions or other request than listed here, feel free to reach out."
-      ;
+      "I'm Joe, and I make custom emotes designed to match you and your channel. Whether you have a clear vision or just a rough idea, we can work together to bring it to life.\n\n"
+      "While I'm currently working on some exciting projects, my waitlist is open, and I'd still love to hear from you!\n\n"
+      "If you have any questions or requests not listed here, feel free to reach out.";
   static const String emotesTitle = 'Emotes';
   static const String dets = 'Details';
   static const String emotesDescription = 
