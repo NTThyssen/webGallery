@@ -123,26 +123,103 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     );
   }
 
-  Widget _buildPackageCategory(String title, List<CommissionPackage> packages) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+Widget _buildPackageCategory(String title, List<CommissionPackage> packages) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  final ScrollController _scrollController = ScrollController();
+
+  if (screenWidth > 1060) {
+    // Large screens: Single row
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: packages
+          .map(
+            (package) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+              child: SizedBox(
+                width: 300,
+                child: package,
+              ),
+            ),
+          )
+          .toList(),
+    );
+  } else if (screenWidth > 600
+  ) {
+    // Medium screens: Horizontal scroll with arrows
+    return Stack(
       children: [
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: AppSpacing.large,
-          runSpacing: AppSpacing.large,
-          children: packages
-              .map(
-                (package) => SizedBox(
+        SizedBox(
+          height: 350, // Adjust height as per card size
+          child: ListView.builder(
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            itemCount: packages.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+                child: SizedBox(
                   width: 300,
-                  child: package,
+                  child: packages[index],
                 ),
-              )
-              .toList(),
+              );
+            },
+          ),
+        ),
+        // Left Arrow
+        Positioned(
+          left: 0,
+          top: 0,
+          bottom: 0,
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: AppColors.primary),
+            onPressed: () {
+              _scrollController.animateTo(
+                _scrollController.offset - 320, // Adjust based on card width + padding
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+          ),
+        ),
+        // Right Arrow
+        Positioned(
+          right: 0,
+          top: 0,
+          bottom: 0,
+          child: IconButton(
+            icon: Icon(Icons.arrow_forward_ios, color: AppColors.primary),
+            onPressed: () {
+              _scrollController.animateTo(
+                _scrollController.offset + 320, // Adjust based on card width + padding
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+          ),
         ),
       ],
     );
+  } else {
+    // Small screens: Stacked vertically
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Centers children vertically
+        crossAxisAlignment: CrossAxisAlignment.center, // Centers children horizontally
+        children: packages
+            .map(
+              (package) => Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.large),
+                child: SizedBox(
+                  width: 300,
+                  child: package,
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
   }
+}
 
   Widget _buildAddOnSection() {
     return Column(
