@@ -45,14 +45,11 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
               const SizedBox(height: AppSpacing.large),
               _buildIntroSection(),
               _buildFAQSection(),
-              //_buildDetailsHeader(),
-              //const SizedBox(height: AppSpacing.medium),
-              //_buildBulletPoints(AppStrings.emotesDetails),
               const SizedBox(height: AppSpacing.large),
               _buildPackagesSection(screenWidth),
               const SizedBox(height: AppSpacing.large),
               _buildContactSection(),
-              const SizedBox(height: AppSpacing.xxxl),
+              const SizedBox(height: AppSpacing.xxl),
             ],
           ),
         ),
@@ -67,106 +64,98 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     );
   }
 
-  Widget _buildDetailsHeader() {
-    return SelectableText(
-      AppStrings.dets,
-      style: AppTextStyles.headingSmall.copyWith(
-        color: AppColors.primary,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-  }
-
-  Widget _buildBulletPoints(List<String> points) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: points
-          .map(
-            (point) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.5),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SelectableText(
-                    '- ',
-                    style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
-                  ),
-                  Expanded(
-                    child: SelectableText(
-                      point,
-                      style: AppTextStyles.bodyText,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-
   Widget _buildPackagesSection(double screenWidth) {
-    final List<CommissionPackage> packages = [
+    final List<CommissionPackage> staticPackages = [
       const CommissionPackage(
-        title: AppStrings.basicPackageTitle,
-        price: AppStrings.basicPackagePrice,
-        description: AppStrings.basicPackageDescription,
-        deliveryTime: AppStrings.basicPackageDelivery,
-        revisions: AppStrings.basicPackageRevisions,
-        emotes: AppStrings.basicPackageDescription,
+        title: "Single",
+        price: "\$12",
+        description: "Perfect for starting out, this includes one custom static emote tailored to your channel's unique personality.",
+        deliveryTime: "7-day delivery",
+        revisions: "2 Revisions",
+        emotes: "1 static emote",
       ),
       const CommissionPackage(
-        title: AppStrings.standardPackageTitle,
-        price: AppStrings.standardPackagePrice,
-        description: AppStrings.standardPackageDescription,
-        deliveryTime: AppStrings.standardPackageDelivery,
-        revisions: AppStrings.standardPackageRevisions,
-        emotes: AppStrings.standardPackageDescription,
+        title: "Basic",
+        price: "\$30",
+        description: "A great option to expand your emote library, featuring three static emotes designed to reflect your style.",
+        deliveryTime: "14-day delivery",
+        revisions: "2 Revisions",
+        emotes: "3 static emotes",
       ),
       const CommissionPackage(
-        title: AppStrings.premiumPackageTitle,
-        price: AppStrings.premiumPackagePrice,
-        description: AppStrings.premiumPackageDescription,
-        deliveryTime: AppStrings.premiumPackageDelivery,
-        revisions: AppStrings.premiumPackageRevisions,
-        emotes: AppStrings.premiumPackageDescription,
+        title: "Premium",
+        price: "\$50",
+        description: "For the ultimate customization, six static emotes to fully bring your channel's personality to life.",
+        deliveryTime: "28-day delivery",
+        revisions: "4 Revisions",
+        emotes: "6 static emotes",
       ),
     ];
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        screenWidth < AppSpacing.smallscreen
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: packages
-                    .map(
-                      (package) => Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-                        child: package,
-                      ),
-                    )
-                    .toList(),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: packages
-                    .map(
-                      (package) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.large / 2,
-                        ),
-                        child: SizedBox(
-                          width: 300,
-                          child: package,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+        _buildPackageDescription("Static Emotes", "Static emotes are beautifully crafted, non-animated icons that perfectly capture the essence of your channel. Ideal for expressive and timeless designs."),
+        _buildPackageCategory("Static Emotes", staticPackages),
         const SizedBox(height: AppSpacing.large),
+        _buildAddOnSection(),
+        const SizedBox(height: AppSpacing.large),
+        _buildPackageDescription("Animated Emotes", "Animated emotes are a fun and lively way to bring your channel to life, adding that extra spark to keep your audience engaged. \nPricing ranges from \$25 to \$50 per emote, based on the complexity of the animation."),
       ],
     );
   }
+
+  Widget _buildPackageDescription(String title, String description) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SelectableText(
+          title,
+          style: AppTextStyles.headingSmall.copyWith(color: AppColors.white),
+        ),
+        const SizedBox(height: AppSpacing.small),
+        SelectableText(
+          description,
+          style: AppTextStyles.bodyText,
+        ),
+        const SizedBox(height: AppSpacing.medium),
+      ],
+    );
+  }
+
+  Widget _buildPackageCategory(String title, List<CommissionPackage> packages) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: AppSpacing.large,
+          runSpacing: AppSpacing.large,
+          children: packages
+              .map(
+                (package) => SizedBox(
+                  width: 300,
+                  child: package,
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAddOnSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildBulletPoints([
+          "Additional static emotes for premium bundle: \$8 each",
+          "Animation upgrade ranges: \$13 to \$38 each",
+        ]),
+      ],
+    );
+  }
+
   Widget _buildFAQSection() {
     final faqItems = [
       {
@@ -198,7 +187,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SelectableText(
-                faq["question"] as String, // Explicit cast to String
+                faq["question"] as String,
                 style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
               ),
               const SizedBox(height: AppSpacing.small * 0.5),
@@ -208,13 +197,13 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                     final part = answerPart as Map<String, dynamic>;
                     if (part["isLink"] == true) {
                       return TextSpan(
-                        text: part["text"] as String, // Explicit cast to String
+                        text: part["text"] as String,
                         style: AppTextStyles.bodyText.copyWith(
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            final link = part["link"] as String; // Explicit cast to String
+                            final link = part["link"] as String;
                             if (link.startsWith("http")) {
                               launch(link);
                             } else {
@@ -224,8 +213,8 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
                       );
                     } else {
                       return TextSpan(
-                        text: part["text"] as String, // Explicit cast to String
-                        style: AppTextStyles.bodyText
+                        text: part["text"] as String,
+                        style: AppTextStyles.bodyText,
                       );
                     }
                   }).toList(),
@@ -237,9 +226,6 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       }).toList(),
     );
   }
-
-
-
 
   Widget _buildContactSection() {
     return Column(
@@ -273,62 +259,114 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
       ],
     );
   }
+Widget _buildStepsSection() {
+  final steps = [
+    {
+      "title": "Concept and Discussion",
+      "description": "Before the commission is confirmed, you should review my ",
+      "links": [
+        {"text": "Terms", "route": AppRoutes.terms},
+        {"text": ", and let me know before and if you need some special conditions. Other than the terms, it can be helpful to review the ", "route": null},
+        {"text": "FAQ page.", "route": AppRoutes.faq}
+      ]
+    },
+    {
+      "title": "Initial Sketches",
+      "description": "Once we align on the concept, I’ll create sketches for your review. You’ll have the chance to provide feedback before we move forward.",
+    },
+    {
+      "title": "Refinement and Coloring",
+      "description": "After the sketches are approved, I’ll refine the designs and add color, keeping you updated throughout the process.",
+    },
+    {
+      "title": "Final Delivery",
+      "description": "Your finished emotes will be delivered as high-quality PNG files, or gif if animations. I'll send them via Google Drive, email, or Discord.",
+    },
+  ];
 
-  Widget _buildStepsSection() {
-    final steps = [
-      {
-        "title": "Concept and Discussion",
-        "description":
-            "We start with a friendly chat to discuss your vision. This can happen through email, Discord, or a Concept Chat on Ko-fi.",
-      },
-      {
-        "title": "Initial Sketches",
-        "description":
-            "Once we align on the concept, I’ll create sketches for your review. You’ll have the chance to provide feedback before we move forward.",
-      },
-      {
-        "title": "Refinement and Coloring",
-        "description":
-            "After the sketches are approved, I’ll refine the designs and add color, keeping you updated throughout the process.",
-      },
-      {
-        "title": "Final Delivery",
-        "description":
-            "Your finished emotes will be delivered as high-quality PNG files. I'll send them via Google Drive, email, or Discord—your choice.",
-      },
-    ];
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SelectableText(
+        "How It Works",
+        style: AppTextStyles.headingSmall.copyWith(color: AppColors.white),
+      ),
+      const SizedBox(height: AppSpacing.medium),
+      ...steps.map((step) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: AppSpacing.medium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SelectableText(
+                step["title"] as String,
+                style: AppTextStyles.bodyTextBold.copyWith(
+                  color: AppColors.primary,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.small),
+              RichText(
+                text: TextSpan(
+                  style: AppTextStyles.bodyText,
+                  children: [
+                    TextSpan(
+                      text: step["description"] as String,
+                      style: AppTextStyles.bodyText,
+                    ),
+                    if (step.containsKey("links"))
+                      ...((step["links"] as List<dynamic>).map((link) {
+                        final linkMap = link as Map<String, String?>;
+                        return TextSpan(
+                          text: linkMap["text"],
+                          style: linkMap["route"] != null
+                              ? AppTextStyles.bodyText.copyWith(
+                                  decoration: TextDecoration.underline,
+                                  color: AppColors.white,
+                                )
+                              : AppTextStyles.bodyText,
+                          recognizer: linkMap["route"] != null
+                              ? (TapGestureRecognizer()
+                                ..onTap = () => context.go(linkMap["route"]!))
+                              : null,
+                        );
+                      })),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ],
+  );
+}
 
+
+ Widget _buildBulletPoints(List<String> points) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SelectableText(
-          "How It Works",
-          style: AppTextStyles.bodyTextBold.copyWith(
-            color: AppColors.white,
-          ),
-        ),
-        const SizedBox(height: AppSpacing.medium),
-        ...steps.map((step) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.medium),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(
-                  step["title"]!,
-                  style: AppTextStyles.bodyTextBold.copyWith(
-                    color: AppColors.primary,
+      children: points
+          .map(
+            (point) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.small * 0.5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SelectableText(
+                    '- ',
+                    style: AppTextStyles.bodyTextBold.copyWith(color: AppColors.primary),
                   ),
-                ),
-                SelectableText(
-                  step["description"]!,
-                  style: AppTextStyles.bodyText,
-                ),
-              ],
+                  Expanded(
+                    child: SelectableText(
+                      point,
+                      style: AppTextStyles.bodyText,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          );
-        }).toList(),
-      ],
+          )
+          .toList(),
     );
   }
 }
