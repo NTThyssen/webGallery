@@ -84,7 +84,7 @@ static const String combinedProcessDescription =
       "At a 300 dpi resulotion",
   ];
   static const String additional = 
-  "When getting the Premium pack, additional emotes can be added for \$5 each. \n"
+  "When getting the Premium pack, additional emotes can be added for \$8 each. \n"
   "If you want a big change or want a design redone after you approved the sketch, it counts as a new emote."
   //"I do animated emotes as well, upgrading an emote to animation will be additional \$5 for simple animations and "
   ;
@@ -94,21 +94,21 @@ static const String combinedProcessDescription =
       "Looking for something else? I specialize in emotes, but feel free to reach out and let's have a chat about it.";
   // Commission Packages
   static const String basicPackageTitle = 'Basic';
-  static const String basicPackagePrice = '\$10';
+  static const String basicPackagePrice = '\$12';
   static const String basicPackageDescription = '1 custom static emotes.';
   static const String basicPackageDelivery = '5-day delivery';
   static const String basicPackageRevisions = '2 Revisions';
   static const String basicPackageEmotes = '1 emote';
 
   static const String standardPackageTitle = 'Standard';
-  static const String standardPackagePrice = '\$25';
+  static const String standardPackagePrice = '\$30';
   static const String standardPackageDescription = '3 custom static emotes.';
   static const String standardPackageDelivery = '14-day delivery';
   static const String standardPackageRevisions = '2 Revisions';
   static const String standardPackageEmotes = '3 emotes';
 
   static const String premiumPackageTitle = 'Premium';
-  static const String premiumPackagePrice = '\$45';
+  static const String premiumPackagePrice = '\$50';
   static const String premiumPackageDescription = '6 custom static emotes.';
   static const String premiumPackageDelivery = '28-day delivery';
   static const String premiumPackageRevisions = '4 Revisions';
