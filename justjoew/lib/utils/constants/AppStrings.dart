@@ -1,3 +1,5 @@
+import 'package:justjoew/utils/navigator/navigator.dart';
+
 class AppStrings {
   // General
   static const String appName = 'JustJoew';
@@ -35,6 +37,7 @@ class AppStrings {
   static const String loginButton = 'Login';
   static const String registerButton = 'Register';
   static const String forgotPasswordButton = 'Forgot Password?';
+  static const String contactButtonText = 'Contact';
 
   // Section Headers
   static const String contactUsHeader = 'Contact Us';
@@ -93,27 +96,6 @@ static const String combinedProcessDescription =
   static const String letscreate = "Let’s create something amazing together!";
   static const String otherRequestsDescription = 
       "Looking for something else? I specialize in emotes, but feel free to reach out and let's have a chat about it.";
-  // Commission Packages
-  static const String basicPackageTitle = 'Basic';
-  static const String basicPackagePrice = '\$12';
-  static const String basicPackageDescription = '1 custom static emotes.';
-  static const String basicPackageDelivery = '5-day delivery';
-  static const String basicPackageRevisions = '2 Revisions';
-  static const String basicPackageEmotes = '1 emote';
-
-  static const String standardPackageTitle = 'Standard';
-  static const String standardPackagePrice = '\$30';
-  static const String standardPackageDescription = '3 custom static emotes.';
-  static const String standardPackageDelivery = '14-day delivery';
-  static const String standardPackageRevisions = '2 Revisions';
-  static const String standardPackageEmotes = '3 emotes';
-
-  static const String premiumPackageTitle = 'Premium';
-  static const String premiumPackagePrice = '\$50';
-  static const String premiumPackageDescription = '6 custom static emotes.';
-  static const String premiumPackageDelivery = '28-day delivery';
-  static const String premiumPackageRevisions = '4 Revisions';
-  static const String premiumPackageEmotes = '6 - emotes';
 
   // License Section
   static const String licenseTitle = 'License / Terms of Use';
@@ -480,6 +462,106 @@ static const String combinedProcessDescription =
           "Feedback is key! Be as detailed as possible when sharing your thoughts, and don’t hesitate to ask questions. Together, we’ll refine the design to perfection!"
     },
   ];
+
+  // Commission Page
+  static const String commissionsIntroductionText =
+      "Welcome and hello!\n\n"
+      "I'm Joe, and I make custom emotes designed to match you and your channel. Whether you have a clear vision or just a rough idea, we can work together to bring it to life.\n\n"
+      "I pour my heart into each one, tailoring it to your vision, so the price reflects the time, care, and creativity that go into making something truly special for your community.\n\n"
+      "If you have any questions or requests not listed here, feel free to reach out.";
+
+  static const String staticEmotesTitle = 'Static Emotes';
+  static const String staticEmotesDescription =
+      'Non-animated emotes that reflect the vibe of your channel and bring extra charm to your community. Below, you’ll find options to upgrade your bundle with additional emotes or animations.';
+  static const String animatedEmotesTitle = 'Animated Emotes';
+  static const String animatedEmotesDescription =
+      'Animated emotes are a fun and lively way to bring your channel to life, adding that extra spark to keep your audience engaged. \nPricing ranges from \$25 to \$50 per emote, based on the complexity of the animation.';
+
+  // Add-ons
+  static const List<String> addOns = [
+    'Additional static emotes for premium bundle: \$8 each',
+    'Animation upgrade ranges: \$13 to \$38 each',
+  ];
+
+  // FAQ
+  static const List<Map<String, dynamic>> faqItems = [
+    {
+      "question": "How do I request a commission?",
+      "answer": [
+        {"text": "Getting started is easy! Before any commission, we’ll have a chat about expectations to ensure I’m the right fit for you. You can either visit my ", "isLink": false},
+        {"text": "Contact Page", "isLink": true, "link": AppRoutes.contact},
+        {"text": " or book a Concept Chat on ", "isLink": false},
+        {"text": "Ko-fi", "isLink": true, "link": "https://ko-fi.com/c/638bf59cac"},
+        {"text": ". Once we’re aligned, I’ll guide you through the rest, and together we’ll create something amazing!", "isLink": false},
+      ],
+    },
+    {
+      "question": "What do you get?",
+      "answer": [
+        {"text": "You’ll receive high-quality PNG files at 128x128px, 300 DPI—perfect for platforms like Twitch and Discord. For more details on how you can use the emotes, check out my ", "isLink": false},
+        {"text": "Usage License", "isLink": true, "link": AppRoutes.usage},
+        {"text": " to understand what’s allowed and what’s not.", "isLink": false},
+      ],
+    },
+  ];
+  
+  static const String contactMe = 'Does this sound like something for you? Contact me!';
+
+  // Packages
+  static const String basicPackageTitle = 'Single';
+  static const String basicPackagePrice = '\$12';
+  static const String basicPackageDescription =
+      'Perfect for starting out, this includes one custom static emote tailored to your channel\'s unique personality.';
+  static const String basicPackageDelivery = '7-day delivery';
+  static const String basicPackageRevisions = '2 Revisions';
+  static const String basicPackageEmotes = '1 static emote';
+
+  static const String standardPackageTitle = 'Basic';
+  static const String standardPackagePrice = '\$30';
+  static const String standardPackageDescription =
+      'A great option to expand your emote library, featuring three static emotes designed to reflect your style.';
+  static const String standardPackageDelivery = '14-day delivery';
+  static const String standardPackageRevisions = '2 Revisions';
+  static const String standardPackageEmotes = '3 static emotes';
+
+  static const String premiumPackageTitle = 'Premium';
+  static const String premiumPackagePrice = '\$50';
+  static const String premiumPackageDescription =
+      'For the ultimate customization, six static emotes to fully bring your channel\'s personality to life.';
+  static const String premiumPackageDelivery = '28-day delivery';
+  static const String premiumPackageRevisions = '4 Revisions';
+  static const String premiumPackageEmotes = '6 static emotes';
+
+
+
+  // Steps for "How It Works" Section
+static const List<Map<String, dynamic>> steps = [
+  {
+    "title": "Concept and Discussion",
+    "description":
+        "We start with a friendly chat to discuss your vision. This can happen through email, Discord, or a Concept Chat on Ko-fi. Before the commission is confirmed, you should review my ",
+    "links": [
+      {"text": "Terms", "route": AppRoutes.terms},
+      {"text": ", and let me know if you need any special conditions. It can also be helpful to review the ", "route": null},
+      {"text": "FAQ page.", "route": AppRoutes.faq}
+    ]
+  },
+  {
+    "title": "Initial Sketches",
+    "description":
+        "Once we align on the concept, I’ll create sketches for your review. You’ll have the chance to provide feedback before we move forward.",
+  },
+  {
+    "title": "Refinement and Coloring",
+    "description":
+        "After the sketches are approved, I’ll refine the designs and add color, keeping you updated throughout the process.",
+  },
+  {
+    "title": "Final Delivery",
+    "description":
+        "Your finished emotes will be delivered as high-quality PNG files or GIFs if animations. I'll send them via Google Drive, email, or Discord.",
+  },
+];
 
 
 }
