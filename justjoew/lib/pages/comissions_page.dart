@@ -95,7 +95,7 @@ class _CommissionPageState extends State<CommissionPage> with BasicMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildPackageDescription("Static Emotes", "Static emotes are beautifully crafted, non-animated icons that perfectly capture the essence of your channel. Ideal for expressive and timeless designs."),
+        _buildPackageDescription("Static Emotes", "Non-animated emotes that reflect the vibe of your channel and bring extra charm to your community. Below, you’ll find options to upgrade your bundle with additional emotes or animations."),
         _buildPackageCategory("Static Emotes", staticPackages),
         const SizedBox(height: AppSpacing.large),
         _buildAddOnSection(),
@@ -143,63 +143,77 @@ Widget _buildPackageCategory(String title, List<CommissionPackage> packages) {
           )
           .toList(),
     );
-  } else if (screenWidth > 600
-  ) {
-    // Medium screens: Horizontal scroll with arrows
-    return Stack(
-      children: [
-        SizedBox(
-          height: 350, // Adjust height as per card size
-          child: ListView.builder(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            itemCount: packages.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
-                child: SizedBox(
-                  width: 300,
-                  child: packages[index],
-                ),
-              );
-            },
+  } else if (screenWidth > 600) {
+  // Medium screens: Horizontal scroll with arrows
+  return Column(
+    children: [
+      Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: packages.length > 0 ? constraints.maxHeight : 0,
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: packages.map((package) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+                          child: SizedBox(
+                            width: 300,
+                            child: package,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-        // Left Arrow
-        Positioned(
-          left: 0,
-          top: 0,
-          bottom: 0,
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: AppColors.primary),
-            onPressed: () {
-              _scrollController.animateTo(
-                _scrollController.offset - 320, // Adjust based on card width + padding
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
+          // Left Arrow
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: AppColors.primary),
+              onPressed: () {
+                _scrollController.animateTo(
+                  _scrollController.offset - 320, // Adjust for card width + padding
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
           ),
-        ),
-        // Right Arrow
-        Positioned(
-          right: 0,
-          top: 0,
-          bottom: 0,
-          child: IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: AppColors.primary),
-            onPressed: () {
-              _scrollController.animateTo(
-                _scrollController.offset + 320, // Adjust based on card width + padding
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
+          // Right Arrow
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: IconButton(
+              icon: Icon(Icons.arrow_forward_ios, color: AppColors.primary),
+              onPressed: () {
+                _scrollController.animateTo(
+                  _scrollController.offset + 320, // Adjust for card width + padding
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
           ),
-        ),
-      ],
-    );
-  } else {
+        ],
+      ),
+    ],
+  );
+}
+
+  else {
     // Small screens: Stacked vertically
     return Center(
       child: Column(
@@ -340,10 +354,11 @@ Widget _buildStepsSection() {
   final steps = [
     {
       "title": "Concept and Discussion",
-      "description": "Before the commission is confirmed, you should review my ",
+      "description": 
+      "We start with a friendly chat to discuss your vision. This can happen through email, Discord, or a Concept Chat on Ko-fi. \n Before the commission is confirmed, you should review my ",
       "links": [
         {"text": "Terms", "route": AppRoutes.terms},
-        {"text": ", and let me know before and if you need some special conditions. Other than the terms, it can be helpful to review the ", "route": null},
+        {"text": ", and let me know if you need any special conditions. It can also be helpful to review the ", "route": null},
         {"text": "FAQ page.", "route": AppRoutes.faq}
       ]
     },
