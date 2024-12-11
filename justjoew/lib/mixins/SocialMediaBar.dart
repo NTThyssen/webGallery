@@ -17,6 +17,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
     'twitch': false,
     'gmail': false,
     'fiverr': false,
+    'instagram': false, // Add Instagram hover state
   };
 
   @override
@@ -53,6 +54,16 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
           ),
           AppStrings.twitchUrl,
           'twitch',
+        ),
+        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
+        _buildIconButton(
+          FaIcon(
+            FontAwesomeIcons.instagram,
+            color: _hoverStates['instagram']! ? Colors.pink : AppColors.icons,
+            size: 32, // Set the icon size to 32
+          ),
+          AppStrings.instagramUrl, // Instagram URL
+          'instagram',
         ),
       ],
     );

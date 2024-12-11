@@ -138,6 +138,7 @@ static const String combinedProcessDescription =
   static const String emailUrl = 'mailto:justjoew@outlook.com';
   static const String email = 'justjoew@outlook.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
+  static const String instagramUrl  = 'https://www.instagram.com/justjoew__/';
   static const String privacyPolicyLink = 'Privacy Policy';
   static const String termsOfServiceLink = 'Terms of Service';
 
