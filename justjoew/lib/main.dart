@@ -24,13 +24,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+
+    // Map devicePixelRatio to your backend's expected size categories
+    int ratio;
+    if (devicePixelRatio <= 1.0) {
+      ratio = 112;
+    } else if (devicePixelRatio <= 1.5) {
+      ratio = 196;
+    } else if (devicePixelRatio <= 2.0) {
+      ratio = 256;
+    } else if (devicePixelRatio <= 3.0) {
+      ratio = 384;
+    } else {
+      ratio = 512;
+    }
     return RepositoryProvider(
       create: (context) => AssetRepository(),
       lazy: false,
       child: BlocProvider(
-          create: (context) =>
-              SectionCubit(RepositoryProvider.of<AssetRepository>(context))
-                ..getAllSections(),
+          create: (context) => SectionCubit(
+              RepositoryProvider.of<AssetRepository>(context), ratio)
+            ..getAllSections(),
           child: MaterialApp.router(
             title: AppStrings.appName,
             theme: myTheme,

@@ -9,10 +9,12 @@ part 'section_state.dart';
 
 class SectionCubit extends Cubit<SectionState> {
   final AssetRepository _assetRepository;
-  SectionCubit(this._assetRepository) : super(SectionLoading());
+  final int ratio;
+  SectionCubit(this._assetRepository, this.ratio) : super(SectionLoading());
 
   void getAllSections() async {
-    var lists = Mapper.mapResponse(await _assetRepository.getAllSections());
+    var lists =
+        Mapper.mapResponse(await _assetRepository.getAllSections(ratio));
     for (var list in lists) {
       //sort each assets list and return the section list with sub sorted lists
       list.assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));

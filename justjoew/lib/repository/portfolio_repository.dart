@@ -9,10 +9,10 @@ class AssetRepository {
     stub = AssetControllerClient(channel!);
   }
 
-  Future<GetAllSectionsResonse> getAllSections() async {
+  Future<GetAllSectionsResonse> getAllSections(int ratio) async {
     try {
       final response =
-          await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: 112));
+          await stub!.getAllSections(GetAllSectionsRequest(aspectRatio: ratio));
       return response;
     } catch (e) {
       throw ('Caught error: $e');
