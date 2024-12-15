@@ -57,14 +57,17 @@ class MyFooter extends StatelessWidget {
 
   // Function to create individual footer links
   Widget _buildFooterLink(BuildContext context, String text, String route) {
-    return GestureDetector(
-      onTap: () => context.go(route),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              decoration: TextDecoration.underline,
-              color: AppColors.primary,
-            ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Show hand cursor on hover
+      child: GestureDetector(
+        onTap: () => context.go(route),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                decoration: TextDecoration.underline,
+                color: AppColors.primary,
+              ),
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:justjoew/utils/navigator/navigator.dart';
+
 class AppStrings {
   // General
   static const String appName = 'JustJoew';
@@ -35,6 +37,7 @@ class AppStrings {
   static const String loginButton = 'Login';
   static const String registerButton = 'Register';
   static const String forgotPasswordButton = 'Forgot Password?';
+  static const String contactButtonText = 'Contact';
 
   // Section Headers
   static const String contactUsHeader = 'Contact Us';
@@ -68,15 +71,14 @@ static const String passionText =
 static const String combinedProcessDescription = 
     "From start to finish, it's a shared journey. To begin, I like to understand your vision, making sure my designs align with your expectations. If you have any references, we’ll review them, and together, we’ll work out the concept. Then, I'll sketch the initial designs, and together we'll refine the design based on your feedback, ensuring we're both satisfied. Once the concept and design are clear, I’ll create the final emote.\n\n"
     "Feedback is an important part of my process. Our goal is ensuring the final emote reflects the effort, care, and pride we both put into it, as well as the channel it represents.";
-
   // Commissions Page
-  static const String commissionsSubheader = '(Open)';
+  static const String commissionsSubheader = '(Waitlist)';
   static const String comissionsIntroductionText = 
       "Welcome and hello!\n\n"
-      "I'm Joe, and I make custom emotes designed to match you and your channel, whether you have a clear vision or just a rough idea, we can work together to bring it to life. \n\n"
-      "If you have a concept in mind or simply want to explore ideas, I'd love to hear from you. \n"
-      "If you have any questions or other request than listed here, feel free to reach out."
-      ;
+      "I'm Joe, and I make custom emotes designed to match you and your channel. Whether you have a clear vision or just a rough idea, we can work together to bring it to life.\n\n"
+      "While I'm currently working on some exciting projects, my waitlist is open, and I'd still love to hear from you!\n"
+      "I pour my heart into each one, tailoring it to your vision, so the price reflects the time, care, and creativity that go into making something truly special for your community.\n\n"
+      "If you have any questions or requests not listed here, feel free to reach out.\n";
   static const String emotesTitle = 'Emotes';
   static const String dets = 'Details';
   static const String emotesDescription = 
@@ -86,7 +88,7 @@ static const String combinedProcessDescription =
       "At a 300 dpi resulotion",
   ];
   static const String additional = 
-  "When getting the Premium pack, additional emotes can be added for \$5 each. \n"
+  "When getting the Premium pack, additional emotes can be added for \$8 each. \n"
   "If you want a big change or want a design redone after you approved the sketch, it counts as a new emote."
   //"I do animated emotes as well, upgrading an emote to animation will be additional \$5 for simple animations and "
   ;
@@ -94,27 +96,6 @@ static const String combinedProcessDescription =
   static const String letscreate = "Let’s create something amazing together!";
   static const String otherRequestsDescription = 
       "Looking for something else? I specialize in emotes, but feel free to reach out and let's have a chat about it.";
-  // Commission Packages
-  static const String basicPackageTitle = 'Basic';
-  static const String basicPackagePrice = '\$10';
-  static const String basicPackageDescription = '1 custom static emotes.';
-  static const String basicPackageDelivery = '5-day delivery';
-  static const String basicPackageRevisions = '2 Revisions';
-  static const String basicPackageEmotes = '1 emote';
-
-  static const String standardPackageTitle = 'Standard';
-  static const String standardPackagePrice = '\$25';
-  static const String standardPackageDescription = '3 custom static emotes.';
-  static const String standardPackageDelivery = '10-day delivery';
-  static const String standardPackageRevisions = '2 Revisions';
-  static const String standardPackageEmotes = '3 emotes';
-
-  static const String premiumPackageTitle = 'Premium';
-  static const String premiumPackagePrice = '\$45';
-  static const String premiumPackageDescription = '6 custom static emotes.';
-  static const String premiumPackageDelivery = '14-day delivery';
-  static const String premiumPackageRevisions = '4 Revisions';
-  static const String premiumPackageEmotes = '6 - emotes';
 
   // License Section
   static const String licenseTitle = 'License / Terms of Use';
@@ -139,6 +120,7 @@ static const String combinedProcessDescription =
   static const String emailUrl = 'mailto:justjoew@outlook.com';
   static const String email = 'justjoew@outlook.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
+  static const String instagramUrl  = 'https://www.instagram.com/justjoew__/';
   static const String privacyPolicyLink = 'Privacy Policy';
   static const String termsOfServiceLink = 'Terms of Service';
 
@@ -365,7 +347,7 @@ static const String combinedProcessDescription =
     {
       "question": "How long does a commission take?",
       "answer":
-          "I pour my heart and creativity into each piece, so commissions typically take 5 days to 3 weeks to complete, depending on the complexity and my current workload. I’ll keep you updated every step of the way—consider me your creative partner on this journey!"
+          "I pour my heart and creativity into each piece, so commissions typically take 5 days to 4 weeks to complete, depending on the complexity and my current workload. I’ll keep you updated every step of the way—consider me your creative partner on this journey!"
     },
     {
       "question": "Do you work with all types of clients?",
@@ -480,6 +462,106 @@ static const String combinedProcessDescription =
           "Feedback is key! Be as detailed as possible when sharing your thoughts, and don’t hesitate to ask questions. Together, we’ll refine the design to perfection!"
     },
   ];
+
+  // Commission Page
+  static const String commissionsIntroductionText =
+      "Welcome and hello!\n\n"
+      "I'm Joe, and I make custom emotes designed to match you and your channel. Whether you have a clear vision or just a rough idea, we can work together to bring it to life.\n\n"
+      "I pour my heart into each one, tailoring it to your vision, so the price reflects the time, care, and creativity that go into making something truly special for your community.\n\n"
+      "If you have any questions or requests not listed here, feel free to reach out.";
+
+  static const String staticEmotesTitle = 'Static Emotes';
+  static const String staticEmotesDescription =
+      'Non-animated emotes that reflect the vibe of your channel and bring extra charm to your community. Below, you’ll find options to upgrade your bundle with additional emotes or animations.';
+  static const String animatedEmotesTitle = 'Animated Emotes';
+  static const String animatedEmotesDescription =
+      'Animated emotes are a fun and lively way to bring your channel to life, adding that extra spark to keep your audience engaged. \nPricing ranges from \$25 to \$50 per emote, based on the complexity of the animation.';
+
+  // Add-ons
+  static const List<String> addOns = [
+    'Additional static emotes for premium bundle: \$8 each',
+    'Animation upgrade ranges: \$13 to \$38 each',
+  ];
+
+  // FAQ
+  static const List<Map<String, dynamic>> faqItems = [
+    {
+      "question": "How do I request a commission?",
+      "answer": [
+        {"text": "Getting started is easy! Before any commission, we’ll have a chat about expectations to ensure I’m the right fit for you. You can either visit my ", "isLink": false},
+        {"text": "Contact Page", "isLink": true, "link": AppRoutes.contact},
+        {"text": " or book a Concept Chat on ", "isLink": false},
+        {"text": "Ko-fi", "isLink": true, "link": "https://ko-fi.com/c/638bf59cac"},
+        {"text": ". Once we’re aligned, I’ll guide you through the rest, and together we’ll create something amazing!", "isLink": false},
+      ],
+    },
+    {
+      "question": "What do you get?",
+      "answer": [
+        {"text": "You’ll receive high-quality PNG files at 128x128px, 300 DPI—perfect for platforms like Twitch and Discord. For more details on how you can use the emotes, check out my ", "isLink": false},
+        {"text": "Usage License", "isLink": true, "link": AppRoutes.usage},
+        {"text": " to understand what’s allowed and what’s not.", "isLink": false},
+      ],
+    },
+  ];
+  
+  static const String contactMe = 'Does this sound like something for you? Contact me!';
+
+  // Packages
+  static const String basicPackageTitle = 'Single';
+  static const String basicPackagePrice = '\$12';
+  static const String basicPackageDescription =
+      'Perfect for starting out, this includes one custom static emote tailored to your channel\'s unique personality.';
+  static const String basicPackageDelivery = '7-day delivery';
+  static const String basicPackageRevisions = '2 Revisions';
+  static const String basicPackageEmotes = '1 static emote';
+
+  static const String standardPackageTitle = 'Basic';
+  static const String standardPackagePrice = '\$30';
+  static const String standardPackageDescription =
+      'A great option to expand your emote library, featuring three static emotes designed to reflect your style.';
+  static const String standardPackageDelivery = '14-day delivery';
+  static const String standardPackageRevisions = '2 Revisions';
+  static const String standardPackageEmotes = '3 static emotes';
+
+  static const String premiumPackageTitle = 'Premium';
+  static const String premiumPackagePrice = '\$50';
+  static const String premiumPackageDescription =
+      'For the ultimate customization, six static emotes to fully bring your channel\'s personality to life.';
+  static const String premiumPackageDelivery = '28-day delivery';
+  static const String premiumPackageRevisions = '4 Revisions';
+  static const String premiumPackageEmotes = '6 static emotes';
+
+
+
+  // Steps for "How It Works" Section
+static const List<Map<String, dynamic>> steps = [
+  {
+    "title": "Concept and Discussion",
+    "description":
+        "We start with a friendly chat to discuss your vision. This can happen through email, Discord, or a Concept Chat on Ko-fi. Before the commission is confirmed, you should review my ",
+    "links": [
+      {"text": "Terms", "route": AppRoutes.terms},
+      {"text": ", and let me know if you need any special conditions. It can also be helpful to review the ", "route": null},
+      {"text": "FAQ page.", "route": AppRoutes.faq}
+    ]
+  },
+  {
+    "title": "Initial Sketches",
+    "description":
+        "Once we align on the concept, I’ll create sketches for your review. You’ll have the chance to provide feedback before we move forward.",
+  },
+  {
+    "title": "Refinement and Coloring",
+    "description":
+        "After the sketches are approved, I’ll refine the designs and add color, keeping you updated throughout the process.",
+  },
+  {
+    "title": "Final Delivery",
+    "description":
+        "Your finished emotes will be delivered as high-quality PNG files or GIFs if animations. I'll send them via Google Drive, email, or Discord.",
+  },
+];
 
 
 }
