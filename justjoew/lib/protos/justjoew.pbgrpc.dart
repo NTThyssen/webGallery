@@ -33,8 +33,8 @@ class AssetControllerClient extends $grpc.Client {
       '/justjoew.asstes.AssetController/CreateAsset',
       ($0.CreateAssetRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.CreateAssetResponse.fromBuffer(value));
-  static final _$updateAssetOrder = $grpc.ClientMethod<$0.UpdateAssetOrderRequest, $0.UpdateAssetOrderResponse>(
-      '/justjoew.asstes.AssetController/UpdateAssetOrder',
+  static final _$updateAssetorder = $grpc.ClientMethod<$0.UpdateAssetOrderRequest, $0.UpdateAssetOrderResponse>(
+      '/justjoew.asstes.AssetController/UpdateAssetorder',
       ($0.UpdateAssetOrderRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.UpdateAssetOrderResponse.fromBuffer(value));
   static final _$deleteSection = $grpc.ClientMethod<$0.DeleteSectionRequest, $0.DeleteSectionResponse>(
@@ -45,14 +45,6 @@ class AssetControllerClient extends $grpc.Client {
       '/justjoew.asstes.AssetController/DeleteAsset',
       ($0.DeleteAssetRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.DeleteAssetResponse.fromBuffer(value));
-  static final _$updateSectionInfo = $grpc.ClientMethod<$0.UpdateSectionInfoRequest, $0.UpdateSectionInfoResponse>(
-      '/justjoew.asstes.AssetController/UpdateSectionInfo',
-      ($0.UpdateSectionInfoRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.UpdateSectionInfoResponse.fromBuffer(value));
-  static final _$updateSectionOrder = $grpc.ClientMethod<$0.UpdateSectionOrderRequest, $0.UpdateSectionOrderResponse>(
-      '/justjoew.asstes.AssetController/UpdateSectionOrder',
-      ($0.UpdateSectionOrderRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.UpdateSectionOrderResponse.fromBuffer(value));
 
   AssetControllerClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -72,8 +64,8 @@ class AssetControllerClient extends $grpc.Client {
     return $createUnaryCall(_$createAsset, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.UpdateAssetOrderResponse> updateAssetOrder($0.UpdateAssetOrderRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$updateAssetOrder, request, options: options);
+  $grpc.ResponseFuture<$0.UpdateAssetOrderResponse> updateAssetorder($0.UpdateAssetOrderRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateAssetorder, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeleteSectionResponse> deleteSection($0.DeleteSectionRequest request, {$grpc.CallOptions? options}) {
@@ -82,14 +74,6 @@ class AssetControllerClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.DeleteAssetResponse> deleteAsset($0.DeleteAssetRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteAsset, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.UpdateSectionInfoResponse> updateSectionInfo($0.UpdateSectionInfoRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$updateSectionInfo, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.UpdateSectionOrderResponse> updateSectionOrder($0.UpdateSectionOrderRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$updateSectionOrder, request, options: options);
   }
 }
 
@@ -120,8 +104,8 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) => $0.CreateAssetRequest.fromBuffer(value),
         ($0.CreateAssetResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UpdateAssetOrderRequest, $0.UpdateAssetOrderResponse>(
-        'UpdateAssetOrder',
-        updateAssetOrder_Pre,
+        'UpdateAssetorder',
+        updateAssetorder_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.UpdateAssetOrderRequest.fromBuffer(value),
@@ -140,20 +124,6 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.DeleteAssetRequest.fromBuffer(value),
         ($0.DeleteAssetResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateSectionInfoRequest, $0.UpdateSectionInfoResponse>(
-        'UpdateSectionInfo',
-        updateSectionInfo_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.UpdateSectionInfoRequest.fromBuffer(value),
-        ($0.UpdateSectionInfoResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateSectionOrderRequest, $0.UpdateSectionOrderResponse>(
-        'UpdateSectionOrder',
-        updateSectionOrder_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.UpdateSectionOrderRequest.fromBuffer(value),
-        ($0.UpdateSectionOrderResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.GetAllSectionsResonse> getAllSections_Pre($grpc.ServiceCall call, $async.Future<$0.GetAllSectionsRequest> request) async {
@@ -168,8 +138,8 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
     return createAsset(call, await request);
   }
 
-  $async.Future<$0.UpdateAssetOrderResponse> updateAssetOrder_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateAssetOrderRequest> request) async {
-    return updateAssetOrder(call, await request);
+  $async.Future<$0.UpdateAssetOrderResponse> updateAssetorder_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateAssetOrderRequest> request) async {
+    return updateAssetorder(call, await request);
   }
 
   $async.Future<$0.DeleteSectionResponse> deleteSection_Pre($grpc.ServiceCall call, $async.Future<$0.DeleteSectionRequest> request) async {
@@ -180,20 +150,10 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
     return deleteAsset(call, await request);
   }
 
-  $async.Future<$0.UpdateSectionInfoResponse> updateSectionInfo_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateSectionInfoRequest> request) async {
-    return updateSectionInfo(call, await request);
-  }
-
-  $async.Future<$0.UpdateSectionOrderResponse> updateSectionOrder_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateSectionOrderRequest> request) async {
-    return updateSectionOrder(call, await request);
-  }
-
   $async.Future<$0.GetAllSectionsResonse> getAllSections($grpc.ServiceCall call, $0.GetAllSectionsRequest request);
   $async.Future<$0.CreateSectionResponse> createSection($grpc.ServiceCall call, $0.CreateSectionRequest request);
   $async.Future<$0.CreateAssetResponse> createAsset($grpc.ServiceCall call, $0.CreateAssetRequest request);
-  $async.Future<$0.UpdateAssetOrderResponse> updateAssetOrder($grpc.ServiceCall call, $0.UpdateAssetOrderRequest request);
+  $async.Future<$0.UpdateAssetOrderResponse> updateAssetorder($grpc.ServiceCall call, $0.UpdateAssetOrderRequest request);
   $async.Future<$0.DeleteSectionResponse> deleteSection($grpc.ServiceCall call, $0.DeleteSectionRequest request);
   $async.Future<$0.DeleteAssetResponse> deleteAsset($grpc.ServiceCall call, $0.DeleteAssetRequest request);
-  $async.Future<$0.UpdateSectionInfoResponse> updateSectionInfo($grpc.ServiceCall call, $0.UpdateSectionInfoRequest request);
-  $async.Future<$0.UpdateSectionOrderResponse> updateSectionOrder($grpc.ServiceCall call, $0.UpdateSectionOrderRequest request);
 }

@@ -1,19 +1,18 @@
 import 'package:equatable/equatable.dart';
-import 'package:justjoew_admin/protos/justjoew.pb.dart';
+import 'package:justjoew/protos/justjoew.pb.dart';
 
 // ignore: must_be_immutable
 class Section extends Equatable {
   int id;
   String name;
   List<Asset> assetList;
-  String sectionUrl;
-  int orderIndex;
+  String sectionlUrl;
 
-  Section(this.id, this.name, this.assetList, this.sectionUrl, this.orderIndex);
+  Section(this.id, this.name, this.assetList, this.sectionlUrl);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, name, assetList, sectionUrl];
+  List<Object?> get props => [id, name, assetList, sectionlUrl];
 }
 
 // ignore: must_be_immutable
@@ -34,17 +33,16 @@ class Asset extends Equatable {
 
 class Mapper {
   static List<Section> mapResponse(GetAllSectionsResonse response) {
-    var sectionList = List<Section>.empty(growable: true);
+    var sectionList = new List<Section>.empty(growable: true);
     for (var sectionEle in response.sections) {
-      var assetList = List<Asset>.empty(growable: true);
+      var assetList = new List<Asset>.empty(growable: true);
       for (var assetEle in sectionEle.assetList) {
         assetList.add(Asset(assetEle.blobPath, assetEle.id, assetEle.orderIndex,
             assetEle.sectionId, assetEle.sectionName));
       }
-      assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
-      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl, sectionEle.orderIndex));
+      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl));
     }
-    sectionList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
+
     return sectionList;
   }
 }

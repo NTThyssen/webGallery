@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gif/gif.dart';
+import 'package:justjoew/cubit/section_cubit.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/constants/ImageStrings.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
@@ -38,65 +40,60 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding), // Use calculated padding
-        child: Column(
-          children: [
-            const Center(
-              child: CustomHeaderLarge(text: AppStrings.emotesHeader),
-            ),
-            
-            EmoteSection(
-              header: AppStrings.scatrattHeader,
-              url: AppStrings.scatrattUrl,
-              portfolioWidgets: [
-                const ArtImage(path: ImageStrings.ratCry),
-                const ArtImage(path: ImageStrings.ratEz),
-                const ArtImage(path: ImageStrings.ratHeart),
-                const ArtImage(path: ImageStrings.ratWave),
-                const ArtImage(path: ImageStrings.ratLul),
-                const ArtImage(path: ImageStrings.ratPat),
-                const ArtImage(path: ImageStrings.ratLurk),
-                const ArtImage(path: ImageStrings.ratHydrate),
-                const ArtImage(path: ImageStrings.ratFine),
-                const ArtImage(path: ImageStrings.ratPopcorn),
-                const ArtImage(path: ImageStrings.ratDead),
-                const ArtImage(path: ImageStrings.ratSalute),
-                _buildGif(ImageStrings.ratDanceJam, controllers[0], gifSize, 16),
-                _buildGif(ImageStrings.ratShyNotNaked, controllers[1], gifSize, 16),
-                _buildGif(ImageStrings.ratFight, controllers[5], gifSize, 16),
-                _buildGif(ImageStrings.ratSus, controllers[6], gifSize, 16),
-              ],
-            ),
-            const EmoteSection(
-              header: AppStrings.joeHeader,
-              url: AppStrings.joeUrl,
-              portfolioWidgets: [
-                ArtImage(path: ImageStrings.joePeace),
-              ],
-            ),
-            EmoteSection(
-              header: AppStrings.olmaphHeader,
-              url: AppStrings.olmaphUrl,
-              portfolioWidgets: [
-                const ArtImage(path: ImageStrings.ollieWave),
-                const ArtImage(path: ImageStrings.ollieSnickers),
-                const ArtImage(path: ImageStrings.ollieToni),
-                const ArtImage(path: ImageStrings.ollieWiggly),
-                const ArtImage(path: ImageStrings.toes),
-                _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
-                _buildGif(ImageStrings.olliePump, controllers[3], gifSize, 20),
-                _buildGif(ImageStrings.wiggly350, controllers[4], gifSize, 20),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.xl),
-          ],
-        ),
+        padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding), // Use calculated padding
+        child:
+            BlocBuilder<SectionCubit, SectionState>(builder: (context, state) {
+          return Column(
+            children: [
+              const Center(
+                child: CustomHeaderLarge(text: AppStrings.emotesHeader),
+              ),
+              if (state is SectionLoading) const CircularProgressIndicator(),
+              if (state is SectionReady)
+                for (var section in state.sectionList)
+                  EmoteSection(
+                    header: section.name,
+                    url: section.sectionlUrl,
+                    portfolioWidgets: [
+                      for (var asset in section.assetList)
+                        ArtImage(
+                          asset: asset,
+                        ),
+                      /*_buildGif(ImageStrings.ratDanceJam, controllers[0],
+                          gifSize, 16),
+                      _buildGif(ImageStrings.ratShyNotNaked, controllers[1],
+                          gifSize, 16),
+                      _buildGif(
+                          ImageStrings.ratFight, controllers[5], gifSize, 16),*/
+                    ],
+                  ),
+              /* EmoteSection(
+                header: AppStrings.olmaphHeader,
+                url: AppStrings.olmaphUrl,
+                portfolioWidgets: [
+                  ArtImage(path: ImageStrings.ollieWave),
+                  ArtImage(path: ImageStrings.ollieSnickers),
+                  ArtImage(path: ImageStrings.ollieToni),
+                  ArtImage(path: ImageStrings.ollieWiggly),
+                  _buildGif(ImageStrings.barGif, controllers[2], gifSize, 10),
+                  _buildGif(
+                      ImageStrings.olliePump, controllers[3], gifSize, 20),
+                  _buildGif(
+                      ImageStrings.wiggly350, controllers[4], gifSize, 20),
+                ],
+              ),*/
+              const SizedBox(height: AppSpacing.xl),
+            ],
+          );
+        }),
       ),
     );
   }
 
   // Helper method to create a GIF widget
-  Widget _buildGif(String path, GifController controller, double size, int fps) {
+  Widget _buildGif(
+      String path, GifController controller, double size, int fps) {
     return Gif(
       width: size,
       height: size,
