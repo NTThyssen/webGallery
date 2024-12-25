@@ -24,7 +24,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   @override
   void initState() {
     // Initialize all GIF controllers
-    controllers = List.generate(6, (index) => GifController(vsync: this));
+    controllers = List.generate(7, (index) => GifController(vsync: this));
     super.initState();
   }
 
