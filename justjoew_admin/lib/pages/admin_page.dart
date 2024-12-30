@@ -9,9 +9,14 @@ import 'package:justjoew_admin/widgets/reorderable_section.dart';
 import 'package:justjoew_admin/widgets/section_dialog.dart';
 import 'package:justjoew_admin/cubit/section_cubit.dart';
 
-class AdminPage extends StatelessWidget {
+class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
 
+  @override
+  State<AdminPage> createState() => _AdminPageState();
+}
+
+class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     var sectionCubit = context.read<SectionCubit>();
@@ -22,7 +27,7 @@ class AdminPage extends StatelessWidget {
     final horizontalPadding = screenWidth < AppSpacing.smallscreen
         ? screenWidth * 0.08
         : screenWidth * 0.20;
-
+    final ScrollController _scrollController = ScrollController();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -46,10 +51,11 @@ class AdminPage extends StatelessWidget {
                     child: CustomHeaderLarge(text: 'UPLOADS'),
                   ),
                   BlocBuilder<SectionCubit, SectionState>(
-                    builder: (context, state) {
+                    builder: (blocontext, state) {
                       if (state is SectionLoading) {
                         return const Center(
-                          child: CircularProgressIndicator(color: AppColors.primary),
+                          child: CircularProgressIndicator(
+                              color: AppColors.primary),
                         );
                       }
                       if (state is SectionReady) {
@@ -57,30 +63,62 @@ class AdminPage extends StatelessWidget {
                           return Center(
                             child: Text(
                               AppStrings.noDataAvailable,
-                              style: AppTextStyles.bodyText.copyWith(color: AppColors.textSecondary),
+                              style: AppTextStyles.bodyText
+                                  .copyWith(color: AppColors.textSecondary),
                             ),
                           );
                         }
-                        return Column(
-                          children: List.generate(
+                        return ReorderableListView.builder(
+                          scrollController: _scrollController,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ReorderableDragStartListener(
+                              key: Key(state.sectionList[index].id.toString()),
+                              index: index,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: AppSpacing.small),
+                                child: ReOrderableSection(
+                                  section: state.sectionList[index],
+                                  cubitContext: blocontext,
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: state.sectionList.length,
+                          onReorder: (oldIndex, newIndex) {
+              
+                              if(newIndex > oldIndex){
+                                if (newIndex != 0) newIndex--;
+                              }
+                               sectionCubit.updateSectionOrder(
+                                  state.sectionList[oldIndex].id, newIndex);
+                              sectionCubit.updateSectionOrder(
+                                  state.sectionList[newIndex].id, oldIndex);
+                            
+
+
+                          },
+                        ); /*List.generate(
                             state.sectionList.length,
                             (index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
                               child: ReOrderableSection(section: state.sectionList[index]),
                             ),
-                          ),
-                        );
+                          ),*/
                       }
                       if (state is SectionError) {
                         return Center(
                           child: Text(
                             AppStrings.errorLoadingData,
-                            style: AppTextStyles.bodyText.copyWith(color: AppColors.error),
+                            style: AppTextStyles.bodyText
+                                .copyWith(color: AppColors.error),
                           ),
                         );
                       }
                       return const Center(
-                        child: CircularProgressIndicator(color: AppColors.primary),
+                        child:
+                            CircularProgressIndicator(color: AppColors.primary),
                       );
                     },
                   ),
@@ -116,12 +154,16 @@ class AdminPage extends StatelessWidget {
               label: Text(
                 AppStrings.addNewSection,
                 style: AppTextStyles.buttonText.copyWith(
-                  fontSize: 16, // Button text should be a bit larger for better readability
-                  color: AppColors.darkGray, // White text to contrast the button background
+                  fontSize:
+                      16, // Button text should be a bit larger for better readability
+                  color: AppColors
+                      .darkGray, // White text to contrast the button background
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.large, vertical: AppSpacing.medium * 1.25),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.large,
+                    vertical: AppSpacing.medium * 1.25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSpacing.small),
                 ),

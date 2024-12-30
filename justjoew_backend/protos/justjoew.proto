@@ -19,6 +19,7 @@ message Section {
   string name = 2;
   repeated Asset assetList = 3;
   string sectionUrl = 4;
+  uint32 orderIndex = 5;
 }
 
 message CreateSectionRequest {
@@ -56,6 +57,29 @@ message UpdateAssetOrderRequest {
 
 }
 
+message UpdateSectionOrderRequest {
+  uint32 id = 1;
+  uint32 orderIndex = 2;
+
+}
+message UpdateSectionOrderResponse {
+  uint32 newOrderIndex = 1;
+}
+
+message UpdateSectionInfoRequest {
+  uint32 id = 1;
+  string sectionName = 2;
+  string sectionUrl = 3;
+
+}
+
+
+message UpdateSectionInfoResponse {
+  string sectionName = 1;
+  string sectionUrl = 2;
+
+}
+
 message UpdateAssetOrderResponse {
   uint32 newOrderIndex = 1;
 }
@@ -75,13 +99,18 @@ message DeleteAssetRequest{
 message DeleteAssetResponse{
 }
 
+message Empty {
+
+}
+
 service AssetController {
 
   rpc GetAllSections (GetAllSectionsRequest) returns (GetAllSectionsResonse) {}
   rpc CreateSection (CreateSectionRequest) returns (CreateSectionResponse) {}
   rpc CreateAsset (CreateAssetRequest) returns (CreateAssetResponse) {}
-  rpc UpdateAssetorder (UpdateAssetOrderRequest) returns (UpdateAssetOrderResponse) {}
+  rpc UpdateAssetOrder (UpdateAssetOrderRequest) returns (UpdateAssetOrderResponse) {}
   rpc DeleteSection(DeleteSectionRequest) returns (DeleteSectionResponse) {}
   rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse) {}
-
+  rpc UpdateSectionInfo(UpdateSectionInfoRequest) returns (UpdateSectionInfoResponse) {}
+  rpc UpdateSectionOrder(UpdateSectionOrderRequest) returns (UpdateSectionOrderResponse) {}
 }

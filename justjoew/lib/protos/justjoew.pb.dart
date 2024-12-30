@@ -113,7 +113,6 @@ class Section extends $pb.GeneratedMessage {
     $core.String? name,
     $core.Iterable<Asset>? assetList,
     $core.String? sectionUrl,
-    $core.int? orderIndex,
   }) {
     final $result = create();
     if (id != null) {
@@ -128,9 +127,6 @@ class Section extends $pb.GeneratedMessage {
     if (sectionUrl != null) {
       $result.sectionUrl = sectionUrl;
     }
-    if (orderIndex != null) {
-      $result.orderIndex = orderIndex;
-    }
     return $result;
   }
   Section._() : super();
@@ -142,7 +138,6 @@ class Section extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..pc<Asset>(3, _omitFieldNames ? '' : 'assetList', $pb.PbFieldType.PM, protoName: 'assetList', subBuilder: Asset.create)
     ..aOS(4, _omitFieldNames ? '' : 'sectionUrl', protoName: 'sectionUrl')
-    ..a<$core.int>(5, _omitFieldNames ? '' : 'orderIndex', $pb.PbFieldType.OU3, protoName: 'orderIndex')
     ..hasRequiredFields = false
   ;
 
@@ -196,15 +191,6 @@ class Section extends $pb.GeneratedMessage {
   $core.bool hasSectionUrl() => $_has(3);
   @$pb.TagNumber(4)
   void clearSectionUrl() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.int get orderIndex => $_getIZ(4);
-  @$pb.TagNumber(5)
-  set orderIndex($core.int v) { $_setUnsignedInt32(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasOrderIndex() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearOrderIndex() => clearField(5);
 }
 
 class CreateSectionRequest extends $pb.GeneratedMessage {
@@ -625,262 +611,6 @@ class UpdateAssetOrderRequest extends $pb.GeneratedMessage {
   void clearOrderIndex() => clearField(2);
 }
 
-class UpdateSectionOrderRequest extends $pb.GeneratedMessage {
-  factory UpdateSectionOrderRequest({
-    $core.int? id,
-    $core.int? orderIndex,
-  }) {
-    final $result = create();
-    if (id != null) {
-      $result.id = id;
-    }
-    if (orderIndex != null) {
-      $result.orderIndex = orderIndex;
-    }
-    return $result;
-  }
-  UpdateSectionOrderRequest._() : super();
-  factory UpdateSectionOrderRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateSectionOrderRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateSectionOrderRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OU3)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'orderIndex', $pb.PbFieldType.OU3, protoName: 'orderIndex')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UpdateSectionOrderRequest clone() => UpdateSectionOrderRequest()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UpdateSectionOrderRequest copyWith(void Function(UpdateSectionOrderRequest) updates) => super.copyWith((message) => updates(message as UpdateSectionOrderRequest)) as UpdateSectionOrderRequest;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionOrderRequest create() => UpdateSectionOrderRequest._();
-  UpdateSectionOrderRequest createEmptyInstance() => create();
-  static $pb.PbList<UpdateSectionOrderRequest> createRepeated() => $pb.PbList<UpdateSectionOrderRequest>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionOrderRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateSectionOrderRequest>(create);
-  static UpdateSectionOrderRequest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get id => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set id($core.int v) { $_setUnsignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get orderIndex => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set orderIndex($core.int v) { $_setUnsignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasOrderIndex() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearOrderIndex() => clearField(2);
-}
-
-class UpdateSectionOrderResponse extends $pb.GeneratedMessage {
-  factory UpdateSectionOrderResponse({
-    $core.int? newOrderIndex,
-  }) {
-    final $result = create();
-    if (newOrderIndex != null) {
-      $result.newOrderIndex = newOrderIndex;
-    }
-    return $result;
-  }
-  UpdateSectionOrderResponse._() : super();
-  factory UpdateSectionOrderResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateSectionOrderResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateSectionOrderResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'newOrderIndex', $pb.PbFieldType.OU3, protoName: 'newOrderIndex')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UpdateSectionOrderResponse clone() => UpdateSectionOrderResponse()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UpdateSectionOrderResponse copyWith(void Function(UpdateSectionOrderResponse) updates) => super.copyWith((message) => updates(message as UpdateSectionOrderResponse)) as UpdateSectionOrderResponse;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionOrderResponse create() => UpdateSectionOrderResponse._();
-  UpdateSectionOrderResponse createEmptyInstance() => create();
-  static $pb.PbList<UpdateSectionOrderResponse> createRepeated() => $pb.PbList<UpdateSectionOrderResponse>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionOrderResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateSectionOrderResponse>(create);
-  static UpdateSectionOrderResponse? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get newOrderIndex => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set newOrderIndex($core.int v) { $_setUnsignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasNewOrderIndex() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearNewOrderIndex() => clearField(1);
-}
-
-class UpdateSectionInfoRequest extends $pb.GeneratedMessage {
-  factory UpdateSectionInfoRequest({
-    $core.int? id,
-    $core.String? sectionName,
-    $core.String? sectionUrl,
-  }) {
-    final $result = create();
-    if (id != null) {
-      $result.id = id;
-    }
-    if (sectionName != null) {
-      $result.sectionName = sectionName;
-    }
-    if (sectionUrl != null) {
-      $result.sectionUrl = sectionUrl;
-    }
-    return $result;
-  }
-  UpdateSectionInfoRequest._() : super();
-  factory UpdateSectionInfoRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateSectionInfoRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateSectionInfoRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OU3)
-    ..aOS(2, _omitFieldNames ? '' : 'sectionName', protoName: 'sectionName')
-    ..aOS(3, _omitFieldNames ? '' : 'sectionUrl', protoName: 'sectionUrl')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UpdateSectionInfoRequest clone() => UpdateSectionInfoRequest()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UpdateSectionInfoRequest copyWith(void Function(UpdateSectionInfoRequest) updates) => super.copyWith((message) => updates(message as UpdateSectionInfoRequest)) as UpdateSectionInfoRequest;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionInfoRequest create() => UpdateSectionInfoRequest._();
-  UpdateSectionInfoRequest createEmptyInstance() => create();
-  static $pb.PbList<UpdateSectionInfoRequest> createRepeated() => $pb.PbList<UpdateSectionInfoRequest>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionInfoRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateSectionInfoRequest>(create);
-  static UpdateSectionInfoRequest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get id => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set id($core.int v) { $_setUnsignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get sectionName => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set sectionName($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSectionName() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSectionName() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get sectionUrl => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set sectionUrl($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSectionUrl() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSectionUrl() => clearField(3);
-}
-
-class UpdateSectionInfoResponse extends $pb.GeneratedMessage {
-  factory UpdateSectionInfoResponse({
-    $core.String? sectionName,
-    $core.String? sectionUrl,
-  }) {
-    final $result = create();
-    if (sectionName != null) {
-      $result.sectionName = sectionName;
-    }
-    if (sectionUrl != null) {
-      $result.sectionUrl = sectionUrl;
-    }
-    return $result;
-  }
-  UpdateSectionInfoResponse._() : super();
-  factory UpdateSectionInfoResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateSectionInfoResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateSectionInfoResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'sectionName', protoName: 'sectionName')
-    ..aOS(2, _omitFieldNames ? '' : 'sectionUrl', protoName: 'sectionUrl')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UpdateSectionInfoResponse clone() => UpdateSectionInfoResponse()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UpdateSectionInfoResponse copyWith(void Function(UpdateSectionInfoResponse) updates) => super.copyWith((message) => updates(message as UpdateSectionInfoResponse)) as UpdateSectionInfoResponse;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionInfoResponse create() => UpdateSectionInfoResponse._();
-  UpdateSectionInfoResponse createEmptyInstance() => create();
-  static $pb.PbList<UpdateSectionInfoResponse> createRepeated() => $pb.PbList<UpdateSectionInfoResponse>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateSectionInfoResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateSectionInfoResponse>(create);
-  static UpdateSectionInfoResponse? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sectionName => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sectionName($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSectionName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSectionName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get sectionUrl => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set sectionUrl($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSectionUrl() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSectionUrl() => clearField(2);
-}
-
 class UpdateAssetOrderResponse extends $pb.GeneratedMessage {
   factory UpdateAssetOrderResponse({
     $core.int? newOrderIndex,
@@ -1093,38 +823,6 @@ class DeleteAssetResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static DeleteAssetResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteAssetResponse>(create);
   static DeleteAssetResponse? _defaultInstance;
-}
-
-class Empty extends $pb.GeneratedMessage {
-  factory Empty() => create();
-  Empty._() : super();
-  factory Empty.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Empty.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Empty', package: const $pb.PackageName(_omitMessageNames ? '' : 'justjoew.asstes'), createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Empty clone() => Empty()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Empty copyWith(void Function(Empty) updates) => super.copyWith((message) => updates(message as Empty)) as Empty;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Empty create() => Empty._();
-  Empty createEmptyInstance() => create();
-  static $pb.PbList<Empty> createRepeated() => $pb.PbList<Empty>();
-  @$core.pragma('dart2js:noInline')
-  static Empty getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Empty>(create);
-  static Empty? _defaultInstance;
 }
 
 

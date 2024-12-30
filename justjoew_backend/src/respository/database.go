@@ -26,7 +26,56 @@ func InitDb() {
 
 func CreateSection(sectionName string, sectionUrl string) (Section, error) {
 	section := Section{Name: sectionName, SectionUrl: sectionUrl}
-	res := db.Create(&section)
+	res := db.Create(section)
+
+	if res.Error != nil {
+		log.Panicln(res.Error)
+		return Section{}, res.Error
+	}
+	return section, nil
+}
+
+
+func UpdateAssetOrder(assetId uint32, newOrderIndex uint32) (uint32, error) {
+
+	asset := map[string]interface{}{
+	"order_index": newOrderIndex,
+	}
+	res := db.Model(&Asset{}).Where("id = ? ", assetId).Updates(asset);
+
+	if res.Error != nil {
+		log.Panicln(res.Error)
+		return 0, res.Error
+	}
+	return newOrderIndex, nil
+}
+
+func UpdateSectionOrder(sectionId uint32, newOrderIndex uint32) (uint32, error) {
+
+
+	section := map[string]interface{}{
+		"order_index": newOrderIndex,
+	}
+	res := db.Model(&Section{}).Where("id = ?", sectionId).Updates(section)
+
+	if res.Error != nil {
+		log.Panicln(res.Error)
+		return 0, res.Error
+	}
+	return newOrderIndex, nil
+}
+
+func UpdateSectionInfo(sectionId uint32, sectioName string, sectionUrl string) (Section, error) {
+	
+	section := Section{}
+	if sectioName != "" {
+        section.Name = sectioName
+    }
+    if sectionUrl !=  "" {
+        section.SectionUrl = sectionUrl
+    }
+
+	res := db.Model(&Section{}).Where("id = ?", sectionId).Updates(&section)
 
 	if res.Error != nil {
 		log.Panicln(res.Error)
@@ -46,7 +95,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 		return Asset{}, err
 	}
 	dbSection.ID = uint(domainAsset.SectionId)
-	db.Where(dbSection).Count(&assetInSectionCount)
+	db.Where("section_id = ?", dbSection.ID).Count(&assetInSectionCount)
 
 	asset := Asset{
 		OrderIndex: uint32(assetInSectionCount),

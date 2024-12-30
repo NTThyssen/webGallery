@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justjoew/cubit/section_cubit.dart';
+import 'package:justjoew/mapper/object_mapper.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ArtImage extends StatefulWidget {
-  final String path;
   final bool isWaterMarked; // Indicates whether the image is watermarked.
-
+  final Asset asset;
   const ArtImage({
     super.key,
-    required this.path,
+    required this.asset,
     this.isWaterMarked = false,
   });
 
@@ -34,7 +37,9 @@ class _ArtImageState extends State<ArtImage> {
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isHover ? _hoverImageSize : _defaultImageSize, // Change height on hover
+              height: isHover
+                  ? _hoverImageSize
+                  : _defaultImageSize, // Change height on hover
               child: PhysicalModel(
                 elevation: isHover ? _hoverElevation : 0, // Elevate on hover
                 color: Colors.transparent,
@@ -42,11 +47,15 @@ class _ArtImageState extends State<ArtImage> {
                   borderRadius: BorderRadius.circular(12.0), // Rounded corners
                   child: Stack(
                     children: [
-                      // Main image content
-                      Image.asset(
-                        widget.path,
-                        width: isHover ? _hoverImageSize : _defaultImageSize, // Adjust width dynamically
-                        height: isHover ? _hoverImageSize : _defaultImageSize, // Adjust height dynamically
+                      FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.asset.bloburl,
+                        width: isHover
+                            ? _hoverImageSize
+                            : _defaultImageSize, // Adjust width dynamically
+                        height: isHover
+                            ? _hoverImageSize
+                            : _defaultImageSize, // Adjust height dynamically
                         fit: BoxFit.contain,
                         filterQuality: FilterQuality.medium,
                       ),

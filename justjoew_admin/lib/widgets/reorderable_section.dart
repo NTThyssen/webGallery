@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -10,8 +11,11 @@ import 'package:justjoew_admin/utils/theme/spacing.dart';
 
 class ReOrderableSection extends StatefulWidget {
   final Section section;
+  final BuildContext cubitContext;
 
-  const ReOrderableSection({Key? key, required this.section}) : super(key: key);
+  const ReOrderableSection(
+      {Key? key, required this.section, required this.cubitContext})
+      : super(key: key);
 
   @override
   _ReOrderableSectionState createState() => _ReOrderableSectionState();
@@ -143,7 +147,7 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
 
   @override
   Widget build(BuildContext context) {
-    var sectionCubit = context.read<SectionCubit>();
+    var sectionCubit = widget.cubitContext.read<SectionCubit>();
 
     return Card(
       color: AppColors.surface,
@@ -193,9 +197,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                         style: AppTextStyles.bodyText
                             .copyWith(color: Color.fromARGB(255, 229, 65, 62)),
                       ),
-                      onTap: (){
-                        sectionCubit
-                            .deleteSection(widget.section.id);
+                      onTap: () {
+                        sectionCubit.deleteSection(widget.section.id);
                       },
                     ),
                   ],
@@ -224,13 +227,15 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       onReorder: (oldIndex, newIndex) {
-                        setState(() {
-                          if (newIndex > widget.section.assetList.length)
-                            newIndex--;
-                          final item =
-                              widget.section.assetList.removeAt(oldIndex);
-                          widget.section.assetList.insert(newIndex, item);
-                        });
+                          
+                        if (newIndex > oldIndex) {
+                          if (newIndex != 0) newIndex--;
+                        }
+
+                        sectionCubit.updateAssetOrder(
+                            widget.section.assetList[oldIndex].id, newIndex);
+                        sectionCubit.updateAssetOrder(
+                            widget.section.assetList[newIndex].id, oldIndex);
                       },
                       buildDefaultDragHandles: false,
                       proxyDecorator: (Widget child, int index,
@@ -273,8 +278,8 @@ class _ReOrderableSectionState extends State<ReOrderableSection> {
                                   child: Padding(
                                     padding: AppSpacing.paddingMedium,
                                     child: Container(
-                                      child: Image.network(
-                                        widget.section.assetList[index].bloburl,
+                                      child: CachedNetworkImage(
+                                        imageUrl:  widget.section.assetList[index].bloburl,
                                         fit: BoxFit.fill,
                                       ),
                                     ),
