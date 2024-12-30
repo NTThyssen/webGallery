@@ -79,9 +79,9 @@ class _ContactFormState extends State<ContactForm> {
                   width: 200,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: ()  {
-                      if (_formKey.currentState!.validate() && state is EmailInitial) {
-                         cubitContext.read<EmailCubit>().sendEmail(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        cubitContext.read<EmailCubit>().sendEmail(
                               _emailController.text,
                               _subjectController.text,
                               _messageController.text,
@@ -103,14 +103,9 @@ class _ContactFormState extends State<ContactForm> {
                         borderRadius: BorderRadius.circular(AppSpacing.small),
                       ),
                     ),
-                    child: GestureDetector(
-                      onTap: () async {
-            
-                      },
-                      child: Text(
-                        AppStrings.submit,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                    child: Text(
+                      AppStrings.submit,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ),
