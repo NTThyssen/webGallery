@@ -55,7 +55,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
             const SizedBox(height: AppSpacing.large),
             _buildContactInfoSection(),
             const SizedBox(height: AppSpacing.xxxl),
-            //const ContactForm(), // Use the new ContactForm widget
+            const ContactForm(), // Use the new ContactForm widget
           ],
         ),
       ),

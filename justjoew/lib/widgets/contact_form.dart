@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justjoew/cubit/email_cubit.dart';
+import 'package:justjoew/main.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
@@ -30,78 +33,92 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildFormLabel(AppStrings.nameLabel),
-          _buildTextFormField(
-            controller: _firstNameController,
-            hint: AppStrings.nameHint,
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.emailLabel),
-          _buildTextFormField(
-            controller: _emailController,
-            hint: AppStrings.emailHint,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppStrings.emailValidationError;
-              }
-              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                return AppStrings.emailInvalidError;
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.subjectLabel),
-          _buildTextFormField(
-            controller: _subjectController,
-            hint: AppStrings.subjectHint,
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.messageLabel),
-          _buildTextFormField(
-            controller: _messageController,
-            hint: AppStrings.messageHint,
-            maxLines: 5,
-          ),
-          const SizedBox(height: AppSpacing.large),
-          Center(
-            child: SizedBox(
-              width: 200,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: SelectableText(
-                          AppStrings.formSubmittingMessage,
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ),
-                    );
+    return BlocBuilder<EmailCubit, EmailState>(
+      builder: (cubitContext, state) {
+        return Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildFormLabel(AppStrings.nameLabel),
+              _buildTextFormField(
+                controller: _firstNameController,
+                hint: AppStrings.nameHint,
+              ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.emailLabel),
+              _buildTextFormField(
+                controller: _emailController,
+                hint: AppStrings.emailHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppStrings.emailValidationError;
                   }
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    return AppStrings.emailInvalidError;
+                  }
+                  return null;
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary300,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSpacing.small),
+              ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.subjectLabel),
+              _buildTextFormField(
+                controller: _subjectController,
+                hint: AppStrings.subjectHint,
+              ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.messageLabel),
+              _buildTextFormField(
+                controller: _messageController,
+                hint: AppStrings.messageHint,
+                maxLines: 5,
+              ),
+              const SizedBox(height: AppSpacing.large),
+              Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: ()  {
+                      if (_formKey.currentState!.validate() && state is EmailInitial) {
+                         cubitContext.read<EmailCubit>().sendEmail(
+                              _emailController.text,
+                              _subjectController.text,
+                              _messageController.text,
+                            );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: SelectableText(
+                              AppStrings.formSubmittingMessage,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary300,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSpacing.small),
+                      ),
+                    ),
+                    child: GestureDetector(
+                      onTap: () async {
+            
+                      },
+                      child: Text(
+                        AppStrings.submit,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                   ),
                 ),
-                child: Text(
-                  AppStrings.submit,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -149,8 +166,10 @@ class _ContactFormState extends State<ContactForm> {
           borderRadius: BorderRadius.circular(AppSpacing.small),
           borderSide: const BorderSide(color: AppColors.error, width: 2.0),
         ),
-        hintStyle:
-            Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.primary300),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .bodySmall
+            ?.copyWith(color: AppColors.primary300),
       ),
     );
   }
