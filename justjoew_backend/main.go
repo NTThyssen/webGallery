@@ -14,11 +14,6 @@ import (
 	repository "justjoew/backend/src/respository"
 )
 
-type Item struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
-
 type server struct {
 	pb.UnimplementedAssetControllerServer
 }
