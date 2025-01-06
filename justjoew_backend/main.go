@@ -33,6 +33,7 @@ func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*p
 	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
 }
 
+
 func (s *server) DeleteSection(ctx context.Context, in *pb.DeleteSectionRequest) (*pb.DeleteSectionResponse, error) {
 	log.Printf("Received: %v", in.GetSectionId())
 	err := repository.DeleteSection(in.GetSectionId())
