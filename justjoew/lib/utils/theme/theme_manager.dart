@@ -33,30 +33,30 @@ final ThemeData myTheme = ThemeData(
 
   // Input decoration theme for text fields
   inputDecorationTheme: InputDecorationTheme(
-    labelStyle: AppTextStyles.formLabel,
+    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
     filled: true,
-    fillColor: AppColors.formFill,
+    fillColor: AppColors.packageBackground,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: const BorderSide(color: AppColors.formFill),
+      borderSide: const BorderSide(color: AppColors.formFill, width: 1.5),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: const BorderSide(color: AppColors.primary200), // Slight contrast on enabled border
+      borderSide: const BorderSide(color: AppColors.primary800, width: 1.5), // Slight contrast on enabled border
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: const BorderSide(color: AppColors.primary900, width: 2.0), // Thicker border on focus
+      borderSide: const BorderSide(color: AppColors.primary500, width: 2.0), // Thicker border on focus
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
-      borderSide: const BorderSide(color: AppColors.error),
+      borderSide: const BorderSide(color: AppColors.error, width: 1.5),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSpacing.small),
       borderSide: const BorderSide(color: AppColors.error, width: 2.0),
     ),
-    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.primary300), // Subtle hint text color
+    hintStyle: AppTextStyles.formLabel.copyWith(color: AppColors.textSecondary.withOpacity(0.6)), // Subtle hint text color
   ),
 
   // ElevatedButton theme
@@ -118,7 +118,7 @@ final ThemeData myTheme = ThemeData(
 
   // SnackBar theme
   snackBarTheme: SnackBarThemeData(
-    backgroundColor: AppColors.primary300,
+    backgroundColor: AppColors.primary600,
     contentTextStyle: AppTextStyles.snackbarText, // Open Sans for snackbars
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppSpacing.medium),

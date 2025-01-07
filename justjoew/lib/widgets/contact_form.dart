@@ -33,6 +33,7 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (cubitContext, state) {
         return Form(
@@ -44,6 +45,15 @@ class _ContactFormState extends State<ContactForm> {
               _buildTextFormField(
                 controller: _firstNameController,
                 hint: AppStrings.nameHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Name cannot be empty.";
+                  }
+                  if (value.length < 2) {
+                    return "Name must be at least 2 characters long.";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: AppSpacing.medium),
               _buildFormLabel(AppStrings.emailLabel),
@@ -54,7 +64,7 @@ class _ContactFormState extends State<ContactForm> {
                   if (value == null || value.isEmpty) {
                     return AppStrings.emailValidationError;
                   }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
                     return AppStrings.emailInvalidError;
                   }
                   return null;
@@ -65,6 +75,12 @@ class _ContactFormState extends State<ContactForm> {
               _buildTextFormField(
                 controller: _subjectController,
                 hint: AppStrings.subjectHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Subject cannot be empty.";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: AppSpacing.medium),
               _buildFormLabel(AppStrings.messageLabel),
@@ -72,65 +88,69 @@ class _ContactFormState extends State<ContactForm> {
                 controller: _messageController,
                 hint: AppStrings.messageHint,
                 maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Message cannot be empty.";
+                  }
+                  if (value.length < 10) {
+                    return "Message must be at least 10 characters long.";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: AppSpacing.large),
               Center(
                 child: SizedBox(
-                  width: 200,
-                  height: 50,
+                  width: 150,
+                  height: 40,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        cubitContext.read<EmailCubit>().sendEmail(
-                              _emailController.text,
-                              _subjectController.text,
-                              _messageController.text,
-                            );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: SelectableText(
-                              AppStrings.formSubmittingMessage,
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary300,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSpacing.small),
-                      ),
-                    ),
+                    onPressed: () => _handleSubmit(cubitContext),
                     child: Text(
                       AppStrings.submit,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: AppTextStyles.buttonText.copyWith(fontSize: 16),
                     ),
                   ),
-                ),
+                )
               ),
-            ],
-          ),
-        );
+                ],
+              ),
+            );
       },
     );
   }
 
-  // Helper method to build form labels
+
+  void _handleSubmit(BuildContext cubitContext) {
+    if (_formKey.currentState!.validate()) {
+       cubitContext.read<EmailCubit>().sendEmail(
+                              _emailController.text,
+                              _subjectController.text,
+                              _messageController.text,
+                            );
+      // Display success message or perform desired actions
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Form submitted successfully!",
+            textAlign: TextAlign.center, // Ensure alignment
+            //style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+      // Additional actions, e.g., send data to a server
+    }
+  }
+
   Widget _buildFormLabel(String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.small),
-      child: SelectableText(
+      padding: const EdgeInsets.only(bottom: AppSpacing.small),
+      child: Text(
         label,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+        style: AppTextStyles.bodyText,
       ),
     );
   }
 
-  // Helper method to build text form fields
   Widget _buildTextFormField({
     required TextEditingController controller,
     required String hint,
@@ -141,30 +161,11 @@ class _ContactFormState extends State<ContactForm> {
       controller: controller,
       maxLines: maxLines,
       validator: validator,
-      decoration: InputDecoration(
-        hintText: hint,
-        filled: true,
-        fillColor: AppColors.formFill,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: const BorderSide(color: AppColors.primary200),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: const BorderSide(color: AppColors.primary500, width: 2.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: const BorderSide(color: AppColors.error),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.small),
-          borderSide: const BorderSide(color: AppColors.error, width: 2.0),
-        ),
-        hintStyle: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(color: AppColors.primary300),
+      decoration: InputDecoration(hintText: hint, ),
+      cursorColor: AppColors.white.withOpacity(0.6),
+      style: AppTextStyles.bodyText.copyWith(
+        color: AppColors.white, // Set the text color here
+        fontFamily: 'OpenSans',
       ),
     );
   }
