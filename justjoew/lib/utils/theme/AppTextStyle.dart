@@ -88,10 +88,10 @@ class AppTextStyles {
     color: AppColors.primary300,
   );
 
-  static final TextStyle snackbarText = const TextStyle(
-    fontWeight: FontWeight.w400,
+  static const TextStyle snackbarText = TextStyle(
+    fontWeight: FontWeight.w600,
     fontFamily: 'OpenSans',
     fontSize: 16,
-    color: AppColors.snackbarText,
+    color: AppColors.black,
   );
 }

@@ -30,6 +30,7 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Form(
       key: _formKey,
       child: Column(
@@ -39,6 +40,15 @@ class _ContactFormState extends State<ContactForm> {
           _buildTextFormField(
             controller: _firstNameController,
             hint: AppStrings.nameHint,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Name cannot be empty.";
+              }
+              if (value.length < 2) {
+                return "Name must be at least 2 characters long.";
+              }
+              return null;
+            },
           ),
           const SizedBox(height: AppSpacing.medium),
           _buildFormLabel(AppStrings.emailLabel),
@@ -49,7 +59,7 @@ class _ContactFormState extends State<ContactForm> {
               if (value == null || value.isEmpty) {
                 return AppStrings.emailValidationError;
               }
-              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
                 return AppStrings.emailInvalidError;
               }
               return null;
@@ -60,6 +70,12 @@ class _ContactFormState extends State<ContactForm> {
           _buildTextFormField(
             controller: _subjectController,
             hint: AppStrings.subjectHint,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Subject cannot be empty.";
+              }
+              return null;
+            },
           ),
           const SizedBox(height: AppSpacing.medium),
           _buildFormLabel(AppStrings.messageLabel),
@@ -67,6 +83,15 @@ class _ContactFormState extends State<ContactForm> {
             controller: _messageController,
             hint: AppStrings.messageHint,
             maxLines: 5,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Message cannot be empty.";
+              }
+              if (value.length < 10) {
+                return "Message must be at least 10 characters long.";
+              }
+              return null;
+            },
           ),
           const SizedBox(height: AppSpacing.large),
           Center(
@@ -74,31 +99,34 @@ class _ContactFormState extends State<ContactForm> {
               width: 150,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          AppStrings.formSubmittingMessage,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    );
-                  }
-                },
+                onPressed: _handleSubmit,
                 child: Text(
-                AppStrings.submit,
-                style: AppTextStyles.buttonText.copyWith(
-                  fontSize: 16,
-                  color: AppColors.darkGray,
+                  AppStrings.submit,
+                  style: AppTextStyles.buttonText.copyWith(fontSize: 16),
                 ),
-              ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+
+  void _handleSubmit() {
+    if (_formKey.currentState!.validate()) {
+      // Display success message or perform desired actions
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Form submitted successfully!",
+            textAlign: TextAlign.center, // Ensure alignment
+            //style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+      // Additional actions, e.g., send data to a server
+    }
   }
 
   Widget _buildFormLabel(String label) {

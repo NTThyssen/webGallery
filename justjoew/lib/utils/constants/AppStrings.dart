@@ -24,7 +24,7 @@ class AppStrings {
   // Form Labels
   static const String nameLabel = 'Name';
   static const String nameHint = 'Please enter your name';
-  static const String emailLabel = 'Email Address';
+  static const String emailLabel = 'Email';
   static const String emailHint = 'Please enter your email address';
   static const String emailValidationError = 'Please enter your email address';
   static const String emailInvalidError = 'Please enter a valid email address';
