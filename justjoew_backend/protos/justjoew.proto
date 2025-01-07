@@ -99,6 +99,13 @@ message DeleteAssetRequest{
 message DeleteAssetResponse{
 }
 
+
+message SendEmailRequest {
+  string email = 1;
+  string subject = 2;
+  string message = 3;
+}
+
 message Empty {
 
 }
@@ -113,4 +120,6 @@ service AssetController {
   rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse) {}
   rpc UpdateSectionInfo(UpdateSectionInfoRequest) returns (UpdateSectionInfoResponse) {}
   rpc UpdateSectionOrder(UpdateSectionOrderRequest) returns (UpdateSectionOrderResponse) {}
+  rpc SendEmail(SendEmailRequest) returns (Empty) {}
+
 }

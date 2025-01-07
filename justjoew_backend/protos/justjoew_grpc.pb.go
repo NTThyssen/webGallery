@@ -30,6 +30,7 @@ type AssetControllerClient interface {
 	DeleteAsset(ctx context.Context, in *DeleteAssetRequest, opts ...grpc.CallOption) (*DeleteAssetResponse, error)
 	UpdateSectionInfo(ctx context.Context, in *UpdateSectionInfoRequest, opts ...grpc.CallOption) (*UpdateSectionInfoResponse, error)
 	UpdateSectionOrder(ctx context.Context, in *UpdateSectionOrderRequest, opts ...grpc.CallOption) (*UpdateSectionOrderResponse, error)
+	SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type assetControllerClient struct {
@@ -112,6 +113,15 @@ func (c *assetControllerClient) UpdateSectionOrder(ctx context.Context, in *Upda
 	return out, nil
 }
 
+func (c *assetControllerClient) SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/justjoew.asstes.AssetController/SendEmail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AssetControllerServer is the server API for AssetController service.
 // All implementations must embed UnimplementedAssetControllerServer
 // for forward compatibility
@@ -124,6 +134,7 @@ type AssetControllerServer interface {
 	DeleteAsset(context.Context, *DeleteAssetRequest) (*DeleteAssetResponse, error)
 	UpdateSectionInfo(context.Context, *UpdateSectionInfoRequest) (*UpdateSectionInfoResponse, error)
 	UpdateSectionOrder(context.Context, *UpdateSectionOrderRequest) (*UpdateSectionOrderResponse, error)
+	SendEmail(context.Context, *SendEmailRequest) (*Empty, error)
 	mustEmbedUnimplementedAssetControllerServer()
 }
 
@@ -154,6 +165,9 @@ func (UnimplementedAssetControllerServer) UpdateSectionInfo(context.Context, *Up
 }
 func (UnimplementedAssetControllerServer) UpdateSectionOrder(context.Context, *UpdateSectionOrderRequest) (*UpdateSectionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSectionOrder not implemented")
+}
+func (UnimplementedAssetControllerServer) SendEmail(context.Context, *SendEmailRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendEmail not implemented")
 }
 func (UnimplementedAssetControllerServer) mustEmbedUnimplementedAssetControllerServer() {}
 
@@ -312,6 +326,24 @@ func _AssetController_UpdateSectionOrder_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AssetController_SendEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetControllerServer).SendEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/justjoew.asstes.AssetController/SendEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetControllerServer).SendEmail(ctx, req.(*SendEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AssetController_ServiceDesc is the grpc.ServiceDesc for AssetController service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +382,10 @@ var AssetController_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateSectionOrder",
 			Handler:    _AssetController_UpdateSectionOrder_Handler,
+		},
+		{
+			MethodName: "SendEmail",
+			Handler:    _AssetController_SendEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

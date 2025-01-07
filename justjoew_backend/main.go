@@ -10,13 +10,9 @@ import (
 
 	pb "justjoew/backend/protos"
 	blobRepository "justjoew/backend/src/blob_repository"
+	emailsender "justjoew/backend/src/email_sender"
 	repository "justjoew/backend/src/respository"
 )
-
-type Item struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
 
 type server struct {
 	pb.UnimplementedAssetControllerServer
@@ -26,11 +22,12 @@ func (s *server) CreateAsset(ctx context.Context, in *pb.CreateAssetRequest) (*p
 	log.Printf("Received: %v", in.SectionId)
 	res, err := repository.CreateAsset(in)
 	if err != nil {
-	log.Printf("error: %v", err.Error())
+		log.Printf("error: %v", err.Error())
 		return nil, err
 	}
 	return &pb.CreateAssetResponse{Asset: &pb.Asset{Id: uint32(res.ID), SectionName: res.Section.Name, BlobPath: res.BlobPath, OrderIndex: res.OrderIndex, SectionId: res.SectionID}}, nil
 }
+
 
 func (s *server) DeleteSection(ctx context.Context, in *pb.DeleteSectionRequest) (*pb.DeleteSectionResponse, error) {
 	log.Printf("Received: %v", in.GetSectionId())
@@ -56,7 +53,6 @@ func (s *server) UpdateAssetOrder(ctx context.Context, in *pb.UpdateAssetOrderRe
 	return &pb.UpdateAssetOrderResponse{NewOrderIndex: res}, err
 }
 
-
 func (s *server) UpdateSectionOrder(ctx context.Context, in *pb.UpdateSectionOrderRequest) (*pb.UpdateSectionOrderResponse, error) {
 	log.Printf("Received: %v", in.OrderIndex)
 	res, err := repository.UpdateSectionOrder(in.Id, in.OrderIndex)
@@ -66,10 +62,14 @@ func (s *server) UpdateSectionOrder(ctx context.Context, in *pb.UpdateSectionOrd
 func (s *server) UpdateSectionInfo(ctx context.Context, in *pb.UpdateSectionInfoRequest) (*pb.UpdateSectionInfoResponse, error) {
 	log.Printf("Received: %v", in.SectionUrl)
 	res, err := repository.UpdateSectionInfo(in.Id, in.SectionName, in.SectionUrl)
-	return &pb.UpdateSectionInfoResponse{SectionName: res.Name, SectionUrl:res.SectionUrl}, err
+	return &pb.UpdateSectionInfoResponse{SectionName: res.Name, SectionUrl: res.SectionUrl}, err
 }
 
-
+func (s *server) SendEmail(ctx context.Context, in *pb.SendEmailRequest) (*pb.Empty, error) {
+	log.Printf("Received: %v", in.GetSubject())
+	err := emailsender.SendEmail(in.GetSubject(), in.GetMessage(), in.GetEmail())
+	return &pb.Empty{}, err
+}
 
 func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsRequest) (*pb.GetAllSectionsResonse, error) {
 	log.Printf("Received: get all requets")
@@ -83,11 +83,11 @@ func (s *server) GetAllSections(ctx context.Context, in *pb.GetAllSectionsReques
 
 	for _, section := range res {
 		section := &pb.Section{
-			Id:        uint32(section.ID),
-			Name:      section.Name,
+			Id:         uint32(section.ID),
+			Name:       section.Name,
 			OrderIndex: section.OrderIndex,
 			SectionUrl: section.SectionUrl,
-			AssetList: mapAssetsToResponse(section.AssetList, in.GetAspectRatio()),
+			AssetList:  mapAssetsToResponse(section.AssetList, in.GetAspectRatio()),
 		}
 		sections = append(sections, section)
 	}

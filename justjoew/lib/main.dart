@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:justjoew/cubit/email_cubit.dart';
 import 'package:justjoew/cubit/section_cubit.dart';
+import 'package:justjoew/repository/email_repository.dart';
 import 'package:justjoew/repository/portfolio_repository.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/navigator/navigator.dart'; // Make sure AppRouter is correctly defined
@@ -40,18 +42,27 @@ class MyApp extends StatelessWidget {
       ratio = 512;
     }
     return RepositoryProvider(
-      create: (context) => AssetRepository(),
-      lazy: false,
-      child: BlocProvider(
-          create: (context) => SectionCubit(
-              RepositoryProvider.of<AssetRepository>(context), ratio)
-            ..getAllSections(),
-          child: MaterialApp.router(
-            title: AppStrings.appName,
-            theme: myTheme,
-            routerConfig:
-                AppRouter.router, // Ensure this is correctly configured
-          )),
+      create: (context) => EmailRepository(),
+      child: RepositoryProvider(
+        create: (context) => AssetRepository(),
+        lazy: false,
+        child: BlocProvider(
+          create: (context) => EmailCubit(
+            RepositoryProvider.of<EmailRepository>(context),
+          ),
+          child: BlocProvider(
+              create: (context) => SectionCubit(
+                  RepositoryProvider.of<AssetRepository>(context), ratio)
+                ..getAllSections(),
+              child: MaterialApp.router(
+                title: AppStrings.appName,
+                theme: myTheme,
+                routerConfig:
+                    AppRouter.router, // Ensure this is correctly configured
+              )),
+        ),
+      ),
     );
+    
   }
 }

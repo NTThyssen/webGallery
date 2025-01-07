@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justjoew/cubit/email_cubit.dart';
+import 'package:justjoew/main.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
@@ -31,90 +34,99 @@ class _ContactFormState extends State<ContactForm> {
   @override
   Widget build(BuildContext context) {
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildFormLabel(AppStrings.nameLabel),
-          _buildTextFormField(
-            controller: _firstNameController,
-            hint: AppStrings.nameHint,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Name cannot be empty.";
-              }
-              if (value.length < 2) {
-                return "Name must be at least 2 characters long.";
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.emailLabel),
-          _buildTextFormField(
-            controller: _emailController,
-            hint: AppStrings.emailHint,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppStrings.emailValidationError;
-              }
-              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
-                return AppStrings.emailInvalidError;
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.subjectLabel),
-          _buildTextFormField(
-            controller: _subjectController,
-            hint: AppStrings.subjectHint,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Subject cannot be empty.";
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.medium),
-          _buildFormLabel(AppStrings.messageLabel),
-          _buildTextFormField(
-            controller: _messageController,
-            hint: AppStrings.messageHint,
-            maxLines: 5,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Message cannot be empty.";
-              }
-              if (value.length < 10) {
-                return "Message must be at least 10 characters long.";
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: AppSpacing.large),
-          Center(
-            child: SizedBox(
-              width: 150,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: _handleSubmit,
-                child: Text(
-                  AppStrings.submit,
-                  style: AppTextStyles.buttonText.copyWith(fontSize: 16),
-                ),
+    return BlocBuilder<EmailCubit, EmailState>(
+      builder: (cubitContext, state) {
+        return Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildFormLabel(AppStrings.nameLabel),
+              _buildTextFormField(
+                controller: _firstNameController,
+                hint: AppStrings.nameHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Name cannot be empty.";
+                  }
+                  if (value.length < 2) {
+                    return "Name must be at least 2 characters long.";
+                  }
+                  return null;
+                },
               ),
-            ),
-          ),
-        ],
-      ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.emailLabel),
+              _buildTextFormField(
+                controller: _emailController,
+                hint: AppStrings.emailHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppStrings.emailValidationError;
+                  }
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
+                    return AppStrings.emailInvalidError;
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.subjectLabel),
+              _buildTextFormField(
+                controller: _subjectController,
+                hint: AppStrings.subjectHint,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Subject cannot be empty.";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: AppSpacing.medium),
+              _buildFormLabel(AppStrings.messageLabel),
+              _buildTextFormField(
+                controller: _messageController,
+                hint: AppStrings.messageHint,
+                maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Message cannot be empty.";
+                  }
+                  if (value.length < 10) {
+                    return "Message must be at least 10 characters long.";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: AppSpacing.large),
+              Center(
+                child: SizedBox(
+                  width: 150,
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () => _handleSubmit(cubitContext),
+                    child: Text(
+                      AppStrings.submit,
+                      style: AppTextStyles.buttonText.copyWith(fontSize: 16),
+                    ),
+                  ),
+                )
+              ),
+                ],
+              ),
+            );
+      },
     );
   }
 
 
-  void _handleSubmit() {
+  void _handleSubmit(BuildContext cubitContext) {
     if (_formKey.currentState!.validate()) {
+       cubitContext.read<EmailCubit>().sendEmail(
+                              _emailController.text,
+                              _subjectController.text,
+                              _messageController.text,
+                            );
       // Display success message or perform desired actions
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
