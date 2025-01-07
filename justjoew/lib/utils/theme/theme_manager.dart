@@ -118,7 +118,7 @@ final ThemeData myTheme = ThemeData(
 
   // SnackBar theme
   snackBarTheme: SnackBarThemeData(
-    backgroundColor: AppColors.primary300,
+    backgroundColor: AppColors.primary600,
     contentTextStyle: AppTextStyles.snackbarText, // Open Sans for snackbars
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppSpacing.medium),

@@ -24,7 +24,7 @@ class AppStrings {
   // Form Labels
   static const String nameLabel = 'Name';
   static const String nameHint = 'Please enter your name';
-  static const String emailLabel = 'Email Address';
+  static const String emailLabel = 'Email';
   static const String emailHint = 'Please enter your email address';
   static const String emailValidationError = 'Please enter your email address';
   static const String emailInvalidError = 'Please enter a valid email address';
@@ -121,6 +121,7 @@ static const String combinedProcessDescription =
   static const String email = 'justjoew@outlook.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
   static const String instagramUrl  = 'https://www.instagram.com/justjoew__/';
+  static const String discordUserID = 'justjoew_83703';
   static const String privacyPolicyLink = 'Privacy Policy';
   static const String termsOfServiceLink = 'Terms of Service';
 
