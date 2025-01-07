@@ -42,7 +42,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
         _buildIconButton(
           FaIcon(
             FontAwesomeIcons.instagram,
-            color: _hoverStates['instagram']! ? Colors.pink : AppColors.icons,
+            color: _hoverStates['instagram']! ? Color(0xFFE1306C) : AppColors.icons,
             size: 32,
           ),
           AppStrings.instagramUrl,
@@ -54,7 +54,7 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
         _buildIconButton(
           FaIcon(
             FontAwesomeIcons.twitch,
-            color: _hoverStates['twitch']! ? Colors.purple : AppColors.icons,
+            color: _hoverStates['twitch']! ? Color(0xFF9146FF) : AppColors.icons,
             size: 32,
           ),
           AppStrings.twitchUrl,
@@ -92,7 +92,7 @@ Widget _buildDiscordIconButton() {
           onExit: (_) => setState(() => _hoverStates['discord'] = false),
           child: FaIcon(
             FontAwesomeIcons.discord,
-            color: _hoverStates['discord']! ? Colors.blueAccent : AppColors.icons,
+            color: _hoverStates['discord']! ? Color(0xFF5865F2) : AppColors.icons,
             size: 32,
           ),
         ),
