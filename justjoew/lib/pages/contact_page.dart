@@ -41,7 +41,7 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
     final screenWidth = MediaQuery.of(context).size.width;
     final horizontalPadding = screenWidth < AppSpacing.smallscreen
         ? screenWidth * 0.08
-        : screenWidth * 0.20;
+        : screenWidth * 0.25;
 
     return Center(
       child: SingleChildScrollView(
@@ -52,10 +52,10 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
             const Center(
               child: CustomHeaderLarge(text: AppStrings.contact),
             ),
-            const SizedBox(height: AppSpacing.large),
             _buildContactInfoSection(),
-            const SizedBox(height: AppSpacing.xxxl),
-            //const ContactForm(), // Use the new ContactForm widget
+            const SizedBox(height: AppSpacing.xxl),
+            const ContactForm(), // Use the new ContactForm widget
+            const SizedBox(height: AppSpacing.xxl),
           ],
         ),
       ),
@@ -98,5 +98,8 @@ class _ContactPageState extends State<ContactPage> with BasicMixin {
       ],
     );
   }
+
+
+  
 
 }
