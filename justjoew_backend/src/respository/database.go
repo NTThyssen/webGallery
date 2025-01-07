@@ -115,6 +115,7 @@ func CreateAsset(domainAsset *pb.CreateAssetRequest) (Asset, error) {
 }
 
 func GetAllSections() ([]Section, error) {
+	
 
 	var sections []Section
 	result := db.Preload("AssetList").Find(&sections)
