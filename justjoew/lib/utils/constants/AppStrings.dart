@@ -125,7 +125,7 @@ static const String combinedProcessDescription =
   static const String termsOfServiceLink = 'Terms of Service';
 
   // Contact Page
-  static const String contactIntroText = "Hello!\n\nIf you want to request a commission or have any questions, feel free to reach out to me:\n";
+  static const String contactIntroText = "Hello!\n\nIf you want to request a commission or have any questions, feel free to reach out to me.\n";
   static const String contactOutroText = "\nLet’s create something amazing together!";
   
   // Emotes Page
