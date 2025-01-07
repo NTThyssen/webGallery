@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:justjoew/utils/constants/AppStrings.dart';
 import 'package:justjoew/utils/theme/AppColors.dart';
 import 'package:justjoew/utils/theme/spacing.dart';
+import 'package:flutter/services.dart'; // For clipboard functionality
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialMediaBar extends StatefulWidget {
@@ -15,61 +16,91 @@ class SocialMediaBar extends StatefulWidget {
 class _SocialMediaBarState extends State<SocialMediaBar> {
   final Map<String, bool> _hoverStates = {
     'twitch': false,
+    'discord': false,
     'gmail': false,
     'fiverr': false,
-    'instagram': false, // Add Instagram hover state
+    'instagram': false,
   };
+  final GlobalKey _discordTooltipKey = GlobalKey(); // Key for controlling the Tooltip
+  String _discordTooltipMessage = AppStrings.discordUserID;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        /*_buildIconButton(
-          Image.asset(
-            _hoverStates['fiverr']! ? ImageStrings.fiverGreen : ImageStrings.fiverr,
-            width: 32, // Set the image icon size to 32
-            height: 32, // Set the image icon size to 32
-            fit: BoxFit.contain,
-          ),
-          AppStrings.fiverrUrl,
-          'fiverr',
-        ),*/
-        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
-        _buildIconButton(
+          _buildIconButton(
           FaIcon(
-            FontAwesomeIcons.envelope,
-            color: _hoverStates['gmail']! ? Colors.red : AppColors.icons,
-            size: 32, // Set the icon size to 32
+            FontAwesomeIcons.solidEnvelope,
+            color: _hoverStates['gmail']! ? Color(0xFF0099E6) : AppColors.icons,
+            size: 32,
           ),
           AppStrings.emailUrl,
           'gmail',
         ),
-        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
-        _buildIconButton(
-          FaIcon(
-            FontAwesomeIcons.twitch,
-            color: _hoverStates['twitch']! ? Colors.purple : AppColors.icons,
-            size: 32, // Set the icon size to 32
-          ),
-          AppStrings.twitchUrl,
-          'twitch',
-        ),
-        const SizedBox(width: AppSpacing.medium), // Add spacing between icons
+        const SizedBox(width: AppSpacing.small),
         _buildIconButton(
           FaIcon(
             FontAwesomeIcons.instagram,
             color: _hoverStates['instagram']! ? Colors.pink : AppColors.icons,
-            size: 32, // Set the icon size to 32
+            size: 32,
           ),
-          AppStrings.instagramUrl, // Instagram URL
+          AppStrings.instagramUrl,
           'instagram',
+        ),
+        const SizedBox(width: AppSpacing.small),
+        _buildDiscordIconButton(), // Discord button with tooltip and copy functionality
+        const SizedBox(width: AppSpacing.small),
+        _buildIconButton(
+          FaIcon(
+            FontAwesomeIcons.twitch,
+            color: _hoverStates['twitch']! ? Colors.purple : AppColors.icons,
+            size: 32,
+          ),
+          AppStrings.twitchUrl,
+          'twitch',
         ),
       ],
     );
   }
 
-  // Function to create icon buttons with hover effects
+Widget _buildDiscordIconButton() {
+    return GestureDetector(
+      onTap: () {
+        Clipboard.setData(const ClipboardData(text: AppStrings.discordUserID));
+        setState(() {
+          _discordTooltipMessage = "Copied to clipboard!";
+        });
+
+        // Show the updated tooltip programmatically
+        final dynamic tooltip = _discordTooltipKey.currentState;
+        tooltip?.ensureTooltipVisible();
+
+        // Reset tooltip message after a short delay
+        Future.delayed(const Duration(seconds: 2), () {
+          setState(() {
+            _discordTooltipMessage = AppStrings.discordUserID;
+          });
+        });
+      },
+      child: Tooltip(
+        key: _discordTooltipKey, // Assign the GlobalKey to the Tooltip
+        message: _discordTooltipMessage, // Dynamic tooltip message
+        preferBelow: false,
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _hoverStates['discord'] = true),
+          onExit: (_) => setState(() => _hoverStates['discord'] = false),
+          child: FaIcon(
+            FontAwesomeIcons.discord,
+            color: _hoverStates['discord']! ? Colors.blueAccent : AppColors.icons,
+            size: 32,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Generic icon button for other platforms
   Widget _buildIconButton(Widget icon, String url, String hoverKey) {
     return MouseRegion(
       onEnter: (_) => setState(() => _hoverStates[hoverKey] = true),
@@ -77,12 +108,12 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
       child: IconButton(
         icon: icon,
         onPressed: () => _launchURL(url),
-        padding: const EdgeInsets.all(AppSpacing.small), // Consistent padding with theme
+        padding: const EdgeInsets.all(AppSpacing.small),
       ),
     );
   }
 
-  // Function to launch URL when an icon is pressed
+  // Launch URL method
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -90,7 +121,10 @@ class _SocialMediaBarState extends State<SocialMediaBar> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not launch $url', style: Theme.of(context).textTheme.labelSmall),
+          content: Text(
+            'Could not launch $url',
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
         ),
       );
     }

@@ -121,6 +121,7 @@ static const String combinedProcessDescription =
   static const String email = 'justjoew@outlook.com';
   static const String twitchUrl = 'https://twitch.tv/imjustjoew';
   static const String instagramUrl  = 'https://www.instagram.com/justjoew__/';
+  static const String discordUserID = 'justjoew_83703';
   static const String privacyPolicyLink = 'Privacy Policy';
   static const String termsOfServiceLink = 'Terms of Service';
 
