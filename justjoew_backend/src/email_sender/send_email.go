@@ -10,7 +10,7 @@ func SendEmail(subject string, message string, customerEmail string) error {
 
 	from := "forwarderjustjoew@gmail.com"
 	emailPassword := os.Getenv("EMAIL_PASSWORD")
-	msg := []byte("Subject: " + subject + "\r\n" + message)
+	msg := []byte("Subject: " + subject + "\r\n" + message+ " \r\n from " +customerEmail)
 
 	to := "justjoew@outlook.com"
 
