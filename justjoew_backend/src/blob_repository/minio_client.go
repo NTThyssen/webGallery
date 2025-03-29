@@ -175,6 +175,7 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 	reqParams := make(url.Values)
 
 	// Generate pre-signed GET URL
+	log.Printf("Generating pre-signed URL for %s/%s", bucketName, objectName)
 	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
 
 	if err != nil {
