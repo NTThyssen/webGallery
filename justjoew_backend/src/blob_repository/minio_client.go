@@ -34,6 +34,7 @@ func InitClient() {
 
 	if err != nil {
 		log.Fatalf("error init minio client %s", err)
+		log.Printf("is online: %v ", minioClient.IsOnline())	
 	}
 
 	log.Printf("is online: %v ", minioClient.IsOnline())
