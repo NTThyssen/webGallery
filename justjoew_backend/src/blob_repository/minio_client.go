@@ -10,7 +10,8 @@ import (
 
 	"log"
 	"net/url"
-	"os"
+
+	//"os"
 	"time"
 
 	"github.com/google/uuid"
@@ -24,8 +25,8 @@ var minioClient *minio.Client
 func InitClient() {
 
 	// Access minio bucket
-	username := os.Getenv("MINIO_USER")
-	password := os.Getenv("MINIO_PASS")
+	username := "backend_user"    //os.Getenv("MINIO_USER")
+	password := "backendpass123!" //os.Getenv("MINIO_PASS")
 
 	minioClient, err := minio.New("minio.justjoew.com", &minio.Options{
 		Creds:  credentials.NewStaticV4(string(username), string(password), ""),
@@ -33,8 +34,7 @@ func InitClient() {
 	})
 
 	if err != nil {
-		log.Fatalf("error init minio client %s", err)
-		log.Printf("is online: %v ", minioClient.IsOnline())	
+		log.Fatalln(err)
 	}
 
 	log.Printf("is online: %v ", minioClient.IsOnline())
@@ -165,30 +165,23 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 }
 
 func CreatePreSignedUrls(objectKey string, aspectRation uint32, format string) string {
-	res, err := generatePresignedURL(minioClient, "assets", fmt.Sprintf("%s/%d.%s", objectKey, aspectRation, format), time.Minute*10)
+	res, err := generatePresignedURL("assets", fmt.Sprintf("%s/%d.%s", objectKey, aspectRation, format), time.Minute*10)
 	if err != nil {
 		log.Panicf("failed to fetch object %s/%d", objectKey, aspectRation)
 	}
 	return res
 }
 
-func generatePresignedURL(client *minio.Client, bucketName, objectName string, expiry time.Duration) (string, error) {
+func generatePresignedURL(bucketName, objectName string, expiry time.Duration) (string, error) {
 	reqParams := make(url.Values)
 
 	// Generate pre-signed GET URL
-	log.Printf("Generating pre-signed URL for %s/%s", bucketName, objectName)
-	  if client == nil {
-        log.Printf("CLIENT IS NULLL")
-    }
-
-	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
+	preSignedURL, err := minioClient.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
 
 	if err != nil {
-		log.Printf("this the presigend object crash?!!?!?!")
-		log.Println(err)
 		return "", err
 	}
-	log.Printf("we did not crahss????")
+
 	return preSignedURL.String(), nil
 }
 
