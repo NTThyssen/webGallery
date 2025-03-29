@@ -11,7 +11,7 @@ import (
 	"log"
 	"net/url"
 
-	//"os"
+	"os"
 	"time"
 
 	"github.com/google/uuid"
@@ -25,8 +25,8 @@ var minioClient *minio.Client
 func InitClient() {
 
 	// Access minio bucket
-	username := "backend_user"    //os.Getenv("MINIO_USER")
-	password := "backendpass123!" //os.Getenv("MINIO_PASS")
+	username := os.Getenv("MINIO_USER")
+	password := os.Getenv("MINIO_PASS")
 
 	minioClient, err := minio.New("minio.justjoew.com", &minio.Options{
 		Creds:  credentials.NewStaticV4(string(username), string(password), ""),
