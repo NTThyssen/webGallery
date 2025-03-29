@@ -183,7 +183,7 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 		log.Println(err)
 		return "", err
 	}
-
+	log.Printf("we did not crahss????")
 	return preSignedURL.String(), nil
 }
 
