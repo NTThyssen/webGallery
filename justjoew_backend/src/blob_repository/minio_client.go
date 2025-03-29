@@ -178,6 +178,9 @@ func generatePresignedURL(bucketName, objectName string, expiry time.Duration) (
 	reqParams := make(url.Values)
 
 	// Generate pre-signed GET URL
+	if minioClient == nil {
+		log.Fatalln("minio client is nil")
+	}
 	preSignedURL, err := minioClient.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
 
 	if err != nil {
