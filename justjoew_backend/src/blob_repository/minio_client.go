@@ -179,6 +179,8 @@ func generatePresignedURL(client *minio.Client, bucketName, objectName string, e
 	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
 
 	if err != nil {
+		log.Printf("this the presigend object crash?!!?!?!")
+		log.Println(err)
 		return "", err
 	}
 
