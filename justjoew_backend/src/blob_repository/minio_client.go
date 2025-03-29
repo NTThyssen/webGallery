@@ -173,15 +173,20 @@ func CreatePreSignedUrls(objectKey string, aspectRation uint32, format string) s
 	}
 	return res
 }
-
+var client *minio.Client
 func generatePresignedURL(bucketName, objectName string, expiry time.Duration) (string, error) {
 	reqParams := make(url.Values)
-
+username := os.Getenv("MINIO_USER")
+	password := os.Getenv("MINIO_PASS")
 	// Generate pre-signed GET URL
+	
 	if minioClient == nil {
-		log.Fatalln("minio client is nil")
+		client, _ = minio.New("minio.justjoew.com", &minio.Options{
+		Creds:  credentials.NewStaticV4(string(username), string(password), ""),
+		Secure: true,
+	})
 	}
-	preSignedURL, err := minioClient.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
+	preSignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, reqParams)
 
 	if err != nil {
 		return "", err
