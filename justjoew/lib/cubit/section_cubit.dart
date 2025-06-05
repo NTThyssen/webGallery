@@ -19,6 +19,7 @@ class SectionCubit extends Cubit<SectionState> {
       //sort each assets list and return the section list with sub sorted lists
       list.assetList.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
     }
+    lists.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
     emit(SectionReady(lists));
   }
 }

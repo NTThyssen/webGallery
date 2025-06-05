@@ -7,12 +7,13 @@ class Section extends Equatable {
   String name;
   List<Asset> assetList;
   String sectionlUrl;
+  int orderIndex = 0;
 
-  Section(this.id, this.name, this.assetList, this.sectionlUrl);
+  Section(this.id, this.name, this.assetList, this.sectionlUrl, this.orderIndex);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, name, assetList, sectionlUrl];
+  List<Object?> get props => [id, name, assetList, sectionlUrl, orderIndex];
 }
 
 // ignore: must_be_immutable
@@ -40,7 +41,7 @@ class Mapper {
         assetList.add(Asset(assetEle.blobPath, assetEle.id, assetEle.orderIndex,
             assetEle.sectionId, assetEle.sectionName));
       }
-      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl));
+      sectionList.add(Section(sectionEle.id, sectionEle.name, assetList, sectionEle.sectionUrl, sectionEle.orderIndex));
     }
 
     return sectionList;
