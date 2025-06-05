@@ -138,6 +138,10 @@ class _ContactFormState extends State<ContactForm> {
           ),
         ),
       );
+      _emailController.clear();
+      _subjectController.clear();
+      _messageController.clear();
+      _firstNameController.clear();
       // Additional actions, e.g., send data to a server
     }
   }
