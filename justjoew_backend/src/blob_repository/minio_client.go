@@ -151,7 +151,15 @@ func uploadAsset(assetBytes []byte, filename string, ratio uint, objectUuid stri
 	metadata := map[string]string{
 		"X-Amz-Meta-X-Meta-Filename": filename,
 	}
-	_, err := minioClient.PutObject(context.Background(),
+	username := os.Getenv("MINIO_USER")
+	password := os.Getenv("MINIO_PASS")
+	if minioClient == nil {
+		client, _ = minio.New("minio.justjoew.com", &minio.Options{
+		Creds:  credentials.NewStaticV4(string(username), string(password), ""),
+		Secure: true,
+	})
+	}
+	_, err := client.PutObject(context.Background(),
 		"assets",
 		fmt.Sprintf("%s/%d.%s",
 			objectUuid, ratio, format),
