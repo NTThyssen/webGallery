@@ -126,6 +126,7 @@ class _ContactFormState extends State<ContactForm> {
                               _emailController.text,
                               _subjectController.text,
                               _messageController.text,
+                              _firstNameController.text,
                             );
       // Display success message or perform desired actions
       ScaffoldMessenger.of(context).showSnackBar(

@@ -2,12 +2,13 @@
 //  Generated code. Do not modify.
 //  source: justjoew.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:async' as $async;
 import 'dart:core' as $core;
@@ -21,6 +22,14 @@ export 'justjoew.pb.dart';
 
 @$pb.GrpcServiceName('justjoew.asstes.AssetController')
 class AssetControllerClient extends $grpc.Client {
+  /// The hostname for this service.
+  static const $core.String defaultHost = '';
+
+  /// OAuth scopes needed for the client.
+  static const $core.List<$core.String> oauthScopes = [
+    '',
+  ];
+
   static final _$getAllSections = $grpc.ClientMethod<$0.GetAllSectionsRequest, $0.GetAllSectionsResonse>(
       '/justjoew.asstes.AssetController/GetAllSections',
       ($0.GetAllSectionsRequest value) => value.writeToBuffer(),
@@ -58,11 +67,7 @@ class AssetControllerClient extends $grpc.Client {
       ($0.SendEmailRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
 
-  AssetControllerClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions? options,
-      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
-      : super(channel, options: options,
-        interceptors: interceptors);
+  AssetControllerClient(super.channel, {super.options, super.interceptors});
 
   $grpc.ResponseFuture<$0.GetAllSectionsResonse> getAllSections($0.GetAllSectionsRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getAllSections, request, options: options);
@@ -171,40 +176,40 @@ abstract class AssetControllerServiceBase extends $grpc.Service {
         ($0.Empty value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.GetAllSectionsResonse> getAllSections_Pre($grpc.ServiceCall call, $async.Future<$0.GetAllSectionsRequest> request) async {
-    return getAllSections(call, await request);
+  $async.Future<$0.GetAllSectionsResonse> getAllSections_Pre($grpc.ServiceCall $call, $async.Future<$0.GetAllSectionsRequest> $request) async {
+    return getAllSections($call, await $request);
   }
 
-  $async.Future<$0.CreateSectionResponse> createSection_Pre($grpc.ServiceCall call, $async.Future<$0.CreateSectionRequest> request) async {
-    return createSection(call, await request);
+  $async.Future<$0.CreateSectionResponse> createSection_Pre($grpc.ServiceCall $call, $async.Future<$0.CreateSectionRequest> $request) async {
+    return createSection($call, await $request);
   }
 
-  $async.Future<$0.CreateAssetResponse> createAsset_Pre($grpc.ServiceCall call, $async.Future<$0.CreateAssetRequest> request) async {
-    return createAsset(call, await request);
+  $async.Future<$0.CreateAssetResponse> createAsset_Pre($grpc.ServiceCall $call, $async.Future<$0.CreateAssetRequest> $request) async {
+    return createAsset($call, await $request);
   }
 
-  $async.Future<$0.UpdateAssetOrderResponse> updateAssetOrder_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateAssetOrderRequest> request) async {
-    return updateAssetOrder(call, await request);
+  $async.Future<$0.UpdateAssetOrderResponse> updateAssetOrder_Pre($grpc.ServiceCall $call, $async.Future<$0.UpdateAssetOrderRequest> $request) async {
+    return updateAssetOrder($call, await $request);
   }
 
-  $async.Future<$0.DeleteSectionResponse> deleteSection_Pre($grpc.ServiceCall call, $async.Future<$0.DeleteSectionRequest> request) async {
-    return deleteSection(call, await request);
+  $async.Future<$0.DeleteSectionResponse> deleteSection_Pre($grpc.ServiceCall $call, $async.Future<$0.DeleteSectionRequest> $request) async {
+    return deleteSection($call, await $request);
   }
 
-  $async.Future<$0.DeleteAssetResponse> deleteAsset_Pre($grpc.ServiceCall call, $async.Future<$0.DeleteAssetRequest> request) async {
-    return deleteAsset(call, await request);
+  $async.Future<$0.DeleteAssetResponse> deleteAsset_Pre($grpc.ServiceCall $call, $async.Future<$0.DeleteAssetRequest> $request) async {
+    return deleteAsset($call, await $request);
   }
 
-  $async.Future<$0.UpdateSectionInfoResponse> updateSectionInfo_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateSectionInfoRequest> request) async {
-    return updateSectionInfo(call, await request);
+  $async.Future<$0.UpdateSectionInfoResponse> updateSectionInfo_Pre($grpc.ServiceCall $call, $async.Future<$0.UpdateSectionInfoRequest> $request) async {
+    return updateSectionInfo($call, await $request);
   }
 
-  $async.Future<$0.UpdateSectionOrderResponse> updateSectionOrder_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateSectionOrderRequest> request) async {
-    return updateSectionOrder(call, await request);
+  $async.Future<$0.UpdateSectionOrderResponse> updateSectionOrder_Pre($grpc.ServiceCall $call, $async.Future<$0.UpdateSectionOrderRequest> $request) async {
+    return updateSectionOrder($call, await $request);
   }
 
-  $async.Future<$0.Empty> sendEmail_Pre($grpc.ServiceCall call, $async.Future<$0.SendEmailRequest> request) async {
-    return sendEmail(call, await request);
+  $async.Future<$0.Empty> sendEmail_Pre($grpc.ServiceCall $call, $async.Future<$0.SendEmailRequest> $request) async {
+    return sendEmail($call, await $request);
   }
 
   $async.Future<$0.GetAllSectionsResonse> getAllSections($grpc.ServiceCall call, $0.GetAllSectionsRequest request);

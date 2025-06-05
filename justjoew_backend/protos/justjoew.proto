@@ -104,6 +104,7 @@ message SendEmailRequest {
   string email = 1;
   string subject = 2;
   string message = 3;
+  string name = 4;
 }
 
 message Empty {

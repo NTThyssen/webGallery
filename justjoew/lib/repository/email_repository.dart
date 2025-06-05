@@ -12,7 +12,7 @@ class EmailRepository {
 
   Future<void> sendEmail(Email email) async {
     var request = SendEmailRequest(
-        email: email.from, subject: email.subject, message: email.body);
+        email: email.from, subject: email.subject, message: email.body, name: email.name);
     await stub!.sendEmail(request);
   }
 }

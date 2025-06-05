@@ -67,7 +67,7 @@ func (s *server) UpdateSectionInfo(ctx context.Context, in *pb.UpdateSectionInfo
 
 func (s *server) SendEmail(ctx context.Context, in *pb.SendEmailRequest) (*pb.Empty, error) {
 	log.Printf("Received: %v", in.GetSubject())
-	err := emailsender.SendEmail(in.GetSubject(), in.GetMessage(), in.GetEmail())
+	err := emailsender.SendEmail(in.GetSubject(), in.GetMessage(), in.GetEmail(), in.GetName())
 	return &pb.Empty{}, err
 }
 

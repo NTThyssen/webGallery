@@ -6,11 +6,11 @@ import (
 	"os"
 )
 
-func SendEmail(subject string, message string, customerEmail string) error {
+func SendEmail(subject string, message string, customerEmail string, name string) error {
 
 	from := "forwarderjustjoew@gmail.com"
 	emailPassword := os.Getenv("EMAIL_PASSWORD")
-	msg := []byte("Subject: " + subject + "\r\n" + message+ " \r\n from " +customerEmail)
+	msg := []byte("Subject: " + subject + "\r\n" + message + " \r\n user emailq " + customerEmail + " \r\n Name " + name)
 
 	to := "justjoew@outlook.com"
 

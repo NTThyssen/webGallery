@@ -9,8 +9,8 @@ class EmailCubit extends Cubit<EmailState> {
   final EmailRepository _emailRepository;
   EmailCubit(this._emailRepository) : super(EmailInitial());
 
-  void sendEmail(String from, String subject, String body) async {
-    var email = Email(from: from, subject: subject, body: body);
+  void sendEmail(String from, String subject, String body, String name) async {
+    var email = Email(from: from, subject: subject, body: body, name: name);
     try {
       await _emailRepository.sendEmail(email);
       emit(EmailSent());

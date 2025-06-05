@@ -28,7 +28,7 @@ verifyUserById('763795097'); // Replace with the ID you want to verify
 refreshClipsCache();
 
 // Set an interval to refresh cache periodically
-setInterval(refreshClipsCache, 24 * 60 * 60 * 1000); // Refresh once a day //
+//setInterval(refreshClipsCache, 24 * 60 * 60 * 1000); // Refresh once a day //
 
 // Endpoint to serve clips data to the frontend
 app.get('/clips', async (req, res) => {
