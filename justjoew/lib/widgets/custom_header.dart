@@ -15,12 +15,12 @@ class CustomHeaderLarge extends StatelessWidget {
     bool isLargeScreen = screenWidth > AppSpacing.smallscreen;
 
     return Padding(
-      padding: const EdgeInsets.only(top: AppSpacing.xl), // Adds padding at the top
+      padding: const EdgeInsets.only(top: AppSpacing.large), // Adds padding at the top
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MainHeader(text: text, subheader: subheader), // Use the mainHeader widget
-          if (isLargeScreen) const SizedBox(height: AppSpacing.large), // Conditionally add space for large screens
+          //if (isLargeScreen) const SizedBox(height: AppSpacing.large), // Conditionally add space for large screens
         ],
       ),
     );

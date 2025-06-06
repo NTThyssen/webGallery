@@ -44,7 +44,7 @@ class _ArtImageState extends State<ArtImage> {
                 elevation: isHover ? _hoverElevation : 0, // Elevate on hover
                 color: Colors.transparent,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
+                  borderRadius: BorderRadius.circular(5.0), // Rounded corners
                   child: Stack(
                     children: [
                       FadeInImage.memoryNetwork(

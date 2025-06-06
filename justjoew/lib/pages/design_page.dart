@@ -36,7 +36,7 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     // Define padding values for different screen sizes
     final horizontalPadding = screenWidth < AppSpacing.smallscreen
         ? screenWidth * 0.08
-        : screenWidth * 0.20;
+        : screenWidth * 0.25;
 
     return SingleChildScrollView(
       child: Padding(
@@ -169,23 +169,21 @@ class EmoteSection extends StatelessWidget {
           indent: dividerIndent,
           endIndent: dividerIndent,
         ),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.medium),
         ConstrainedBox(
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.8,
           ),
-          child: SingleChildScrollView(
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              alignment: WrapAlignment.center,
-              runSpacing: AppSpacing.large,
-              spacing: AppSpacing.large,
-              children: portfolioWidgets,
-            ),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runAlignment: WrapAlignment.center,
+            alignment: WrapAlignment.center,
+            runSpacing: AppSpacing.large,
+            spacing: AppSpacing.large*0.8,
+            children: portfolioWidgets,
           ),
         ),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.xl*0.8),
       ],
     );
   }
